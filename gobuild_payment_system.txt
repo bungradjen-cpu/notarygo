@@ -1,0 +1,251 @@
+
+
+Saya mau menduplikasi sistem pembayaran GoBuild yang terintegrasi ke Mayar untuk aplikasi saya yang lain. Coba jelaskan secara detil caranya bagaimana?
+
+*Grep searched codebase*
+
+*Viewed [index.js](file:///Users/yhb/Pictures/APPS%20PILAR%20KERJA/GOBUILD/functions/index.js) *
+
+*Viewed [index.js](file:///Users/yhb/Pictures/APPS%20PILAR%20KERJA/GOBUILD/functions/index.js) *
+
+### Planner Response
+
+Untuk menduplikasi sistem pembayaran **Mayar** dari GoBuild ke aplikasi Anda yang lain, Anda perlu menerapkan arsitektur 3 komponen utama:
+
+1. **Backend Server / Cloud Function** (Untuk keamanan API Key & pemrosesan Webhook).
+2. **Database (Firestore / SQL / MongoDB)** (Untuk menyimpan status transaksi).
+3. **Frontend App** (Untuk memicu pembayaran & menampilkan halaman bayar/iframe).
+
+Berikut adalah panduan arsitektur dan langkah-langkah implementasi detailnya:
+
+---
+
+### 🏗️ Alur Kerja Sistem Pembayaran Mayar (GoBuild Pattern)
+
+```mermaid
+sequenceDiagram
+    participant Client as Frontend (App)
+    participant Server as Backend / Cloud Function
+    participant DB as Database
+    participant Mayar as Mayar Payment Gateway
+
+    Client->>Server: 1. Request Buat Invoice (User info, Paket)
+    Server->>Server: 2. Hitung/Validasi Harga di Server
+    Server->>Mayar: 3. POST /hl/v2/payments/create (API Key)
+    Mayar-->>Server: 4. Return Payment Link & Invoice ID
+    Server->>DB: 5. Simpan Transaksi (Status: "mayar_pending")
+    Server-->>Client: 6. Return Payment Link
+    Client->>Mayar: 7. Tampilkan Payment Link (Iframe / Redirect)
+    
+    Note over Client,Mayar: User Melakukan Pembayaran (QRIS/VA/E-Wallet)
+    
+    Mayar->>Server: 8. Trigger Webhook (Event: "payment.received")
+    Server->>Server: 9. Verifikasi Webhook Secret Token
+    Server->>DB: 10. Update Transaksi (Status: "success") & Aktifkan User
+```
+
+---
+
+### 📋 Langkah Implementasi Detil
+
+#### 1. Dapatkan API Key & Set Webhook di Dashboard Mayar
+1. Login ke **Dashboard Mayar** ([mayar.id](https://mayar.id) atau [mayar.club](https://mayar.club) untuk Sandbox).
+2. Pergi ke **Integrasi / API Keys** dan catat:
+   * **API Key** (Contoh Sandbox: `sb-xxx`, Production: `pk_live_xxx`).
+   * **Webhook Secret Key** (String acak untuk keamanan callback webhook).
+
+---
+
+#### 2. Buat Endpoint backend: "Create Invoice" (`POST /create-mayar-invoice`)
+> ⚠️ **Sangat Penting:** **Jangan pernah memanggil API Mayar langsung dari Frontend**, karena API Key Anda akan terlihat oleh publik di Network Tab browser.
+
+**Logika Backend:**
+```javascript
+// Contoh Node.js / Express / Cloud Functions
+app.post('/create-mayar-invoice', async (req, res) => { => {
+  try {
+    const { userName, userEmail, userPhone, packageName, promoCode } = req.body;
+    
+    // 1. Validasi/Hitung Harga di Server (Menghindari manipulasi harga dari client)
+    let amount = 99000; // Contoh harga dari DB / variabel server
+    if (packageName === 'Pro 1 Tahun') amount = 899000;
+    
+    // 2. Tentukan Base URL (Sandbox vs Production)
+    const isSandbox = MAYAR_API_KEY.includes('sb-') || MAYAR_API_KEY.includes('sandbox');
+    const baseUrl = isSandbox ? "https://api.mayar.club" : "https://api.mayar.id";
+
+    // 3. Generate ID Transaksi unik di aplikasi Anda
+    const txId = `TX-${Date.now()}`;
+
+    // 4. Panggil Single Payment API Mayar v2
+    const response = await fetch(`${baseUrl}/hl/v2/payments/create`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${MAYAR_API_KEY}`
+      },
+      body: JSON.stringify({
+        name: userName,
+        email: userEmail.toLowerCase(),
+        mobile: userPhone || "081234567890",
+        amount: amount,
+        description: `Pembelian Paket ${packageName}`,
+        redirect_url: `https://aplikasi-anda.com/#/payment-success?txId=${txId}`,
+        extraData: {
+          txId: txId // PENTING: Untuk mencocokkan transaksi di webhook nanti
+        }
+      })
+    });
+
+    const resJson = await response.json();
+    if (!response.ok || !resJson.data?.link) {
+      return res.status(400).json({ error: resJson.messages || "Gagal membuat invoice Mayar" });
+    }
+
+    // 5. Simpan transaksi ke Database dengan status PENDING
+    await db.collection("payments").doc(txId).set({
+      id: txId,
+      userEmail,
+      amount,
+      packageName,
+      status: "mayar_pending",
+      mayarInvoiceId: resJson.data.id,
+      mayarLink: resJson.data.link,
+      createdAt: Date.now()
+    });
+
+    // 6. Return URL pembayaran ke Frontend
+    return res.json({
+      success: true,
+      paymentUrl: resJson.data.link,
+      txId: txId
+    });
+
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
+  }
+});
+```
+
+---
+
+#### 3. Buat Endpoint Webhook Backend: "Receive Callback" (`POST /mayar-webhook`)
+Endpoint ini akan otomatis dipanggil oleh server Mayar secara *server-to-server* ketika pengguna selesai melakukan pembayaran.
+
+**Logika Backend:**
+```javascript
+app.post('/mayar-webhook', async (req, res) => { => {
+  try {
+    const payload = req.body;
+
+    // 1. Verifikasi Keamanan Webhook Token/Secret
+    const incomingSecret = req.headers["x-mayar-token"] || req.query.secret || "";
+    if (MAYAR_WEBHOOK_SECRET && incomingSecret !== MAYAR_WEBHOOK_SECRET) {
+      return res.status(401).send("Unauthorized: Invalid Webhook Secret");
+    }
+
+    // 2. Cek apakah Event adalah pembayaran diterima
+    const event = payload.event;
+    if (event !== "payment.received") {
+      return res.status(200).send("Event diabaikan (bukan payment.received)");
+    }
+
+    // 3. Ambil txId dari extraData yang kita kirim saat buat invoice
+    const txId = payload.data?.extraData?.txId;
+    const invoiceId = payload.data?.invoiceId || payload.data?.id;
+
+    // 4. Cari data pembayaran di Database
+    const paymentDoc = await db.collection("payments").doc(txId).get();
+    if (!paymentDoc.exists) {
+      return res.status(404).send("Transaksi tidak ditemukan");
+    }
+
+    const payData = paymentDoc.data();
+    if (payData.status === "success") {
+      return res.status(200).send("Transaksi sudah diaktifkan sebelumnya");
+    }
+
+    // 5. UPDATE Status ke SUCCESS & Aktifkan Fitur/Akun User
+    await db.collection("payments").doc(txId).update({
+      status: "success",
+      paidAt: Date.now()
+    });
+
+    // --- JALANKAN LOGIKA BISNIS ANDA DI SINI ---
+    // Contoh: Perpanjang masa aktif akun user, buatkan akun baru, kirim email lisensi, dll.
+    await activateUserSubscription(payData.userEmail, payData.packageName);
+
+    // 6. Respond 200 OK ke Mayar
+    return res.status(200).send("Webhook berhasil diproses");
+
+  } catch (err) {
+    console.error("Webhook Error:", err);
+    return res.status(500).send("Internal Server Error");
+  }
+});
+```
+
+---
+
+#### 4. Daftarkan URL Webhook di Dashboard Mayar
+Setelah backend Anda di-deploy (misal: `https://api.aplikasi-anda.com/mayar-webhook`):
+
+1. Masuk ke **Dashboard Mayar** -> **Webhook**.
+2. Daftarkan Callback URL: `https://api.aplikasi-anda.com/mayar-webhook?secret=SECRET_ANDA_DISINI`.
+3. Pilih Event: `payment.received`.
+
+---
+
+#### 5. Implementasi di Frontend App (Checkout Page)
+
+Di komponen Checkout / Pembayaran pada Frontend (React / Vue / HTML):
+
+```jsx
+const handleCheckout = async () => {
+  setLoading(true);
+  
+  // 1. Panggil API backend kita
+  const res = await fetch('https://api.aplikasi-anda.com/create-mayar-invoice', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      userName: "Budi Santoso",
+      userEmail: "budi@example.com",
+      userPhone: "081234567890",
+      packageName: "Pro 1 Tahun"
+    })
+  });
+  
+  const data = await res.json();
+  
+  if (data.paymentUrl) {
+    // Pilihan A: Tampilkan Halaman Bayar di Iframe (Seperti GoBuild)
+    setMayarPaymentUrl(data.paymentUrl);
+    
+    // Pilihan B: Redirect ke halaman Mayar
+    // window.location.href = data.paymentUrl;
+  }
+  setLoading(false);
+};
+
+// Render Iframe jika Pilihan A digunakan:
+{mayarPaymentUrl && (
+  <iframe
+    src={mayarPaymentUrl}
+    title="Pembayaran Mayar"
+    style={{ width: '100%', height: '650px', border: 'none', borderRadius: '12px' }}
+  />
+)}
+```
+
+---
+
+### 🔑 Poin Penting Yang Perlu Diperhatikan:
+
+1. **ExtraData (`extraData: { txId }`)**: Selalu sertakan ID unik transaksi aplikasi Anda di dalam objek `extraData` saat memanggil API Mayar. Ini sangat penting agar saat webhook Mayar masuk, backend Anda tahu transaksi milik pengguna yang mana.
+2. **Sandbox vs Production API Key**:
+   * Test/Sandbox Key: `https://api.mayar.club`
+   * Production Key: `https://api.mayar.id`
+3. **Format No. Handphone**: Mayar mewajibkan format nomor HP minimal 10 digit (misal `081234567890` atau `6281234567890`).
+
+Jika Anda butuh template file kode lengkap (`index.js` untuk Cloud Functions / Express) untuk project Anda yang lain, beritahu saya!

@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Subscription Plan</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-tertiary-fixed-variant": "#36485b",
+                      "secondary": "#944a00",
+                      "surface-card": "#FFFFFF",
+                      "surface-container-high": "#e7e8e9",
+                      "surface-container": "#edeeef",
+                      "primary-fixed-dim": "#afc8f0",
+                      "on-secondary-fixed": "#301400",
+                      "outline-variant": "#c4c6cf",
+                      "primary": "#000613",
+                      "inverse-on-surface": "#f0f1f2",
+                      "status-critical": "#E74C3C",
+                      "surface-dim": "#d9dadb",
+                      "secondary-fixed": "#ffdcc5",
+                      "error-container": "#ffdad6",
+                      "tertiary-container": "#0d2031",
+                      "surface-container-highest": "#e1e3e4",
+                      "inverse-primary": "#afc8f0",
+                      "on-tertiary-fixed": "#091d2e",
+                      "on-primary": "#ffffff",
+                      "on-background": "#191c1d",
+                      "on-error": "#ffffff",
+                      "surface-tint": "#476083",
+                      "surface-container-low": "#f3f4f5",
+                      "border-subtle": "#E2E8F0",
+                      "tertiary": "#000610",
+                      "status-archived": "#94A3B8",
+                      "surface-bright": "#f8f9fa",
+                      "inverse-surface": "#2e3132",
+                      "background": "#f8f9fa",
+                      "on-secondary-container": "#663100",
+                      "primary-fixed": "#d4e3ff",
+                      "status-warning-medium": "#E67E22",
+                      "status-success": "#10B981",
+                      "on-primary-fixed": "#001c3a",
+                      "on-tertiary": "#ffffff",
+                      "surface": "#f8f9fa",
+                      "surface-container-lowest": "#ffffff",
+                      "tertiary-fixed-dim": "#b5c8df",
+                      "surface-variant": "#e1e3e4",
+                      "outline": "#74777f",
+                      "on-surface-variant": "#43474e",
+                      "on-error-container": "#93000a",
+                      "status-active": "#3498DB",
+                      "tertiary-fixed": "#d1e4fb",
+                      "on-tertiary-container": "#76889d",
+                      "on-surface": "#191c1d",
+                      "on-primary-container": "#6f88ad",
+                      "secondary-container": "#fc8f34",
+                      "on-primary-fixed-variant": "#2f486a",
+                      "primary-container": "#001f3f",
+                      "on-secondary-fixed-variant": "#713700",
+                      "error": "#ba1a1a",
+                      "secondary-fixed-dim": "#ffb783",
+                      "status-warning-low": "#F1C40F",
+                      "on-secondary": "#ffffff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "sidebar-width": "260px",
+                      "touch-target-min": "44px",
+                      "stack-sm": "0.5rem",
+                      "container-padding": "2rem",
+                      "gutter": "1.5rem",
+                      "stack-md": "1rem"
+              },
+              "fontFamily": {
+                      "body-sm": [
+                              "Inter"
+                      ],
+                      "body-base": [
+                              "Inter"
+                      ],
+                      "display-lg": [
+                              "Inter"
+                      ],
+                      "headline-lg": [
+                              "Inter"
+                      ],
+                      "label-caps": [
+                              "Inter"
+                      ],
+                      "headline-lg-mobile": [
+                              "Inter"
+                      ],
+                      "title-md": [
+                              "Inter"
+                      ],
+                      "stats-number": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "body-sm": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-base": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-lg": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-caps": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "20px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "title-md": [
+                              "18px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "stats-number": [
+                              "28px",
+                              {
+                                      "lineHeight": "34px",
+                                      "fontWeight": "700"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-base min-h-screen md:hidden">
+<!-- Top Navigation for Mobile (Destination Screen) -->
+<header class="bg-surface docked h-touch-target-min w-full sticky top-0 z-40 border-b border-border-subtle flex justify-between items-center px-gutter">
+<div class="flex items-center gap-2 text-primary font-bold border-b-2 border-primary h-full">
+<span class="text-title-md font-title-md font-bold text-primary-container">NOTARYGO™</span>
+</div>
+<div class="flex items-center gap-4">
+<button aria-label="Notifications" class="text-on-surface-variant hover:text-primary transition-colors flex items-center justify-center w-[44px] h-[44px]">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button aria-label="Help" class="text-on-surface-variant hover:text-primary transition-colors flex items-center justify-center w-[44px] h-[44px]">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+</button>
+<div class="w-[32px] h-[32px] rounded-full overflow-hidden bg-surface-container-highest">
+<img alt="Owner Profile" class="w-full h-full object-cover" data-alt="A professional headshot of a notary public. Clear lighting, high resolution, trustworthy appearance. Suitable for a premium SaaS application profile picture." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBXjcJDgUoOIsXNW27udo2B2xqdI7-AwK0BtBvsPtMd8ovXAsYC3nhvQXhGHoBdOVd9RpBZ59GIPftKP-Pgi-751PsMwcaKfRcKSq9C-lBiWwsF90OBC_a-0pwgv0EQq7-ZIwYRatEPWBEYLK2fYtvwmyOfaj6UXzZ4LX9EkD_ZTJllqb-X0rqpOKh283f4S-jIIuA02Vi4ywdJRSJxC8PzSbw9P7OE8Bb1lpoDblRQ2Ui5NEQMSBZy0g"/>
+</div>
+</div>
+</header>
+<main class="p-4 flex flex-col gap-4">
+<div class="text-headline-lg-mobile font-headline-lg-mobile text-on-surface mb-2">Subscription Plan</div>
+<!-- Current Plan Overview Card -->
+<section class="bg-surface-card rounded-xl border border-border-subtle shadow-[0px_4px_12px_rgba(0,0,0,0.03)] p-6 flex flex-col gap-4 relative overflow-hidden">
+<!-- Decorative background element -->
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary-container rounded-bl-full opacity-5 pointer-events-none -z-0"></div>
+<div class="z-10 flex justify-between items-start">
+<div>
+<h2 class="text-title-md font-title-md text-on-surface mb-1">Professional Tier</h2>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Active</p>
+</div>
+<div class="bg-status-success/10 text-status-success px-3 py-1 rounded-full flex items-center gap-1 border border-status-success/20">
+<span class="material-symbols-outlined text-[16px]" data-icon="check_circle">check_circle</span>
+<span class="text-label-caps font-label-caps">ACTIVE</span>
+</div>
+</div>
+<div class="z-10 grid grid-cols-2 gap-4 mt-2">
+<div>
+<p class="text-label-caps font-label-caps text-on-surface-variant uppercase tracking-wider mb-1">Members</p>
+<p class="text-body-base font-body-base text-on-surface">12 / 15</p>
+</div>
+<div>
+<p class="text-label-caps font-label-caps text-on-surface-variant uppercase tracking-wider mb-1">Storage</p>
+<p class="text-body-base font-body-base text-on-surface">45GB / 100GB</p>
+</div>
+<div class="col-span-2 mt-2 pt-4 border-t border-border-subtle">
+<p class="text-label-caps font-label-caps text-on-surface-variant uppercase tracking-wider mb-1">Expires On</p>
+<p class="text-body-base font-body-base text-primary font-semibold flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]" data-icon="event">event</span>
+                         October 24, 2024
+                     </p>
+</div>
+</div>
+</section>
+<h3 class="text-title-md font-title-md text-on-surface mt-4 mb-2">Renewal Options</h3>
+<!-- 1 Month Option -->
+<article class="bg-surface-card rounded-xl border border-border-subtle shadow-[0px_4px_12px_rgba(0,0,0,0.03)] p-5 flex flex-col gap-4">
+<div class="flex justify-between items-center">
+<h4 class="text-title-md font-title-md text-on-surface">1 Month</h4>
+<p class="text-title-md font-title-md text-primary font-semibold">Rp 250.000<span class="text-body-sm font-body-sm text-on-surface-variant font-normal">/mo</span></p>
+</div>
+<ul class="text-body-sm font-body-sm text-on-surface-variant space-y-2">
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-[16px] text-status-success" data-icon="check">check</span> Up to 15 Members</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-[16px] text-status-success" data-icon="check">check</span> 100GB Storage</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-[16px] text-status-success" data-icon="check">check</span> Standard Support</li>
+</ul>
+<button class="w-full bg-surface-card border border-primary text-primary font-body-base text-body-base h-touch-target-min rounded-lg flex items-center justify-center font-semibold hover:bg-primary/5 transition-colors">Pilih Paket</button>
+</article>
+<!-- 3 Months Option -->
+<article class="bg-surface-card rounded-xl border border-border-subtle shadow-[0px_4px_12px_rgba(0,0,0,0.03)] p-5 flex flex-col gap-4">
+<div class="flex justify-between items-center">
+<h4 class="text-title-md font-title-md text-on-surface">3 Months</h4>
+<div class="text-right">
+<p class="text-title-md font-title-md text-primary font-semibold">Rp 700.000</p>
+<p class="text-body-sm font-body-sm text-status-success font-medium">Save Rp 50.000</p>
+</div>
+</div>
+<ul class="text-body-sm font-body-sm text-on-surface-variant space-y-2">
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-[16px] text-status-success" data-icon="check">check</span> Up to 15 Members</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-[16px] text-status-success" data-icon="check">check</span> 100GB Storage</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-[16px] text-status-success" data-icon="check">check</span> Priority Support</li>
+</ul>
+<button class="w-full bg-surface-card border border-primary text-primary font-body-base text-body-base h-touch-target-min rounded-lg flex items-center justify-center font-semibold hover:bg-primary/5 transition-colors">Pilih Paket</button>
+</article>
+<!-- 1 Year Option (Best Value) -->
+<article class="bg-surface-card rounded-xl border-2 border-secondary shadow-[0px_10px_25px_rgba(0,0,0,0.08)] p-5 flex flex-col gap-4 relative">
+<div class="absolute -top-3 right-4 bg-secondary text-on-secondary text-label-caps font-label-caps px-3 py-1 rounded-full uppercase tracking-wider font-bold shadow-sm">
+                Best Value
+            </div>
+<div class="flex justify-between items-center pt-2">
+<h4 class="text-title-md font-title-md text-on-surface">1 Year</h4>
+<div class="text-right">
+<p class="text-title-md font-title-md text-primary font-semibold">Rp 2.400.000</p>
+<p class="text-body-sm font-body-sm text-status-success font-medium">Save Rp 600.000</p>
+</div>
+</div>
+<ul class="text-body-sm font-body-sm text-on-surface-variant space-y-2">
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-[16px] text-status-success" data-icon="check">check</span> Up to 20 Members</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-[16px] text-status-success" data-icon="check">check</span> 250GB Storage</li>
+<li class="flex items-center gap-2"><span class="material-symbols-outlined text-[16px] text-status-success" data-icon="check">check</span> 24/7 VIP Support</li>
+</ul>
+<button class="w-full bg-primary text-on-primary font-body-base text-body-base h-touch-target-min rounded-lg flex items-center justify-center font-semibold hover:bg-primary/90 transition-colors shadow-sm">Pilih Paket</button>
+</article>
+<div class="h-24"></div> <!-- Bottom padding for nav bar clearance -->
+</main>
+</body></html>

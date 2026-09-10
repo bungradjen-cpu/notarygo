@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+
+<html lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Matter Detail - Dokumen</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-error-container": "#93000a",
+                      "inverse-primary": "#afc8f0",
+                      "surface-variant": "#e1e3e4",
+                      "primary-fixed": "#d4e3ff",
+                      "on-surface": "#191c1d",
+                      "tertiary-container": "#0d2031",
+                      "status-success": "#10B981",
+                      "status-active": "#3498DB",
+                      "surface-card": "#FFFFFF",
+                      "primary-container": "#001f3f",
+                      "status-warning-medium": "#E67E22",
+                      "on-background": "#191c1d",
+                      "tertiary-fixed": "#d1e4fb",
+                      "surface-dim": "#d9dadb",
+                      "tertiary-fixed-dim": "#b5c8df",
+                      "secondary-fixed-dim": "#ffb783",
+                      "on-primary": "#ffffff",
+                      "on-secondary-container": "#663100",
+                      "surface-container-low": "#f3f4f5",
+                      "secondary": "#944a00",
+                      "on-secondary-fixed": "#301400",
+                      "on-secondary": "#ffffff",
+                      "surface-bright": "#f8f9fa",
+                      "secondary-container": "#fc8f34",
+                      "on-tertiary-fixed-variant": "#36485b",
+                      "surface-container": "#edeeef",
+                      "on-tertiary-fixed": "#091d2e",
+                      "surface-container-high": "#e7e8e9",
+                      "secondary-fixed": "#ffdcc5",
+                      "on-primary-container": "#6f88ad",
+                      "inverse-surface": "#2e3132",
+                      "on-secondary-fixed-variant": "#713700",
+                      "on-surface-variant": "#43474e",
+                      "border-subtle": "#E2E8F0",
+                      "primary-fixed-dim": "#afc8f0",
+                      "error": "#ba1a1a",
+                      "primary": "#000613",
+                      "background": "#f8f9fa",
+                      "status-warning-low": "#F1C40F",
+                      "outline": "#74777f",
+                      "surface-tint": "#476083",
+                      "error-container": "#ffdad6",
+                      "on-tertiary-container": "#76889d",
+                      "surface-container-highest": "#e1e3e4",
+                      "surface-container-lowest": "#ffffff",
+                      "on-primary-fixed-variant": "#2f486a",
+                      "surface": "#f8f9fa",
+                      "on-primary-fixed": "#001c3a",
+                      "status-archived": "#94A3B8",
+                      "tertiary": "#000610",
+                      "inverse-on-surface": "#f0f1f2",
+                      "on-error": "#ffffff",
+                      "status-critical": "#E74C3C",
+                      "outline-variant": "#c4c6cf",
+                      "on-tertiary": "#ffffff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "gutter": "1.5rem",
+                      "touch-target-min": "44px",
+                      "sidebar-width": "260px",
+                      "container-padding": "2rem",
+                      "stack-sm": "0.5rem",
+                      "stack-md": "1rem"
+              },
+              "fontFamily": {
+                      "headline-lg-mobile": ["Inter"],
+                      "display-lg": ["Inter"],
+                      "label-caps": ["Inter"],
+                      "body-sm": ["Inter"],
+                      "stats-number": ["Inter"],
+                      "headline-lg": ["Inter"],
+                      "title-md": ["Inter"],
+                      "body-base": ["Inter"]
+              },
+              "fontSize": {
+                      "headline-lg-mobile": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                      "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "stats-number": ["28px", {"lineHeight": "34px", "fontWeight": "700"}],
+                      "headline-lg": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "title-md": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                      "body-base": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+              }
+            }
+          }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-surface font-body-base h-screen overflow-hidden flex font-[Inter]">
+<!-- SideNavBar -->
+<nav class="hidden md:flex bg-primary-container dark:bg-primary-container text-primary-fixed dark:text-primary-fixed-dim docked h-screen w-sidebar fixed left-0 top-0 border-r border-outline-variant shadow-sm flex-col h-full py-gutter justify-between z-50">
+<div>
+<div class="px-6 pb-6 border-b border-outline-variant/30 flex items-center gap-3">
+<img alt="NotaryGo Logo" class="w-8 h-8 rounded" data-alt="A minimalist logo for a legal tech platform featuring a stylized blue shield and modern sans-serif typography on a clean white background. High contrast, professional." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDXvCcK4JXeRQugsojhPHkweEzS6YDAiRznL9ZlHGuCwFxsTDqZmnp6k0BX9gzE5hTH2g3hSIN_Ai00HFctcVTJIwhNfcB5peW4Lv0feTXXOWcEjirAutWAcIKzEszuZVN7IrtVrx8tmwCOyayBCWhhNaCdOQoxAVuyXpEFnel5vB4Jio_5qTYpWGY6mpI0uFDQvxaOMJ_dedZgrNbzXG97-d9-lFHRpzsybCbJPz_11dftxx4lOw45mA"/>
+<div>
+<h1 class="text-title-md font-title-md font-bold text-surface-container-lowest">NOTARYGO™</h1>
+<p class="text-label-caps font-label-caps text-on-primary-container">Operational System</p>
+</div>
+</div>
+<div class="mt-6 flex flex-col gap-1">
+<a class="flex items-center gap-stack-md px-4 py-3 text-on-primary-container hover:text-white hover:bg-on-primary-container/10 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="text-body-base font-body-base">Overview</span>
+</a>
+<a class="flex items-center gap-stack-md px-4 py-3 bg-on-primary-container/20 text-white border-l-4 border-secondary opacity-90 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="work">work</span>
+<span class="text-body-base font-body-base">Operations</span>
+</a>
+<a class="flex items-center gap-stack-md px-4 py-3 text-on-primary-container hover:text-white hover:bg-on-primary-container/10 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+<span class="text-body-base font-body-base">Documents</span>
+</a>
+<a class="flex items-center gap-stack-md px-4 py-3 text-on-primary-container hover:text-white hover:bg-on-primary-container/10 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span class="text-body-base font-body-base">Finance</span>
+</a>
+<a class="flex items-center gap-stack-md px-4 py-3 text-on-primary-container hover:text-white hover:bg-on-primary-container/10 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="settings_accessibility">settings_accessibility</span>
+<span class="text-body-base font-body-base">Control</span>
+</a>
+</div>
+</div>
+<div class="px-4">
+<button class="w-full flex items-center justify-center gap-2 py-2 mb-4 rounded border border-outline-variant/30 text-white hover:bg-white/10 transition-colors">
+<span class="material-symbols-outlined text-sm">settings</span>
+<span class="text-body-sm font-body-sm">Quick Settings</span>
+</button>
+<a class="flex items-center gap-stack-md px-4 py-3 text-on-primary-container hover:text-white hover:bg-on-primary-container/10 transition-colors duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+<span class="text-body-base font-body-base">Owner Profile</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col md:ml-[260px] h-screen overflow-hidden">
+<!-- TopNavBar -->
+<header class="bg-surface dark:bg-surface text-primary dark:text-primary-fixed docked h-touch-target-min w-full sticky top-0 z-40 border-b border-border-subtle bg-surface flat no shadows flex justify-between items-center px-gutter">
+<div class="flex items-center gap-4">
+<h2 class="text-title-md font-title-md font-bold text-primary-container dark:text-primary-fixed hidden md:block">Kantor Notaris &amp; PPAT Nama Notaris, S.H., M.Kn.</h2>
+<div class="relative hidden md:block w-64">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-sm">search</span>
+<input class="w-full h-8 pl-9 pr-3 rounded bg-surface-container-low border border-border-subtle text-body-sm font-body-sm focus:border-primary focus:ring-1 focus:ring-primary outline-none" placeholder="Search..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="h-8 px-4 rounded bg-primary-container text-white text-body-sm font-body-sm font-medium hover:bg-tertiary-container transition-colors">+ Buat</button>
+<div class="flex gap-2 text-on-surface-variant">
+<button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-surface-container-low transition-colors text-primary font-bold border-b-2 border-primary scale-95 transition-transform"><span class="material-symbols-outlined" data-icon="notifications">notifications</span></button>
+<button class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-surface-container-low transition-colors hover:text-primary transition-colors"><span class="material-symbols-outlined" data-icon="help_outline">help_outline</span></button>
+</div>
+<img alt="Owner Profile" class="w-8 h-8 rounded-full border border-border-subtle object-cover" data-alt="A professional headshot of a notary public wearing a dark suit, positioned against a plain light gray background. Well-lit, corporate style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCusvpuMvHLeUrb561NJH7OeOyaxzdmGY3wkhkK9ji9N6aSTw-0tLG7tI60QKFaezevfJZgDUa0HO9wlOpuvkXeXqnHrTZjHClfVi4PWqpIoiDHiHUoznH15t732t0MiJaJ5Pi9LG13xIn8Fnn9DUL0AdjnmvWT7aGgKmyoiLcBN0NpV39RWwGQEgUqb0D_of5V31undleA-Xuv0R6bFMMvC6NoY2y1fpxoRqT4MH23HrpfoXgzPH1CMg"/>
+</div>
+</header>
+<!-- Page Content -->
+<div class="flex-1 overflow-y-auto p-container-padding">
+<!-- Matter Header -->
+<div class="mb-8">
+<div class="flex items-center gap-2 text-body-sm font-body-sm text-outline mb-2">
+<a class="hover:text-primary transition-colors" href="#">Operations</a>
+<span class="material-symbols-outlined text-xs">chevron_right</span>
+<a class="hover:text-primary transition-colors" href="#">Matters</a>
+<span class="material-symbols-outlined text-xs">chevron_right</span>
+<span class="text-on-surface font-medium">MT-2023-0891</span>
+</div>
+<div class="flex justify-between items-start">
+<div>
+<h1 class="text-display-lg font-display-lg text-primary-container mb-2">Jual Beli Tanah - Bpk. Sudirman</h1>
+<div class="flex items-center gap-4 text-body-sm font-body-sm text-on-surface-variant">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">tag</span> MT-2023-0891</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-sm">calendar_today</span> 12 Oct 2023</span>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-primary-fixed text-on-primary-fixed text-label-caps font-label-caps border border-primary-fixed-dim">
+<span class="material-symbols-outlined text-[10px]">check_circle</span> In Progress
+                            </span>
+</div>
+</div>
+<div class="flex gap-3">
+<button class="px-4 h-10 rounded border border-primary-container text-primary-container text-body-sm font-body-sm font-medium hover:bg-surface-container-low transition-colors">Edit Matter</button>
+<button class="px-4 h-10 rounded bg-primary-container text-white text-body-sm font-body-sm font-medium hover:bg-tertiary-container transition-colors">Add Document</button>
+</div>
+</div>
+</div>
+<!-- Tab Navigation -->
+<div class="flex border-b border-border-subtle mb-6">
+<a class="px-6 py-3 text-body-sm font-body-sm font-medium text-on-surface-variant hover:text-primary transition-colors" href="#">Overview</a>
+<a class="px-6 py-3 text-body-sm font-body-sm font-medium text-on-surface-variant hover:text-primary transition-colors" href="#">Pihak Terlibat</a>
+<a class="px-6 py-3 text-body-sm font-body-sm font-bold text-primary border-b-2 border-primary" href="#">Dokumen</a>
+<a class="px-6 py-3 text-body-sm font-body-sm font-medium text-on-surface-variant hover:text-primary transition-colors" href="#">Keuangan</a>
+<a class="px-6 py-3 text-body-sm font-body-sm font-medium text-on-surface-variant hover:text-primary transition-colors" href="#">Log</a>
+</div>
+<!-- Documents Table Card -->
+<div class="bg-surface-card rounded-xl border border-border-subtle shadow-[0px_4px_12px_rgba(0,0,0,0.03)] overflow-hidden">
+<div class="p-5 border-b border-border-subtle flex justify-between items-center bg-surface-bright">
+<h3 class="text-title-md font-title-md text-primary-container">Daftar Dokumen</h3>
+<div class="flex gap-2">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-sm">filter_list</span>
+<select class="h-9 pl-9 pr-8 rounded border border-border-subtle bg-white text-body-sm font-body-sm text-on-surface-variant focus:border-primary outline-none appearance-none">
+<option>Semua Jenis</option>
+<option>Draft</option>
+<option>Final</option>
+</select>
+</div>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-border-subtle bg-surface-container-low/50">
+<th class="p-4 text-label-caps font-label-caps text-on-surface-variant font-medium">Dokumen</th>
+<th class="p-4 text-label-caps font-label-caps text-on-surface-variant font-medium">Jenis</th>
+<th class="p-4 text-label-caps font-label-caps text-on-surface-variant font-medium">Versi</th>
+<th class="p-4 text-label-caps font-label-caps text-on-surface-variant font-medium">Status</th>
+<th class="p-4 text-label-caps font-label-caps text-on-surface-variant font-medium">Updated</th>
+<th class="p-4 text-label-caps font-label-caps text-on-surface-variant font-medium">Uploader</th>
+<th class="p-4 text-label-caps font-label-caps text-on-surface-variant font-medium text-right">Aksi</th>
+</tr>
+</thead>
+<tbody class="text-body-sm font-body-sm text-on-surface">
+<tr class="border-b border-border-subtle hover:bg-surface-bright transition-colors group">
+<td class="p-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded bg-primary-fixed-dim/20 flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-lg">description</span>
+</div>
+<div>
+<p class="font-medium text-primary-container group-hover:text-status-active transition-colors cursor-pointer">Draft AJB - Sudirman</p>
+<p class="text-xs text-outline mt-0.5">PDF • 2.4 MB</p>
+</div>
+</div>
+</td>
+<td class="p-4">Akta Jual Beli</td>
+<td class="p-4">
+<span class="inline-flex px-2 py-1 rounded bg-surface-container-high text-xs font-medium">V2</span>
+</td>
+<td class="p-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-status-warning-low/20 text-status-warning-medium text-xs font-medium border border-status-warning-low/30">
+<span class="material-symbols-outlined text-[12px]">rate_review</span> Review
+                                    </span>
+</td>
+<td class="p-4 text-on-surface-variant">14 Oct 2023, 10:30</td>
+<td class="p-4">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-tertiary-fixed text-on-tertiary-fixed flex items-center justify-center text-xs font-medium">AN</div>
+<span>Andi N.</span>
+</div>
+</td>
+<td class="p-4 text-right">
+<button class="w-8 h-8 rounded hover:bg-surface-container-low text-outline hover:text-primary transition-colors flex items-center justify-center ml-auto">
+<span class="material-symbols-outlined text-sm">more_vert</span>
+</button>
+</td>
+</tr>
+<tr class="border-b border-border-subtle hover:bg-surface-bright transition-colors group">
+<td class="p-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded bg-primary-fixed-dim/20 flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-lg">image</span>
+</div>
+<div>
+<p class="font-medium text-primary-container group-hover:text-status-active transition-colors cursor-pointer">KTP Bpk. Sudirman</p>
+<p class="text-xs text-outline mt-0.5">JPG • 1.1 MB</p>
+</div>
+</div>
+</td>
+<td class="p-4">Identitas</td>
+<td class="p-4">
+<span class="inline-flex px-2 py-1 rounded bg-surface-container-high text-xs font-medium">V1</span>
+</td>
+<td class="p-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-status-success/10 text-status-success text-xs font-medium border border-status-success/20">
+<span class="material-symbols-outlined text-[12px]">check_circle</span> Verified
+                                    </span>
+</td>
+<td class="p-4 text-on-surface-variant">12 Oct 2023, 09:15</td>
+<td class="p-4">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-secondary-fixed text-on-secondary-fixed flex items-center justify-center text-xs font-medium">BS</div>
+<span>Budi S.</span>
+</div>
+</td>
+<td class="p-4 text-right">
+<button class="w-8 h-8 rounded hover:bg-surface-container-low text-outline hover:text-primary transition-colors flex items-center justify-center ml-auto">
+<span class="material-symbols-outlined text-sm">more_vert</span>
+</button>
+</td>
+</tr>
+<tr class="border-b border-border-subtle hover:bg-surface-bright transition-colors group">
+<td class="p-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded bg-primary-fixed-dim/20 flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined text-lg">picture_as_pdf</span>
+</div>
+<div>
+<p class="font-medium text-primary-container group-hover:text-status-active transition-colors cursor-pointer">Sertifikat Tanah Asli</p>
+<p class="text-xs text-outline mt-0.5">PDF • 5.0 MB</p>
+</div>
+</div>
+</td>
+<td class="p-4">Legalitas</td>
+<td class="p-4">
+<span class="inline-flex px-2 py-1 rounded bg-surface-container-high text-xs font-medium">V1</span>
+</td>
+<td class="p-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-status-success/10 text-status-success text-xs font-medium border border-status-success/20">
+<span class="material-symbols-outlined text-[12px]">check_circle</span> Verified
+                                    </span>
+</td>
+<td class="p-4 text-on-surface-variant">12 Oct 2023, 11:20</td>
+<td class="p-4">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-tertiary-fixed text-on-tertiary-fixed flex items-center justify-center text-xs font-medium">AN</div>
+<span>Andi N.</span>
+</div>
+</td>
+<td class="p-4 text-right">
+<button class="w-8 h-8 rounded hover:bg-surface-container-low text-outline hover:text-primary transition-colors flex items-center justify-center ml-auto">
+<span class="material-symbols-outlined text-sm">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</main>
+</body></html>

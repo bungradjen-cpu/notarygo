@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>My Work — Ruang Kerja Harian Staff</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-container": "#001f3f",
+                    "surface": "#f8f9fa",
+                    "surface-container-highest": "#e1e3e4",
+                    "on-primary-container": "#6f88ad",
+                    "on-surface": "#191c1d",
+                    "on-error": "#ffffff",
+                    "surface-container": "#edeeef",
+                    "surface-bright": "#f8f9fa",
+                    "surface-dim": "#d9dadb",
+                    "on-tertiary-container": "#76889d",
+                    "surface-container-lowest": "#ffffff",
+                    "secondary": "#944a00",
+                    "inverse-on-surface": "#f0f1f2",
+                    "on-surface-variant": "#43474e",
+                    "status-warning-medium": "#E67E22",
+                    "on-tertiary": "#ffffff",
+                    "outline-variant": "#c4c6cf",
+                    "on-tertiary-fixed-variant": "#36485b",
+                    "error": "#ba1a1a",
+                    "on-primary-fixed": "#001c3a",
+                    "on-primary-fixed-variant": "#2f486a",
+                    "on-primary": "#ffffff",
+                    "surface-container-low": "#f3f4f5",
+                    "on-secondary-fixed-variant": "#713700",
+                    "status-success": "#10B981",
+                    "status-warning-low": "#F1C40F",
+                    "background": "#f8f9fa",
+                    "surface-container-high": "#e7e8e9",
+                    "on-secondary": "#ffffff",
+                    "tertiary-fixed": "#d1e4fb",
+                    "on-background": "#191c1d",
+                    "secondary-fixed-dim": "#ffb783",
+                    "on-secondary-container": "#663100",
+                    "surface-card": "#FFFFFF",
+                    "surface-tint": "#476083",
+                    "surface-variant": "#e1e3e4",
+                    "tertiary-fixed-dim": "#b5c8df",
+                    "on-tertiary-fixed": "#091d2e",
+                    "primary-fixed": "#d4e3ff",
+                    "status-archived": "#94A3B8",
+                    "secondary-fixed": "#ffdcc5",
+                    "on-error-container": "#93000a",
+                    "status-active": "#3498DB",
+                    "border-subtle": "#E2E8F0",
+                    "tertiary": "#000610",
+                    "inverse-primary": "#afc8f0",
+                    "primary-fixed-dim": "#afc8f0",
+                    "error-container": "#ffdad6",
+                    "primary": "#000613",
+                    "outline": "#74777f",
+                    "inverse-surface": "#2e3132",
+                    "secondary-container": "#fc8f34",
+                    "status-critical": "#E74C3C",
+                    "on-secondary-fixed": "#301400",
+                    "tertiary-container": "#0d2031"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "touch-target-min": "44px",
+                    "sidebar-width": "260px",
+                    "gutter": "1.5rem",
+                    "stack-md": "1rem",
+                    "container-padding": "2rem",
+                    "stack-sm": "0.5rem"
+            },
+            "fontFamily": {
+                    "label-caps": ["Inter"],
+                    "title-md": ["Inter"],
+                    "stats-number": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "body-base": ["Inter"]
+            },
+            "fontSize": {
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "title-md": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                    "stats-number": ["28px", {"lineHeight": "34px", "fontWeight": "700"}],
+                    "headline-lg-mobile": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "headline-lg": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-base": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+            }
+          }
+        }
+      }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-base">
+<!-- TopNavBar -->
+<header class="bg-surface text-primary sticky top-0 z-40 border-b border-border-subtle bg-surface h-touch-target-min w-full flex justify-between items-center px-gutter ml-sidebar">
+<div class="flex items-center gap-4">
+<span class="text-title-md font-title-md font-bold text-primary-container">Kantor Notaris &amp; PPAT Nama Notaris, S.H., M.Kn.</span>
+</div>
+<div class="flex items-center gap-4">
+<button class="bg-primary-container text-on-primary hover:bg-primary transition-colors duration-200 px-4 py-2 rounded font-label-caps text-label-caps">+ Buat</button>
+<span class="material-symbols-outlined cursor-pointer hover:text-primary transition-colors text-on-surface-variant">notifications</span>
+<span class="material-symbols-outlined cursor-pointer hover:text-primary transition-colors text-on-surface-variant">help_outline</span>
+<img alt="Owner Profile" class="w-8 h-8 rounded-full object-cover border border-outline-variant cursor-pointer" data-alt="A small, professional avatar portrait of a law firm owner, set against a clean white background in a well-lit modern office environment. The image is crisp, highly detailed, and conveys trust and authority." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBOnWfuJibgWUa0iEm7uW0UTwXFRPSTUkkQ5wC14TIX3c1Bv9fNjh8qcNMudx5XsGc6GQPNaIV00uhrIZAl2nQqdXtSKCAxtFNTDS2d9q-P_TSLt5J28OzeIeBhbcDneilYGqDeHMPDwpdj971drvy33Ybq67mZI05aGN1VNanzSpYO6nDibUgCYGfecILDT1UvgCtcMwqwQkOyg7kKG10GJaIutKijO5ru4cRjQm8HVqTtAxMmY8IhtQ"/>
+</div>
+</header>
+<!-- SideNavBar -->
+<nav class="bg-primary-container text-primary-fixed docked h-screen w-sidebar fixed left-0 top-0 border-r border-outline-variant shadow-sm flex flex-col h-full py-gutter justify-between z-50">
+<div>
+<div class="px-gutter mb-8">
+<h1 class="text-title-md font-title-md font-bold text-surface-container-lowest">NOTARYGO™</h1>
+<p class="text-label-caps font-label-caps text-on-primary-container mt-1">Operational System</p>
+</div>
+<ul class="flex flex-col gap-2">
+<li>
+<a class="flex items-center gap-stack-md px-4 py-3 text-on-primary-container hover:text-white hover:bg-on-primary-container/10 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-label-caps font-label-caps">Overview</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-stack-md px-4 py-3 bg-on-primary-container/20 text-white border-l-4 border-secondary opacity-90 transition-all" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">work</span>
+<span class="text-label-caps font-label-caps">Operations</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-stack-md px-4 py-3 text-on-primary-container hover:text-white hover:bg-on-primary-container/10 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="text-label-caps font-label-caps">Documents</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-stack-md px-4 py-3 text-on-primary-container hover:text-white hover:bg-on-primary-container/10 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="text-label-caps font-label-caps">Finance</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-stack-md px-4 py-3 text-on-primary-container hover:text-white hover:bg-on-primary-container/10 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">settings_accessibility</span>
+<span class="text-label-caps font-label-caps">Control</span>
+</a>
+</li>
+</ul>
+</div>
+<div>
+<div class="px-gutter mb-4">
+<button class="w-full bg-surface-container/10 hover:bg-surface-container/20 text-white border border-outline-variant/30 py-2 rounded text-label-caps font-label-caps transition-colors">Quick Settings</button>
+</div>
+<ul>
+<li>
+<a class="flex items-center gap-stack-md px-4 py-3 text-on-primary-container hover:text-white hover:bg-on-primary-container/10 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">account_circle</span>
+<span class="text-label-caps font-label-caps">Owner Profile</span>
+</a>
+</li>
+</ul>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="ml-sidebar p-container-padding min-h-screen">
+<div class="mb-12">
+<h2 class="text-headline-lg font-headline-lg text-primary mb-2">My Work — Ruang Kerja Harian Staff</h2>
+<p class="text-body-base font-body-base text-on-surface-variant">Daftar prioritas tugas, perkara aktif, follow-up, dan jadwal penandatanganan Anda.</p>
+</div>
+<!-- KPIs -->
+<div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-stack-md mb-12">
+<div class="bg-surface-card border border-border-subtle rounded-lg p-4 shadow-[0_4px_12px_rgba(0,0,0,0.03)] flex flex-col justify-between h-32">
+<span class="text-label-caps font-label-caps text-on-surface-variant uppercase tracking-wider">Tugas Terbuka</span>
+<span class="text-stats-number font-stats-number text-primary">7</span>
+</div>
+<div class="bg-surface-card border border-status-critical/30 rounded-lg p-4 shadow-[0_4px_12px_rgba(0,0,0,0.03)] flex flex-col justify-between h-32 relative overflow-hidden">
+<div class="absolute top-0 right-0 w-16 h-16 bg-status-critical/5 rounded-bl-full"></div>
+<span class="text-label-caps font-label-caps text-status-critical uppercase tracking-wider flex items-center gap-2"><span class="material-symbols-outlined text-[16px]">warning</span>Tugas Terlambat</span>
+<span class="text-stats-number font-stats-number text-status-critical">2</span>
+</div>
+<div class="bg-surface-card border border-border-subtle rounded-lg p-4 shadow-[0_4px_12px_rgba(0,0,0,0.03)] flex flex-col justify-between h-32">
+<span class="text-label-caps font-label-caps text-on-surface-variant uppercase tracking-wider">Perkara Aktif Saya</span>
+<span class="text-stats-number font-stats-number text-primary">5</span>
+</div>
+<div class="bg-surface-card border border-border-subtle rounded-lg p-4 shadow-[0_4px_12px_rgba(0,0,0,0.03)] flex flex-col justify-between h-32">
+<span class="text-label-caps font-label-caps text-status-warning-medium uppercase tracking-wider">Follow-Up Due</span>
+<span class="text-stats-number font-stats-number text-status-warning-medium">3</span>
+</div>
+<div class="bg-surface-card border border-border-subtle rounded-lg p-4 shadow-[0_4px_12px_rgba(0,0,0,0.03)] flex flex-col justify-between h-32">
+<span class="text-label-caps font-label-caps text-status-active uppercase tracking-wider">Jadwal Signing</span>
+<span class="text-stats-number font-stats-number text-status-active">1</span>
+</div>
+</div>
+<div class="grid lg:grid-cols-3 gap-8">
+<!-- Daftar Tugas Saya -->
+<section class="lg:col-span-2">
+<div class="flex justify-between items-end mb-6 border-b border-border-subtle pb-4">
+<h3 class="text-title-md font-title-md text-primary">Daftar Tugas Saya</h3>
+<div class="flex gap-2">
+<button class="text-label-caps font-label-caps px-3 py-1.5 border border-outline-variant rounded bg-surface hover:bg-surface-container transition-colors text-on-surface-variant flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">sort</span> Sort: Priority
+                        </button>
+</div>
+</div>
+<div class="space-y-4">
+<!-- Task 1 -->
+<div class="bg-surface-card border-l-4 border-status-critical border-y border-r border-y-border-subtle border-r-border-subtle rounded-r-lg p-6 shadow-[0_4px_12px_rgba(0,0,0,0.03)] hover:shadow-[0_10px_25px_rgba(0,0,0,0.08)] transition-shadow">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h4 class="text-body-base font-body-base font-bold text-primary mb-1">Review Draft Akta Jual Beli</h4>
+<p class="text-body-sm font-body-sm text-on-surface-variant">AJB-2026-0012 • Ibu Ida Rosdiana</p>
+</div>
+<span class="bg-status-critical/10 text-status-critical px-2 py-1 rounded text-label-caps font-label-caps flex items-center gap-1 border border-status-critical/20">
+<span class="material-symbols-outlined text-[14px]">error</span> Critical
+                            </span>
+</div>
+<div class="flex items-center gap-6 mb-4">
+<div class="flex items-center gap-2 text-status-warning-medium">
+<span class="material-symbols-outlined text-[18px]">schedule</span>
+<span class="text-body-sm font-body-sm font-semibold">Hari Ini • 10:30 (Terlambat)</span>
+</div>
+<div class="flex items-center gap-2 text-status-active">
+<span class="material-symbols-outlined text-[18px]">sync</span>
+<span class="text-body-sm font-body-sm">In Progress</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex-grow bg-surface-container-highest h-2 rounded-full overflow-hidden">
+<div class="bg-primary-container h-full rounded-full" style="width: 80%;"></div>
+</div>
+<span class="text-label-caps font-label-caps text-on-surface-variant min-w-[40px] text-right">80%</span>
+<button class="bg-surface border border-outline-variant text-primary px-3 py-1.5 rounded text-label-caps font-label-caps hover:bg-surface-container transition-colors whitespace-nowrap">Lanjutkan</button>
+</div>
+</div>
+<!-- Task 2 -->
+<div class="bg-surface-card border-l-4 border-status-warning-medium border-y border-r border-y-border-subtle border-r-border-subtle rounded-r-lg p-6 shadow-[0_4px_12px_rgba(0,0,0,0.03)] hover:shadow-[0_10px_25px_rgba(0,0,0,0.08)] transition-shadow">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h4 class="text-body-base font-body-base font-bold text-primary mb-1">Follow-up NPWP dan SPPT PBB</h4>
+<p class="text-body-sm font-body-sm text-on-surface-variant">HT-2026-0008 • Bapak Rudi Hartono</p>
+</div>
+<span class="bg-status-warning-medium/10 text-status-warning-medium px-2 py-1 rounded text-label-caps font-label-caps flex items-center gap-1 border border-status-warning-medium/20">
+<span class="material-symbols-outlined text-[14px]">priority_high</span> High
+                            </span>
+</div>
+<div class="flex items-center gap-6 mb-4">
+<div class="flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">schedule</span>
+<span class="text-body-sm font-body-sm">Hari Ini • 13:00</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex-grow bg-surface-container-highest h-2 rounded-full overflow-hidden">
+<div class="bg-primary-container h-full rounded-full" style="width: 60%;"></div>
+</div>
+<span class="text-label-caps font-label-caps text-on-surface-variant min-w-[40px] text-right">60%</span>
+<button class="bg-primary-container text-white px-3 py-1.5 rounded text-label-caps font-label-caps hover:bg-primary transition-colors whitespace-nowrap">Kerjakan</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Jadwal & Quick Actions -->
+<aside class="space-y-8">
+<!-- Signing Schedule -->
+<div class="bg-surface-card border border-border-subtle rounded-lg shadow-[0_4px_12px_rgba(0,0,0,0.03)] p-6">
+<h3 class="text-title-md font-title-md text-primary mb-4 flex items-center gap-2 border-b border-border-subtle pb-3">
+<span class="material-symbols-outlined">edit_document</span> Jadwal Penandatanganan
+                    </h3>
+<div class="border-l-2 border-status-active pl-4 py-2 relative">
+<div class="absolute w-3 h-3 bg-status-active rounded-full -left-[7px] top-3"></div>
+<p class="text-label-caps font-label-caps text-status-active mb-1">HARI INI • 14:00 WIB</p>
+<p class="text-body-sm font-body-sm font-bold text-primary">Penandatanganan Akta Jual Beli</p>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-1">Ruang Rapat A • AJB-2026-0010</p>
+</div>
+</div>
+<!-- Quick Actions Bento -->
+<div class="grid grid-cols-2 gap-4">
+<button class="bg-surface-card border border-border-subtle rounded-lg p-4 shadow-sm hover:border-primary-container transition-colors flex flex-col items-center justify-center text-center gap-2 group h-24">
+<span class="material-symbols-outlined text-primary-container group-hover:scale-110 transition-transform">add_task</span>
+<span class="text-label-caps font-label-caps text-on-surface-variant">Buat Tugas</span>
+</button>
+<button class="bg-surface-card border border-border-subtle rounded-lg p-4 shadow-sm hover:border-primary-container transition-colors flex flex-col items-center justify-center text-center gap-2 group h-24">
+<span class="material-symbols-outlined text-primary-container group-hover:scale-110 transition-transform">folder_open</span>
+<span class="text-label-caps font-label-caps text-on-surface-variant">Buka File</span>
+</button>
+</div>
+</aside>
+</div>
+<!-- Perkara Aktif Tanggung Jawab Saya -->
+<section class="mt-12 bg-surface-card border border-border-subtle rounded-lg shadow-[0_4px_12px_rgba(0,0,0,0.03)] overflow-hidden">
+<div class="px-6 py-4 border-b border-border-subtle bg-surface/50 flex justify-between items-center">
+<h3 class="text-title-md font-title-md text-primary">Perkara Aktif Tanggung Jawab Saya</h3>
+<button class="text-label-caps font-label-caps text-primary flex items-center gap-1 hover:underline">
+                    View All <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="border-b border-border-subtle bg-surface">
+<th class="px-6 py-3 text-label-caps font-label-caps text-on-surface-variant font-normal">ID Perkara</th>
+<th class="px-6 py-3 text-label-caps font-label-caps text-on-surface-variant font-normal">Klien</th>
+<th class="px-6 py-3 text-label-caps font-label-caps text-on-surface-variant font-normal">Jenis Akta</th>
+<th class="px-6 py-3 text-label-caps font-label-caps text-on-surface-variant font-normal">Status</th>
+<th class="px-6 py-3 text-label-caps font-label-caps text-on-surface-variant font-normal text-right">Aksi</th>
+</tr>
+</thead>
+<tbody class="text-body-sm font-body-sm">
+<tr class="border-b border-border-subtle hover:bg-surface-container/30 transition-colors">
+<td class="px-6 py-4 font-semibold text-primary">AJB-2026-0012</td>
+<td class="px-6 py-4 text-on-surface-variant">Ibu Ida Rosdiana</td>
+<td class="px-6 py-4 text-on-surface-variant">Akta Jual Beli</td>
+<td class="px-6 py-4">
+<span class="bg-status-active/10 text-status-active px-2 py-1 rounded text-label-caps font-label-caps border border-status-active/20">Drafting</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</td>
+</tr>
+<tr class="border-b border-border-subtle hover:bg-surface-container/30 transition-colors">
+<td class="px-6 py-4 font-semibold text-primary">HT-2026-0008</td>
+<td class="px-6 py-4 text-on-surface-variant">Bapak Rudi Hartono</td>
+<td class="px-6 py-4 text-on-surface-variant">Hak Tanggungan</td>
+<td class="px-6 py-4">
+<span class="bg-status-warning-medium/10 text-status-warning-medium px-2 py-1 rounded text-label-caps font-label-caps border border-status-warning-medium/20">Pemberkasan</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</td>
+</tr>
+<tr class="hover:bg-surface-container/30 transition-colors">
+<td class="px-6 py-4 font-semibold text-primary">PH-2026-0045</td>
+<td class="px-6 py-4 text-on-surface-variant">PT. Maju Bersama</td>
+<td class="px-6 py-4 text-on-surface-variant">Pendirian PT</td>
+<td class="px-6 py-4">
+<span class="bg-status-success/10 text-status-success px-2 py-1 rounded text-label-caps font-label-caps border border-status-success/20">Menunggu TTD</span>
+</td>
+<td class="px-6 py-4 text-right">
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</main>
+</body></html>

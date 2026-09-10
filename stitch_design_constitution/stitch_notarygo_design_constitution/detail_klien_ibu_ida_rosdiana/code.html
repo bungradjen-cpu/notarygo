@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Client Detail - Ibu Ida Rosdiana</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-tertiary-fixed-variant": "#36485b",
+                      "on-secondary-fixed": "#301400",
+                      "secondary-container": "#fc8f34",
+                      "on-secondary": "#ffffff",
+                      "primary-fixed": "#d4e3ff",
+                      "secondary": "#944a00",
+                      "tertiary-fixed-dim": "#b5c8df",
+                      "surface-container-highest": "#e1e3e4",
+                      "on-primary": "#ffffff",
+                      "on-surface": "#191c1d",
+                      "outline-variant": "#c4c6cf",
+                      "tertiary": "#000610",
+                      "secondary-fixed": "#ffdcc5",
+                      "surface-container": "#edeeef",
+                      "status-critical": "#E74C3C",
+                      "on-primary-fixed-variant": "#2f486a",
+                      "surface-container-lowest": "#ffffff",
+                      "on-tertiary": "#ffffff",
+                      "inverse-primary": "#afc8f0",
+                      "primary-container": "#001f3f",
+                      "surface-dim": "#d9dadb",
+                      "on-tertiary-fixed": "#091d2e",
+                      "primary": "#000613",
+                      "tertiary-container": "#0d2031",
+                      "surface": "#f8f9fa",
+                      "on-primary-container": "#6f88ad",
+                      "surface-card": "#FFFFFF",
+                      "on-primary-fixed": "#001c3a",
+                      "outline": "#74777f",
+                      "status-archived": "#94A3B8",
+                      "on-surface-variant": "#43474e",
+                      "background": "#f8f9fa",
+                      "error-container": "#ffdad6",
+                      "on-secondary-fixed-variant": "#713700",
+                      "inverse-on-surface": "#f0f1f2",
+                      "primary-fixed-dim": "#afc8f0",
+                      "status-warning-low": "#F1C40F",
+                      "surface-bright": "#f8f9fa",
+                      "on-background": "#191c1d",
+                      "on-error-container": "#93000a",
+                      "surface-tint": "#476083",
+                      "on-secondary-container": "#663100",
+                      "on-tertiary-container": "#76889d",
+                      "surface-variant": "#e1e3e4",
+                      "status-warning-medium": "#E67E22",
+                      "surface-container-low": "#f3f4f5",
+                      "on-error": "#ffffff",
+                      "inverse-surface": "#2e3132",
+                      "surface-container-high": "#e7e8e9",
+                      "border-subtle": "#E2E8F0",
+                      "status-active": "#3498DB",
+                      "status-success": "#10B981",
+                      "tertiary-fixed": "#d1e4fb",
+                      "error": "#ba1a1a",
+                      "secondary-fixed-dim": "#ffb783"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "stack-sm": "0.5rem",
+                      "stack-md": "1rem",
+                      "gutter": "1.5rem",
+                      "touch-target-min": "44px",
+                      "sidebar-width": "260px",
+                      "container-padding": "2rem"
+              },
+              "fontFamily": {
+                      "headline-lg-mobile": ["Inter"],
+                      "label-caps": ["Inter"],
+                      "display-lg": ["Inter"],
+                      "body-sm": ["Inter"],
+                      "body-base": ["Inter"],
+                      "stats-number": ["Inter"],
+                      "headline-lg": ["Inter"],
+                      "title-md": ["Inter"]
+              },
+              "fontSize": {
+                      "headline-lg-mobile": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                      "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "body-base": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "stats-number": ["28px", {"lineHeight": "34px", "fontWeight": "700"}],
+                      "headline-lg": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "title-md": ["18px", {"lineHeight": "24px", "fontWeight": "600"}]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface flex min-h-screen">
+<!-- SideNavBar -->
+<nav class="hidden md:flex bg-primary-container dark:bg-primary-container text-primary-fixed dark:text-primary-fixed-dim docked h-screen w-sidebar fixed left-0 top-0 border-r border-outline-variant shadow-sm flex-col h-full py-gutter justify-between z-50">
+<div>
+<div class="px-gutter mb-8">
+<h1 class="text-title-md font-title-md font-bold text-surface-container-lowest tracking-tight">NOTARYGO™</h1>
+<p class="text-body-sm font-body-sm text-on-primary-container mt-1">Operational System</p>
+</div>
+<button class="mx-gutter mb-6 w-[calc(100%-3rem)] bg-secondary hover:bg-secondary/90 text-on-secondary rounded-lg h-touch-target-min flex items-center justify-center gap-2 transition-colors">
+<span class="material-symbols-outlined text-[18px]">add</span>
+<span class="text-label-caps font-label-caps">Quick Settings</span>
+</button>
+<div class="flex flex-col gap-1">
+<a class="flex items-center gap-stack-md px-4 py-3 text-on-primary-container hover:text-white hover:bg-on-primary-container/10 transition-colors duration-200 opacity-90 transition-all" href="#">
+<span class="material-symbols-outlined" data-weight="fill" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="text-body-base font-body-base">Overview</span>
+</a>
+<!-- Setting Operations as Active Intent Fallback for Client Detail -->
+<a class="flex items-center gap-stack-md px-4 py-3 bg-on-primary-container/20 text-white border-l-4 border-secondary opacity-90 transition-all" href="#">
+<span class="material-symbols-outlined" data-weight="fill" style="font-variation-settings: 'FILL' 1;">work</span>
+<span class="text-body-base font-body-base">Operations</span>
+</a>
+<a class="flex items-center gap-stack-md px-4 py-3 text-on-primary-container hover:text-white hover:bg-on-primary-container/10 transition-colors duration-200 opacity-90 transition-all" href="#">
+<span class="material-symbols-outlined" data-weight="fill" style="font-variation-settings: 'FILL' 1;">description</span>
+<span class="text-body-base font-body-base">Documents</span>
+</a>
+<a class="flex items-center gap-stack-md px-4 py-3 text-on-primary-container hover:text-white hover:bg-on-primary-container/10 transition-colors duration-200 opacity-90 transition-all" href="#">
+<span class="material-symbols-outlined" data-weight="fill" style="font-variation-settings: 'FILL' 1;">payments</span>
+<span class="text-body-base font-body-base">Finance</span>
+</a>
+<a class="flex items-center gap-stack-md px-4 py-3 text-on-primary-container hover:text-white hover:bg-on-primary-container/10 transition-colors duration-200 opacity-90 transition-all" href="#">
+<span class="material-symbols-outlined" data-weight="fill" style="font-variation-settings: 'FILL' 1;">settings_accessibility</span>
+<span class="text-body-base font-body-base">Control</span>
+</a>
+</div>
+</div>
+<div class="mt-auto pt-4 border-t border-on-primary-container/20">
+<a class="flex items-center gap-stack-md px-4 py-3 text-on-primary-container hover:text-white hover:bg-on-primary-container/10 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">account_circle</span>
+<span class="text-body-base font-body-base">Owner Profile</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 md:ml-[260px] flex flex-col min-h-screen">
+<!-- TopNavBar -->
+<header class="bg-surface dark:bg-surface text-primary dark:text-primary-fixed docked h-touch-target-min w-full sticky top-0 z-40 border-b border-border-subtle bg-surface flat no shadows flex justify-between items-center px-gutter">
+<div class="flex items-center gap-4">
+<!-- Mobile Menu Button -->
+<button class="md:hidden p-2 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<div class="font-bold text-title-md font-title-md text-primary-container dark:text-primary-fixed hidden md:block">
+                    Kantor Notaris &amp; PPAT Nama Notaris, S.H., M.Kn.
+                </div>
+</div>
+<div class="flex flex-1 max-w-md mx-4 items-center bg-surface-container-low rounded-lg px-3 h-10 border border-outline-variant focus-within:border-primary focus-within:ring-1 focus-within:ring-primary transition-all">
+<span class="material-symbols-outlined text-on-surface-variant mr-2">search</span>
+<input class="bg-transparent border-none outline-none w-full text-body-sm font-body-sm text-on-surface placeholder:text-on-surface-variant focus:ring-0" placeholder="Search..." type="text"/>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors scale-95 transition-transform">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors scale-95 transition-transform">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+<button class="hidden md:flex ml-2 bg-primary text-on-primary px-4 h-10 items-center justify-center rounded-lg text-label-caps font-label-caps hover:bg-primary/90 transition-colors">
+                    + Buat
+                </button>
+<img alt="Owner Profile" class="w-8 h-8 rounded-full border border-border-subtle ml-2 object-cover" data-alt="A small, professional circular avatar portrait of a corporate executive in a modern light-filled office. The lighting is soft and bright, emphasizing a clean, modern SaaS aesthetic. The color palette features stark whites and deep navy blues to convey trust and authority." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAz4fGkea6qbUKKfNCesBqzXF6OJucngQn6EaAeylnie45KMh8lL3pCZJnYMZQUAKXo7mbRvrlBB5tCfDl1T7KjkQoUJAEhLLnk4SAwBKh_y6yP8RViAeu3wiKUdxflW0ekQ_fimb4-esJ645FrF_HgCqKWCha1MWzKUQ3km8UVVGt98Od2NH3XDGGpsa3lgeB_T--87B2cEdzbb4KpvS1x66MJFmvj6K8NtCj2uqXzrX7cFptHAuCzzg"/>
+</div>
+</header>
+<!-- Workspace Canvas -->
+<div class="p-container-padding flex-1 max-w-7xl mx-auto w-full">
+<!-- Breadcrumb -->
+<div class="flex items-center gap-2 text-body-sm font-body-sm text-on-surface-variant mb-6">
+<a class="hover:text-primary transition-colors" href="#">Operations</a>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+<a class="hover:text-primary transition-colors" href="#">Clients</a>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+<span class="text-primary font-medium">Ibu Ida Rosdiana</span>
+</div>
+<!-- Client Header Card (Glassmorphism inspired, structural) -->
+<div class="bg-surface-card border border-border-subtle rounded-xl p-6 mb-8 shadow-[0_4px_12px_rgba(0,0,0,0.03)] flex flex-col md:flex-row md:items-start justify-between gap-6">
+<div class="flex items-start gap-6">
+<div class="w-20 h-20 rounded-full bg-surface-container-high flex items-center justify-center text-stats-number font-stats-number text-primary-container border border-outline-variant shrink-0">
+                        IR
+                    </div>
+<div>
+<div class="flex items-center gap-3 mb-1">
+<h2 class="text-display-lg font-display-lg text-primary">Ibu Ida Rosdiana</h2>
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded bg-status-success/10 text-status-success border border-status-success/20">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+<span class="text-label-caps font-label-caps">Active Client</span>
+</span>
+</div>
+<p class="text-body-base font-body-base text-on-surface-variant mb-4">Corporate Entity / Real Estate Developer</p>
+<div class="flex flex-wrap gap-x-8 gap-y-3">
+<div class="flex items-center gap-2 text-body-sm font-body-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">mail</span>
+<a class="hover:text-primary hover:underline" href="mailto:ida.rosdiana@example.com">ida.rosdiana@example.com</a>
+</div>
+<div class="flex items-center gap-2 text-body-sm font-body-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">call</span>
+<a class="hover:text-primary hover:underline" href="tel:+6281234567890">+62 812-3456-7890</a>
+</div>
+<div class="flex items-center gap-2 text-body-sm font-body-sm text-on-surface-variant">
+<span class="material-symbols-outlined text-[18px]">location_on</span>
+<span>Jl. Sudirman Kav 45, Jakarta Selatan</span>
+</div>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-3 min-w-[200px]">
+<button class="bg-primary hover:bg-primary/90 text-on-primary h-touch-target-min rounded-lg px-4 flex items-center justify-center gap-2 transition-colors w-full">
+<span class="material-symbols-outlined text-[18px]">add</span>
+<span class="text-body-sm font-body-sm font-medium">New Matter</span>
+</button>
+<button class="bg-surface hover:bg-surface-container-low text-primary border border-primary h-touch-target-min rounded-lg px-4 flex items-center justify-center gap-2 transition-colors w-full">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+<span class="text-body-sm font-body-sm font-medium">Edit Details</span>
+</button>
+</div>
+</div>
+<!-- Tabs Navigation -->
+<div class="border-b border-border-subtle mb-6 flex overflow-x-auto hide-scrollbar">
+<button class="px-6 py-3 text-body-sm font-body-sm font-medium text-on-surface-variant hover:text-primary transition-colors whitespace-nowrap">Ringkasan</button>
+<!-- Perkara is Active -->
+<button class="px-6 py-3 text-body-sm font-body-sm font-bold text-primary border-b-2 border-primary transition-colors whitespace-nowrap">Perkara</button>
+<button class="px-6 py-3 text-body-sm font-body-sm font-medium text-on-surface-variant hover:text-primary transition-colors whitespace-nowrap">Tagihan</button>
+<button class="px-6 py-3 text-body-sm font-body-sm font-medium text-on-surface-variant hover:text-primary transition-colors whitespace-nowrap">Komunikasi</button>
+</div>
+<!-- Bento Grid Layout for Matters -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<!-- Left Column (Active Matters) - Takes up 2 columns -->
+<div class="lg:col-span-2 flex flex-col gap-6">
+<div class="flex items-center justify-between">
+<h3 class="text-headline-lg font-headline-lg text-primary">Active Matters</h3>
+<div class="flex gap-2">
+<button class="p-2 text-on-surface-variant border border-outline-variant rounded hover:bg-surface-container-low transition-colors"><span class="material-symbols-outlined text-[18px]">filter_list</span></button>
+</div>
+</div>
+<!-- Active Matter Card 1 -->
+<div class="bg-surface-card border border-border-subtle rounded-xl p-5 shadow-[0_4px_12px_rgba(0,0,0,0.03)] hover:shadow-md transition-shadow cursor-pointer relative group">
+<div class="absolute top-5 right-5 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-1 text-on-surface-variant hover:text-primary rounded"><span class="material-symbols-outlined">more_horiz</span></button>
+</div>
+<div class="flex justify-between items-start mb-4">
+<div>
+<span class="text-label-caps font-label-caps text-on-surface-variant block mb-1">MTR-2023-089</span>
+<h4 class="text-title-md font-title-md text-primary">AJB Pembelian Tanah TB Simatupang</h4>
+</div>
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded bg-status-active/10 text-status-active border border-status-active/20 mt-1">
+<span class="material-symbols-outlined text-[14px]">sync</span>
+<span class="text-label-caps font-label-caps">In Progress</span>
+</span>
+</div>
+<div class="grid grid-cols-2 gap-4 mb-4 border-t border-border-subtle pt-4">
+<div>
+<span class="text-label-caps font-label-caps text-on-surface-variant block">Opened Date</span>
+<span class="text-body-sm font-body-sm text-on-surface mt-1 block">12 Oct 2023</span>
+</div>
+<div>
+<span class="text-label-caps font-label-caps text-on-surface-variant block">Responsible</span>
+<div class="flex items-center gap-2 mt-1">
+<div class="w-6 h-6 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center text-[10px] font-bold">DR</div>
+<span class="text-body-sm font-body-sm text-on-surface">Dian S.H.</span>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest border border-border-subtle rounded-lg p-3">
+<div class="flex justify-between text-body-sm font-body-sm mb-1">
+<span class="text-on-surface-variant">Progress (Verifikasi BPN)</span>
+<span class="font-medium text-primary">65%</span>
+</div>
+<div class="w-full bg-surface-container-high rounded-full h-1.5">
+<div class="bg-primary h-1.5 rounded-full" style="width: 65%"></div>
+</div>
+</div>
+</div>
+<!-- Active Matter Card 2 -->
+<div class="bg-surface-card border border-border-subtle rounded-xl p-5 shadow-[0_4px_12px_rgba(0,0,0,0.03)] hover:shadow-md transition-shadow cursor-pointer relative group">
+<div class="absolute top-5 right-5 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-1 text-on-surface-variant hover:text-primary rounded"><span class="material-symbols-outlined">more_horiz</span></button>
+</div>
+<div class="flex justify-between items-start mb-4">
+<div>
+<span class="text-label-caps font-label-caps text-on-surface-variant block mb-1">MTR-2023-112</span>
+<h4 class="text-title-md font-title-md text-primary">Pendirian PT Jaya Abadi Sentosa</h4>
+</div>
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded bg-status-critical/10 text-status-critical border border-status-critical/20 mt-1">
+<span class="material-symbols-outlined text-[14px]">warning</span>
+<span class="text-label-caps font-label-caps">Action Required</span>
+</span>
+</div>
+<div class="grid grid-cols-2 gap-4 mb-4 border-t border-border-subtle pt-4">
+<div>
+<span class="text-label-caps font-label-caps text-on-surface-variant block">Opened Date</span>
+<span class="text-body-sm font-body-sm text-on-surface mt-1 block">05 Nov 2023</span>
+</div>
+<div>
+<span class="text-label-caps font-label-caps text-on-surface-variant block">Responsible</span>
+<div class="flex items-center gap-2 mt-1">
+<div class="w-6 h-6 rounded-full bg-primary-container text-on-primary flex items-center justify-center text-[10px] font-bold">AN</div>
+<span class="text-body-sm font-body-sm text-on-surface">Anton S.H.</span>
+</div>
+</div>
+</div>
+<div class="bg-error-container/20 border border-error-container rounded-lg p-3 flex gap-3 items-start">
+<span class="material-symbols-outlined text-status-critical text-[20px]">error</span>
+<div>
+<span class="text-body-sm font-body-sm font-medium text-status-critical block">Missing Signature</span>
+<span class="text-body-sm font-body-sm text-on-surface-variant block">Draft Akta needs client approval.</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column (Historical & Stats) - Takes up 1 column -->
+<div class="flex flex-col gap-6">
+<!-- Stats Mini Bento -->
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-surface-card border border-border-subtle rounded-xl p-4 shadow-[0_4px_12px_rgba(0,0,0,0.03)]">
+<span class="material-symbols-outlined text-primary-container mb-2">folder_open</span>
+<div class="text-stats-number font-stats-number text-primary">12</div>
+<div class="text-label-caps font-label-caps text-on-surface-variant mt-1">Total Matters</div>
+</div>
+<div class="bg-surface-card border border-border-subtle rounded-xl p-4 shadow-[0_4px_12px_rgba(0,0,0,0.03)]">
+<span class="material-symbols-outlined text-status-success mb-2">task_alt</span>
+<div class="text-stats-number font-stats-number text-primary">10</div>
+<div class="text-label-caps font-label-caps text-on-surface-variant mt-1">Completed</div>
+</div>
+</div>
+<!-- Historical Matters List -->
+<div class="bg-surface-card border border-border-subtle rounded-xl shadow-[0_4px_12px_rgba(0,0,0,0.03)] flex flex-col h-full">
+<div class="p-5 border-b border-border-subtle flex justify-between items-center">
+<h3 class="text-title-md font-title-md text-primary">Historical Matters</h3>
+<button class="text-label-caps font-label-caps text-primary hover:underline">View All</button>
+</div>
+<div class="flex-1 overflow-y-auto max-h-[400px]">
+<!-- History Item -->
+<div class="p-4 border-b border-border-subtle hover:bg-surface-container-lowest transition-colors cursor-pointer group">
+<div class="flex justify-between items-start mb-1">
+<h5 class="text-body-sm font-body-sm font-medium text-primary group-hover:text-secondary transition-colors">Perjanjian Kredit Bank Mandiri</h5>
+<span class="material-symbols-outlined text-status-success text-[16px]">check_circle</span>
+</div>
+<div class="flex justify-between items-center mt-2">
+<span class="text-label-caps font-label-caps text-on-surface-variant">MTR-2022-045</span>
+<span class="text-label-caps font-label-caps text-on-surface-variant">Closed: Mar 2023</span>
+</div>
+</div>
+<!-- History Item -->
+<div class="p-4 border-b border-border-subtle hover:bg-surface-container-lowest transition-colors cursor-pointer group">
+<div class="flex justify-between items-start mb-1">
+<h5 class="text-body-sm font-body-sm font-medium text-primary group-hover:text-secondary transition-colors">Balik Nama SHM No. 455</h5>
+<span class="material-symbols-outlined text-status-success text-[16px]">check_circle</span>
+</div>
+<div class="flex justify-between items-center mt-2">
+<span class="text-label-caps font-label-caps text-on-surface-variant">MTR-2022-012</span>
+<span class="text-label-caps font-label-caps text-on-surface-variant">Closed: Jan 2023</span>
+</div>
+</div>
+<!-- History Item -->
+<div class="p-4 border-b border-border-subtle hover:bg-surface-container-lowest transition-colors cursor-pointer group">
+<div class="flex justify-between items-start mb-1">
+<h5 class="text-body-sm font-body-sm font-medium text-primary group-hover:text-secondary transition-colors">Kuasa Menjual Saham</h5>
+<span class="material-symbols-outlined text-status-archived text-[16px]">archive</span>
+</div>
+<div class="flex justify-between items-center mt-2">
+<span class="text-label-caps font-label-caps text-on-surface-variant">MTR-2021-188</span>
+<span class="text-label-caps font-label-caps text-on-surface-variant">Archived: Dec 2021</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

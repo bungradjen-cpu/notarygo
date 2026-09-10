@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Mobile Reports Summary - NotaryGo</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-tertiary-fixed-variant": "#36485b",
+                      "secondary": "#944a00",
+                      "surface-card": "#FFFFFF",
+                      "surface-container-high": "#e7e8e9",
+                      "surface-container": "#edeeef",
+                      "primary-fixed-dim": "#afc8f0",
+                      "on-secondary-fixed": "#301400",
+                      "outline-variant": "#c4c6cf",
+                      "primary": "#000613",
+                      "inverse-on-surface": "#f0f1f2",
+                      "status-critical": "#E74C3C",
+                      "surface-dim": "#d9dadb",
+                      "secondary-fixed": "#ffdcc5",
+                      "error-container": "#ffdad6",
+                      "tertiary-container": "#0d2031",
+                      "surface-container-highest": "#e1e3e4",
+                      "inverse-primary": "#afc8f0",
+                      "on-tertiary-fixed": "#091d2e",
+                      "on-primary": "#ffffff",
+                      "on-background": "#191c1d",
+                      "on-error": "#ffffff",
+                      "surface-tint": "#476083",
+                      "surface-container-low": "#f3f4f5",
+                      "border-subtle": "#E2E8F0",
+                      "tertiary": "#000610",
+                      "status-archived": "#94A3B8",
+                      "surface-bright": "#f8f9fa",
+                      "inverse-surface": "#2e3132",
+                      "background": "#f8f9fa",
+                      "on-secondary-container": "#663100",
+                      "primary-fixed": "#d4e3ff",
+                      "status-warning-medium": "#E67E22",
+                      "status-success": "#10B981",
+                      "on-primary-fixed": "#001c3a",
+                      "on-tertiary": "#ffffff",
+                      "surface": "#f8f9fa",
+                      "surface-container-lowest": "#ffffff",
+                      "tertiary-fixed-dim": "#b5c8df",
+                      "surface-variant": "#e1e3e4",
+                      "outline": "#74777f",
+                      "on-surface-variant": "#43474e",
+                      "on-error-container": "#93000a",
+                      "status-active": "#3498DB",
+                      "tertiary-fixed": "#d1e4fb",
+                      "on-tertiary-container": "#76889d",
+                      "on-surface": "#191c1d",
+                      "on-primary-container": "#6f88ad",
+                      "secondary-container": "#fc8f34",
+                      "on-primary-fixed-variant": "#2f486a",
+                      "primary-container": "#001f3f",
+                      "on-secondary-fixed-variant": "#713700",
+                      "error": "#ba1a1a",
+                      "secondary-fixed-dim": "#ffb783",
+                      "status-warning-low": "#F1C40F",
+                      "on-secondary": "#ffffff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "sidebar-width": "260px",
+                      "touch-target-min": "44px",
+                      "stack-sm": "0.5rem",
+                      "container-padding": "2rem",
+                      "gutter": "1.5rem",
+                      "stack-md": "1rem"
+              },
+              "fontFamily": {
+                      "body-sm": [
+                              "Inter"
+                      ],
+                      "body-base": [
+                              "Inter"
+                      ],
+                      "display-lg": [
+                              "Inter"
+                      ],
+                      "headline-lg": [
+                              "Inter"
+                      ],
+                      "label-caps": [
+                              "Inter"
+                      ],
+                      "headline-lg-mobile": [
+                              "Inter"
+                      ],
+                      "title-md": [
+                              "Inter"
+                      ],
+                      "stats-number": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "body-sm": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-base": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-lg": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-caps": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "20px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "title-md": [
+                              "18px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "stats-number": [
+                              "28px",
+                              {
+                                      "lineHeight": "34px",
+                                      "fontWeight": "700"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+          font-family: 'Material Symbols Outlined';
+          font-weight: normal;
+          font-style: normal;
+          font-size: 24px;
+          line-height: 1;
+          letter-spacing: normal;
+          text-transform: none;
+          display: inline-block;
+          white-space: nowrap;
+          word-wrap: normal;
+          direction: ltr;
+          -webkit-font-feature-settings: 'liga';
+          -webkit-font-smoothing: antialiased;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-base min-h-screen pb-20 md:pb-0">
+<!-- Top Navigation (Mobile Friendly) -->
+<header class="docked h-touch-target-min w-full sticky top-0 z-40 bg-surface dark:bg-surface border-b border-border-subtle flex justify-between items-center px-gutter md:hidden">
+<div class="flex items-center gap-stack-sm">
+<!-- Mobile Menu Trigger -->
+<button class="p-2 text-on-surface-variant focus:outline-none">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<h1 class="text-title-md font-title-md font-bold text-primary-container dark:text-primary-fixed">NOTARYGO™</h1>
+</div>
+<div class="flex items-center gap-stack-sm">
+<button class="text-primary font-body-sm font-semibold hover:text-primary transition-colors bg-secondary-fixed/20 px-3 py-1 rounded-full">+ Buat</button>
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="notifications">notifications</span>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="w-full md:hidden flex flex-col gap-stack-md p-gutter">
+<div class="flex justify-between items-center">
+<h2 class="text-headline-lg-mobile font-headline-lg-mobile text-primary">Overview</h2>
+<button class="flex items-center gap-1 text-primary text-body-sm font-semibold bg-surface-container py-1 px-3 rounded-full">
+<span class="material-symbols-outlined text-[16px]" data-icon="filter_list">filter_list</span>
+                This Month
+            </button>
+</div>
+<!-- KPI Cards Grid (Vertical Stack) -->
+<div class="grid grid-cols-1 gap-stack-sm">
+<!-- Active Matters -->
+<div class="bg-surface-card rounded-xl border border-border-subtle p-4 shadow-sm flex items-center justify-between">
+<div class="flex flex-col">
+<span class="text-label-caps font-label-caps text-on-surface-variant uppercase mb-1">Active Matters</span>
+<span class="text-stats-number font-stats-number text-primary">124</span>
+</div>
+<div class="h-10 w-10 rounded-full bg-primary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined text-on-primary-fixed" data-icon="folder_open">folder_open</span>
+</div>
+</div>
+<!-- Completed Matters -->
+<div class="bg-surface-card rounded-xl border border-border-subtle p-4 shadow-sm flex items-center justify-between">
+<div class="flex flex-col">
+<span class="text-label-caps font-label-caps text-on-surface-variant uppercase mb-1">Completed (Mtd)</span>
+<span class="text-stats-number font-stats-number text-status-success">42</span>
+</div>
+<div class="h-10 w-10 rounded-full bg-status-success/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-status-success" data-icon="task_alt">task_alt</span>
+</div>
+</div>
+<!-- Overdue Matters -->
+<div class="bg-surface-card rounded-xl border border-border-subtle p-4 shadow-sm flex items-center justify-between">
+<div class="flex flex-col">
+<span class="text-label-caps font-label-caps text-on-surface-variant uppercase mb-1">Overdue Actions</span>
+<span class="text-stats-number font-stats-number text-status-critical">8</span>
+</div>
+<div class="h-10 w-10 rounded-full bg-error-container flex items-center justify-center">
+<span class="material-symbols-outlined text-on-error-container" data-icon="warning">warning</span>
+</div>
+</div>
+<!-- Average Aging -->
+<div class="bg-surface-card rounded-xl border border-border-subtle p-4 shadow-sm flex items-center justify-between">
+<div class="flex flex-col">
+<span class="text-label-caps font-label-caps text-on-surface-variant uppercase mb-1">Avg Matter Aging</span>
+<div class="flex items-baseline gap-1">
+<span class="text-stats-number font-stats-number text-status-warning-medium">18</span>
+<span class="text-body-sm font-body-sm text-on-surface-variant">days</span>
+</div>
+</div>
+<div class="h-10 w-10 rounded-full bg-secondary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined text-on-secondary-fixed" data-icon="pending_actions">pending_actions</span>
+</div>
+</div>
+</div>
+<!-- Matters by Service Type (Simple Bar Chart Visualization) -->
+<div class="bg-surface-card rounded-xl border border-border-subtle p-4 shadow-sm mt-stack-sm flex flex-col gap-4">
+<h3 class="text-title-md font-title-md text-primary">Matters by Service Type</h3>
+<div class="flex flex-col gap-3">
+<!-- Bar 1 -->
+<div class="flex flex-col gap-1">
+<div class="flex justify-between text-body-sm font-body-sm">
+<span class="text-on-surface">PPJB</span>
+<span class="font-semibold text-primary">45%</span>
+</div>
+<div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
+<div class="bg-primary-container h-full rounded-full" style="width: 45%;"></div>
+</div>
+</div>
+<!-- Bar 2 -->
+<div class="flex flex-col gap-1">
+<div class="flex justify-between text-body-sm font-body-sm">
+<span class="text-on-surface">AJB</span>
+<span class="font-semibold text-primary">30%</span>
+</div>
+<div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
+<div class="bg-primary-container h-full rounded-full" style="width: 30%; opacity: 0.8"></div>
+</div>
+</div>
+<!-- Bar 3 -->
+<div class="flex flex-col gap-1">
+<div class="flex justify-between text-body-sm font-body-sm">
+<span class="text-on-surface">Pendirian PT</span>
+<span class="font-semibold text-primary">15%</span>
+</div>
+<div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
+<div class="bg-primary-container h-full rounded-full" style="width: 15%; opacity: 0.6"></div>
+</div>
+</div>
+<!-- Bar 4 -->
+<div class="flex flex-col gap-1">
+<div class="flex justify-between text-body-sm font-body-sm">
+<span class="text-on-surface">Lainnya</span>
+<span class="font-semibold text-primary">10%</span>
+</div>
+<div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
+<div class="bg-primary-container h-full rounded-full" style="width: 10%; opacity: 0.4"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Billing Summary -->
+<div class="bg-surface-card rounded-xl border border-border-subtle p-4 shadow-sm mt-stack-sm flex flex-col gap-4">
+<div class="flex justify-between items-center">
+<h3 class="text-title-md font-title-md text-primary">Billing Summary</h3>
+<span class="text-label-caps font-label-caps text-on-surface-variant">YTD</span>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="flex flex-col">
+<span class="text-label-caps font-label-caps text-on-surface-variant uppercase mb-1">Total Issued</span>
+<span class="text-headline-lg-mobile font-headline-lg-mobile text-primary">Rp 4.2B</span>
+</div>
+<div class="flex flex-col">
+<span class="text-label-caps font-label-caps text-on-surface-variant uppercase mb-1">Total Paid</span>
+<span class="text-headline-lg-mobile font-headline-lg-mobile text-status-success">Rp 3.1B</span>
+</div>
+</div>
+<!-- Mini Progress -->
+<div class="mt-2">
+<div class="flex justify-between text-label-caps font-label-caps text-on-surface-variant mb-1">
+<span>Collection Rate</span>
+<span>73.8%</span>
+</div>
+<div class="w-full bg-surface-container-high h-2 rounded-full overflow-hidden">
+<div class="bg-status-success h-full rounded-full" style="width: 73.8%;"></div>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation Shell (Mobile Only) -->
+<nav class="fixed bottom-0 left-0 w-full bg-surface-container-lowest border-t border-border-subtle h-16 flex items-center justify-around md:hidden z-50 px-2 pb-safe">
+<a class="flex flex-col items-center justify-center w-full h-full text-primary" href="#">
+<div class="bg-primary-container/20 px-4 py-1 rounded-full mb-1">
+<span class="material-symbols-outlined text-primary" data-icon="dashboard">dashboard</span>
+</div>
+<span class="text-label-caps font-label-caps font-bold">Overview</span>
+</a>
+<a class="flex flex-col items-center justify-center w-full h-full text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="work">work</span>
+<span class="text-[10px] font-semibold tracking-wide">Operations</span>
+</a>
+<a class="flex flex-col items-center justify-center w-full h-full text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="description">description</span>
+<span class="text-[10px] font-semibold tracking-wide">Documents</span>
+</a>
+<a class="flex flex-col items-center justify-center w-full h-full text-on-surface-variant hover:text-primary transition-colors" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="payments">payments</span>
+<span class="text-[10px] font-semibold tracking-wide">Finance</span>
+</a>
+</nav>
+<style>
+        /* Safe area padding for mobile notches */
+        @supports (padding-bottom: env(safe-area-inset-bottom)) {
+            .pb-safe {
+                padding-bottom: env(safe-area-inset-bottom);
+            }
+            body {
+                padding-bottom: calc(4rem + env(safe-area-inset-bottom));
+            }
+        }
+    </style>
+</body></html>

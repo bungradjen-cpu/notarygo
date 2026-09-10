@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Matter Detail - Pekerjaan</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-error-container": "#93000a",
+                      "inverse-primary": "#afc8f0",
+                      "surface-variant": "#e1e3e4",
+                      "primary-fixed": "#d4e3ff",
+                      "on-surface": "#191c1d",
+                      "tertiary-container": "#0d2031",
+                      "status-success": "#10B981",
+                      "status-active": "#3498DB",
+                      "surface-card": "#FFFFFF",
+                      "primary-container": "#001f3f",
+                      "status-warning-medium": "#E67E22",
+                      "on-background": "#191c1d",
+                      "tertiary-fixed": "#d1e4fb",
+                      "surface-dim": "#d9dadb",
+                      "tertiary-fixed-dim": "#b5c8df",
+                      "secondary-fixed-dim": "#ffb783",
+                      "on-primary": "#ffffff",
+                      "on-secondary-container": "#663100",
+                      "surface-container-low": "#f3f4f5",
+                      "secondary": "#944a00",
+                      "on-secondary-fixed": "#301400",
+                      "on-secondary": "#ffffff",
+                      "surface-bright": "#f8f9fa",
+                      "secondary-container": "#fc8f34",
+                      "on-tertiary-fixed-variant": "#36485b",
+                      "surface-container": "#edeeef",
+                      "on-tertiary-fixed": "#091d2e",
+                      "surface-container-high": "#e7e8e9",
+                      "secondary-fixed": "#ffdcc5",
+                      "on-primary-container": "#6f88ad",
+                      "inverse-surface": "#2e3132",
+                      "on-secondary-fixed-variant": "#713700",
+                      "on-surface-variant": "#43474e",
+                      "border-subtle": "#E2E8F0",
+                      "primary-fixed-dim": "#afc8f0",
+                      "error": "#ba1a1a",
+                      "primary": "#000613",
+                      "background": "#f8f9fa",
+                      "status-warning-low": "#F1C40F",
+                      "outline": "#74777f",
+                      "surface-tint": "#476083",
+                      "error-container": "#ffdad6",
+                      "on-tertiary-container": "#76889d",
+                      "surface-container-highest": "#e1e3e4",
+                      "surface-container-lowest": "#ffffff",
+                      "on-primary-fixed-variant": "#2f486a",
+                      "surface": "#f8f9fa",
+                      "on-primary-fixed": "#001c3a",
+                      "status-archived": "#94A3B8",
+                      "tertiary": "#000610",
+                      "inverse-on-surface": "#f0f1f2",
+                      "on-error": "#ffffff",
+                      "status-critical": "#E74C3C",
+                      "outline-variant": "#c4c6cf",
+                      "on-tertiary": "#ffffff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "gutter": "1.5rem",
+                      "touch-target-min": "44px",
+                      "sidebar-width": "260px",
+                      "container-padding": "2rem",
+                      "stack-sm": "0.5rem",
+                      "stack-md": "1rem"
+              },
+              "fontFamily": {
+                      "headline-lg-mobile": ["Inter"],
+                      "display-lg": ["Inter"],
+                      "label-caps": ["Inter"],
+                      "body-sm": ["Inter"],
+                      "stats-number": ["Inter"],
+                      "headline-lg": ["Inter"],
+                      "title-md": ["Inter"],
+                      "body-base": ["Inter"]
+              },
+              "fontSize": {
+                      "headline-lg-mobile": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                      "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "stats-number": ["28px", {"lineHeight": "34px", "fontWeight": "700"}],
+                      "headline-lg": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "title-md": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                      "body-base": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+              }
+            },
+          },
+        }
+      </script>
+<style>
+        .drawer-open {
+            transform: translateX(0);
+        }
+        .drawer-closed {
+            transform: translateX(100%);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-base min-h-screen flex overflow-hidden">
+<!-- SideNavBar -->
+<nav class="hidden md:flex flex-col h-screen w-sidebar fixed left-0 top-0 bg-primary-container dark:bg-primary-container border-r border-outline-variant shadow-sm py-gutter justify-between z-50">
+<div>
+<div class="px-6 pb-6 flex items-center gap-3">
+<img alt="NotaryGo Logo" class="w-8 h-8 rounded-full bg-surface-container-lowest object-cover" data-alt="A minimalist geometric logo for NotaryGo in crisp white, standing out sharply against a deep navy blue background. The design feels modern, authoritative, and corporate, emphasizing legal precision and organizational clarity. Subtle light mode reflections add a premium finish." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCeYelhZAxeuniET5suu3dKowreocyssiV4zs7a-sO_LDpBBk-sSM6_YVDxw2gaV69W-uW2LSkEshB_xHd2pwWZXzxgoGL-tpMBfXigDgLr5sPVTyObXcZnlLQX0L7lhJOcyG7aWJOX56QmqeQqItDYAb0oqGXSz_-eYX7GcZX3QODNPPunwWLIDL0eZUwYehIs2fG5K1M8NEwz2Q83tWZ-TsNfeXDfjBJiQDLC1WRwwRLNO-CLgke8rA"/>
+<div>
+<h1 class="text-title-md font-title-md font-bold text-surface-container-lowest">NOTARYGO™</h1>
+<p class="text-label-caps font-label-caps text-on-primary-container">Operational System</p>
+</div>
+</div>
+<div class="flex flex-col gap-1 mt-4">
+<a class="flex items-center gap-stack-md px-4 py-3 text-on-primary-container hover:text-white hover:bg-on-primary-container/10 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="text-body-base font-body-base">Overview</span>
+</a>
+<a class="flex items-center gap-stack-md px-4 py-3 bg-on-primary-container/20 text-white border-l-4 border-secondary opacity-90 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="work" data-weight="fill" style="font-variation-settings: 'FILL' 1;">work</span>
+<span class="text-body-base font-body-base font-semibold">Operations</span>
+</a>
+<a class="flex items-center gap-stack-md px-4 py-3 text-on-primary-container hover:text-white hover:bg-on-primary-container/10 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+<span class="text-body-base font-body-base">Documents</span>
+</a>
+<a class="flex items-center gap-stack-md px-4 py-3 text-on-primary-container hover:text-white hover:bg-on-primary-container/10 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span class="text-body-base font-body-base">Finance</span>
+</a>
+<a class="flex items-center gap-stack-md px-4 py-3 text-on-primary-container hover:text-white hover:bg-on-primary-container/10 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="settings_accessibility">settings_accessibility</span>
+<span class="text-body-base font-body-base">Control</span>
+</a>
+</div>
+</div>
+<div class="px-4">
+<button class="w-full flex items-center justify-center gap-2 py-3 bg-surface-container-lowest/10 text-white rounded-DEFAULT hover:bg-surface-container-lowest/20 transition-colors mb-4 border border-outline/30 text-body-sm font-body-sm">
+                Quick Settings
+             </button>
+<a class="flex items-center gap-stack-md px-4 py-3 text-on-primary-container hover:text-white hover:bg-on-primary-container/10 transition-colors duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+<span class="text-body-base font-body-base">Owner Profile</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 ml-0 md:ml-sidebar flex flex-col h-screen overflow-hidden relative">
+<!-- TopNavBar -->
+<header class="flex justify-between items-center px-gutter h-touch-target-min w-full sticky top-0 z-40 bg-surface dark:bg-surface border-b border-border-subtle shrink-0">
+<div class="flex items-center gap-4">
+<button class="md:hidden text-primary">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<div class="text-title-md font-title-md font-bold text-primary-container dark:text-primary-fixed truncate hidden sm:block">
+                    Kantor Notaris &amp; PPAT Nama Notaris, S.H., M.Kn.
+                </div>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden lg:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">search</span>
+<input class="h-10 pl-10 pr-4 rounded-full border-border-subtle bg-surface-container-low text-body-sm focus:border-primary focus:ring-1 focus:ring-primary w-64 outline-none transition-all" placeholder="Search..." type="text"/>
+</div>
+<button class="h-10 px-4 bg-primary text-white rounded-DEFAULT text-body-sm font-semibold hover:bg-tertiary-container transition-colors shadow-sm whitespace-nowrap">
+                    + Buat
+                </button>
+<div class="flex items-center gap-2 text-on-surface-variant">
+<button class="p-2 rounded-full hover:bg-surface-container hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 rounded-full hover:bg-surface-container hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+</button>
+<button class="w-8 h-8 rounded-full bg-surface-variant overflow-hidden border border-border-subtle ml-2">
+<img alt="Owner Profile" class="w-full h-full object-cover" data-alt="A professional headshot of a female notary partner in a crisp white blouse and dark navy blazer. The lighting is bright and even, set against a clean, light-gray office background. The mood is approachable yet highly authoritative and corporate, fitting for a modern legal software interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBrANiEgX01-zeSW5RgNFWvqNCyAHNVgaP9rEivSihPSKpWZxidnTqQKAEdaPZVHFFkK_FHGhO7KPn7WJlg0tCwBT8tBxhc3ZBJdgZ9V182bHREQokzHUvVfjt6PUhXTX_VIvhnkIrKQnjYu5uvaD6FESrj34CWS2Ely92S7l5IqAICahRRyhSr4Bzw_f8BjrJ5nGV2jgTGmpXLgd7Jin6NvSCKBtccrN95S_LyrerKt49I130pyo2avQ"/>
+</button>
+</div>
+</div>
+</header>
+<!-- Scrollable Content -->
+<div class="flex-1 overflow-auto bg-surface-bright relative" id="mainScrollArea">
+<div class="p-container-padding max-w-7xl mx-auto space-y-6">
+<!-- Matter Header (Simplified for Context) -->
+<div class="bg-surface-card rounded-lg border border-border-subtle p-6 shadow-[0_4px_12px_rgba(0,0,0,0.03)] flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+<div>
+<div class="flex items-center gap-2 mb-2">
+<span class="px-2 py-1 bg-status-active/10 text-status-active rounded text-label-caps font-label-caps flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">sync</span> In Progress
+                            </span>
+<span class="text-on-surface-variant text-body-sm">MT-2023-0891</span>
+</div>
+<h2 class="text-headline-lg font-headline-lg text-primary">Jual Beli Tanah &amp; Bangunan - PT Bumi Indah</h2>
+</div>
+<button class="px-4 py-2 bg-surface text-primary border border-primary rounded-DEFAULT text-body-sm font-semibold hover:bg-surface-container-low transition-colors">
+                        Edit Matter
+                    </button>
+</div>
+<!-- Tabs -->
+<div class="border-b border-border-subtle">
+<nav class="flex gap-8 px-2">
+<a class="py-3 text-on-surface-variant hover:text-primary transition-colors text-body-sm font-semibold" href="#">Ringkasan</a>
+<a class="py-3 text-on-surface-variant hover:text-primary transition-colors text-body-sm font-semibold" href="#">Pihak</a>
+<a class="py-3 text-primary font-bold border-b-2 border-primary text-body-sm" href="#">Pekerjaan</a>
+<a class="py-3 text-on-surface-variant hover:text-primary transition-colors text-body-sm font-semibold" href="#">Dokumen</a>
+<a class="py-3 text-on-surface-variant hover:text-primary transition-colors text-body-sm font-semibold" href="#">Keuangan</a>
+</nav>
+</div>
+<!-- Pekerjaan Content -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<!-- Main Tasks List -->
+<div class="lg:col-span-2 space-y-6">
+<!-- Task Controls -->
+<div class="flex justify-between items-center">
+<h3 class="text-title-md font-title-md text-primary">Daftar Tugas</h3>
+<button class="px-3 py-1.5 bg-surface text-primary border border-primary rounded-DEFAULT text-body-sm font-semibold hover:bg-surface-container-low transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">add</span> Tambah Tugas
+                            </button>
+</div>
+<!-- Task Items -->
+<div class="space-y-3">
+<!-- Task 1 (Active/Clicked) -->
+<div class="bg-surface-card rounded-lg border border-primary ring-1 ring-primary/20 p-4 shadow-[0_4px_12px_rgba(0,0,0,0.03)] cursor-pointer hover:shadow-md transition-shadow" onclick="toggleDrawer()">
+<div class="flex justify-between items-start mb-2">
+<div class="flex items-center gap-3">
+<div class="w-5 h-5 rounded border-2 border-border-subtle flex items-center justify-center"></div>
+<h4 class="text-body-base font-bold text-primary">Review Draft AJB</h4>
+</div>
+<span class="px-2 py-1 bg-status-warning-medium/10 text-status-warning-medium rounded text-label-caps font-label-caps flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">priority_high</span> High
+                                    </span>
+</div>
+<div class="ml-8 text-body-sm text-on-surface-variant flex gap-6">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">person</span> Andi S.</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">calendar_today</span> 24 Oct 2023</span>
+<span class="flex items-center gap-1 text-primary"><span class="material-symbols-outlined text-[16px]">progress_activity</span> 80%</span>
+</div>
+</div>
+<!-- Task 2 -->
+<div class="bg-surface-card rounded-lg border border-border-subtle p-4 shadow-[0_4px_12px_rgba(0,0,0,0.03)] cursor-pointer hover:border-outline-variant transition-colors">
+<div class="flex justify-between items-start mb-2">
+<div class="flex items-center gap-3">
+<div class="w-5 h-5 rounded border-2 border-status-success bg-status-success text-white flex items-center justify-center">
+<span class="material-symbols-outlined text-[14px]">check</span>
+</div>
+<h4 class="text-body-base font-semibold text-primary line-through text-on-surface-variant">Kumpulkan KTP Penjual</h4>
+</div>
+<span class="px-2 py-1 bg-surface-container text-on-surface-variant rounded text-label-caps font-label-caps flex items-center gap-1">
+                                        Normal
+                                    </span>
+</div>
+<div class="ml-8 text-body-sm text-on-surface-variant flex gap-6">
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">person</span> Budi H.</span>
+<span class="flex items-center gap-1"><span class="material-symbols-outlined text-[16px]">calendar_today</span> 20 Oct 2023</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Checklists & Approvals -->
+<div class="space-y-6">
+<!-- Approvals Card -->
+<div class="bg-surface-card rounded-lg border border-border-subtle p-5 shadow-[0_4px_12px_rgba(0,0,0,0.03)]">
+<h3 class="text-title-md font-title-md text-primary mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined">fact_check</span> Approvals
+                            </h3>
+<div class="p-3 border border-border-subtle rounded-DEFAULT bg-surface-container-low mb-2">
+<p class="text-body-sm font-semibold text-primary mb-1">Persetujuan Draft Final</p>
+<div class="flex justify-between items-center text-body-sm text-on-surface-variant">
+<span>Menunggu: Notaris</span>
+<span class="text-status-warning-medium">Pending</span>
+</div>
+</div>
+</div>
+<!-- Revision Requests Card -->
+<div class="bg-surface-card rounded-lg border border-border-subtle p-5 shadow-[0_4px_12px_rgba(0,0,0,0.03)]">
+<h3 class="text-title-md font-title-md text-primary mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined">rate_review</span> Revision Requests
+                            </h3>
+<div class="text-center py-6 text-on-surface-variant">
+<span class="material-symbols-outlined text-4xl mb-2 text-surface-variant">check_circle</span>
+<p class="text-body-sm">Tidak ada permintaan revisi aktif.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Task Detail Drawer Overlay -->
+<div class="absolute inset-0 bg-primary/20 backdrop-blur-sm z-40 hidden transition-opacity" id="drawerOverlay" onclick="toggleDrawer()"></div>
+<!-- Task Detail Drawer (Right Side) -->
+<div class="absolute top-0 right-0 h-full w-full max-w-md bg-surface-card shadow-[-10px_0_25px_rgba(0,0,0,0.08)] z-50 flex flex-col drawer-closed transition-transform duration-300 ease-in-out border-l border-border-subtle" id="taskDrawer">
+<!-- Drawer Header -->
+<div class="p-6 border-b border-border-subtle flex justify-between items-start bg-surface-bright">
+<div>
+<span class="px-2 py-1 bg-status-active/10 text-status-active rounded text-label-caps font-label-caps inline-flex items-center gap-1 mb-2">
+<span class="material-symbols-outlined text-[14px]">sync</span> In Progress
+                    </span>
+<h2 class="text-headline-lg font-headline-lg text-primary">Review Draft AJB</h2>
+</div>
+<button class="text-on-surface-variant hover:text-primary transition-colors p-1" onclick="toggleDrawer()">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<!-- Drawer Content (Scrollable) -->
+<div class="flex-1 overflow-y-auto p-6 space-y-6">
+<!-- Metadata Grid -->
+<div class="grid grid-cols-2 gap-y-4 gap-x-4 text-body-sm">
+<div>
+<p class="text-on-surface-variant mb-1 font-semibold text-[12px] uppercase tracking-wider">Matter</p>
+<p class="text-primary font-medium">Jual Beli Tanah &amp; Bangunan</p>
+</div>
+<div>
+<p class="text-on-surface-variant mb-1 font-semibold text-[12px] uppercase tracking-wider">Client</p>
+<p class="text-primary font-medium">PT Bumi Indah</p>
+</div>
+<div>
+<p class="text-on-surface-variant mb-1 font-semibold text-[12px] uppercase tracking-wider">PIC</p>
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-primary-fixed text-primary-container flex items-center justify-center font-bold text-[10px]">AS</div>
+<span class="text-primary font-medium">Andi Setiawan</span>
+</div>
+</div>
+<div>
+<p class="text-on-surface-variant mb-1 font-semibold text-[12px] uppercase tracking-wider">Deadline</p>
+<p class="text-status-critical font-medium flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">warning</span> 24 Oct 2023
+                        </p>
+</div>
+<div>
+<p class="text-on-surface-variant mb-1 font-semibold text-[12px] uppercase tracking-wider">Priority</p>
+<span class="px-2 py-0.5 bg-status-warning-medium/10 text-status-warning-medium rounded text-[12px] font-semibold inline-block border border-status-warning-medium/30">High</span>
+</div>
+</div>
+<hr class="border-border-subtle"/>
+<!-- Progress Section -->
+<div>
+<div class="flex justify-between items-center mb-2">
+<h3 class="text-title-md font-title-md text-primary">Progress</h3>
+<span class="text-body-sm font-bold text-primary">80%</span>
+</div>
+<div class="w-full h-2 bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-status-active rounded-full" style="width: 80%;"></div>
+</div>
+</div>
+<!-- Instructions Section -->
+<div>
+<h3 class="text-title-md font-title-md text-primary mb-2">Instructions</h3>
+<div class="p-4 bg-surface-container-low rounded-lg border border-border-subtle text-body-sm text-on-surface-variant leading-relaxed">
+                        Mohon periksa kembali pasal 4 mengenai denda keterlambatan pembayaran. Pastikan sudah sesuai dengan kesepakatan meeting terakhir tanggal 15 Okt. Cross-check juga lampiran peta bidang.
+                    </div>
+</div>
+</div>
+<!-- Drawer Footer (Actions) -->
+<div class="p-6 border-t border-border-subtle bg-surface-bright flex gap-3">
+<button class="flex-1 py-3 bg-surface text-primary border border-primary rounded-DEFAULT text-body-base font-semibold hover:bg-surface-container-low transition-colors">
+                    Update
+                </button>
+<button class="flex-1 py-3 bg-primary text-white rounded-DEFAULT text-body-base font-semibold hover:bg-tertiary-container transition-colors shadow-sm">
+                    Selesai
+                </button>
+</div>
+</div>
+</main>
+<script>
+        function toggleDrawer() {
+            const drawer = document.getElementById('taskDrawer');
+            const overlay = document.getElementById('drawerOverlay');
+            
+            if (drawer.classList.contains('drawer-closed')) {
+                drawer.classList.remove('drawer-closed');
+                drawer.classList.add('drawer-open');
+                overlay.classList.remove('hidden');
+            } else {
+                drawer.classList.remove('drawer-open');
+                drawer.classList.add('drawer-closed');
+                overlay.classList.add('hidden');
+            }
+        }
+        
+        // Open drawer by default for demonstration based on prompt
+        setTimeout(toggleDrawer, 500);
+    </script>
+</body></html>

@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+
+<html lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Kelengkapan Dokumen - NOTARYGO</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary": "#ffffff",
+                        "surface-tint": "#476083",
+                        "tertiary-container": "#0d2031",
+                        "surface-variant": "#e1e3e4",
+                        "status-active": "#3498DB",
+                        "inverse-on-surface": "#f0f1f2",
+                        "status-success": "#10B981",
+                        "on-secondary-fixed": "#301400",
+                        "background": "#f8f9fa",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "secondary": "#944a00",
+                        "outline": "#74777f",
+                        "primary-fixed": "#d4e3ff",
+                        "primary-container": "#001f3f",
+                        "tertiary-fixed": "#d1e4fb",
+                        "surface": "#f8f9fa",
+                        "surface-card": "#FFFFFF",
+                        "on-primary-fixed-variant": "#2f486a",
+                        "surface-container-low": "#f3f4f5",
+                        "on-secondary-fixed-variant": "#713700",
+                        "error-container": "#ffdad6",
+                        "secondary-fixed": "#ffdcc5",
+                        "border-subtle": "#E2E8F0",
+                        "surface-container-high": "#e7e8e9",
+                        "tertiary-fixed-dim": "#b5c8df",
+                        "outline-variant": "#c4c6cf",
+                        "status-critical": "#E74C3C",
+                        "surface-dim": "#d9dadb",
+                        "on-background": "#191c1d",
+                        "on-secondary": "#ffffff",
+                        "status-warning-medium": "#E67E22",
+                        "on-surface": "#191c1d",
+                        "primary-fixed-dim": "#afc8f0",
+                        "surface-container": "#edeeef",
+                        "on-primary-fixed": "#001c3a",
+                        "on-tertiary-fixed-variant": "#36485b",
+                        "status-warning-low": "#F1C40F",
+                        "status-archived": "#94A3B8",
+                        "secondary-container": "#fc8f34",
+                        "on-error": "#ffffff",
+                        "inverse-surface": "#2e3132",
+                        "primary": "#000613",
+                        "on-primary-container": "#6f88ad",
+                        "secondary-fixed-dim": "#ffb783",
+                        "surface-bright": "#f8f9fa",
+                        "tertiary": "#000610",
+                        "on-tertiary-fixed": "#091d2e",
+                        "on-tertiary-container": "#76889d",
+                        "error": "#ba1a1a",
+                        "on-error-container": "#93000a",
+                        "on-surface-variant": "#43474e",
+                        "inverse-primary": "#afc8f0",
+                        "on-secondary-container": "#663100",
+                        "surface-container-highest": "#e1e3e4"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-sm": "0.5rem",
+                        "stack-md": "1rem",
+                        "container-padding": "2rem",
+                        "touch-target-min": "44px",
+                        "gutter": "1.5rem",
+                        "sidebar-width": "260px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Inter"],
+                        "stats-number": ["Inter"],
+                        "title-md": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "body-base": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "stats-number": ["28px", { "lineHeight": "34px", "fontWeight": "700" }],
+                        "title-md": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "body-base": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-lg": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-base antialiased flex h-screen overflow-hidden">
+<!-- SideNavBar -->
+<aside class="bg-primary-container dark:bg-primary-container docked h-screen w-sidebar fixed left-0 top-0 border-r border-outline-variant shadow-sm hidden md:flex flex-col py-gutter justify-between z-50">
+<div class="px-4">
+<div class="flex items-center gap-stack-md mb-8">
+<img alt="NotaryGo Logo" class="w-8 h-8 rounded-full bg-surface-container-lowest object-cover" data-alt="A highly professional and minimalist logo mark for a modern legal tech software platform, featuring a stylized crest or abstract geometric shape representing balance and security. Deep navy and gold color palette on a pure white background, ensuring a clean, corporate identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOM0zdVNXQFQl4dqga1c6qG-MtSAR1F9p6MpgEgi3eI5H0gmgsJLUk9aWcKEKMPP6IibgrR54wXalLXjUWa3ApqBZsSeRh9S--vEOr1X-9ubwn2akW8q4nS3TRwdQ0h7gbSHAGt0A46zUJ9iWjdcGqiS8_U0kPwM33XJ-2XhMxfjB3f9RLojQf7KRJR5vz9FPRGa7bgw8yVUL3aF4ud8Khs8W8nJtMR77ozqa_povq8BcsvEHlefJvQg"/>
+<div>
+<h1 class="text-title-md font-title-md font-bold text-surface-container-lowest">NOTARYGO™</h1>
+<p class="text-label-caps font-label-caps text-on-primary-container">Operational System</p>
+</div>
+</div>
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-stack-md px-4 py-3 text-on-primary-container hover:text-white hover:bg-on-primary-container/10 transition-colors duration-200 rounded-DEFAULT" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span>
+<span class="text-body-sm font-body-sm">Overview</span>
+</a>
+<a class="flex items-center gap-stack-md px-4 py-3 text-on-primary-container hover:text-white hover:bg-on-primary-container/10 transition-colors duration-200 rounded-DEFAULT" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">work</span>
+<span class="text-body-sm font-body-sm">Operations</span>
+</a>
+<a class="flex items-center gap-stack-md px-4 py-3 bg-on-primary-container/20 text-white border-l-4 border-secondary rounded-r-DEFAULT opacity-90 transition-all" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">description</span>
+<span class="text-body-sm font-body-sm font-bold">Documents</span>
+</a>
+<a class="flex items-center gap-stack-md px-4 py-3 text-on-primary-container hover:text-white hover:bg-on-primary-container/10 transition-colors duration-200 rounded-DEFAULT" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">payments</span>
+<span class="text-body-sm font-body-sm">Finance</span>
+</a>
+<a class="flex items-center gap-stack-md px-4 py-3 text-on-primary-container hover:text-white hover:bg-on-primary-container/10 transition-colors duration-200 rounded-DEFAULT" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">settings_accessibility</span>
+<span class="text-body-sm font-body-sm">Control</span>
+</a>
+</nav>
+</div>
+<div class="px-4 mt-auto">
+<button class="w-full flex items-center justify-center gap-2 py-3 bg-white/10 hover:bg-white/20 text-white rounded-lg transition-colors text-body-sm font-body-sm font-semibold mb-4">
+<span class="material-symbols-outlined text-[18px]">bolt</span>
+                Quick Settings
+            </button>
+<a class="flex items-center gap-stack-md px-4 py-3 text-on-primary-container hover:text-white hover:bg-on-primary-container/10 transition-colors duration-200 rounded-DEFAULT" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">account_circle</span>
+<span class="text-body-sm font-body-sm">Owner Profile</span>
+</a>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col md:ml-sidebar min-w-0 bg-background overflow-y-auto">
+<!-- TopNavBar -->
+<header class="bg-surface dark:bg-surface docked h-touch-target-min w-full sticky top-0 z-40 border-b border-border-subtle flex justify-between items-center px-gutter">
+<div class="flex items-center gap-4">
+<button class="md:hidden text-primary p-2">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<div class="hidden md:flex items-center gap-2 text-on-surface-variant relative">
+<span class="material-symbols-outlined absolute left-3 text-[20px]">search</span>
+<input class="pl-10 pr-4 py-1.5 bg-surface-container-low border border-border-subtle rounded-full text-body-sm font-body-sm focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-all w-64" placeholder="Search..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<span class="text-title-md font-title-md font-bold text-primary-container dark:text-primary-fixed hidden lg:block mr-4">Kantor Notaris &amp; PPAT Nama Notaris, S.H., M.Kn.</span>
+<button class="text-on-surface-variant hover:text-primary transition-colors p-2 rounded-full hover:bg-surface-container">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors p-2 rounded-full hover:bg-surface-container">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+<button class="bg-primary-container text-white px-4 py-1.5 rounded-lg text-body-sm font-body-sm font-semibold hover:bg-primary-container/90 transition-colors">
+                    + Buat
+                </button>
+<img alt="Owner Profile" class="w-8 h-8 rounded-full border border-border-subtle object-cover ml-2 cursor-pointer" data-alt="Professional headshot of a mature legal professional, wearing a tailored dark navy suit and white shirt, smiling slightly against a soft, bright, modern office background with subtle depth of field." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4dLvjjO734dkrX1F4VxhNWrSvV5_hgniUyfbLkYUketa-aKDouRQ2v486ZnuPV4539ycvudTKOF4eUqYdcFFbI3zyF6ZIZXTmu_Gvw5EQW5K1H6Toe38Zz0jdKRDd1oQSLT8G6P97Y8qYvqJ-e9TUFsgnlQaxhtXEQw-vQ7yTBENcdw3ARX58dAWETvI49l8fhUIqKWv2MJGBEkCKhx91shN-knnLpS7Ea0AfvNqWI1l7tFuDZzr-SQ"/>
+</div>
+</header>
+<!-- Page Content -->
+<div class="p-container-padding max-w-[1200px] w-full mx-auto">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+<div>
+<h2 class="text-headline-lg font-headline-lg text-primary-container mb-2">Kelengkapan Dokumen</h2>
+<p class="text-body-base font-body-base text-on-surface-variant">Matter #9942 - Transaksi Jual Beli Tanah</p>
+</div>
+<button class="bg-primary-container text-white px-6 py-2.5 rounded-lg text-body-base font-body-base font-semibold hover:bg-primary-container/90 transition-colors shadow-sm flex items-center gap-2 min-h-touch-target-min justify-center whitespace-nowrap">
+<span class="material-symbols-outlined text-[20px]">picture_as_pdf</span>
+                    Generate Permintaan Dokumen
+                </button>
+</div>
+<!-- Progress Card -->
+<div class="bg-surface-card rounded-xl border border-border-subtle p-6 mb-8 shadow-sm">
+<div class="flex justify-between items-center mb-4">
+<h3 class="text-title-md font-title-md text-primary-container">Status Kelengkapan</h3>
+<div class="flex items-baseline gap-2">
+<span class="text-stats-number font-stats-number text-primary-container">8</span>
+<span class="text-body-base font-body-base text-on-surface-variant">/ 10 (80%)</span>
+</div>
+</div>
+<div class="w-full bg-surface-container-high rounded-full h-2.5">
+<div class="bg-status-success h-2.5 rounded-full" style="width: 80%"></div>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-3 flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px] text-status-warning-medium">info</span>
+                    2 dokumen membutuhkan perhatian sebelum drafting dapat dimulai.
+                </p>
+</div>
+<!-- Checklist Table -->
+<div class="bg-surface-card rounded-xl border border-border-subtle shadow-sm overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-b border-border-subtle">
+<th class="py-4 px-6 text-label-caps font-label-caps text-on-surface-variant">DOKUMEN</th>
+<th class="py-4 px-6 text-label-caps font-label-caps text-on-surface-variant">PIHAK</th>
+<th class="py-4 px-6 text-label-caps font-label-caps text-on-surface-variant">STATUS</th>
+<th class="py-4 px-6 text-label-caps font-label-caps text-on-surface-variant text-right">AKSI</th>
+</tr>
+</thead>
+<tbody class="text-body-sm font-body-sm divide-y divide-border-subtle">
+<!-- Row 1: Verified -->
+<tr class="hover:bg-surface transition-colors group">
+<td class="py-4 px-6 flex items-center gap-3">
+<span class="material-symbols-outlined text-outline-variant">description</span>
+<span class="font-medium text-primary-container">KTP Penjual</span>
+</td>
+<td class="py-4 px-6 text-on-surface-variant">Bpk. Budi Santoso</td>
+<td class="py-4 px-6">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-status-success/10 text-status-success text-label-caps font-label-caps border border-status-success/20">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+                                        Verified
+                                    </span>
+</td>
+<td class="py-4 px-6 text-right">
+<div class="flex items-center justify-end gap-2">
+<button class="p-1.5 text-on-surface-variant hover:text-primary-container rounded hover:bg-surface-container transition-colors" title="View Document">
+<span class="material-symbols-outlined text-[20px]">visibility</span>
+</button>
+<button class="p-1.5 text-on-surface-variant hover:text-primary-container rounded hover:bg-surface-container transition-colors" title="More Actions">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2: Verified -->
+<tr class="hover:bg-surface transition-colors group">
+<td class="py-4 px-6 flex items-center gap-3">
+<span class="material-symbols-outlined text-outline-variant">description</span>
+<span class="font-medium text-primary-container">KTP Pembeli</span>
+</td>
+<td class="py-4 px-6 text-on-surface-variant">Ibu Siti Aminah</td>
+<td class="py-4 px-6">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-status-success/10 text-status-success text-label-caps font-label-caps border border-status-success/20">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+                                        Verified
+                                    </span>
+</td>
+<td class="py-4 px-6 text-right">
+<div class="flex items-center justify-end gap-2">
+<button class="p-1.5 text-on-surface-variant hover:text-primary-container rounded hover:bg-surface-container transition-colors" title="View Document">
+<span class="material-symbols-outlined text-[20px]">visibility</span>
+</button>
+<button class="p-1.5 text-on-surface-variant hover:text-primary-container rounded hover:bg-surface-container transition-colors" title="More Actions">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 3: Verified -->
+<tr class="hover:bg-surface transition-colors group">
+<td class="py-4 px-6 flex items-center gap-3">
+<span class="material-symbols-outlined text-outline-variant">folder</span>
+<span class="font-medium text-primary-container">Kartu Keluarga (KK)</span>
+</td>
+<td class="py-4 px-6 text-on-surface-variant">Bpk. Budi Santoso</td>
+<td class="py-4 px-6">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-status-success/10 text-status-success text-label-caps font-label-caps border border-status-success/20">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+                                        Verified
+                                    </span>
+</td>
+<td class="py-4 px-6 text-right">
+<div class="flex items-center justify-end gap-2">
+<button class="p-1.5 text-on-surface-variant hover:text-primary-container rounded hover:bg-surface-container transition-colors" title="View Document">
+<span class="material-symbols-outlined text-[20px]">visibility</span>
+</button>
+<button class="p-1.5 text-on-surface-variant hover:text-primary-container rounded hover:bg-surface-container transition-colors" title="More Actions">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 4: Missing -->
+<tr class="hover:bg-surface transition-colors group bg-error-container/10">
+<td class="py-4 px-6 flex items-center gap-3">
+<span class="material-symbols-outlined text-status-critical">warning</span>
+<span class="font-medium text-primary-container">NPWP</span>
+</td>
+<td class="py-4 px-6 text-on-surface-variant">Ibu Siti Aminah</td>
+<td class="py-4 px-6">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-status-critical text-white text-label-caps font-label-caps shadow-sm">
+<span class="material-symbols-outlined text-[14px]">error</span>
+                                        Missing
+                                    </span>
+</td>
+<td class="py-4 px-6 text-right">
+<div class="flex items-center justify-end gap-2">
+<button class="px-3 py-1.5 text-body-sm font-body-sm font-medium text-primary-container bg-surface-card border border-border-subtle rounded hover:bg-surface-container transition-colors">
+                                            Upload
+                                        </button>
+<button class="px-3 py-1.5 text-body-sm font-body-sm font-medium text-white bg-status-active rounded hover:bg-status-active/90 transition-colors shadow-sm">
+                                            Request
+                                        </button>
+<button class="p-1.5 text-on-surface-variant hover:text-primary-container rounded hover:bg-surface-container transition-colors" title="More Actions">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 5: Need Revision -->
+<tr class="hover:bg-surface transition-colors group bg-secondary-fixed/30">
+<td class="py-4 px-6 flex items-center gap-3">
+<span class="material-symbols-outlined text-status-warning-medium">pending_actions</span>
+<span class="font-medium text-primary-container">SPPT PBB (Thn Berjalan)</span>
+</td>
+<td class="py-4 px-6 text-on-surface-variant">Properti</td>
+<td class="py-4 px-6">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-status-warning-medium text-white text-label-caps font-label-caps shadow-sm">
+<span class="material-symbols-outlined text-[14px]">assignment_return</span>
+                                        Need Revision
+                                    </span>
+<div class="text-[11px] text-on-surface-variant mt-1 ml-1">Scan buram/tidak terbaca</div>
+</td>
+<td class="py-4 px-6 text-right">
+<div class="flex items-center justify-end gap-2">
+<button class="px-3 py-1.5 text-body-sm font-body-sm font-medium text-primary-container bg-surface-card border border-border-subtle rounded hover:bg-surface-container transition-colors">
+                                            Upload
+                                        </button>
+<button class="px-3 py-1.5 text-body-sm font-body-sm font-medium text-white bg-status-active rounded hover:bg-status-active/90 transition-colors shadow-sm">
+                                            Request
+                                        </button>
+<button class="p-1.5 text-on-surface-variant hover:text-primary-container rounded hover:bg-surface-container transition-colors" title="More Actions">
+<span class="material-symbols-outlined text-[20px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</main>
+</body></html>

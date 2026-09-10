@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+
+<html lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Unggah Versi Baru - NOTARYGO</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary": "#ffffff",
+                        "surface-tint": "#476083",
+                        "tertiary-container": "#0d2031",
+                        "surface-variant": "#e1e3e4",
+                        "status-active": "#3498DB",
+                        "inverse-on-surface": "#f0f1f2",
+                        "status-success": "#10B981",
+                        "on-secondary-fixed": "#301400",
+                        "background": "#f8f9fa",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "secondary": "#944a00",
+                        "outline": "#74777f",
+                        "primary-fixed": "#d4e3ff",
+                        "primary-container": "#001f3f",
+                        "tertiary-fixed": "#d1e4fb",
+                        "surface": "#f8f9fa",
+                        "surface-card": "#FFFFFF",
+                        "on-primary-fixed-variant": "#2f486a",
+                        "surface-container-low": "#f3f4f5",
+                        "on-secondary-fixed-variant": "#713700",
+                        "error-container": "#ffdad6",
+                        "secondary-fixed": "#ffdcc5",
+                        "border-subtle": "#E2E8F0",
+                        "surface-container-high": "#e7e8e9",
+                        "tertiary-fixed-dim": "#b5c8df",
+                        "outline-variant": "#c4c6cf",
+                        "status-critical": "#E74C3C",
+                        "surface-dim": "#d9dadb",
+                        "on-background": "#191c1d",
+                        "on-secondary": "#ffffff",
+                        "status-warning-medium": "#E67E22",
+                        "on-surface": "#191c1d",
+                        "primary-fixed-dim": "#afc8f0",
+                        "surface-container": "#edeeef",
+                        "on-primary-fixed": "#001c3a",
+                        "on-tertiary-fixed-variant": "#36485b",
+                        "status-warning-low": "#F1C40F",
+                        "status-archived": "#94A3B8",
+                        "secondary-container": "#fc8f34",
+                        "on-error": "#ffffff",
+                        "inverse-surface": "#2e3132",
+                        "primary": "#000613",
+                        "on-primary-container": "#6f88ad",
+                        "secondary-fixed-dim": "#ffb783",
+                        "surface-bright": "#f8f9fa",
+                        "tertiary": "#000610",
+                        "on-tertiary-fixed": "#091d2e",
+                        "on-tertiary-container": "#76889d",
+                        "error": "#ba1a1a",
+                        "on-error-container": "#93000a",
+                        "on-surface-variant": "#43474e",
+                        "inverse-primary": "#afc8f0",
+                        "on-secondary-container": "#663100",
+                        "surface-container-highest": "#e1e3e4"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-sm": "0.5rem",
+                        "stack-md": "1rem",
+                        "container-padding": "2rem",
+                        "touch-target-min": "44px",
+                        "gutter": "1.5rem",
+                        "sidebar-width": "260px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Inter"],
+                        "stats-number": ["Inter"],
+                        "title-md": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "body-base": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "stats-number": ["28px", { "lineHeight": "34px", "fontWeight": "700" }],
+                        "title-md": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "body-base": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-lg": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-surface-dim font-body-base text-on-surface antialiased min-h-screen flex items-center justify-center p-gutter">
+<!-- Modal Backdrop Overlay (Semantic suppression applied: Transactional focused intent, no nav shell needed) -->
+<div class="fixed inset-0 bg-inverse-surface/40 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+<!-- Modal Container -->
+<div class="bg-surface-card w-full max-w-lg rounded-xl shadow-lg border border-border-subtle flex flex-col max-h-[921px] overflow-hidden transform transition-all duration-300 scale-100">
+<!-- Modal Header -->
+<div class="flex items-center justify-between p-stack-md border-b border-border-subtle">
+<div class="flex items-center gap-stack-sm">
+<span class="material-symbols-outlined text-surface-tint" style="font-variation-settings: 'FILL' 0;">upload_file</span>
+<h2 class="font-title-md text-title-md text-primary">Unggah Versi Baru</h2>
+</div>
+<button aria-label="Close" class="text-on-surface-variant hover:text-primary transition-colors h-touch-target-min w-touch-target-min flex items-center justify-center rounded-full hover:bg-surface-container-low">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">close</span>
+</button>
+</div>
+<!-- Modal Body -->
+<div class="p-stack-md flex flex-col gap-stack-md overflow-y-auto bg-surface-container-lowest">
+<!-- Helper Text -->
+<div class="bg-surface-container-low rounded-lg p-3 flex items-start gap-2">
+<span class="material-symbols-outlined text-primary-container text-[18px] mt-0.5" style="font-variation-settings: 'FILL' 1;">info</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Versi sebelumnya tidak akan dihapus dan tetap tersimpan dalam riwayat.</p>
+</div>
+<!-- Form Area -->
+<form class="flex flex-col gap-stack-md" onsubmit="event.preventDefault();">
+<!-- Upload Zone -->
+<div class="flex flex-col gap-stack-sm">
+<label class="font-label-caps text-label-caps text-on-surface uppercase">Pilih File Baru</label>
+<div class="border-2 border-dashed border-outline-variant rounded-lg p-container-padding flex flex-col items-center justify-center gap-2 hover:bg-surface-container-low transition-colors cursor-pointer bg-surface-bright relative">
+<input aria-label="Pilih File Baru" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer" id="file-upload" type="file"/>
+<div class="h-12 w-12 rounded-full bg-primary-fixed flex items-center justify-center mb-2">
+<span class="material-symbols-outlined text-primary-container" style="font-variation-settings: 'FILL' 1;">cloud_upload</span>
+</div>
+<p class="font-body-base text-body-base text-primary font-medium text-center">Tarik dan lepas file ke sini</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant text-center">atau klik untuk menelusuri (Maks 20MB, PDF/DOCX)</p>
+</div>
+</div>
+<!-- Progress Section (Mocked 100% Success state as requested) -->
+<div class="bg-surface rounded-lg p-3 border border-border-subtle flex flex-col gap-2">
+<div class="flex justify-between items-center">
+<div class="flex items-center gap-2 overflow-hidden">
+<span class="material-symbols-outlined text-surface-tint text-[20px]" style="font-variation-settings: 'FILL' 1;">description</span>
+<span class="font-body-sm text-body-sm text-primary truncate">Akta_Jual_Beli_v2_Final_Revision.pdf</span>
+</div>
+<span class="material-symbols-outlined text-status-success text-[20px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div class="w-full bg-surface-variant rounded-full h-1.5 overflow-hidden">
+<div class="bg-status-success h-1.5 rounded-full" style="width: 100%"></div>
+</div>
+<div class="flex justify-between items-center mt-1">
+<span class="font-label-caps text-label-caps text-status-success">Dokumen berhasil diunggah.</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">2.4 MB</span>
+</div>
+</div>
+<!-- Textarea -->
+<div class="flex flex-col gap-stack-sm">
+<label class="font-label-caps text-label-caps text-on-surface uppercase" for="catatan">Catatan Perubahan <span class="text-on-surface-variant lowercase font-normal">(Opsional)</span></label>
+<textarea class="w-full rounded-lg border border-outline-variant bg-surface-container-lowest text-on-surface font-body-base text-body-base p-3 focus:ring-2 focus:ring-primary-container focus:border-primary-container transition-shadow resize-none" id="catatan" placeholder="e.g. Perbaikan nama pembeli dan nomor sertifikat" rows="3"></textarea>
+</div>
+</form>
+</div>
+<!-- Modal Footer Actions -->
+<div class="p-stack-md border-t border-border-subtle bg-surface-container-lowest flex justify-end items-center gap-3">
+<button class="px-6 h-touch-target-min rounded-lg border border-primary text-primary font-body-base text-body-base font-semibold hover:bg-surface-container-low transition-colors flex items-center justify-center min-w-[100px]" type="button">
+                    Batal
+                </button>
+<button class="px-6 h-touch-target-min rounded-lg bg-primary text-on-primary font-body-base text-body-base font-semibold hover:opacity-90 transition-opacity flex items-center justify-center min-w-[160px] gap-2 shadow-sm" type="button">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">save</span>
+                    Simpan &amp; Update
+                </button>
+</div>
+</div>
+</div>
+</body></html>

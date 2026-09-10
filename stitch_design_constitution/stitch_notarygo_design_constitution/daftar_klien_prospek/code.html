@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Klien &amp; Prospek - NOTARYGO</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-tertiary-fixed-variant": "#36485b",
+                      "on-secondary-fixed": "#301400",
+                      "secondary-container": "#fc8f34",
+                      "on-secondary": "#ffffff",
+                      "primary-fixed": "#d4e3ff",
+                      "secondary": "#944a00",
+                      "tertiary-fixed-dim": "#b5c8df",
+                      "surface-container-highest": "#e1e3e4",
+                      "on-primary": "#ffffff",
+                      "on-surface": "#191c1d",
+                      "outline-variant": "#c4c6cf",
+                      "tertiary": "#000610",
+                      "secondary-fixed": "#ffdcc5",
+                      "surface-container": "#edeeef",
+                      "status-critical": "#E74C3C",
+                      "on-primary-fixed-variant": "#2f486a",
+                      "surface-container-lowest": "#ffffff",
+                      "on-tertiary": "#ffffff",
+                      "inverse-primary": "#afc8f0",
+                      "primary-container": "#001f3f",
+                      "surface-dim": "#d9dadb",
+                      "on-tertiary-fixed": "#091d2e",
+                      "primary": "#000613",
+                      "tertiary-container": "#0d2031",
+                      "surface": "#f8f9fa",
+                      "on-primary-container": "#6f88ad",
+                      "surface-card": "#FFFFFF",
+                      "on-primary-fixed": "#001c3a",
+                      "outline": "#74777f",
+                      "status-archived": "#94A3B8",
+                      "on-surface-variant": "#43474e",
+                      "background": "#f8f9fa",
+                      "error-container": "#ffdad6",
+                      "on-secondary-fixed-variant": "#713700",
+                      "inverse-on-surface": "#f0f1f2",
+                      "primary-fixed-dim": "#afc8f0",
+                      "status-warning-low": "#F1C40F",
+                      "surface-bright": "#f8f9fa",
+                      "on-background": "#191c1d",
+                      "on-error-container": "#93000a",
+                      "surface-tint": "#476083",
+                      "on-secondary-container": "#663100",
+                      "on-tertiary-container": "#76889d",
+                      "surface-variant": "#e1e3e4",
+                      "status-warning-medium": "#E67E22",
+                      "surface-container-low": "#f3f4f5",
+                      "on-error": "#ffffff",
+                      "inverse-surface": "#2e3132",
+                      "surface-container-high": "#e7e8e9",
+                      "border-subtle": "#E2E8F0",
+                      "status-active": "#3498DB",
+                      "status-success": "#10B981",
+                      "tertiary-fixed": "#d1e4fb",
+                      "error": "#ba1a1a",
+                      "secondary-fixed-dim": "#ffb783"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "stack-sm": "0.5rem",
+                      "stack-md": "1rem",
+                      "gutter": "1.5rem",
+                      "touch-target-min": "44px",
+                      "sidebar-width": "260px",
+                      "container-padding": "2rem"
+              },
+              "fontFamily": {
+                      "headline-lg-mobile": [
+                              "Inter"
+                      ],
+                      "label-caps": [
+                              "Inter"
+                      ],
+                      "display-lg": [
+                              "Inter"
+                      ],
+                      "body-sm": [
+                              "Inter"
+                      ],
+                      "body-base": [
+                              "Inter"
+                      ],
+                      "stats-number": [
+                              "Inter"
+                      ],
+                      "headline-lg": [
+                              "Inter"
+                      ],
+                      "title-md": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "headline-lg-mobile": [
+                              "20px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "label-caps": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "display-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-sm": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-base": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "stats-number": [
+                              "28px",
+                              {
+                                      "lineHeight": "34px",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-lg": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "title-md": [
+                              "18px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "600"
+                              }
+                      }
+              }
+            },
+          }
+        }
+      </script>
+</head>
+<body class="bg-background text-on-background font-body-base antialiased">
+<!-- Main Layout Container -->
+<div class="flex min-h-screen">
+<!-- SideNavBar Component -->
+<aside class="hidden md:flex flex-col bg-primary-container w-sidebar-width fixed left-0 top-0 h-screen border-r border-outline-variant shadow-sm py-gutter justify-between z-50 text-primary-fixed z-50">
+<div>
+<!-- Brand Header -->
+<div class="px-gutter mb-8">
+<div class="flex items-center gap-stack-sm">
+<img alt="NotaryGo Logo" class="w-8 h-8 rounded" data-alt="A minimalist, highly legible corporate logo for a legal tech software named NotaryGo. The logo is rendered in stark white against a deep navy blue background, embodying authority, trust, and digital precision. It features a simple geometric monogram and crisp sans-serif typography. The overall aesthetic is modern SaaS for the legal industry, calm, clean, and professional." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCRlfdmmgFB1mW0qOPznru7n36_Wlz7RgL380hwRNiuxfNONznCa0kXypoS8Dz09nVYJ7fkK8vvzkrQ6PGqR6KuOr_1BOXjETAYjYCm6IXjUVz4iURU8dhCeDIrEffEFA73V4wI8x07o03y0wZjzpuP6jVHXWX7hkH37z3k9DKmCoYv8BN3qc8cyBRGon1BFqtRsDLX9qPf-Yycg4POhgg2gMkCA7SiQyhiqZfpQdhYkL0kab-P6pdyNg"/>
+<div>
+<h1 class="text-title-md font-title-md font-bold text-surface-container-lowest">NOTARYGO™</h1>
+<p class="text-label-caps font-label-caps text-on-primary-container">Operational System</p>
+</div>
+</div>
+</div>
+<!-- Main Navigation Tabs -->
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-stack-md px-4 py-3 text-on-primary-container hover:text-white hover:bg-on-primary-container/10 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">dashboard</span>
+<span class="text-label-caps font-label-caps">Overview</span>
+</a>
+<!-- Active State for Operations as Clients/Prospects fall under it -->
+<a class="flex items-center gap-stack-md px-4 py-3 bg-on-primary-container/20 text-white border-l-4 border-secondary opacity-90 transition-all" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">work</span>
+<span class="text-label-caps font-label-caps">Operations</span>
+</a>
+<a class="flex items-center gap-stack-md px-4 py-3 text-on-primary-container hover:text-white hover:bg-on-primary-container/10 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">description</span>
+<span class="text-label-caps font-label-caps">Documents</span>
+</a>
+<a class="flex items-center gap-stack-md px-4 py-3 text-on-primary-container hover:text-white hover:bg-on-primary-container/10 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">payments</span>
+<span class="text-label-caps font-label-caps">Finance</span>
+</a>
+<a class="flex items-center gap-stack-md px-4 py-3 text-on-primary-container hover:text-white hover:bg-on-primary-container/10 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">settings_accessibility</span>
+<span class="text-label-caps font-label-caps">Control</span>
+</a>
+</nav>
+</div>
+<!-- Footer & Quick Settings CTA -->
+<div class="px-4 flex flex-col gap-4">
+<button class="w-full bg-secondary text-on-secondary rounded-DEFAULT py-2 text-label-caps font-label-caps font-bold hover:bg-secondary/90 transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm">settings</span>
+                    Quick Settings
+                </button>
+<a class="flex items-center gap-stack-md py-3 text-on-primary-container hover:text-white hover:bg-on-primary-container/10 transition-colors duration-200 rounded px-2" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">account_circle</span>
+<span class="text-label-caps font-label-caps">Owner Profile</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 md:ml-[260px] min-h-screen flex flex-col w-full relative bg-surface">
+<!-- TopNavBar Component -->
+<header class="bg-surface border-b border-border-subtle h-touch-target-min w-full sticky top-0 z-40 flex justify-between items-center px-gutter text-primary">
+<!-- Search or Breadcrumb area on left -->
+<div class="flex-1 flex items-center">
+<h2 class="text-title-md font-title-md font-bold text-primary-container hidden md:block">Kantor Notaris &amp; PPAT Nama Notaris, S.H., M.Kn.</h2>
+<!-- Mobile Menu Toggle -->
+<button class="md:hidden text-primary p-2">
+<span class="material-symbols-outlined">menu</span>
+</button>
+</div>
+<!-- Trailing Actions -->
+<div class="flex items-center gap-stack-md">
+<button class="text-on-surface-variant hover:text-primary transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors flex items-center justify-center">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+<button class="bg-primary text-on-primary px-4 py-1.5 rounded-DEFAULT text-body-sm font-body-sm font-semibold hover:bg-primary/90 transition-colors h-touch-target-min flex items-center justify-center whitespace-nowrap ml-2">
+                        + Buat
+                    </button>
+<img alt="Owner Profile" class="w-8 h-8 rounded-full border border-border-subtle object-cover ml-2" data-alt="A small, circular profile picture of an Indonesian male notary in professional business attire, navy blue suit, white shirt. Shot against a clean, light grey studio background. High resolution, professional corporate headshot style, conveying trust and legal authority." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC9uikc3iUt6fJQ6gmbIB48p_FxA-T_gUmyv0nWLh3s0QH442rJXqc8-j0C2JcZlgRBpUgjHqCCa8WEbhfG7mtxD-XFYa2XWVYmoJKYAWB5r4JwOzFJ1vfRIReI9Nv82MAwLe17nAqaV9DoT3RYfYBZDfYeLRyOwy3FG_plJ7j5xeaSxfkxFvkUssA7SdVcmvJx4bai3X0Nw1tMd0Bg_TFzpZgzSUK6OiqgcmbF9XnZKeU9YZsCKyQdJg"/>
+</div>
+</header>
+<!-- Page Content Canvas -->
+<div class="p-container-padding flex-1 overflow-auto bg-background">
+<!-- Page Header -->
+<div class="flex flex-col md:flex-row md:items-center justify-between mb-8 gap-4">
+<div>
+<h2 class="text-headline-lg font-headline-lg text-primary-container font-bold mb-1">Klien &amp; Prospek</h2>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Kelola data klien, kontak perusahaan, dan prospek baru.</p>
+</div>
+</div>
+<!-- Filter & Search Bar Area -->
+<div class="bg-surface-card border border-border-subtle rounded-lg p-4 mb-6 shadow-[0px_4px_12px_rgba(0,0,0,0.03)] flex flex-col md:flex-row gap-4 items-end">
+<!-- Global Search -->
+<div class="w-full md:w-1/3 flex flex-col gap-1">
+<label class="text-label-caps font-label-caps text-on-surface-variant" for="global-search">Cari Klien</label>
+<div class="relative w-full h-touch-target-min">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">search</span>
+<input class="w-full h-full pl-10 pr-3 border border-outline-variant rounded bg-surface-lowest text-body-sm font-body-sm focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none transition-colors" id="global-search" placeholder="Nama, Telepon, atau Perusahaan" type="text"/>
+</div>
+</div>
+<!-- Filters -->
+<div class="w-full md:flex-1 flex flex-col md:flex-row gap-4">
+<div class="flex flex-col gap-1 w-full md:w-auto min-w-[150px]">
+<label class="text-label-caps font-label-caps text-on-surface-variant" for="filter-type">Jenis Klien</label>
+<select class="w-full h-touch-target-min border border-outline-variant rounded bg-surface-lowest text-body-sm font-body-sm focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none px-3 cursor-pointer" id="filter-type">
+<option value="">Semua Jenis</option>
+<option value="individual">Individual</option>
+<option value="corporate">Corporate</option>
+</select>
+</div>
+<div class="flex flex-col gap-1 w-full md:w-auto min-w-[150px]">
+<label class="text-label-caps font-label-caps text-on-surface-variant" for="filter-status">Status</label>
+<select class="w-full h-touch-target-min border border-outline-variant rounded bg-surface-lowest text-body-sm font-body-sm focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none px-3 cursor-pointer" id="filter-status">
+<option value="">Semua Status</option>
+<option value="active">Active Client</option>
+<option value="prospect">Prospect</option>
+<option value="archived">Archived</option>
+</select>
+</div>
+<div class="flex flex-col gap-1 w-full md:w-auto min-w-[150px]">
+<label class="text-label-caps font-label-caps text-on-surface-variant" for="filter-matters">Perkara Aktif</label>
+<select class="w-full h-touch-target-min border border-outline-variant rounded bg-surface-lowest text-body-sm font-body-sm focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none px-3 cursor-pointer" id="filter-matters">
+<option value="">Semua</option>
+<option value="yes">Ada Perkara</option>
+<option value="no">Tidak Ada</option>
+</select>
+</div>
+</div>
+<!-- Action Buttons -->
+<div class="w-full md:w-auto flex gap-2 justify-end">
+<button class="h-touch-target-min px-4 bg-surface-lowest border border-border-subtle text-primary-container rounded text-body-sm font-body-sm font-medium hover:bg-surface-container-low transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm">filter_list_off</span>
+                             Reset
+                        </button>
+</div>
+</div>
+<!-- Data Table Container (Matter Registry Style) -->
+<div class="bg-surface-card border border-border-subtle rounded-lg shadow-[0px_4px_12px_rgba(0,0,0,0.03)] overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-border-subtle bg-surface-container-low">
+<th class="py-3 px-4 text-label-caps font-label-caps text-on-surface-variant whitespace-nowrap">Nama Klien</th>
+<th class="py-3 px-4 text-label-caps font-label-caps text-on-surface-variant whitespace-nowrap">Jenis</th>
+<th class="py-3 px-4 text-label-caps font-label-caps text-on-surface-variant whitespace-nowrap">Telepon</th>
+<th class="py-3 px-4 text-label-caps font-label-caps text-on-surface-variant whitespace-nowrap">Perusahaan</th>
+<th class="py-3 px-4 text-label-caps font-label-caps text-on-surface-variant whitespace-nowrap text-center">Perkara Aktif</th>
+<th class="py-3 px-4 text-label-caps font-label-caps text-on-surface-variant whitespace-nowrap">Last Activity</th>
+<th class="py-3 px-4 text-label-caps font-label-caps text-on-surface-variant whitespace-nowrap">Status</th>
+<th class="py-3 px-4 text-label-caps font-label-caps text-on-surface-variant whitespace-nowrap w-12 text-center"></th>
+</tr>
+</thead>
+<tbody class="text-body-sm font-body-sm text-on-background">
+<!-- Row 1 -->
+<tr class="border-b border-border-subtle hover:bg-surface-bright transition-colors group">
+<td class="py-3 px-4 font-medium text-primary-container whitespace-nowrap">PT. Adhi Karya (Persero) Tbk.</td>
+<td class="py-3 px-4 whitespace-nowrap">
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]">domain</span> Corporate
+                                        </div>
+</td>
+<td class="py-3 px-4 whitespace-nowrap text-on-surface-variant">+62 21 780 4356</td>
+<td class="py-3 px-4 whitespace-nowrap text-on-surface-variant">-</td>
+<td class="py-3 px-4 whitespace-nowrap text-center">
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-primary-container text-white text-xs font-bold">3</span>
+</td>
+<td class="py-3 px-4 whitespace-nowrap text-on-surface-variant">12 Okt 2023</td>
+<td class="py-3 px-4 whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded bg-status-success/10 text-status-success text-label-caps font-label-caps">
+<span class="material-symbols-outlined text-[14px]">check_circle</span> Active
+                                        </span>
+</td>
+<td class="py-3 px-4 whitespace-nowrap text-right">
+<button class="text-outline hover:text-primary-container transition-colors p-1 opacity-0 group-hover:opacity-100 focus:opacity-100">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="border-b border-border-subtle hover:bg-surface-bright transition-colors group">
+<td class="py-3 px-4 font-medium text-primary-container whitespace-nowrap">Budi Santoso</td>
+<td class="py-3 px-4 whitespace-nowrap">
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]">person</span> Individual
+                                        </div>
+</td>
+<td class="py-3 px-4 whitespace-nowrap text-on-surface-variant">+62 812 3456 7890</td>
+<td class="py-3 px-4 whitespace-nowrap text-on-surface-variant">PT. Maju Mundur</td>
+<td class="py-3 px-4 whitespace-nowrap text-center">
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-surface-container-high text-on-surface-variant text-xs font-bold">0</span>
+</td>
+<td class="py-3 px-4 whitespace-nowrap text-on-surface-variant">05 Okt 2023</td>
+<td class="py-3 px-4 whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded bg-status-warning-medium/10 text-status-warning-medium text-label-caps font-label-caps">
+<span class="material-symbols-outlined text-[14px]">psychology</span> Prospect
+                                        </span>
+</td>
+<td class="py-3 px-4 whitespace-nowrap text-right">
+<button class="text-outline hover:text-primary-container transition-colors p-1 opacity-0 group-hover:opacity-100 focus:opacity-100">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="border-b border-border-subtle hover:bg-surface-bright transition-colors group">
+<td class="py-3 px-4 font-medium text-primary-container whitespace-nowrap">Siti Aminah, S.E.</td>
+<td class="py-3 px-4 whitespace-nowrap">
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]">person</span> Individual
+                                        </div>
+</td>
+<td class="py-3 px-4 whitespace-nowrap text-on-surface-variant">+62 811 9876 5432</td>
+<td class="py-3 px-4 whitespace-nowrap text-on-surface-variant">-</td>
+<td class="py-3 px-4 whitespace-nowrap text-center">
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-primary-container text-white text-xs font-bold">1</span>
+</td>
+<td class="py-3 px-4 whitespace-nowrap text-on-surface-variant">28 Sep 2023</td>
+<td class="py-3 px-4 whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded bg-status-success/10 text-status-success text-label-caps font-label-caps">
+<span class="material-symbols-outlined text-[14px]">check_circle</span> Active
+                                        </span>
+</td>
+<td class="py-3 px-4 whitespace-nowrap text-right">
+<button class="text-outline hover:text-primary-container transition-colors p-1 opacity-0 group-hover:opacity-100 focus:opacity-100">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-bright transition-colors group">
+<td class="py-3 px-4 font-medium text-primary-container whitespace-nowrap">PT. Bank Mandiri (Persero) Tbk.</td>
+<td class="py-3 px-4 whitespace-nowrap">
+<div class="flex items-center gap-1 text-on-surface-variant">
+<span class="material-symbols-outlined text-[16px]">domain</span> Corporate
+                                        </div>
+</td>
+<td class="py-3 px-4 whitespace-nowrap text-on-surface-variant">+62 21 526 5045</td>
+<td class="py-3 px-4 whitespace-nowrap text-on-surface-variant">-</td>
+<td class="py-3 px-4 whitespace-nowrap text-center">
+<span class="inline-flex items-center justify-center w-6 h-6 rounded-full bg-surface-container-high text-on-surface-variant text-xs font-bold">0</span>
+</td>
+<td class="py-3 px-4 whitespace-nowrap text-on-surface-variant">15 Jan 2022</td>
+<td class="py-3 px-4 whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2 py-1 rounded bg-status-archived/10 text-status-archived text-label-caps font-label-caps">
+<span class="material-symbols-outlined text-[14px]">archive</span> Archived
+                                        </span>
+</td>
+<td class="py-3 px-4 whitespace-nowrap text-right">
+<button class="text-outline hover:text-primary-container transition-colors p-1 opacity-0 group-hover:opacity-100 focus:opacity-100">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination Footer -->
+<div class="border-t border-border-subtle p-4 flex items-center justify-between bg-surface-lowest">
+<span class="text-body-sm font-body-sm text-on-surface-variant">Showing 1 to 4 of 124 entries</span>
+<div class="flex gap-1">
+<button class="w-8 h-8 flex items-center justify-center rounded border border-border-subtle text-outline hover:bg-surface-container-low transition-colors disabled:opacity-50" disabled="">
+<span class="material-symbols-outlined text-sm">chevron_left</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded bg-primary-container text-white text-body-sm font-medium">1</button>
+<button class="w-8 h-8 flex items-center justify-center rounded border border-border-subtle text-primary-container hover:bg-surface-container-low transition-colors text-body-sm font-medium">2</button>
+<button class="w-8 h-8 flex items-center justify-center rounded border border-border-subtle text-primary-container hover:bg-surface-container-low transition-colors text-body-sm font-medium">3</button>
+<span class="w-8 h-8 flex items-center justify-center text-on-surface-variant">...</span>
+<button class="w-8 h-8 flex items-center justify-center rounded border border-border-subtle text-primary-container hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

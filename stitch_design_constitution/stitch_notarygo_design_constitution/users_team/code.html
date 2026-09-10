@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+
+<html lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Users &amp; Team - NOTARYGO™</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-tint": "#476083",
+                      "surface-card": "#FFFFFF",
+                      "secondary-container": "#fc8f34",
+                      "surface-container-highest": "#e1e3e4",
+                      "on-primary-fixed": "#001c3a",
+                      "surface": "#f8f9fa",
+                      "status-critical": "#E74C3C",
+                      "surface-container-lowest": "#ffffff",
+                      "on-tertiary-container": "#76889d",
+                      "inverse-on-surface": "#f0f1f2",
+                      "tertiary": "#000610",
+                      "on-error-container": "#93000a",
+                      "on-primary": "#ffffff",
+                      "on-secondary-fixed": "#301400",
+                      "error-container": "#ffdad6",
+                      "error": "#ba1a1a",
+                      "status-warning-low": "#F1C40F",
+                      "primary-fixed-dim": "#afc8f0",
+                      "tertiary-fixed": "#d1e4fb",
+                      "surface-variant": "#e1e3e4",
+                      "secondary": "#944a00",
+                      "secondary-fixed-dim": "#ffb783",
+                      "outline": "#74777f",
+                      "border-subtle": "#E2E8F0",
+                      "surface-bright": "#f8f9fa",
+                      "outline-variant": "#c4c6cf",
+                      "tertiary-container": "#0d2031",
+                      "on-tertiary": "#ffffff",
+                      "status-warning-medium": "#E67E22",
+                      "secondary-fixed": "#ffdcc5",
+                      "surface-container": "#edeeef",
+                      "status-active": "#3498DB",
+                      "surface-dim": "#d9dadb",
+                      "on-surface": "#191c1d",
+                      "status-success": "#10B981",
+                      "primary": "#000613",
+                      "on-secondary": "#ffffff",
+                      "background": "#f8f9fa",
+                      "surface-container-low": "#f3f4f5",
+                      "inverse-primary": "#afc8f0",
+                      "primary-fixed": "#d4e3ff",
+                      "on-background": "#191c1d",
+                      "tertiary-fixed-dim": "#b5c8df",
+                      "on-primary-container": "#6f88ad",
+                      "status-archived": "#94A3B8",
+                      "on-secondary-fixed-variant": "#713700",
+                      "surface-container-high": "#e7e8e9",
+                      "primary-container": "#001f3f",
+                      "on-primary-fixed-variant": "#2f486a",
+                      "on-error": "#ffffff",
+                      "on-tertiary-fixed": "#091d2e",
+                      "on-surface-variant": "#43474e",
+                      "on-secondary-container": "#663100",
+                      "inverse-surface": "#2e3132",
+                      "on-tertiary-fixed-variant": "#36485b"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "touch-target-min": "44px",
+                      "gutter": "1.5rem",
+                      "container-padding": "2rem",
+                      "stack-md": "1rem",
+                      "stack-sm": "0.5rem",
+                      "sidebar-width": "260px"
+              },
+              "fontFamily": {
+                      "stats-number": ["Inter", "sans-serif"],
+                      "display-lg": ["Inter", "sans-serif"],
+                      "label-caps": ["Inter", "sans-serif"],
+                      "headline-lg-mobile": ["Inter", "sans-serif"],
+                      "title-md": ["Inter", "sans-serif"],
+                      "headline-lg": ["Inter", "sans-serif"],
+                      "body-base": ["Inter", "sans-serif"],
+                      "body-sm": ["Inter", "sans-serif"]
+              },
+              "fontSize": {
+                      "stats-number": ["28px", { "lineHeight": "34px", "fontWeight": "700" }],
+                      "display-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                      "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                      "headline-lg-mobile": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                      "title-md": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+                      "headline-lg": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                      "body-base": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                      "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .icon-fill {
+            font-variation-settings: 'FILL' 1;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-base min-h-screen flex antialiased">
+<!-- SideNavBar -->
+<nav class="w-[260px] h-screen fixed left-0 top-0 bg-primary dark:bg-tertiary-container border-r border-border-subtle z-40 hidden md:flex flex-col py-6">
+<!-- Header -->
+<div class="px-6 mb-8 flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center shrink-0">
+<img alt="Notary Office Logo" class="w-full h-full object-cover rounded-full" data-alt="A highly detailed, professional logo for a Notary Office. The logo should feature balanced, modern legal scales or a minimalist feather quill, designed in deep navy blue and crisp white. It must exude authority, precision, and trust, suitable for a premium SaaS platform interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpt-rw8lyR_IjKy8bUSzeTKgWk36KP0HtUeJyEXdu39iTStBZJokwhMmndfqGxlypA3VzaVBSIOUOuXGA5enb_9Jj_sBH3fMctk-oXDyNiCaNKD6Cdt1Qf_leZTltjE9Ihx8vAZfLTJ-pWRq7CtDQAl0sSzApOsOvervgpn_IQkJySiU7QmWo4huKiL-MaOYAcYZ9G41iTu75ma39URVhAXv4HLuusuDMuTDBCYd6IHkLYfNGHA15pug"/>
+</div>
+<div>
+<h1 class="font-display-lg text-display-lg font-black text-on-primary">NOTARYGO™</h1>
+<p class="font-body-sm text-body-sm text-on-primary-container">Operational Control</p>
+</div>
+</div>
+<!-- CTA -->
+<div class="px-6 mb-6">
+<button class="w-full h-touch-target-min bg-secondary-container text-on-secondary-container font-label-caps rounded-DEFAULT flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                + Matter Baru
+            </button>
+</div>
+<!-- Main Navigation -->
+<div class="flex-1 px-4 space-y-1">
+<a class="flex items-center gap-3 px-4 py-3 rounded-DEFAULT text-on-primary-container opacity-80 hover:bg-primary-container hover:text-on-primary-container transition-colors font-body-sm text-body-sm" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+                Overview
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-DEFAULT text-on-primary-container opacity-80 hover:bg-primary-container hover:text-on-primary-container transition-colors font-body-sm text-body-sm" href="#">
+<span class="material-symbols-outlined" data-icon="work">work</span>
+                Operations
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-DEFAULT text-on-primary-container opacity-80 hover:bg-primary-container hover:text-on-primary-container transition-colors font-body-sm text-body-sm" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+                Documents
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-DEFAULT text-on-primary-container opacity-80 hover:bg-primary-container hover:text-on-primary-container transition-colors font-body-sm text-body-sm" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+                Finance
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-DEFAULT bg-secondary-container text-on-secondary-container border-l-4 border-secondary-container font-bold font-body-sm text-body-sm scale-95 duration-150" href="#">
+<span class="material-symbols-outlined icon-fill" data-icon="settings_accessibility">settings_accessibility</span>
+                Control
+            </a>
+</div>
+<!-- Footer Navigation -->
+<div class="px-4 mt-auto space-y-1 border-t border-border-subtle pt-4">
+<a class="flex items-center gap-3 px-4 py-3 rounded-DEFAULT text-on-primary-container opacity-80 hover:bg-primary-container hover:text-on-primary-container transition-colors font-body-sm text-body-sm" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+                Support
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-DEFAULT text-on-primary-container opacity-80 hover:bg-primary-container hover:text-on-primary-container transition-colors font-body-sm text-body-sm" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+                Settings
+            </a>
+</div>
+</nav>
+<!-- Main Content Wrapper -->
+<div class="flex-1 md:ml-[260px] flex flex-col min-h-screen">
+<!-- TopNavBar -->
+<header class="h-16 w-full sticky top-0 z-50 bg-surface dark:bg-on-tertiary-fixed shadow-sm flex justify-between items-center px-gutter">
+<!-- Mobile Menu Toggle & Brand (Visible only on mobile) -->
+<div class="flex items-center gap-4 md:hidden">
+<button class="p-2 text-primary hover:bg-surface-container rounded-full transition-colors">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<span class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-primary">NOTARYGO™</span>
+</div>
+<!-- Product Name / Context (Hidden on mobile) -->
+<div class="hidden md:flex items-center flex-1">
+<h2 class="font-headline-lg text-headline-lg font-bold text-primary truncate max-w-2xl">Kantor Notaris &amp; PPAT Nama Notaris, S.H., M.Kn.</h2>
+</div>
+<!-- Search (On Left as per JSON, but pushed right by flex-1 above in desktop) -->
+<div class="hidden md:flex flex-1 max-w-md ml-4 mr-4">
+<div class="relative w-full focus-within:ring-2 focus-within:ring-primary-container duration-200 rounded-DEFAULT">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full h-10 pl-10 pr-4 bg-surface-container-low border border-border-subtle rounded-DEFAULT text-on-surface font-body-sm text-body-sm focus:outline-none focus:border-primary-container transition-colors" placeholder="Search..." type="text"/>
+</div>
+</div>
+<!-- Trailing Actions -->
+<div class="flex items-center gap-3 shrink-0">
+<button class="hidden md:flex h-10 px-4 bg-primary text-on-primary font-label-caps rounded-DEFAULT items-center justify-center hover:bg-primary-container transition-colors">
+                    + Buat
+                </button>
+<button class="p-2 text-on-surface-variant hover:text-primary transition-all rounded-full hover:bg-surface-container">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="w-10 h-10 rounded-full bg-surface-container-highest overflow-hidden border border-border-subtle focus:ring-2 focus:ring-primary-container duration-200">
+<img alt="User Profile" class="w-full h-full object-cover" data-alt="A professional headshot of a female notary in her mid-30s, wearing a sharp navy blue blazer over a crisp white blouse. She has a warm, confident smile, natural makeup, and neat hair. The background is a softly blurred modern office interior with ample natural light, conveying a sense of corporate professionalism and approachability." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDhzduZqRCW1GMuD1d1BkRIB9Ckb1TfNhRVgQ8bBcG0F9tRVbttEHsWDPGUMSIRMtgJ0x3TuWXe2HWICqdBeL6YxNIJP71YaUBlG_q9gCRtM7KS-0hvfqIOHpZzwx2ljhBSQc5CI19toSVgBHWCah0cNogGUIjhcKs5Uu6fgh27w8fnSroDkYCVofFoHqBQYHuvqq6Y3T_EAckEAHM_ylEVONGxWkimu-G9piFF5jWb3L6SQLU1kfUqLQ"/>
+</button>
+</div>
+</header>
+<!-- Main Workspace -->
+<main class="flex-1 p-4 md:p-container-padding bg-background">
+<!-- Page Header -->
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+<div>
+<h1 class="font-display-lg text-display-lg text-primary">Users &amp; Team</h1>
+<p class="font-body-base text-body-base text-on-surface-variant mt-1">Manage platform access, roles, and operational team members.</p>
+</div>
+<div class="flex items-center gap-3">
+<button class="h-touch-target-min px-6 bg-surface-card text-primary border border-primary font-label-caps rounded-DEFAULT flex items-center justify-center gap-2 hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[18px]">download</span>
+                        Export
+                    </button>
+<button class="h-touch-target-min px-6 bg-primary text-on-primary font-label-caps rounded-DEFAULT flex items-center justify-center gap-2 hover:bg-primary-container transition-colors shadow-sm">
+<span class="material-symbols-outlined text-[18px]">person_add</span>
+                        + Undang User
+                    </button>
+</div>
+</div>
+<!-- Table Container -->
+<div class="bg-surface-card rounded-xl border border-border-subtle shadow-[0_4px_12px_rgba(0,0,0,0.03)] overflow-hidden">
+<!-- Table Toolbar -->
+<div class="p-4 border-b border-border-subtle flex flex-col sm:flex-row justify-between items-center gap-4 bg-surface-container-lowest">
+<!-- Filters -->
+<div class="flex items-center gap-2 w-full sm:w-auto">
+<div class="relative">
+<select class="appearance-none h-10 pl-4 pr-10 bg-surface-container-low border border-border-subtle rounded-DEFAULT font-body-sm text-body-sm text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary cursor-pointer">
+<option>All Roles</option>
+<option>OWNER</option>
+<option>ADMIN</option>
+<option>SUPERVISOR</option>
+<option>STAFF</option>
+<option>FINANCE</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant text-[20px]">expand_more</span>
+</div>
+<div class="relative">
+<select class="appearance-none h-10 pl-4 pr-10 bg-surface-container-low border border-border-subtle rounded-DEFAULT font-body-sm text-body-sm text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary cursor-pointer">
+<option>All Status</option>
+<option>Active</option>
+<option>Inactive</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-on-surface-variant text-[20px]">expand_more</span>
+</div>
+</div>
+<!-- Search -->
+<div class="relative w-full sm:w-64">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">search</span>
+<input class="w-full h-10 pl-10 pr-4 bg-surface-container-low border border-border-subtle rounded-DEFAULT font-body-sm text-body-sm text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors" placeholder="Search team members..." type="text"/>
+</div>
+</div>
+<!-- Responsive Table -->
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low border-b border-border-subtle">
+<th class="py-3 px-6 font-label-caps text-label-caps text-on-surface-variant w-1/3">Name</th>
+<th class="py-3 px-6 font-label-caps text-label-caps text-on-surface-variant">Email</th>
+<th class="py-3 px-6 font-label-caps text-label-caps text-on-surface-variant">Role</th>
+<th class="py-3 px-6 font-label-caps text-label-caps text-on-surface-variant">Status</th>
+<th class="py-3 px-6 font-label-caps text-label-caps text-on-surface-variant">Last Active</th>
+<th class="py-3 px-6 font-label-caps text-label-caps text-on-surface-variant text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="font-body-sm text-body-sm text-on-surface divide-y divide-border-subtle">
+<!-- Row 1: Owner -->
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="py-4 px-6">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-primary-container text-on-primary flex items-center justify-center font-bold text-xs shrink-0">
+                                            NN
+                                        </div>
+<span class="font-semibold text-primary">Nama Notaris, S.H.</span>
+</div>
+</td>
+<td class="py-4 px-6 text-on-surface-variant">notaris@notaryoffice.com</td>
+<td class="py-4 px-6">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-primary-container text-on-primary font-label-caps text-[10px]">
+<span class="material-symbols-outlined text-[14px]">shield_person</span>
+                                        OWNER
+                                    </span>
+</td>
+<td class="py-4 px-6">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-status-success/10 text-status-success font-label-caps text-[10px]">
+<span class="w-1.5 h-1.5 rounded-full bg-status-success"></span>
+                                        Active
+                                    </span>
+</td>
+<td class="py-4 px-6 text-on-surface-variant">Just now</td>
+<td class="py-4 px-6 text-right">
+<button class="p-2 text-on-surface-variant hover:text-primary rounded-full hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 2: Admin -->
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="py-4 px-6">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest overflow-hidden shrink-0">
+<img alt="Budi Santoso" class="w-full h-full object-cover" data-alt="Professional headshot of an Asian male administrative manager in his 40s. He wears glasses, a neat light blue dress shirt, and a subtle tie. His expression is focused and capable. The background is a clean, bright corporate office environment with modern glass partitions." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCfLhtL6-sAXjbma6BQHckn7hF_-hVGT2D_v_jdVfYvTN237avNn9rrc-xsNvXe6sEVucpHDH0NjCMw-vez2IW9Glt9iGmmWKAlUD4tQlrtEgVY4MmeM42XWUJ4kZwCD5Sgl0VLeYbuSg9PQCCmnaCb6Mq7MlSY75LLVT4sAUvseiEzB-gz68OzMHwhrSgdNuMBg3hJoQEF3WfUFn8Jw7FckxhYzV62H7Xq9RWe8ZUksGmzchAreLbxOA"/>
+</div>
+<span class="font-semibold text-primary">Budi Santoso</span>
+</div>
+</td>
+<td class="py-4 px-6 text-on-surface-variant">budi.admin@notaryoffice.com</td>
+<td class="py-4 px-6">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container-highest text-on-surface font-label-caps text-[10px]">
+<span class="material-symbols-outlined text-[14px]">admin_panel_settings</span>
+                                        ADMIN
+                                    </span>
+</td>
+<td class="py-4 px-6">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-status-success/10 text-status-success font-label-caps text-[10px]">
+<span class="w-1.5 h-1.5 rounded-full bg-status-success"></span>
+                                        Active
+                                    </span>
+</td>
+<td class="py-4 px-6 text-on-surface-variant">2 hours ago</td>
+<td class="py-4 px-6 text-right">
+<div class="relative inline-block text-left group-hover:opacity-100 opacity-0 transition-opacity">
+<button class="text-primary hover:underline font-label-caps mr-4 text-xs">Edit Role</button>
+<button class="p-2 text-on-surface-variant hover:text-primary rounded-full hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 3: Staff (Inactive) -->
+<tr class="hover:bg-surface-container-lowest transition-colors group bg-surface-container-lowest/50">
+<td class="py-4 px-6">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center font-bold text-xs shrink-0 text-on-surface-variant">
+                                            SA
+                                        </div>
+<span class="font-semibold text-on-surface-variant">Siti Aminah</span>
+</div>
+</td>
+<td class="py-4 px-6 text-on-surface-variant">siti.staff@notaryoffice.com</td>
+<td class="py-4 px-6">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container-low border border-border-subtle text-on-surface-variant font-label-caps text-[10px]">
+<span class="material-symbols-outlined text-[14px]">badge</span>
+                                        STAFF
+                                    </span>
+</td>
+<td class="py-4 px-6">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface-variant font-label-caps text-[10px]">
+<span class="material-symbols-outlined text-[14px]">block</span>
+                                        Inactive
+                                    </span>
+</td>
+<td class="py-4 px-6 text-on-surface-variant">14 days ago</td>
+<td class="py-4 px-6 text-right">
+<div class="relative inline-block text-left group-hover:opacity-100 opacity-0 transition-opacity">
+<button class="p-2 text-on-surface-variant hover:text-primary rounded-full hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 4: Finance (Pending/Resend) -->
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="py-4 px-6">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-full bg-surface-container-highest flex items-center justify-center font-bold text-xs shrink-0 text-primary">
+                                            DH
+                                        </div>
+<span class="font-semibold text-primary">Dewi Hasan</span>
+</div>
+</td>
+<td class="py-4 px-6 text-on-surface-variant">finance@notaryoffice.com</td>
+<td class="py-4 px-6">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container-highest text-on-surface font-label-caps text-[10px]">
+<span class="material-symbols-outlined text-[14px]">account_balance_wallet</span>
+                                        FINANCE
+                                    </span>
+</td>
+<td class="py-4 px-6">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-status-warning-low/20 text-status-warning-medium font-label-caps text-[10px]">
+<span class="material-symbols-outlined text-[14px]">schedule</span>
+                                        Pending
+                                    </span>
+</td>
+<td class="py-4 px-6 text-on-surface-variant italic text-xs">Never</td>
+<td class="py-4 px-6 text-right">
+<div class="relative inline-block text-left group-hover:opacity-100 opacity-0 transition-opacity">
+<button class="text-primary hover:underline font-label-caps mr-4 text-xs">Resend Invite</button>
+<button class="p-2 text-on-surface-variant hover:text-primary rounded-full hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination Footer -->
+<div class="p-4 border-t border-border-subtle bg-surface-container-lowest flex items-center justify-between">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Showing 1 to 4 of 12 users</span>
+<div class="flex gap-1">
+<button class="w-8 h-8 flex items-center justify-center rounded-DEFAULT border border-border-subtle text-on-surface-variant hover:bg-surface-container disabled:opacity-50" disabled="">
+<span class="material-symbols-outlined text-[18px]">chevron_left</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-DEFAULT bg-primary text-on-primary font-body-sm">1</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-DEFAULT border border-border-subtle text-on-surface hover:bg-surface-container font-body-sm">2</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-DEFAULT border border-border-subtle text-on-surface-variant hover:bg-surface-container">
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

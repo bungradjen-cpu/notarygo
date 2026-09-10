@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+
+<html lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Perkara Berhasil Dibuat - NOTARYGO™</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-tint": "#476083",
+                        "surface-card": "#FFFFFF",
+                        "secondary-container": "#fc8f34",
+                        "surface-container-highest": "#e1e3e4",
+                        "on-primary-fixed": "#001c3a",
+                        "surface": "#f8f9fa",
+                        "status-critical": "#E74C3C",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-container": "#76889d",
+                        "inverse-on-surface": "#f0f1f2",
+                        "tertiary": "#000610",
+                        "on-error-container": "#93000a",
+                        "on-primary": "#ffffff",
+                        "on-secondary-fixed": "#301400",
+                        "error-container": "#ffdad6",
+                        "error": "#ba1a1a",
+                        "status-warning-low": "#F1C40F",
+                        "primary-fixed-dim": "#afc8f0",
+                        "tertiary-fixed": "#d1e4fb",
+                        "surface-variant": "#e1e3e4",
+                        "secondary": "#944a00",
+                        "secondary-fixed-dim": "#ffb783",
+                        "outline": "#74777f",
+                        "border-subtle": "#E2E8F0",
+                        "surface-bright": "#f8f9fa",
+                        "outline-variant": "#c4c6cf",
+                        "tertiary-container": "#0d2031",
+                        "on-tertiary": "#ffffff",
+                        "status-warning-medium": "#E67E22",
+                        "secondary-fixed": "#ffdcc5",
+                        "surface-container": "#edeeef",
+                        "status-active": "#3498DB",
+                        "surface-dim": "#d9dadb",
+                        "on-surface": "#191c1d",
+                        "status-success": "#10B981",
+                        "primary": "#000613",
+                        "on-secondary": "#ffffff",
+                        "background": "#f8f9fa",
+                        "surface-container-low": "#f3f4f5",
+                        "inverse-primary": "#afc8f0",
+                        "primary-fixed": "#d4e3ff",
+                        "on-background": "#191c1d",
+                        "tertiary-fixed-dim": "#b5c8df",
+                        "on-primary-container": "#6f88ad",
+                        "status-archived": "#94A3B8",
+                        "on-secondary-fixed-variant": "#713700",
+                        "surface-container-high": "#e7e8e9",
+                        "primary-container": "#001f3f",
+                        "on-primary-fixed-variant": "#2f486a",
+                        "on-error": "#ffffff",
+                        "on-tertiary-fixed": "#091d2e",
+                        "on-surface-variant": "#43474e",
+                        "on-secondary-container": "#663100",
+                        "inverse-surface": "#2e3132",
+                        "on-tertiary-fixed-variant": "#36485b"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    spacing: {
+                        "touch-target-min": "44px",
+                        "gutter": "1.5rem",
+                        "container-padding": "2rem",
+                        "stack-md": "1rem",
+                        "stack-sm": "0.5rem",
+                        "sidebar-width": "260px"
+                    },
+                    fontFamily: {
+                        "stats-number": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "title-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-base": ["Inter"],
+                        "body-sm": ["Inter"]
+                    },
+                    fontSize: {
+                        "stats-number": ["28px", { lineHeight: "34px", fontWeight: "700" }],
+                        "display-lg": ["32px", { lineHeight: "40px", letterSpacing: "-0.02em", fontWeight: "700" }],
+                        "label-caps": ["12px", { lineHeight: "16px", letterSpacing: "0.05em", fontWeight: "600" }],
+                        "headline-lg-mobile": ["20px", { lineHeight: "28px", fontWeight: "600" }],
+                        "title-md": ["18px", { lineHeight: "24px", fontWeight: "600" }],
+                        "headline-lg": ["24px", { lineHeight: "32px", fontWeight: "600" }],
+                        "body-base": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+                        "body-sm": ["14px", { lineHeight: "20px", fontWeight: "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined.fill {
+            font-variation-settings: 'FILL' 1;
+        }
+        
+        /* Subtle entry animations */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-up {
+            animation: fadeUp 0.6s ease-out forwards;
+        }
+        .delay-100 { animation-delay: 100ms; opacity: 0; }
+        .delay-200 { animation-delay: 200ms; opacity: 0; }
+        .delay-300 { animation-delay: 300ms; opacity: 0; }
+    </style>
+</head>
+<body class="bg-surface min-h-screen font-body-base text-on-surface antialiased flex flex-col">
+<!-- Top Navigation Bar (Suppressed Navigation Shell - only showing Brand for context) -->
+<header class="h-16 w-full sticky top-0 z-50 bg-surface dark:bg-on-tertiary-fixed border-b border-border-subtle shadow-sm flex justify-between items-center px-gutter">
+<div class="flex items-center gap-4">
+<!-- Brand Logo -->
+<div class="font-display-lg text-display-lg font-black text-primary tracking-tight">
+                NOTARYGO™
+            </div>
+<span class="font-body-sm text-body-sm text-on-surface-variant bg-surface-container px-3 py-1 rounded-full border border-border-subtle hidden md:inline-block">
+                Kantor Notaris &amp; PPAT Nama Notaris, S.H., M.Kn.
+            </span>
+</div>
+<div class="flex items-center gap-4">
+<!-- Actions typically here, suppressed for focus -->
+<a class="text-on-surface-variant hover:text-primary transition-all flex items-center gap-2 font-body-sm text-body-sm" href="#">
+<span class="material-symbols-outlined" style="font-size: 20px;">close</span> Tutup
+           </a>
+</div>
+</header>
+<!-- Main Content Canvas (Focused Success State) -->
+<main class="flex-1 w-full flex items-center justify-center p-gutter md:p-container-padding bg-gradient-to-b from-surface to-surface-container-low">
+<div class="max-w-3xl w-full bg-surface-card rounded-xl border border-border-subtle shadow-sm p-8 md:p-12 animate-fade-up">
+<!-- Success Header -->
+<div class="text-center mb-12">
+<div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-status-success/10 text-status-success mb-6">
+<span class="material-symbols-outlined fill" style="font-size: 48px;">check_circle</span>
+</div>
+<h1 class="font-headline-lg text-headline-lg md:font-display-lg md:text-display-lg text-primary mb-3">
+                    Perkara berhasil dibuat!
+                </h1>
+<p class="font-body-base text-body-base text-on-surface-variant max-w-lg mx-auto">
+                    Matter #PKR-2023-0892 telah tersimpan di sistem. Lengkapi detail operasional untuk memulai proses pengerjaan.
+                </p>
+</div>
+<!-- Next Steps Section -->
+<div class="mb-10">
+<h2 class="font-title-md text-title-md text-primary mb-6 flex items-center gap-2 border-b border-border-subtle pb-2">
+<span class="material-symbols-outlined text-secondary-container" style="font-size: 20px;">route</span> 
+                    Selanjutnya:
+                </h2>
+<!-- Action Cards Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<!-- Card 1: Tambah Checklist -->
+<button class="group text-left p-5 rounded-lg border border-border-subtle bg-surface hover:bg-surface-container transition-colors duration-200 animate-fade-up delay-100 flex flex-col h-full focus:outline-none focus:ring-2 focus:ring-primary-container">
+<div class="w-10 h-10 rounded-full bg-primary/5 text-primary flex items-center justify-center mb-4 group-hover:bg-primary group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined">format_list_bulleted</span>
+</div>
+<h3 class="font-title-md text-title-md text-primary mb-2 group-hover:text-primary transition-colors">Tambah Checklist</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant flex-grow">
+                            Buat daftar tugas dan persyaratan dokumen standar untuk jenis perkara ini.
+                        </p>
+<div class="mt-4 flex items-center text-primary font-body-sm text-body-sm font-semibold opacity-0 group-hover:opacity-100 transition-opacity transform translate-x-[-10px] group-hover:translate-x-0 duration-300">
+                            Mulai <span class="material-symbols-outlined ml-1" style="font-size: 16px;">arrow_forward</span>
+</div>
+</button>
+<!-- Card 2: Assign Task -->
+<button class="group text-left p-5 rounded-lg border border-border-subtle bg-surface hover:bg-surface-container transition-colors duration-200 animate-fade-up delay-200 flex flex-col h-full focus:outline-none focus:ring-2 focus:ring-primary-container">
+<div class="w-10 h-10 rounded-full bg-primary/5 text-primary flex items-center justify-center mb-4 group-hover:bg-primary group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined">assignment_ind</span>
+</div>
+<h3 class="font-title-md text-title-md text-primary mb-2 group-hover:text-primary transition-colors">Assign Task</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant flex-grow">
+                            Delegasikan tanggung jawab pengerjaan perkara kepada staf operasional.
+                        </p>
+<div class="mt-4 flex items-center text-primary font-body-sm text-body-sm font-semibold opacity-0 group-hover:opacity-100 transition-opacity transform translate-x-[-10px] group-hover:translate-x-0 duration-300">
+                            Pilih Staf <span class="material-symbols-outlined ml-1" style="font-size: 16px;">arrow_forward</span>
+</div>
+</button>
+<!-- Card 3: Upload Dokumen -->
+<button class="group text-left p-5 rounded-lg border border-border-subtle bg-surface hover:bg-surface-container transition-colors duration-200 animate-fade-up delay-300 flex flex-col h-full focus:outline-none focus:ring-2 focus:ring-primary-container">
+<div class="w-10 h-10 rounded-full bg-primary/5 text-primary flex items-center justify-center mb-4 group-hover:bg-primary group-hover:text-on-primary transition-colors">
+<span class="material-symbols-outlined">upload_file</span>
+</div>
+<h3 class="font-title-md text-title-md text-primary mb-2 group-hover:text-primary transition-colors">Upload Dokumen</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant flex-grow">
+                            Unggah draf awal, identitas klien, atau dokumen pendukung lainnya.
+                        </p>
+<div class="mt-4 flex items-center text-primary font-body-sm text-body-sm font-semibold opacity-0 group-hover:opacity-100 transition-opacity transform translate-x-[-10px] group-hover:translate-x-0 duration-300">
+                            Unggah <span class="material-symbols-outlined ml-1" style="font-size: 16px;">arrow_forward</span>
+</div>
+</button>
+</div>
+</div>
+<!-- Primary Action -->
+<div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-6 border-t border-border-subtle animate-fade-up delay-300">
+<button class="w-full sm:w-auto min-h-[touch-target-min] px-8 bg-primary text-on-primary font-title-md text-title-md rounded-DEFAULT hover:bg-primary-container transition-colors flex items-center justify-center gap-2 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                    Buka Detail Perkara
+                    <span class="material-symbols-outlined" style="font-size: 20px;">open_in_new</span>
+</button>
+<a class="w-full sm:w-auto min-h-[touch-target-min] px-6 text-primary font-title-md text-title-md rounded-DEFAULT border border-transparent hover:bg-surface-container transition-colors flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-primary-container" href="#">
+                    Kembali ke Dashboard
+                </a>
+</div>
+</div>
+</main>
+</body></html>

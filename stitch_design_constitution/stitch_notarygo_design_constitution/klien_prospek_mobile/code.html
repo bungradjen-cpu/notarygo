@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+
+<html lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Daftar Klien</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-tertiary-fixed-variant": "#36485b",
+                      "secondary": "#944a00",
+                      "surface-card": "#FFFFFF",
+                      "surface-container-high": "#e7e8e9",
+                      "surface-container": "#edeeef",
+                      "primary-fixed-dim": "#afc8f0",
+                      "on-secondary-fixed": "#301400",
+                      "outline-variant": "#c4c6cf",
+                      "primary": "#000613",
+                      "inverse-on-surface": "#f0f1f2",
+                      "status-critical": "#E74C3C",
+                      "surface-dim": "#d9dadb",
+                      "secondary-fixed": "#ffdcc5",
+                      "error-container": "#ffdad6",
+                      "tertiary-container": "#0d2031",
+                      "surface-container-highest": "#e1e3e4",
+                      "inverse-primary": "#afc8f0",
+                      "on-tertiary-fixed": "#091d2e",
+                      "on-primary": "#ffffff",
+                      "on-background": "#191c1d",
+                      "on-error": "#ffffff",
+                      "surface-tint": "#476083",
+                      "surface-container-low": "#f3f4f5",
+                      "border-subtle": "#E2E8F0",
+                      "tertiary": "#000610",
+                      "status-archived": "#94A3B8",
+                      "surface-bright": "#f8f9fa",
+                      "inverse-surface": "#2e3132",
+                      "background": "#f8f9fa",
+                      "on-secondary-container": "#663100",
+                      "primary-fixed": "#d4e3ff",
+                      "status-warning-medium": "#E67E22",
+                      "status-success": "#10B981",
+                      "on-primary-fixed": "#001c3a",
+                      "on-tertiary": "#ffffff",
+                      "surface": "#f8f9fa",
+                      "surface-container-lowest": "#ffffff",
+                      "tertiary-fixed-dim": "#b5c8df",
+                      "surface-variant": "#e1e3e4",
+                      "outline": "#74777f",
+                      "on-surface-variant": "#43474e",
+                      "on-error-container": "#93000a",
+                      "status-active": "#3498DB",
+                      "tertiary-fixed": "#d1e4fb",
+                      "on-tertiary-container": "#76889d",
+                      "on-surface": "#191c1d",
+                      "on-primary-container": "#6f88ad",
+                      "secondary-container": "#fc8f34",
+                      "on-primary-fixed-variant": "#2f486a",
+                      "primary-container": "#001f3f",
+                      "on-secondary-fixed-variant": "#713700",
+                      "error": "#ba1a1a",
+                      "secondary-fixed-dim": "#ffb783",
+                      "status-warning-low": "#F1C40F",
+                      "on-secondary": "#ffffff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "sidebar-width": "260px",
+                      "touch-target-min": "44px",
+                      "stack-sm": "0.5rem",
+                      "container-padding": "2rem",
+                      "gutter": "1.5rem",
+                      "stack-md": "1rem"
+              },
+              "fontFamily": {
+                      "body-sm": ["Inter"],
+                      "body-base": ["Inter"],
+                      "display-lg": ["Inter"],
+                      "headline-lg": ["Inter"],
+                      "label-caps": ["Inter"],
+                      "headline-lg-mobile": ["Inter"],
+                      "title-md": ["Inter"],
+                      "stats-number": ["Inter"]
+              },
+              "fontSize": {
+                      "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "body-base": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "headline-lg": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                      "headline-lg-mobile": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                      "title-md": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                      "stats-number": ["28px", {"lineHeight": "34px", "fontWeight": "700"}]
+              }
+            }
+          }
+        }
+    </script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            -webkit-tap-highlight-color: transparent;
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-base h-screen flex flex-col overflow-hidden">
+<!-- Top Navigation (Mobile focused) -->
+<header class="bg-surface sticky top-0 z-40 border-b border-border-subtle flex justify-between items-center px-4 py-3 min-h-[56px]">
+<div class="flex items-center gap-3">
+<button aria-label="Go back" class="h-touch-target-min w-touch-target-min flex items-center justify-center text-on-surface-variant rounded-full hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined" data-icon="arrow_back">arrow_back</span>
+</button>
+<h1 class="text-title-md font-title-md text-primary truncate max-w-[200px]">Daftar Klien</h1>
+</div>
+<div class="flex items-center gap-2">
+<button aria-label="Add Client" class="h-touch-target-min px-4 bg-primary text-on-primary rounded-full text-label-caps font-label-caps font-semibold shadow-sm hover:opacity-90 transition-opacity">
+                + Baru
+            </button>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="flex-1 overflow-y-auto w-full max-w-lg mx-auto">
+<!-- Search Section -->
+<div class="px-4 py-3 bg-surface sticky top-0 z-30 shadow-[0_2px_4px_rgba(0,0,0,0.02)]">
+<div class="relative w-full">
+<span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-outline">
+<span class="material-symbols-outlined text-body-base" data-icon="search">search</span>
+</span>
+<input class="w-full h-touch-target-min pl-10 pr-4 rounded-full border border-outline-variant bg-surface-container-lowest focus:ring-2 focus:ring-primary focus:border-primary text-body-sm font-body-sm placeholder:text-outline transition-all" placeholder="Cari nama klien, PT, atau No. Telepon..." type="search"/>
+</div>
+<!-- Filter Chips -->
+<div class="flex gap-2 mt-3 overflow-x-auto pb-1 no-scrollbar scroll-smooth">
+<button class="flex-shrink-0 px-4 h-[32px] rounded-full bg-primary-container text-on-primary-container text-label-caps font-label-caps border border-primary-container">Semua Klien (142)</button>
+<button class="flex-shrink-0 px-4 h-[32px] rounded-full bg-surface-container-lowest text-on-surface-variant text-label-caps font-label-caps border border-outline-variant hover:bg-surface-container-low transition-colors">Perorangan</button>
+<button class="flex-shrink-0 px-4 h-[32px] rounded-full bg-surface-container-lowest text-on-surface-variant text-label-caps font-label-caps border border-outline-variant hover:bg-surface-container-low transition-colors">Korporasi</button>
+</div>
+</div>
+<!-- Client List -->
+<div class="p-4 space-y-3 pb-24">
+<!-- Client Card 1 (Individual) -->
+<article class="bg-surface-card rounded-xl border border-border-subtle p-4 shadow-[0_4px_12px_rgba(0,0,0,0.03)] transition-transform hover:-translate-y-[1px] active:scale-[0.98]">
+<div class="flex justify-between items-start mb-3">
+<div class="flex gap-3 items-center">
+<div class="w-12 h-12 rounded-full bg-surface-container-high flex items-center justify-center flex-shrink-0 text-on-surface-variant">
+<span class="material-symbols-outlined text-headline-lg" data-icon="person">person</span>
+</div>
+<div>
+<h2 class="text-title-md font-title-md text-on-surface line-clamp-1">Bpk. Budi Santoso</h2>
+<div class="flex items-center gap-1 mt-0.5">
+<span class="material-symbols-outlined text-[14px] text-on-surface-variant" data-icon="person_outline">person_outline</span>
+<span class="text-body-sm font-body-sm text-on-surface-variant">Perorangan</span>
+</div>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-2 mb-4 pl-[60px]">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-outline" data-icon="call">call</span>
+<span class="text-body-sm font-body-sm text-on-surface-variant">+62 812-3456-7890</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-status-active" data-icon="folder_open">folder_open</span>
+<span class="text-body-sm font-body-sm text-status-active font-medium">2 Perkara Aktif</span>
+</div>
+</div>
+<div class="flex gap-2 pl-[60px]">
+<button class="flex-1 h-10 flex items-center justify-center gap-2 border border-outline-variant rounded-lg text-primary text-body-sm font-body-sm font-semibold hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="chat">chat</span>
+                        WhatsApp
+                    </button>
+<button class="flex-1 h-10 flex items-center justify-center gap-2 border border-outline-variant rounded-lg text-primary text-body-sm font-body-sm font-semibold hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="call">call</span>
+                        Telepon
+                    </button>
+</div>
+</article>
+<!-- Client Card 2 (Corporate) -->
+<article class="bg-surface-card rounded-xl border border-border-subtle p-4 shadow-[0_4px_12px_rgba(0,0,0,0.03)] transition-transform hover:-translate-y-[1px] active:scale-[0.98]">
+<div class="flex justify-between items-start mb-3">
+<div class="flex gap-3 items-center">
+<div class="w-12 h-12 rounded-full bg-primary-container flex items-center justify-center flex-shrink-0 text-on-primary-container">
+<span class="material-symbols-outlined text-headline-lg" data-icon="domain">domain</span>
+</div>
+<div>
+<h2 class="text-title-md font-title-md text-on-surface line-clamp-1">PT. Maju Bersama</h2>
+<div class="flex items-center gap-1 mt-0.5">
+<span class="material-symbols-outlined text-[14px] text-on-surface-variant" data-icon="business">business</span>
+<span class="text-body-sm font-body-sm text-on-surface-variant">Korporasi (CP: Anita)</span>
+</div>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-2 mb-4 pl-[60px]">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-outline" data-icon="call">call</span>
+<span class="text-body-sm font-body-sm text-on-surface-variant">+62 21-7654-3210</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-status-active" data-icon="folder_open">folder_open</span>
+<span class="text-body-sm font-body-sm text-status-active font-medium">5 Perkara Aktif</span>
+</div>
+</div>
+<div class="flex gap-2 pl-[60px]">
+<button class="flex-1 h-10 flex items-center justify-center gap-2 border border-outline-variant rounded-lg text-primary text-body-sm font-body-sm font-semibold hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="chat">chat</span>
+                        WhatsApp
+                    </button>
+<button class="flex-1 h-10 flex items-center justify-center gap-2 border border-outline-variant rounded-lg text-primary text-body-sm font-body-sm font-semibold hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="call">call</span>
+                        Telepon
+                    </button>
+</div>
+</article>
+<!-- Client Card 3 (Individual - No Active Matter) -->
+<article class="bg-surface-card rounded-xl border border-border-subtle p-4 shadow-[0_4px_12px_rgba(0,0,0,0.03)] opacity-80 transition-transform hover:-translate-y-[1px] active:scale-[0.98]">
+<div class="flex justify-between items-start mb-3">
+<div class="flex gap-3 items-center">
+<div class="w-12 h-12 rounded-full bg-surface-container-high flex items-center justify-center flex-shrink-0 text-on-surface-variant">
+<span class="material-symbols-outlined text-headline-lg" data-icon="person">person</span>
+</div>
+<div>
+<h2 class="text-title-md font-title-md text-on-surface line-clamp-1">Ibu Siti Aminah</h2>
+<div class="flex items-center gap-1 mt-0.5">
+<span class="material-symbols-outlined text-[14px] text-on-surface-variant" data-icon="person_outline">person_outline</span>
+<span class="text-body-sm font-body-sm text-on-surface-variant">Perorangan</span>
+</div>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-2 mb-4 pl-[60px]">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-outline" data-icon="call">call</span>
+<span class="text-body-sm font-body-sm text-on-surface-variant">+62 899-1234-5678</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-status-archived" data-icon="folder">folder</span>
+<span class="text-body-sm font-body-sm text-status-archived">Tidak ada perkara aktif</span>
+</div>
+</div>
+<div class="flex gap-2 pl-[60px]">
+<button class="flex-1 h-10 flex items-center justify-center gap-2 border border-outline-variant rounded-lg text-primary text-body-sm font-body-sm font-semibold hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="chat">chat</span>
+                        WhatsApp
+                    </button>
+<button class="flex-1 h-10 flex items-center justify-center gap-2 border border-outline-variant rounded-lg text-primary text-body-sm font-body-sm font-semibold hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[18px]" data-icon="call">call</span>
+                        Telepon
+                    </button>
+</div>
+</article>
+</div>
+</main>
+<style>
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        /* Hide scrollbar for IE, Edge and Firefox */
+        .no-scrollbar {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+    </style>
+</body></html>

@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Mitra &amp; Rekanan - NOTARYGO</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed-variant": "#36485b",
+                        "on-secondary-fixed": "#301400",
+                        "secondary-container": "#fc8f34",
+                        "on-secondary": "#ffffff",
+                        "primary-fixed": "#d4e3ff",
+                        "secondary": "#944a00",
+                        "tertiary-fixed-dim": "#b5c8df",
+                        "surface-container-highest": "#e1e3e4",
+                        "on-primary": "#ffffff",
+                        "on-surface": "#191c1d",
+                        "outline-variant": "#c4c6cf",
+                        "tertiary": "#000610",
+                        "secondary-fixed": "#ffdcc5",
+                        "surface-container": "#edeeef",
+                        "status-critical": "#E74C3C",
+                        "on-primary-fixed-variant": "#2f486a",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "inverse-primary": "#afc8f0",
+                        "primary-container": "#001f3f",
+                        "surface-dim": "#d9dadb",
+                        "on-tertiary-fixed": "#091d2e",
+                        "primary": "#000613",
+                        "tertiary-container": "#0d2031",
+                        "surface": "#f8f9fa",
+                        "on-primary-container": "#6f88ad",
+                        "surface-card": "#FFFFFF",
+                        "on-primary-fixed": "#001c3a",
+                        "outline": "#74777f",
+                        "status-archived": "#94A3B8",
+                        "on-surface-variant": "#43474e",
+                        "background": "#f8f9fa",
+                        "error-container": "#ffdad6",
+                        "on-secondary-fixed-variant": "#713700",
+                        "inverse-on-surface": "#f0f1f2",
+                        "primary-fixed-dim": "#afc8f0",
+                        "status-warning-low": "#F1C40F",
+                        "surface-bright": "#f8f9fa",
+                        "on-background": "#191c1d",
+                        "on-error-container": "#93000a",
+                        "surface-tint": "#476083",
+                        "on-secondary-container": "#663100",
+                        "on-tertiary-container": "#76889d",
+                        "surface-variant": "#e1e3e4",
+                        "status-warning-medium": "#E67E22",
+                        "surface-container-low": "#f3f4f5",
+                        "on-error": "#ffffff",
+                        "inverse-surface": "#2e3132",
+                        "surface-container-high": "#e7e8e9",
+                        "border-subtle": "#E2E8F0",
+                        "status-active": "#3498DB",
+                        "status-success": "#10B981",
+                        "tertiary-fixed": "#d1e4fb",
+                        "error": "#ba1a1a",
+                        "secondary-fixed-dim": "#ffb783"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-sm": "0.5rem",
+                        "stack-md": "1rem",
+                        "gutter": "1.5rem",
+                        "touch-target-min": "44px",
+                        "sidebar-width": "260px",
+                        "container-padding": "2rem"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "body-base": ["Inter"],
+                        "stats-number": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "title-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "display-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-base": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "stats-number": ["28px", { "lineHeight": "34px", "fontWeight": "700" }],
+                        "headline-lg": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "title-md": ["18px", { "lineHeight": "24px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: #f8f9fa; }
+    </style>
+</head>
+<body class="font-body-base text-body-base text-on-surface antialiased bg-background flex min-h-screen">
+<!-- SideNavBar -->
+<aside class="bg-primary-container dark:bg-primary-container text-primary-fixed dark:text-primary-fixed-dim docked h-screen w-sidebar fixed left-0 top-0 border-r border-outline-variant shadow-sm z-50">
+<div class="flex flex-col h-full py-gutter justify-between">
+<div>
+<div class="px-6 pb-6 border-b border-on-primary-container/20 mb-4">
+<h1 class="text-title-md font-title-md font-bold text-surface-container-lowest tracking-tight">NOTARYGO™</h1>
+<p class="text-body-sm font-body-sm opacity-80 mt-1">Operational System</p>
+</div>
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-stack-md px-4 py-3 text-on-primary-container hover:text-white hover:bg-on-primary-container/10 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="text-body-base font-body-base font-medium">Overview</span>
+</a>
+<a class="flex items-center gap-stack-md px-4 py-3 bg-on-primary-container/20 text-white border-l-4 border-secondary opacity-90 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="work">work</span>
+<span class="text-body-base font-body-base font-medium">Operations</span>
+</a>
+<a class="flex items-center gap-stack-md px-4 py-3 text-on-primary-container hover:text-white hover:bg-on-primary-container/10 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+<span class="text-body-base font-body-base font-medium">Documents</span>
+</a>
+<a class="flex items-center gap-stack-md px-4 py-3 text-on-primary-container hover:text-white hover:bg-on-primary-container/10 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span class="text-body-base font-body-base font-medium">Finance</span>
+</a>
+<a class="flex items-center gap-stack-md px-4 py-3 text-on-primary-container hover:text-white hover:bg-on-primary-container/10 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="settings_accessibility">settings_accessibility</span>
+<span class="text-body-base font-body-base font-medium">Control</span>
+</a>
+</nav>
+</div>
+<div class="px-4">
+<button class="w-full flex items-center justify-center gap-2 py-3 mb-4 rounded bg-on-primary-container/20 hover:bg-on-primary-container/30 transition-colors text-white text-body-sm font-body-sm font-medium">
+<span class="material-symbols-outlined text-[18px]">settings</span> Quick Settings
+                </button>
+<div class="flex items-center gap-3 px-2 py-2 border-t border-on-primary-container/20 pt-4">
+<img class="w-8 h-8 rounded-full object-cover border border-outline-variant" data-alt="A small, professional headshot photo of a person in business attire, looking directly at the camera with a neutral expression. The background is a solid, light neutral gray. The lighting is studio quality, soft and even." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBP6l75uA7konOo7PngZwgyh0irvyeLWgjCPVdQLfF8cirLe71NTBxgS7hNVuI4_yfXAOIluxV1vm-sVKu-o8Gu1TCiEu1Vpot4ZeyMca4Qiwo4i2yhTEnr0W-ikVHCnqzqfMe4rn8Llsw12H2fGsCydZ9SD9tBefYcDMCwsVhjteNYYTCw5mud3j4c7HoFdqw2ZZ82-V9x6DgxmN_VpGi7beuXw6myN0WsTps57VfvKB8wNCkOzG3k6w"/>
+<span class="text-body-sm font-body-sm text-surface-container-lowest">Owner Profile</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Content Wrapper -->
+<div class="flex-1 ml-[260px] flex flex-col min-h-screen">
+<!-- TopNavBar -->
+<header class="bg-surface dark:bg-surface text-primary dark:text-primary-fixed docked h-touch-target-min w-full sticky top-0 z-40 border-b border-border-subtle flex justify-between items-center px-gutter">
+<div class="flex items-center gap-4">
+<div class="relative hidden md:flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-outline text-[18px]">search</span>
+<input class="pl-9 pr-4 py-1.5 h-touch-target-min text-body-sm font-body-sm rounded border-outline-variant bg-surface-container-lowest focus:ring-primary focus:border-primary w-[300px]" placeholder="Search records..." type="text"/>
+</div>
+</div>
+<div class="text-title-md font-title-md font-bold text-primary-container dark:text-primary-fixed hidden lg:block">
+                Kantor Notaris &amp; PPAT Nama Notaris, S.H., M.Kn.
+            </div>
+<div class="flex items-center gap-4">
+<button class="flex items-center justify-center w-10 h-touch-target-min text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="flex items-center justify-center w-10 h-touch-target-min text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+</button>
+<button class="bg-primary-container text-white px-4 h-touch-target-min rounded font-medium text-body-sm hover:bg-primary-fixed-variant transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">add</span> + Buat
+                </button>
+</div>
+</header>
+<!-- Page Canvas -->
+<main class="flex-1 p-container-padding max-w-[1400px] w-full mx-auto">
+<!-- Header Section -->
+<div class="flex justify-between items-end mb-8">
+<div>
+<h2 class="text-display-lg font-display-lg text-primary-container mb-2">Mitra &amp; Rekanan</h2>
+<p class="text-body-base font-body-base text-on-surface-variant">Manage your institutional partners, banks, and corporate clients.</p>
+</div>
+<div class="flex gap-3">
+<button class="flex items-center gap-2 h-touch-target-min px-4 bg-surface-container-lowest border border-border-subtle rounded text-body-sm font-medium hover:bg-surface-container-low transition-colors text-primary-container">
+<span class="material-symbols-outlined text-[18px]">filter_list</span> Filter
+                    </button>
+<button class="flex items-center gap-2 h-touch-target-min px-4 bg-surface-container-lowest border border-border-subtle rounded text-body-sm font-medium hover:bg-surface-container-low transition-colors text-primary-container">
+<span class="material-symbols-outlined text-[18px]">download</span> Export
+                    </button>
+</div>
+</div>
+<!-- Category Tabs (Bento Style Stats) -->
+<div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
+<div class="bg-surface-container-lowest p-4 rounded-xl border border-border-subtle hover:shadow-md transition-shadow cursor-pointer border-b-4 border-b-secondary-container">
+<div class="flex justify-between items-start mb-2">
+<span class="material-symbols-outlined text-secondary-container">account_balance</span>
+<span class="text-stats-number font-stats-number text-primary-container">12</span>
+</div>
+<div class="text-body-sm font-body-sm text-on-surface-variant font-medium">Bank</div>
+</div>
+<div class="bg-surface-container-lowest p-4 rounded-xl border border-border-subtle hover:shadow-md transition-shadow cursor-pointer opacity-70">
+<div class="flex justify-between items-start mb-2">
+<span class="material-symbols-outlined text-outline">domain</span>
+<span class="text-stats-number font-stats-number text-primary-container">8</span>
+</div>
+<div class="text-body-sm font-body-sm text-on-surface-variant font-medium">Developer</div>
+</div>
+<div class="bg-surface-container-lowest p-4 rounded-xl border border-border-subtle hover:shadow-md transition-shadow cursor-pointer opacity-70">
+<div class="flex justify-between items-start mb-2">
+<span class="material-symbols-outlined text-outline">business_center</span>
+<span class="text-stats-number font-stats-number text-primary-container">24</span>
+</div>
+<div class="text-body-sm font-body-sm text-on-surface-variant font-medium">Corporate</div>
+</div>
+<div class="bg-surface-container-lowest p-4 rounded-xl border border-border-subtle hover:shadow-md transition-shadow cursor-pointer opacity-70">
+<div class="flex justify-between items-start mb-2">
+<span class="material-symbols-outlined text-outline">real_estate_agent</span>
+<span class="text-stats-number font-stats-number text-primary-container">15</span>
+</div>
+<div class="text-body-sm font-body-sm text-on-surface-variant font-medium">Agency</div>
+</div>
+<div class="bg-surface-container-lowest p-4 rounded-xl border border-border-subtle hover:shadow-md transition-shadow cursor-pointer opacity-70">
+<div class="flex justify-between items-start mb-2">
+<span class="material-symbols-outlined text-outline">more_horiz</span>
+<span class="text-stats-number font-stats-number text-primary-container">6</span>
+</div>
+<div class="text-body-sm font-body-sm text-on-surface-variant font-medium">Other</div>
+</div>
+</div>
+<!-- Data Table Card -->
+<div class="bg-surface-container-lowest rounded-xl border border-border-subtle shadow-sm overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface border-b border-border-subtle">
+<th class="px-6 py-4 text-label-caps font-label-caps text-on-surface-variant uppercase">Nama Mitra</th>
+<th class="px-6 py-4 text-label-caps font-label-caps text-on-surface-variant uppercase">Jenis</th>
+<th class="px-6 py-4 text-label-caps font-label-caps text-on-surface-variant uppercase">Contact Person</th>
+<th class="px-6 py-4 text-label-caps font-label-caps text-on-surface-variant uppercase">Phone / Email</th>
+<th class="px-6 py-4 text-label-caps font-label-caps text-on-surface-variant uppercase text-right">Active Matters</th>
+<th class="px-6 py-4 w-[60px]"></th>
+</tr>
+</thead>
+<tbody class="text-body-sm font-body-sm text-on-surface">
+<tr class="border-b border-border-subtle hover:bg-surface-container-low transition-colors group">
+<td class="px-6 py-4 font-medium text-primary-container">Bank Central Asia (BCA) - Cabang Utama</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-secondary-container/10 text-secondary-container text-[12px] font-semibold">
+<span class="material-symbols-outlined text-[14px]">account_balance</span> Bank
+                                    </span>
+</td>
+<td class="px-6 py-4">Budi Santoso</td>
+<td class="px-6 py-4">
+<div class="flex flex-col">
+<span>+62 812-3456-7890</span>
+<span class="text-outline text-[12px]">budi.s@bca.co.id</span>
+</div>
+</td>
+<td class="px-6 py-4 text-right font-medium">12</td>
+<td class="px-6 py-4 text-right">
+<button class="text-outline hover:text-primary-container opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<tr class="border-b border-border-subtle hover:bg-surface-container-low transition-colors group">
+<td class="px-6 py-4 font-medium text-primary-container">PT. Citra Land Development</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-surface-tint/10 text-surface-tint text-[12px] font-semibold">
+<span class="material-symbols-outlined text-[14px]">domain</span> Developer
+                                    </span>
+</td>
+<td class="px-6 py-4">Siti Aminah</td>
+<td class="px-6 py-4">
+<div class="flex flex-col">
+<span>+62 811-9876-5432</span>
+<span class="text-outline text-[12px]">siti.a@citraland.com</span>
+</div>
+</td>
+<td class="px-6 py-4 text-right font-medium">5</td>
+<td class="px-6 py-4 text-right">
+<button class="text-outline hover:text-primary-container opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<tr class="border-b border-border-subtle hover:bg-surface-container-low transition-colors group">
+<td class="px-6 py-4 font-medium text-primary-container">Bank Mandiri - KCP Sudirman</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded bg-secondary-container/10 text-secondary-container text-[12px] font-semibold">
+<span class="material-symbols-outlined text-[14px]">account_balance</span> Bank
+                                    </span>
+</td>
+<td class="px-6 py-4">Agus Pratama</td>
+<td class="px-6 py-4">
+<div class="flex flex-col">
+<span>+62 856-1234-9988</span>
+<span class="text-outline text-[12px]">agus.p@mandiri.co.id</span>
+</div>
+</td>
+<td class="px-6 py-4 text-right font-medium">8</td>
+<td class="px-6 py-4 text-right">
+<button class="text-outline hover:text-primary-container opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-4 border-t border-border-subtle flex justify-between items-center text-body-sm font-body-sm text-outline">
+<span>Showing 1 to 3 of 65 entries</span>
+<div class="flex gap-2">
+<button class="px-3 py-1 border border-border-subtle rounded hover:bg-surface-container-low disabled:opacity-50" disabled="">Prev</button>
+<button class="px-3 py-1 border border-border-subtle rounded hover:bg-surface-container-low bg-surface">1</button>
+<button class="px-3 py-1 border border-border-subtle rounded hover:bg-surface-container-low">2</button>
+<button class="px-3 py-1 border border-border-subtle rounded hover:bg-surface-container-low">Next</button>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

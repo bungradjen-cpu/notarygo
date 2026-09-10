@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+
+<html class="light" lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Pengaturan &amp; Profil - NOTARYGO™</title>
+<!-- Google Fonts: Inter -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config from Guidelines -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-tint": "#476083",
+                    "surface-card": "#FFFFFF",
+                    "secondary-container": "#fc8f34",
+                    "surface-container-highest": "#e1e3e4",
+                    "on-primary-fixed": "#001c3a",
+                    "surface": "#f8f9fa",
+                    "status-critical": "#E74C3C",
+                    "surface-container-lowest": "#ffffff",
+                    "on-tertiary-container": "#76889d",
+                    "inverse-on-surface": "#f0f1f2",
+                    "tertiary": "#000610",
+                    "on-error-container": "#93000a",
+                    "on-primary": "#ffffff",
+                    "on-secondary-fixed": "#301400",
+                    "error-container": "#ffdad6",
+                    "error": "#ba1a1a",
+                    "status-warning-low": "#F1C40F",
+                    "primary-fixed-dim": "#afc8f0",
+                    "tertiary-fixed": "#d1e4fb",
+                    "surface-variant": "#e1e3e4",
+                    "secondary": "#944a00",
+                    "secondary-fixed-dim": "#ffb783",
+                    "outline": "#74777f",
+                    "border-subtle": "#E2E8F0",
+                    "surface-bright": "#f8f9fa",
+                    "outline-variant": "#c4c6cf",
+                    "tertiary-container": "#0d2031",
+                    "on-tertiary": "#ffffff",
+                    "status-warning-medium": "#E67E22",
+                    "secondary-fixed": "#ffdcc5",
+                    "surface-container": "#edeeef",
+                    "status-active": "#3498DB",
+                    "surface-dim": "#d9dadb",
+                    "on-surface": "#191c1d",
+                    "status-success": "#10B981",
+                    "primary": "#000613",
+                    "on-secondary": "#ffffff",
+                    "background": "#f8f9fa",
+                    "surface-container-low": "#f3f4f5",
+                    "inverse-primary": "#afc8f0",
+                    "primary-fixed": "#d4e3ff",
+                    "on-background": "#191c1d",
+                    "tertiary-fixed-dim": "#b5c8df",
+                    "on-primary-container": "#6f88ad",
+                    "status-archived": "#94A3B8",
+                    "on-secondary-fixed-variant": "#713700",
+                    "surface-container-high": "#e7e8e9",
+                    "primary-container": "#001f3f",
+                    "on-primary-fixed-variant": "#2f486a",
+                    "on-error": "#ffffff",
+                    "on-tertiary-fixed": "#091d2e",
+                    "on-surface-variant": "#43474e",
+                    "on-secondary-container": "#663100",
+                    "inverse-surface": "#2e3132",
+                    "on-tertiary-fixed-variant": "#36485b"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "touch-target-min": "44px",
+                    "gutter": "1.5rem",
+                    "container-padding": "2rem",
+                    "stack-md": "1rem",
+                    "stack-sm": "0.5rem",
+                    "sidebar-width": "260px"
+            },
+            "fontFamily": {
+                    "stats-number": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "label-caps": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "title-md": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "body-base": ["Inter"],
+                    "body-sm": ["Inter"]
+            },
+            "fontSize": {
+                    "stats-number": ["28px", { "lineHeight": "34px", "fontWeight": "700" }],
+                    "display-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                    "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                    "headline-lg-mobile": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                    "title-md": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+                    "headline-lg": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                    "body-base": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                    "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }]
+            }
+          }
+        }
+      }
+    </script>
+<style>
+        /* Base material icon class requirements */
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Hide scrollbar for clean internal scrolling if needed */
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-surface font-body-base text-body-base text-on-surface min-h-screen">
+<!-- Shared Component: SideNavBar -->
+<aside class="w-[260px] h-screen fixed left-0 top-0 border-r border-border-subtle bg-primary flex flex-col h-full py-6 z-50">
+<!-- Header -->
+<div class="px-6 mb-8 flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-surface-card flex items-center justify-center shrink-0">
+<img class="w-5 h-5 object-contain" data-alt="A minimalist, highly stylized geometric logo icon for a notary office, utilizing pristine white and deep navy blue. The aesthetic is extremely modern, corporate, and precise, fitting a high-end legal SaaS platform." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD57OcF_EQt5zaqXYVAdVwStPJ8IUTP41lT94sVrBv6hSx5-uiZiP9hJo80RRGszSMSufwRBQWmJ2ap5YuOuLkDMTo4GYMlMPwbiKTNJtC8Lpu_Yv24c35UqI-Zx5K9beImHlb4dIp0YWWw_FHUztOT6EWkTwbRZ-whpvzsbR3MSztBogBGV44q9-3WR0dxKxS-O119-qBdRkhgdpHQ96fGiPZXP0ptGIYhJmbYl4IOT-c95m9Lc0rAaQ"/>
+</div>
+<div class="flex flex-col">
+<span class="font-display-lg text-display-lg font-black text-on-primary text-xl leading-none tracking-tight">NOTARYGO™</span>
+<span class="font-body-sm text-body-sm text-on-primary opacity-60">Operational Control</span>
+</div>
+</div>
+<!-- CTA -->
+<div class="px-6 mb-8">
+<button class="w-full h-touch-target-min bg-surface-card text-primary font-title-md text-title-md rounded-DEFAULT flex items-center justify-center hover:bg-surface-container transition-colors shadow-sm">
+                + Matter Baru
+            </button>
+</div>
+<!-- Main Tabs -->
+<nav class="flex-1 flex flex-col gap-1 px-4">
+<!-- Inactive Tabs -->
+<a class="flex items-center gap-3 px-4 h-touch-target-min rounded-DEFAULT text-on-primary-container opacity-80 hover:bg-primary-container hover:text-on-primary-container transition-colors font-body-sm text-body-sm group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">dashboard</span>
+<span>Overview</span>
+</a>
+<a class="flex items-center gap-3 px-4 h-touch-target-min rounded-DEFAULT text-on-primary-container opacity-80 hover:bg-primary-container hover:text-on-primary-container transition-colors font-body-sm text-body-sm group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">work</span>
+<span>Operations</span>
+</a>
+<a class="flex items-center gap-3 px-4 h-touch-target-min rounded-DEFAULT text-on-primary-container opacity-80 hover:bg-primary-container hover:text-on-primary-container transition-colors font-body-sm text-body-sm group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">description</span>
+<span>Documents</span>
+</a>
+<a class="flex items-center gap-3 px-4 h-touch-target-min rounded-DEFAULT text-on-primary-container opacity-80 hover:bg-primary-container hover:text-on-primary-container transition-colors font-body-sm text-body-sm group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">payments</span>
+<span>Finance</span>
+</a>
+<a class="flex items-center gap-3 px-4 h-touch-target-min rounded-DEFAULT text-on-primary-container opacity-80 hover:bg-primary-container hover:text-on-primary-container transition-colors font-body-sm text-body-sm group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">settings_accessibility</span>
+<span>Control</span>
+</a>
+</nav>
+<!-- Footer Tabs -->
+<div class="px-4 flex flex-col gap-1 mt-auto">
+<a class="flex items-center gap-3 px-4 h-touch-target-min rounded-DEFAULT text-on-primary-container opacity-80 hover:bg-primary-container hover:text-on-primary-container transition-colors font-body-sm text-body-sm group" href="#">
+<span class="material-symbols-outlined group-hover:scale-110 transition-transform">help</span>
+<span>Support</span>
+</a>
+<!-- ACTIVE TAB: Settings matches Page Intent -->
+<a class="flex items-center gap-3 px-4 h-touch-target-min rounded-DEFAULT bg-secondary-container text-on-secondary-container border-l-4 border-secondary-container font-bold font-body-sm text-body-sm scale-95 duration-150" href="#">
+<span class="material-symbols-outlined" data-weight="fill" style="font-variation-settings: 'FILL' 1;">settings</span>
+<span>Settings</span>
+</a>
+</div>
+</aside>
+<!-- Shared Component: TopNavBar -->
+<header class="h-16 w-full sticky top-0 z-40 border-b border-border-subtle shadow-sm bg-surface flex justify-between items-center px-gutter ml-[260px] max-w-[calc(100%-260px)]">
+<div class="flex items-center gap-6 flex-1">
+<h1 class="font-headline-lg text-headline-lg font-bold text-primary truncate max-w-md">
+                Kantor Notaris &amp; PPAT Nama Notaris, S.H., M.Kn.
+            </h1>
+<!-- Search Bar on Left as per JSON -->
+<div class="relative hidden lg:block w-72">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-lg pointer-events-none">search</span>
+<input class="w-full h-10 pl-10 pr-4 bg-surface-container-lowest border border-border-subtle rounded-full font-body-sm text-body-sm text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all placeholder:text-on-surface-variant" placeholder="Cari data..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4 shrink-0">
+<button class="h-10 px-4 bg-primary text-on-primary font-title-md text-title-md rounded-DEFAULT hover:bg-primary-container transition-colors flex items-center justify-center whitespace-nowrap shadow-sm">
+                + Buat
+            </button>
+<div class="w-px h-8 bg-border-subtle mx-2"></div>
+<button class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 rounded-full bg-status-critical border border-surface"></span>
+</button>
+<button class="w-10 h-10 rounded-full overflow-hidden border border-border-subtle shadow-sm hover:ring-2 hover:ring-primary-container transition-all focus:ring-2 focus:ring-primary-container duration-200">
+<img class="w-full h-full object-cover" data-alt="A professional, modern headshot of a female notary public in a well-lit corporate office. She is wearing formal business attire (a dark blazer). The lighting is bright and high-key, complementing a clean, light-mode user interface aesthetic. The color palette emphasizes deep navy, white, and subtle professional tones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAHuqPzKUUq20-BdBUp5nvrznOvrzkWKKS7rT6z20BTokS5EXmByPI9_Qawn1hv928uQb_RiPfh8WvsEjBGJDBGsTzlUpUAYO5LZQKEES_3aH1SFzM1jIvBKo7Mn6z2se5dY7yE6SpGpMv6M8yG48oHRVaotWjMHknOAOMs7CJztdU7Z-WZhzaIWloTNAE5SJupzS_UhbUrW-iF9jdXNgkFRxdJTC6mSzlY_UfONvO_GyjseemiHQZbow"/>
+</button>
+</div>
+</header>
+<!-- Main Workspace -->
+<main class="ml-[260px] p-container-padding max-w-[calc(100%-260px)] flex flex-col gap-8 pb-24">
+<!-- Page Header -->
+<div>
+<h2 class="font-display-lg text-display-lg text-primary">Pengaturan &amp; Profil</h2>
+<p class="font-body-base text-body-base text-on-surface-variant mt-2">Kelola identitas, branding dokumen, dan preferensi operasional kantor Anda.</p>
+</div>
+<!-- Layout: Segmented Nav + Content Cards -->
+<div class="flex flex-col lg:flex-row gap-8 items-start relative">
+<!-- Internal Page Navigation (Sticky Left Column) -->
+<nav aria-label="Pengaturan navigasi" class="w-full lg:w-64 shrink-0 flex flex-col gap-1 lg:sticky top-24">
+<a class="flex items-center gap-3 px-4 h-12 rounded-DEFAULT bg-surface-card border border-border-subtle shadow-sm text-primary font-title-md text-title-md font-bold transition-all relative overflow-hidden" href="#identitas">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-secondary-container"></div>
+<span class="material-symbols-outlined" data-weight="fill" style="font-variation-settings: 'FILL' 1;">account_balance</span>
+                    Identitas Kantor
+                </a>
+<a class="flex items-center gap-3 px-4 h-12 rounded-DEFAULT text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors font-body-base text-body-base" href="#logo">
+<span class="material-symbols-outlined">image</span>
+                    Logo
+                </a>
+<a class="flex items-center gap-3 px-4 h-12 rounded-DEFAULT text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors font-body-base text-body-base" href="#branding">
+<span class="material-symbols-outlined">edit_document</span>
+                    Document Branding
+                </a>
+<a class="flex items-center gap-3 px-4 h-12 rounded-DEFAULT text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors font-body-base text-body-base" href="#payment">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+                    Payment Information
+                </a>
+<a class="flex items-center gap-3 px-4 h-12 rounded-DEFAULT text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors font-body-base text-body-base" href="#numbering">
+<span class="material-symbols-outlined">pin</span>
+                    Numbering
+                </a>
+</nav>
+<!-- Settings Content Forms (Right Column) -->
+<div class="flex-1 flex flex-col gap-8 w-full max-w-4xl">
+<!-- Card 1: Identitas Kantor -->
+<section class="bg-surface-card border border-border-subtle rounded-lg shadow-sm overflow-hidden scroll-mt-24" id="identitas">
+<div class="px-6 py-4 border-b border-border-subtle bg-surface-bright flex items-center justify-between">
+<h3 class="font-title-md text-title-md text-primary">Identitas Kantor</h3>
+<span class="font-label-caps text-label-caps text-on-surface-variant bg-surface px-2 py-1 rounded border border-border-subtle">REQUIRED</span>
+</div>
+<div class="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Input Group -->
+<div class="col-span-1 md:col-span-2">
+<label class="block mb-2 font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Nama Lengkap Notaris / PPAT</label>
+<input class="w-full min-h-[44px] px-4 py-2 border border-outline-variant rounded-DEFAULT focus:border-primary focus:ring-1 focus:ring-primary outline-none font-body-base text-body-base text-on-surface bg-surface-container-lowest transition-shadow" placeholder="Masukkan nama beserta gelar" type="text" value="Nama Notaris, S.H., M.Kn."/>
+</div>
+<div class="col-span-1">
+<label class="block mb-2 font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Nomor SK Notaris</label>
+<input class="w-full min-h-[44px] px-4 py-2 border border-outline-variant rounded-DEFAULT focus:border-primary focus:ring-1 focus:ring-primary outline-none font-body-base text-body-base text-on-surface bg-surface-container-lowest transition-shadow" type="text" value="AHU-00123.AH.02.01.Tahun 2023"/>
+</div>
+<div class="col-span-1">
+<label class="block mb-2 font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Nomor SK PPAT</label>
+<input class="w-full min-h-[44px] px-4 py-2 border border-outline-variant rounded-DEFAULT focus:border-primary focus:ring-1 focus:ring-primary outline-none font-body-base text-body-base text-on-surface bg-surface-container-lowest transition-shadow" type="text" value="123/BPN-PPAT/2023"/>
+</div>
+<div class="col-span-1 md:col-span-2">
+<label class="block mb-2 font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Alamat Lengkap Kantor</label>
+<textarea class="w-full px-4 py-3 border border-outline-variant rounded-DEFAULT focus:border-primary focus:ring-1 focus:ring-primary outline-none font-body-base text-body-base text-on-surface bg-surface-container-lowest transition-shadow resize-none" rows="3">Jl. Jendral Sudirman No. 45, Gedung Graha Prima Lt. 3, Jakarta Selatan, 12190</textarea>
+</div>
+<div class="col-span-1">
+<label class="block mb-2 font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Email Resmi (Contact)</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none">mail</span>
+<input class="w-full min-h-[44px] pl-10 pr-4 py-2 border border-outline-variant rounded-DEFAULT focus:border-primary focus:ring-1 focus:ring-primary outline-none font-body-base text-body-base text-on-surface bg-surface-container-lowest transition-shadow" type="email" value="kantor@notaris-nama.com"/>
+</div>
+</div>
+<div class="col-span-1">
+<label class="block mb-2 font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Telepon Kantor (Contact)</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none">call</span>
+<input class="w-full min-h-[44px] pl-10 pr-4 py-2 border border-outline-variant rounded-DEFAULT focus:border-primary focus:ring-1 focus:ring-primary outline-none font-body-base text-body-base text-on-surface bg-surface-container-lowest transition-shadow" type="tel" value="(021) 555-0198"/>
+</div>
+</div>
+</div>
+</section>
+<!-- Card 2: Logo -->
+<section class="bg-surface-card border border-border-subtle rounded-lg shadow-sm overflow-hidden scroll-mt-24" id="logo">
+<div class="px-6 py-4 border-b border-border-subtle bg-surface-bright">
+<h3 class="font-title-md text-title-md text-primary">Logo Kantor</h3>
+</div>
+<div class="p-6 flex flex-col md:flex-row gap-8 items-start">
+<div class="w-40 h-40 shrink-0 border border-border-subtle rounded-lg bg-surface flex items-center justify-center overflow-hidden p-2">
+<!-- Using provided animation placeholder concept via standard image tag for static asset as requested by rules (exception: animation placeholder instructions apply to animation tags. Since logo is usually an image, I will use an image placeholder with detailed prompt). -->
+<img class="w-full h-full object-contain" data-alt="A clean, minimalist vector logo design for a notary office. The logo should feature a subtle scale of justice or a stylized pen nib integrated into geometric shapes. The color palette must strictly adhere to pristine white background and deep navy blue elements, conveying trust, authority, and modern legal professionalism suitable for a high-end SaaS dashboard." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6awGNAsTpyLKXD54RrijDViGuRthmxYXfGTtZdK078fx-wsZ_MNEu9fIKZ6s966tKD__y2PUGnN3kd9IFpi46nrRdY1xImkQZi9DHyB29GHv0oM0uBaXaucWgsueGqFwbyRwYNdaQI0bAKzhRMj1D6notnE_4W03kBPdGNIWO4q6YIhXM4zJ_VV_N4_UCEC5Ke0ees0ED08Fj081dpkLGhyUbdwe3PRooxG1b-f2u7ZogA_PqkZtYvQ"/>
+</div>
+<div class="flex-1 w-full">
+<div class="border-2 border-dashed border-outline-variant rounded-lg bg-surface-bright p-8 flex flex-col items-center justify-center text-center hover:bg-surface-container-lowest hover:border-primary transition-colors cursor-pointer group">
+<div class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center mb-4 group-hover:bg-primary-container group-hover:text-on-primary-container transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined text-2xl">cloud_upload</span>
+</div>
+<span class="font-title-md text-title-md text-primary mb-1">Klik untuk unggah logo</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">atau tarik dan lepas file di sini. (PNG, JPG max 5MB)</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-4">
+                                Logo ini akan muncul di pojok kiri atas aplikasi dan secara default pada dokumen PDF yang dicetak.
+                            </p>
+</div>
+</div>
+</section>
+<!-- Card 3: Document Branding -->
+<section class="bg-surface-card border border-border-subtle rounded-lg shadow-sm overflow-hidden scroll-mt-24" id="branding">
+<div class="px-6 py-4 border-b border-border-subtle bg-surface-bright">
+<h3 class="font-title-md text-title-md text-primary">Document Branding</h3>
+</div>
+<div class="p-6 space-y-6">
+<div>
+<div class="flex justify-between items-end mb-2">
+<label class="block font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Teks Header (Kop Surat)</label>
+<span class="font-body-sm text-body-sm text-status-active flex items-center gap-1 cursor-pointer hover:underline">
+<span class="material-symbols-outlined text-[16px]">visibility</span> Preview
+                                </span>
+</div>
+<textarea class="w-full px-4 py-3 border border-outline-variant rounded-DEFAULT focus:border-primary focus:ring-1 focus:ring-primary outline-none font-body-base text-body-base text-on-surface bg-surface-container-lowest transition-shadow resize-none" rows="4">KANTOR NOTARIS &amp; PEJABAT PEMBUAT AKTA TANAH (PPAT)
+NAMA NOTARIS, S.H., M.Kn.
+SK. Menteri Hukum dan HAM RI No: AHU-00123.AH.02.01.Tahun 2023
+Jl. Jendral Sudirman No. 45, Jakarta Selatan | Telp: (021) 555-0198</textarea>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-2">Teks ini akan dicetak di bagian atas invoice dan dokumen kuitansi standar.</p>
+</div>
+<div class="w-full h-px bg-border-subtle"></div>
+<div>
+<label class="block mb-2 font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Teks Footer (Catatan Kaki)</label>
+<textarea class="w-full px-4 py-3 border border-outline-variant rounded-DEFAULT focus:border-primary focus:ring-1 focus:ring-primary outline-none font-body-base text-body-base text-on-surface bg-surface-container-lowest transition-shadow resize-none" rows="2">Dokumen ini dicetak secara otomatis oleh sistem NOTARYGO™ pada {date_printed}</textarea>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-2">Variabel yang didukung: <code class="bg-surface-container px-1 py-0.5 rounded text-primary"> {date_printed} </code>, <code class="bg-surface-container px-1 py-0.5 rounded text-primary"> {page_number} </code></p>
+</div>
+</div>
+</section>
+<!-- Card 4: Payment Information -->
+<section class="bg-surface-card border border-border-subtle rounded-lg shadow-sm overflow-hidden scroll-mt-24" id="payment">
+<div class="px-6 py-4 border-b border-border-subtle bg-surface-bright flex items-center justify-between">
+<h3 class="font-title-md text-title-md text-primary">Payment Information</h3>
+<button class="flex items-center gap-1 text-primary hover:text-secondary-container transition-colors font-title-md text-title-md">
+<span class="material-symbols-outlined">add</span> Tambah Rekening
+                        </button>
+</div>
+<!-- Bank Account List Item (Bento Style internal) -->
+<div class="p-6">
+<div class="border border-outline-variant rounded-lg p-5 flex items-center justify-between bg-surface-container-lowest hover:border-primary transition-colors group">
+<div class="flex items-center gap-4">
+<div class="w-12 h-12 rounded bg-surface border border-border-subtle flex items-center justify-center shrink-0">
+<span class="font-label-caps text-label-caps text-primary font-bold">BCA</span>
+</div>
+<div>
+<h4 class="font-title-md text-title-md text-primary mb-1">Bank Central Asia (BCA)</h4>
+<p class="font-body-base text-body-base text-on-surface font-mono tracking-widest">8810 2938 123</p>
+<p class="font-body-sm text-body-sm text-on-surface-variant">a.n. Nama Notaris</p>
+</div>
+</div>
+<div class="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors">
+<span class="material-symbols-outlined">edit</span>
+</button>
+<button class="w-10 h-10 rounded-full flex items-center justify-center text-status-critical hover:bg-error-container hover:text-error transition-colors">
+<span class="material-symbols-outlined">delete</span>
+</button>
+</div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-4">Informasi rekening ini akan disematkan secara otomatis pada bagian instruksi pembayaran di Invoice.</p>
+</div>
+</section>
+<!-- Card 5: Numbering -->
+<section class="bg-surface-card border border-border-subtle rounded-lg shadow-sm overflow-hidden scroll-mt-24" id="numbering">
+<div class="px-6 py-4 border-b border-border-subtle bg-surface-bright flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary-container">auto_awesome</span>
+<h3 class="font-title-md text-title-md text-primary">Penomoran Otomatis (Numbering)</h3>
+</div>
+<div class="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="col-span-1">
+<label class="block mb-2 font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Awalan Nomor Invoice</label>
+<div class="flex">
+<input class="w-full min-h-[44px] px-4 py-2 border border-outline-variant rounded-l-DEFAULT focus:border-primary focus:ring-1 focus:ring-primary outline-none font-body-base text-body-base text-on-surface bg-surface-container-lowest font-mono" type="text" value="INV/NOT/"/>
+<div class="bg-surface-container border-y border-r border-outline-variant rounded-r-DEFAULT px-4 flex items-center justify-center text-on-surface-variant font-mono text-sm pointer-events-none">
+                                    0001
+                                </div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-2">Contoh hasil: INV/NOT/0001</p>
+</div>
+<div class="col-span-1">
+<label class="block mb-2 font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Awalan Nomor Matter</label>
+<div class="flex">
+<input class="w-full min-h-[44px] px-4 py-2 border border-outline-variant rounded-l-DEFAULT focus:border-primary focus:ring-1 focus:ring-primary outline-none font-body-base text-body-base text-on-surface bg-surface-container-lowest font-mono" type="text" value="MTR/{YYYY}/"/>
+<div class="bg-surface-container border-y border-r border-outline-variant rounded-r-DEFAULT px-4 flex items-center justify-center text-on-surface-variant font-mono text-sm pointer-events-none">
+                                    001
+                                </div>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-2">Gunakan <code class="text-primary bg-surface-container px-1">{YYYY}</code> untuk tahun berjalan.</p>
+</div>
+</div>
+</section>
+<!-- Save Action floating at bottom of content -->
+<div class="flex justify-end gap-4 pt-6 pb-12 border-t border-border-subtle mt-4">
+<button class="min-h-[44px] px-6 bg-surface-card border border-primary text-primary font-title-md text-title-md rounded-DEFAULT hover:bg-surface-container transition-colors shadow-sm">
+                        Batal
+                    </button>
+<button class="min-h-[44px] px-8 bg-primary text-on-primary font-title-md text-title-md rounded-DEFAULT hover:bg-primary-container transition-colors shadow-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]">save</span> Simpan Perubahan
+                    </button>
+</div>
+</div>
+</div>
+</main>
+<!-- Script for subtle interactive scroll-spy effect on left nav -->
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('nav a[href^="#"]');
+
+            const observerOptions = {
+                root: null,
+                rootMargin: '-20% 0px -60% 0px',
+                threshold: 0
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const id = entry.target.getAttribute('id');
+                        
+                        navLinks.forEach(link => {
+                            // Reset styles
+                            link.classList.remove('bg-surface-card', 'border', 'border-border-subtle', 'shadow-sm', 'text-primary', 'font-bold');
+                            link.classList.add('text-on-surface-variant');
+                            
+                            // Remove accent bar if exists
+                            const bar = link.querySelector('.absolute.left-0');
+                            if(bar) link.removeChild(bar);
+
+                            // Set active style
+                            if (link.getAttribute('href') === `#${id}`) {
+                                link.classList.remove('text-on-surface-variant');
+                                link.classList.add('bg-surface-card', 'border', 'border-border-subtle', 'shadow-sm', 'text-primary', 'font-bold', 'relative', 'overflow-hidden');
+                                
+                                // Add indicator
+                                const indicator = document.createElement('div');
+                                indicator.className = 'absolute left-0 top-0 bottom-0 w-1 bg-secondary-container transition-all';
+                                link.appendChild(indicator);
+                                
+                                // Ensure icon is filled
+                                const icon = link.querySelector('.material-symbols-outlined');
+                                if(icon) {
+                                    icon.style.fontVariationSettings = "'FILL' 1";
+                                }
+                            } else {
+                                // Revert icon fill
+                                const icon = link.querySelector('.material-symbols-outlined');
+                                if(icon) {
+                                    icon.style.fontVariationSettings = "'FILL' 0";
+                                }
+                            }
+                        });
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => observer.observe(section));
+        });
+    </script>
+</body></html>

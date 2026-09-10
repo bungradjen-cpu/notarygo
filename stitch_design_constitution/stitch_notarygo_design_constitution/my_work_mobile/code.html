@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+
+<html lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>My Work - Mobile</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed-variant": "#36485b",
+                        "secondary": "#944a00",
+                        "surface-card": "#FFFFFF",
+                        "surface-container-high": "#e7e8e9",
+                        "surface-container": "#edeeef",
+                        "primary-fixed-dim": "#afc8f0",
+                        "on-secondary-fixed": "#301400",
+                        "outline-variant": "#c4c6cf",
+                        "primary": "#000613",
+                        "inverse-on-surface": "#f0f1f2",
+                        "status-critical": "#E74C3C",
+                        "surface-dim": "#d9dadb",
+                        "secondary-fixed": "#ffdcc5",
+                        "error-container": "#ffdad6",
+                        "tertiary-container": "#0d2031",
+                        "surface-container-highest": "#e1e3e4",
+                        "inverse-primary": "#afc8f0",
+                        "on-tertiary-fixed": "#091d2e",
+                        "on-primary": "#ffffff",
+                        "on-background": "#191c1d",
+                        "on-error": "#ffffff",
+                        "surface-tint": "#476083",
+                        "surface-container-low": "#f3f4f5",
+                        "border-subtle": "#E2E8F0",
+                        "tertiary": "#000610",
+                        "status-archived": "#94A3B8",
+                        "surface-bright": "#f8f9fa",
+                        "inverse-surface": "#2e3132",
+                        "background": "#f8f9fa",
+                        "on-secondary-container": "#663100",
+                        "primary-fixed": "#d4e3ff",
+                        "status-warning-medium": "#E67E22",
+                        "status-success": "#10B981",
+                        "on-primary-fixed": "#001c3a",
+                        "on-tertiary": "#ffffff",
+                        "surface": "#f8f9fa",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-fixed-dim": "#b5c8df",
+                        "surface-variant": "#e1e3e4",
+                        "outline": "#74777f",
+                        "on-surface-variant": "#43474e",
+                        "on-error-container": "#93000a",
+                        "status-active": "#3498DB",
+                        "tertiary-fixed": "#d1e4fb",
+                        "on-tertiary-container": "#76889d",
+                        "on-surface": "#191c1d",
+                        "on-primary-container": "#6f88ad",
+                        "secondary-container": "#fc8f34",
+                        "on-primary-fixed-variant": "#2f486a",
+                        "primary-container": "#001f3f",
+                        "on-secondary-fixed-variant": "#713700",
+                        "error": "#ba1a1a",
+                        "secondary-fixed-dim": "#ffb783",
+                        "status-warning-low": "#F1C40F",
+                        "on-secondary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "sidebar-width": "260px",
+                        "touch-target-min": "44px",
+                        "stack-sm": "0.5rem",
+                        "container-padding": "2rem",
+                        "gutter": "1.5rem",
+                        "stack-md": "1rem"
+                    },
+                    "fontFamily": {
+                        "body-sm": ["Inter"],
+                        "body-base": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "title-md": ["Inter"],
+                        "stats-number": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-base": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "display-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-lg": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "title-md": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "stats-number": ["28px", { "lineHeight": "34px", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-base h-screen flex flex-col md:hidden">
+<!-- Top Navigation -->
+<header class="bg-surface docked h-touch-target-min w-full sticky top-0 z-40 border-b border-border-subtle flex justify-between items-center px-gutter flex-shrink-0">
+<div class="flex items-center">
+<span class="text-title-md font-title-md font-bold text-primary-container">Kantor Notaris &amp; PPAT Nama Notaris, S.H., M.Kn.</span>
+</div>
+<div class="flex items-center gap-stack-sm">
+<button class="h-touch-target-min w-touch-target-min flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">notifications</span>
+</button>
+<button class="h-touch-target-min w-touch-target-min flex items-center justify-center text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">help_outline</span>
+</button>
+<button class="bg-primary text-on-primary h-touch-target-min px-4 rounded font-label-caps text-label-caps flex items-center justify-center ml-2">
+                + Buat
+            </button>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 overflow-y-auto px-gutter py-container-padding space-y-stack-md bg-surface-bright">
+<!-- Header -->
+<div class="flex justify-between items-end mb-6">
+<div>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary mb-1">My Work</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Tugas dan deadline yang membutuhkan perhatian Anda.</p>
+</div>
+<div class="flex items-center gap-2">
+<button class="h-touch-target-min w-touch-target-min rounded border border-border-subtle bg-surface-card flex items-center justify-center text-on-surface">
+<span class="material-symbols-outlined">filter_list</span>
+</button>
+</div>
+</div>
+<!-- Task List -->
+<div class="space-y-stack-md">
+<!-- Critical Task Card -->
+<div class="bg-surface-card rounded-xl border border-border-subtle p-4 shadow-sm relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-status-critical"></div>
+<div class="flex justify-between items-start mb-3 pl-2">
+<div class="flex items-center gap-2">
+<span class="flex items-center bg-[#FDEAEA] text-status-critical font-label-caps text-label-caps px-2 py-1 rounded">
+<span class="material-symbols-outlined text-[14px] mr-1">warning</span> CRITICAL
+                        </span>
+</div>
+<button class="text-on-surface-variant p-1">
+<span class="material-symbols-outlined">more_horiz</span>
+</button>
+</div>
+<h3 class="font-title-md text-title-md text-on-surface mb-1 pl-2">Finalisasi Draft Akta Jual Beli</h3>
+<div class="flex items-center gap-2 text-on-surface-variant font-body-sm text-body-sm mb-3 pl-2">
+<span class="font-semibold text-primary">#AJB-2023-089</span>
+<span>•</span>
+<span>PT. Maju Mundur</span>
+</div>
+<div class="flex items-center gap-2 mb-4 pl-2 text-status-critical font-body-sm text-body-sm font-semibold">
+<span class="material-symbols-outlined text-[16px]">schedule</span>
+                    Hari Ini • 10:30
+                </div>
+<div class="pl-2 mb-4">
+<div class="flex justify-between text-body-sm font-body-sm text-on-surface-variant mb-1">
+<span>Progress Dokumen</span>
+<span>80%</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 80%"></div>
+</div>
+</div>
+<div class="pl-2">
+<button class="w-full h-touch-target-min bg-primary text-on-primary rounded-lg font-body-base text-body-base font-semibold flex items-center justify-center shadow-sm">
+                        Update Task
+                    </button>
+</div>
+</div>
+<!-- Warning Task Card -->
+<div class="bg-surface-card rounded-xl border border-border-subtle p-4 shadow-sm relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-status-warning-medium"></div>
+<div class="flex justify-between items-start mb-3 pl-2">
+<div class="flex items-center gap-2">
+<span class="flex items-center bg-[#FDF2E9] text-status-warning-medium font-label-caps text-label-caps px-2 py-1 rounded">
+<span class="material-symbols-outlined text-[14px] mr-1">schedule</span> TODAY
+                        </span>
+</div>
+<button class="text-on-surface-variant p-1">
+<span class="material-symbols-outlined">more_horiz</span>
+</button>
+</div>
+<h3 class="font-title-md text-title-md text-on-surface mb-1 pl-2">Review Dokumen RUPS</h3>
+<div class="flex items-center gap-2 text-on-surface-variant font-body-sm text-body-sm mb-3 pl-2">
+<span class="font-semibold text-primary">#RUPS-2023-112</span>
+<span>•</span>
+<span>Koperasi Tunas Harapan</span>
+</div>
+<div class="flex items-center gap-2 mb-4 pl-2 text-on-surface-variant font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[16px]">schedule</span>
+                    Hari Ini • 15:00
+                </div>
+<div class="pl-2 mb-4">
+<div class="flex justify-between text-body-sm font-body-sm text-on-surface-variant mb-1">
+<span>Pemeriksaan Berkas</span>
+<span>30%</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 30%"></div>
+</div>
+</div>
+<div class="pl-2 flex gap-2">
+<button class="flex-1 h-touch-target-min bg-surface-card border border-primary text-primary rounded-lg font-body-base text-body-base font-semibold flex items-center justify-center">
+                        Lihat Berkas
+                    </button>
+<button class="flex-1 h-touch-target-min bg-primary text-on-primary rounded-lg font-body-base text-body-base font-semibold flex items-center justify-center shadow-sm">
+                        Update
+                    </button>
+</div>
+</div>
+<!-- Standard Task Card -->
+<div class="bg-surface-card rounded-xl border border-border-subtle p-4 shadow-sm relative overflow-hidden">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-outline-variant"></div>
+<div class="flex justify-between items-start mb-3 pl-2">
+<div class="flex items-center gap-2">
+<span class="flex items-center bg-surface-container text-on-surface-variant font-label-caps text-label-caps px-2 py-1 rounded">
+                            UPCOMING
+                        </span>
+</div>
+<button class="text-on-surface-variant p-1">
+<span class="material-symbols-outlined">more_horiz</span>
+</button>
+</div>
+<h3 class="font-title-md text-title-md text-on-surface mb-1 pl-2">Persiapan Tanda Tangan Akta Hak Tanggungan</h3>
+<div class="flex items-center gap-2 text-on-surface-variant font-body-sm text-body-sm mb-3 pl-2">
+<span class="font-semibold text-primary">#AHT-2023-045</span>
+<span>•</span>
+<span>Bpk. Budi Santoso</span>
+</div>
+<div class="flex items-center gap-2 mb-4 pl-2 text-on-surface-variant font-body-sm text-body-sm">
+<span class="material-symbols-outlined text-[16px]">calendar_today</span>
+                    Besok • 09:00
+                </div>
+<div class="pl-2 mb-4">
+<div class="flex justify-between text-body-sm font-body-sm text-on-surface-variant mb-1">
+<span>Koordinasi Pihak</span>
+<span>0%</span>
+</div>
+<div class="w-full bg-surface-container h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full rounded-full" style="width: 0%"></div>
+</div>
+</div>
+<div class="pl-2">
+<button class="w-full h-touch-target-min bg-surface-card border border-primary text-primary rounded-lg font-body-base text-body-base font-semibold flex items-center justify-center">
+                        Mulai Persiapan
+                    </button>
+</div>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation (Mobile Only) -->
+<nav class="bg-surface border-t border-border-subtle flex justify-around items-center h-[72px] pb-safe flex-shrink-0 z-50">
+<a class="flex flex-col items-center justify-center w-full h-full text-on-surface-variant" href="#">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 0;">dashboard</span>
+<span class="font-label-caps text-label-caps text-[10px]">Overview</span>
+</a>
+<a class="flex flex-col items-center justify-center w-full h-full text-primary font-bold" href="#">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 1;">work</span>
+<span class="font-label-caps text-label-caps text-[10px]">My Work</span>
+</a>
+<a class="flex flex-col items-center justify-center w-full h-full text-on-surface-variant" href="#">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 0;">description</span>
+<span class="font-label-caps text-label-caps text-[10px]">Documents</span>
+</a>
+<a class="flex flex-col items-center justify-center w-full h-full text-on-surface-variant" href="#">
+<span class="material-symbols-outlined mb-1" style="font-variation-settings: 'FILL' 0;">settings_accessibility</span>
+<span class="font-label-caps text-label-caps text-[10px]">Control</span>
+</a>
+</nav>
+</body></html>

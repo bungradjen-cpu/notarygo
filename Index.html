@@ -1,0 +1,1131 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <base target="_top">
+  <title>NOTARYGO™ — Notary Office Operational Control System</title>
+  <?!= include('Styles'); ?>
+</head>
+<body>
+
+<?!= include('Components'); ?>
+
+<!-- Dedicated Login Screen -->
+<div id="view-login" class="login-view-container" style="display: none;">
+  <div class="login-card">
+    <div class="login-brand-header">
+      <div class="login-brand-badge">NG</div>
+      <h1 class="login-title" id="login-office-name">NOTARYGO™</h1>
+      <p class="login-subtitle">Notary Office Operational Control System</p>
+    </div>
+
+    <form id="form-login" onsubmit="App.submitLogin(event)" class="login-form">
+      <div class="form-group">
+        <label class="form-label required">Email Akun</label>
+        <input type="email" id="login-email" class="form-control" placeholder="nama@kantornotaris.com" required autocomplete="username">
+      </div>
+      <div class="form-group">
+        <label class="form-label required">Kata Sandi (Password)</label>
+        <input type="password" id="login-password" class="form-control" placeholder="••••••••" required autocomplete="current-password">
+      </div>
+      <button type="submit" class="login-btn">
+        <span>Masuk ke NOTARYGO™ →</span>
+      </button>
+    </form>
+
+    <div class="login-footer-info">
+      <p>Akses akun dikelola langsung oleh <strong>Super Admin / Notaris</strong>.</p>
+      <p style="margin-top: 4px; color: #94a3b8;">Lupa password? Hubungi Super Admin kantor untuk reset.</p>
+    </div>
+  </div>
+</div>
+
+<div class="app-container" id="app-workspace">
+  <!-- Sidebar -->
+  <aside class="app-sidebar" id="app-sidebar">
+    <div class="sidebar-header">
+      <div class="brand-badge">NG</div>
+      <div class="brand-info">
+        <h2 id="brand-office-name">NOTARYGO™</h2>
+        <p id="brand-notary-name">Notary Control System</p>
+      </div>
+    </div>
+
+    <nav class="sidebar-nav">
+      <div class="nav-section-title">Overview</div>
+      <a class="nav-item active" onclick="App.navigateTo('dashboard')">
+        <svg><use href="#icon-dashboard"></use></svg>
+        <span>Dashboard</span>
+      </a>
+      <a class="nav-item" onclick="App.navigateTo('my-work')">
+        <svg><use href="#icon-work"></use></svg>
+        <span>My Work</span>
+        <span class="nav-badge" id="nav-badge-mywork" style="display:none; background-color: var(--accent-gold);">0</span>
+      </a>
+      <a class="nav-item" onclick="App.navigateTo('attention')">
+        <svg><use href="#icon-attention"></use></svg>
+        <span>Attention Required</span>
+        <span class="nav-badge" id="nav-badge-attention" style="display:none;">0</span>
+      </a>
+
+      <div class="nav-section-title">Operasional</div>
+      <a class="nav-item" onclick="App.navigateTo('matters')">
+        <svg><use href="#icon-matter"></use></svg>
+        <span>Register Perkara</span>
+      </a>
+      <a class="nav-item" onclick="App.navigateTo('tasks')">
+        <svg><use href="#icon-task"></use></svg>
+        <span>Tugas & Pending</span>
+      </a>
+      <a class="nav-item" onclick="App.navigateTo('signing')">
+        <svg><use href="#icon-signing"></use></svg>
+        <span>Penandatanganan</span>
+      </a>
+      <a class="nav-item" onclick="App.navigateTo('clients')">
+        <svg><use href="#icon-client"></use></svg>
+        <span>Klien & Prospek</span>
+      </a>
+      <a class="nav-item" onclick="App.navigateTo('organizations')">
+        <svg><use href="#icon-client"></use></svg>
+        <span>Mitra & Rekanan</span>
+      </a>
+
+      <div class="nav-section-title">Keuangan</div>
+      <a class="nav-item" onclick="App.navigateTo('invoices')">
+        <svg><use href="#icon-invoice"></use></svg>
+        <span>Tagihan & Kuitansi</span>
+      </a>
+
+      <div class="nav-section-title">Kontrol & Sistem</div>
+      <a class="nav-item" onclick="App.navigateTo('reports')">
+        <svg><use href="#icon-report"></use></svg>
+        <span>Laporan & Workload</span>
+      </a>
+      <a class="nav-item" onclick="App.navigateTo('audit')">
+        <svg><use href="#icon-audit"></use></svg>
+        <span>Activity Logs</span>
+      </a>
+      <a class="nav-item" onclick="App.navigateTo('settings')">
+        <svg><use href="#icon-settings"></use></svg>
+        <span>Pengaturan & Profil</span>
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="user-profile-mini" onclick="App.openChangePasswordModal()" title="Klik untuk ganti password" style="cursor: pointer;">
+        <div class="user-avatar" id="sidebar-user-avatar">U</div>
+        <div class="user-details">
+          <div class="user-name" id="sidebar-user-name">Memuat Pengguna...</div>
+          <div class="user-role" id="sidebar-user-role">STAFF</div>
+        </div>
+      </div>
+      <div style="margin-top: 10px; display: flex; gap: 6px;">
+        <button class="btn btn-secondary btn-sm" style="flex: 1; padding: 4px 6px; font-size: 11px;" onclick="App.openChangePasswordModal()">🔑 Password</button>
+        <button class="btn btn-danger btn-sm" style="padding: 4px 8px; font-size: 11px;" onclick="App.logout()" title="Keluar dari sesi akun">✕ Keluar</button>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content Body -->
+  <div class="app-main">
+    <!-- Navbar Header -->
+    <header class="app-navbar">
+      <div class="navbar-left">
+        <button class="mobile-menu-btn" onclick="App.toggleSidebar()">
+          <svg width="22" height="22"><use href="#icon-dashboard"></use></svg>
+        </button>
+        <div class="office-tagline">
+          <span id="nav-office-title"><strong>KANTOR NOTARIS & PPAT</strong></span>
+          <span style="margin: 0 6px; color: #cbd5e1;">|</span>
+          <span style="color: #64748b;">Powered by NOTARYGO™</span>
+        </div>
+      </div>
+
+      <div class="navbar-right">
+        <div class="quick-search">
+          <svg><use href="#icon-search"></use></svg>
+          <input type="text" id="global-search-input" placeholder="Cari perkara, klien, nomor..." onkeyup="App.onGlobalSearch(event)">
+        </div>
+      </div>
+    </header>
+
+    <!-- Page Views Container -->
+    <main class="app-content">
+      <?!= include('App'); ?>
+    </main>
+  </div>
+</div>
+
+<!-- ==========================================
+     GLOBAL MODAL DIALOGS
+     ========================================== -->
+
+<!-- Modal: New Matter -->
+<div id="modal-new-matter" class="modal-backdrop">
+  <div class="modal-dialog">
+    <div class="modal-header">
+      <div class="modal-title">Buat Perkara Baru</div>
+      <button class="modal-close" onclick="App.closeModal('modal-new-matter')">&times;</button>
+    </div>
+    <form onsubmit="App.submitNewMatter(event)">
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label required">Klien / Pemohon</label>
+          <select id="nm-client-id" class="form-control" required></select>
+        </div>
+        <div class="form-group">
+          <label class="form-label required">Jenis Layanan Hukum</label>
+          <select id="nm-service-type-id" class="form-control" required></select>
+        </div>
+        <div class="form-group">
+          <label class="form-label required">Judul Perkara / Objek</label>
+          <input type="text" id="nm-title" class="form-control" placeholder="Contoh: AJB Rumah Tinggal Kebayoran Baru" required>
+        </div>
+        <div class="form-row">
+          <div class="form-col form-group">
+            <label class="form-label required">Petugas PIC</label>
+            <select id="nm-pic" class="form-control" required></select>
+          </div>
+          <div class="form-col form-group">
+            <label class="form-label">Prioritas</label>
+            <select id="nm-priority" class="form-control">
+              <option value="LOW">LOW</option>
+              <option value="MEDIUM" selected>MEDIUM</option>
+              <option value="HIGH">HIGH</option>
+              <option value="CRITICAL">CRITICAL</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-col form-group">
+            <label class="form-label">Organisasi Rekanan (Opsional)</label>
+            <select id="nm-org-id" class="form-control">
+              <option value="">-- Tanpa Rekanan / Non-Bank --</option>
+            </select>
+          </div>
+          <div class="form-col form-group">
+            <label class="form-label">Target Deadline Selesai</label>
+            <input type="date" id="nm-deadline" class="form-control">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Catatan Awal / Next Action</label>
+          <textarea id="nm-description" class="form-control" placeholder="Catatan instruksi berkas awal..."></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="App.closeModal('modal-new-matter')">Batal</button>
+        <button type="submit" class="btn btn-gold">Buat Perkara</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal: Transition Workflow -->
+<div id="modal-transition-workflow" class="modal-backdrop">
+  <div class="modal-dialog">
+    <div class="modal-header">
+      <div class="modal-title">Perbarui / Lanjut Tahapan Alur Kerja</div>
+      <button class="modal-close" onclick="App.closeModal('modal-transition-workflow')">&times;</button>
+    </div>
+    <form onsubmit="App.submitTransitionWorkflow(event)">
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label required">Pilih Tahapan Tujuan</label>
+          <select id="tw-target-step" class="form-control" required></select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Catatan Perkembangan</label>
+          <textarea id="tw-note" class="form-control" placeholder="Keterangan tindakan yang telah dilakukan..."></textarea>
+        </div>
+        <div style="margin-top: 10px; padding: 10px; background-color: #f8fafc; border-radius: 6px; border: 1px solid #e2e8f0;">
+          <label style="display: flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; cursor: pointer;">
+            <input type="checkbox" id="tw-is-override" onchange="document.getElementById('tw-override-reason-group').style.display = this.checked ? 'block' : 'none';">
+            <span>Gunakan Owner Override (Loncat tahapan di luar alur standar)</span>
+          </label>
+          <div id="tw-override-reason-group" style="display: none; margin-top: 8px;">
+            <label class="form-label required">Alasan Override Notaris</label>
+            <input type="text" id="tw-override-reason" class="form-control" placeholder="Alasan dispensasi / instruksi langsung Notaris">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="App.closeModal('modal-transition-workflow')">Batal</button>
+        <button type="submit" class="btn btn-gold">Simpan Transisi Tahapan</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal: Cancel Matter -->
+<div id="modal-cancel-matter" class="modal-backdrop">
+  <div class="modal-dialog">
+    <div class="modal-header">
+      <div class="modal-title" style="color: var(--status-critical);">Batalkan Perkara</div>
+      <button class="modal-close" onclick="App.closeModal('modal-cancel-matter')">&times;</button>
+    </div>
+    <form onsubmit="App.submitCancelMatter(event)">
+      <div class="modal-body">
+        <p style="font-size: 13px; color: #475569; margin-bottom: 14px;">
+          Perkara yang dibatalkan akan dihapus dari dashboard aktif, namun <strong>seluruh dokumen, invoice, dan riwayat audit tetap tersimpan di arsip</strong>.
+        </p>
+        <div class="form-group">
+          <label class="form-label required">Alasan Pembatalan</label>
+          <select id="cm-reason" class="form-control" required>
+            <option value="CLIENT_CANCELLED">CLIENT_CANCELLED (Dibatalkan oleh Klien)</option>
+            <option value="NOT_PROCEEDING">NOT_PROCEEDING (Tidak Melanjutkan Proses)</option>
+            <option value="DUPLICATE">DUPLICATE (Duplikasi Data Entry)</option>
+            <option value="WRONG_INPUT">WRONG_INPUT (Salah Input)</option>
+            <option value="MOVED_TO_OTHER_PROCESS">MOVED_TO_OTHER_PROCESS (Pindah ke Proses Lain)</option>
+            <option value="OTHER">OTHER (Alasan Lainnya)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Keterangan / Rincian Tambahan</label>
+          <textarea id="cm-note" class="form-control" placeholder="Rincian alasan pembatalan..."></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="App.closeModal('modal-cancel-matter')">Kembali</button>
+        <button type="submit" class="btn btn-danger">Konfirmasi Batalkan Perkara</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal: Set Pending -->
+<div id="modal-set-pending" class="modal-backdrop">
+  <div class="modal-dialog">
+    <div class="modal-header">
+      <div class="modal-title">Tetapkan Status Pending Perkara</div>
+      <button class="modal-close" onclick="App.closeModal('modal-set-pending')">&times;</button>
+    </div>
+    <form onsubmit="App.submitSetPending(event)">
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label required">Penyebab / Pihak Tertahan</label>
+          <select id="sp-reason-code" class="form-control" required>
+            <option value="CLIENT">CLIENT (Menunggu Klien / Dokumen Pribadi)</option>
+            <option value="BANK">BANK (Menunggu Konfirmasi / SP3K / PK Bank)</option>
+            <option value="DEVELOPER">DEVELOPER (Menunggu Surat Pengantar Developer)</option>
+            <option value="BPN">BPN (Proses Plotting / Warkah Pertanahan)</option>
+            <option value="TAX">TAX (Validasi Pajak PPh / BPHTB)</option>
+            <option value="APPROVAL">APPROVAL (Menunggu Persetujuan)</option>
+            <option value="DOCUMENT">DOCUMENT (Dokumen Belum Lengkap)</option>
+            <option value="SIGNATURE">SIGNATURE (Menunggu Penandatanganan)</option>
+            <option value="INTERNAL">INTERNAL (Proses Internal Kantor)</option>
+            <option value="OTHER">OTHER (Lainnya)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label required">Rincian Kendala</label>
+          <textarea id="sp-reason-detail" class="form-control" placeholder="Jelaskan secara spesifik apa yang ditunggu..." required></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Estimasi Tanggal Lanjut</label>
+          <input type="date" id="sp-resume-date" class="form-control">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="App.closeModal('modal-set-pending')">Batal</button>
+        <button type="submit" class="btn btn-gold">Tetapkan PENDING</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal: Add Task -->
+<div id="modal-add-task" class="modal-backdrop">
+  <div class="modal-dialog">
+    <div class="modal-header">
+      <div class="modal-title">Tambah Tugas Baru</div>
+      <button class="modal-close" onclick="App.closeModal('modal-add-task')">&times;</button>
+    </div>
+    <form onsubmit="App.submitAddTask(event)">
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label required">Judul Tugas</label>
+          <input type="text" id="at-title" class="form-control" placeholder="Contoh: Pengecekan Sertifikat Asli ke BPN" required>
+        </div>
+        <div class="form-row">
+          <div class="form-col form-group">
+            <label class="form-label required">Tugaskan Kepada (PIC)</label>
+            <select id="at-assigned-to" class="form-control" required></select>
+          </div>
+          <div class="form-col form-group">
+            <label class="form-label">Prioritas</label>
+            <select id="at-priority" class="form-control">
+              <option value="LOW">LOW</option>
+              <option value="MEDIUM" selected>MEDIUM</option>
+              <option value="HIGH">HIGH</option>
+              <option value="CRITICAL">CRITICAL</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Batas Deadline</label>
+          <input type="date" id="at-deadline" class="form-control">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Instruksi Detail</label>
+          <textarea id="at-description" class="form-control" placeholder="Petunjuk pengerjaan tugas..."></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="App.closeModal('modal-add-task')">Batal</button>
+        <button type="submit" class="btn btn-gold">Simpan Tugas</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal: Add Checklist Item -->
+<div id="modal-add-checklist" class="modal-backdrop">
+  <div class="modal-dialog">
+    <div class="modal-header">
+      <div class="modal-title">Tambah Syarat Berkas (Checklist)</div>
+      <button class="modal-close" onclick="App.closeModal('modal-add-checklist')">&times;</button>
+    </div>
+    <form onsubmit="App.submitAddChecklistItem(event)">
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label required">Jenis Dokumen Persyaratan</label>
+          <input type="text" id="ac-doc-type" class="form-control" placeholder="Contoh: Surat Persetujuan Suami/Istri" required>
+        </div>
+        <div class="form-group">
+          <label style="display: flex; align-items: center; gap: 8px; font-size: 13px;">
+            <input type="checkbox" id="ac-required" checked>
+            <span>Wajib Ada (Required untuk kelengkapan 100%)</span>
+          </label>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Catatan Tambahan</label>
+          <input type="text" id="ac-note" class="form-control" placeholder="Contoh: Asli + 2 Lembar Salinan Legalisir">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="App.closeModal('modal-add-checklist')">Batal</button>
+        <button type="submit" class="btn btn-gold">Tambahkan Syarat</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal: Verify Checklist Item -->
+<div id="modal-verify-checklist" class="modal-backdrop">
+  <div class="modal-dialog">
+    <div class="modal-header">
+      <div class="modal-title">Verifikasi Dokumen Berkas</div>
+      <button class="modal-close" onclick="App.closeModal('modal-verify-checklist')">&times;</button>
+    </div>
+    <form onsubmit="App.submitVerifyChecklist(event)">
+      <input type="hidden" id="vc-item-id">
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Dokumen</label>
+          <div id="vc-doc-name" style="font-weight: 700; font-size: 14px; color: var(--primary-navy);"></div>
+        </div>
+        <div class="form-group">
+          <label class="form-label required">Status Berkas</label>
+          <select id="vc-status" class="form-control" required>
+            <option value="MISSING">MISSING (Belum Ada)</option>
+            <option value="RECEIVED">RECEIVED (Sudah Diterima, Belum Diverifikasi)</option>
+            <option value="NEED_REVISION">NEED_REVISION (Perlu Perbaikan / Revisi)</option>
+            <option value="VERIFIED">VERIFIED (Lengkap & Terverifikasi Sah)</option>
+            <option value="NOT_APPLICABLE">NOT_APPLICABLE (Tidak Diperlukan / N/A)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Catatan / Keterangan</label>
+          <textarea id="vc-note" class="form-control" placeholder="Catatan fisik, nomor registrasi, atau alasan revisi..."></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="App.closeModal('modal-verify-checklist')">Batal</button>
+        <button type="submit" class="btn btn-gold">Simpan Verifikasi</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal: New Client -->
+<div id="modal-new-client" class="modal-backdrop">
+  <div class="modal-dialog">
+    <div class="modal-header">
+      <div class="modal-title">Tambah Klien Baru</div>
+      <button class="modal-close" onclick="App.closeModal('modal-new-client')">&times;</button>
+    </div>
+    <form onsubmit="App.submitNewClient(event)">
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label required">Nama Lengkap Klien</label>
+          <input type="text" id="nc-name" class="form-control" required>
+        </div>
+        <div class="form-row">
+          <div class="form-col form-group">
+            <label class="form-label">Tipe Klien</label>
+            <select id="nc-type" class="form-control">
+              <option value="INDIVIDU">Perorangan / Individu</option>
+              <option value="BADAN_HUKUM">Badan Hukum / PT / CV</option>
+            </select>
+          </div>
+          <div class="form-col form-group">
+            <label class="form-label">NIK / NPWP / ID</label>
+            <input type="text" id="nc-id" class="form-control">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-col form-group">
+            <label class="form-label">Nomor Telepon / WhatsApp</label>
+            <input type="text" id="nc-phone" class="form-control" placeholder="08...">
+          </div>
+          <div class="form-col form-group">
+            <label class="form-label">Alamat Email</label>
+            <input type="email" id="nc-email" class="form-control">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Alamat Lengkap</label>
+          <input type="text" id="nc-address" class="form-control">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="App.closeModal('modal-new-client')">Batal</button>
+        <button type="submit" class="btn btn-gold">Simpan Klien</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal: New Intake -->
+<div id="modal-new-intake" class="modal-backdrop">
+  <div class="modal-dialog">
+    <div class="modal-header">
+      <div class="modal-title">Catat Prospek Konsultasi (Intake)</div>
+      <button class="modal-close" onclick="App.closeModal('modal-new-intake')">&times;</button>
+    </div>
+    <form onsubmit="App.submitNewIntake(event)">
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label required">Nama Calon Klien</label>
+          <input type="text" id="ni-name" class="form-control" required>
+        </div>
+        <div class="form-row">
+          <div class="form-col form-group">
+            <label class="form-label required">Telepon / WhatsApp</label>
+            <input type="text" id="ni-phone" class="form-control" required>
+          </div>
+          <div class="form-col form-group">
+            <label class="form-label required">Layanan Diminati</label>
+            <select id="ni-service" class="form-control" required></select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Estimasi Penawaran Biaya (Rp)</label>
+          <input type="number" id="ni-amount" class="form-control" placeholder="3500000">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Keterangan Konsultasi</label>
+          <textarea id="ni-notes" class="form-control" placeholder="Kebutuhan akta / dokumen..."></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="App.closeModal('modal-new-intake')">Batal</button>
+        <button type="submit" class="btn btn-gold">Simpan Prospek</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal: Schedule Signing -->
+<div id="modal-schedule-signing" class="modal-backdrop">
+  <div class="modal-dialog">
+    <div class="modal-header">
+      <div class="modal-title">Jadwalkan Penandatanganan (Signing)</div>
+      <button class="modal-close" onclick="App.closeModal('modal-schedule-signing')">&times;</button>
+    </div>
+    <form onsubmit="App.submitScheduleSigning(event)">
+      <div class="modal-body">
+        <div class="form-row">
+          <div class="form-col form-group">
+            <label class="form-label required">Tanggal Penandatanganan</label>
+            <input type="date" id="ss-date" class="form-control" required>
+          </div>
+          <div class="form-col form-group">
+            <label class="form-label required">Jam Pelaksanaan</label>
+            <input type="time" id="ss-time" class="form-control" value="10:00" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label required">Peserta / Para Pihak Hadir</label>
+          <input type="text" id="ss-participants" class="form-control" placeholder="Penjual, Pembeli, Saksi..." required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Lokasi</label>
+          <input type="text" id="ss-location" class="form-control" value="Kantor Notaris & PPAT">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Catatan Tambahan</label>
+          <textarea id="ss-notes" class="form-control" placeholder="Persyaratan khusus saat hadir..."></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="App.closeModal('modal-schedule-signing')">Batal</button>
+        <button type="submit" class="btn btn-gold">Simpan Jadwal Signing</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal: Create Invoice -->
+<div id="modal-create-invoice" class="modal-backdrop">
+  <div class="modal-dialog">
+    <div class="modal-header">
+      <div class="modal-title">Terbitkan Tagihan Biaya (Invoice)</div>
+      <button class="modal-close" onclick="App.closeModal('modal-create-invoice')">&times;</button>
+    </div>
+    <form onsubmit="App.submitCreateInvoice(event)">
+      <div class="modal-body">
+        <div class="form-row">
+          <div class="form-col form-group">
+            <label class="form-label required">Tanggal Terbit</label>
+            <input type="date" id="ci-date" class="form-control" required>
+          </div>
+          <div class="form-col form-group">
+            <label class="form-label required">Jatuh Tempo</label>
+            <input type="date" id="ci-due" class="form-control" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label required">Deskripsi Biaya / Layanan</label>
+          <input type="text" id="ci-item-desc" class="form-control" placeholder="Jasa Pembuatan Akta & Pajak" required>
+        </div>
+        <div class="form-row">
+          <div class="form-col form-group">
+            <label class="form-label required">Jumlah Biaya (Rp)</label>
+            <input type="number" id="ci-item-amount" class="form-control" placeholder="3500000" required>
+          </div>
+          <div class="form-col form-group">
+            <label class="form-label">Potongan / Diskon (Rp)</label>
+            <input type="number" id="ci-discount" class="form-control" value="0">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Catatan Tambahan</label>
+          <input type="text" id="ci-notes" class="form-control" placeholder="Instruksi transfer...">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="App.closeModal('modal-create-invoice')">Batal</button>
+        <button type="submit" class="btn btn-gold">Terbitkan Invoice</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal: Record Payment -->
+<div id="modal-record-payment" class="modal-backdrop">
+  <div class="modal-dialog">
+    <div class="modal-header">
+      <div class="modal-title">Catat Pembayaran Klien</div>
+      <button class="modal-close" onclick="App.closeModal('modal-record-payment')">&times;</button>
+    </div>
+    <form onsubmit="App.submitRecordPayment(event)">
+      <input type="hidden" id="rp-invoice-id">
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label">Sisa Tagihan (Outstanding)</label>
+          <div id="rp-outstanding-display" style="font-size: 18px; font-weight: 800; color: var(--status-critical);">Rp 0</div>
+        </div>
+        <div class="form-row">
+          <div class="form-col form-group">
+            <label class="form-label required">Nominal Pembayaran (Rp)</label>
+            <input type="number" id="rp-amount" class="form-control" required>
+          </div>
+          <div class="form-col form-group">
+            <label class="form-label required">Tanggal Bayar</label>
+            <input type="date" id="rp-date" class="form-control" required>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-col form-group">
+            <label class="form-label required">Metode Pembayaran</label>
+            <select id="rp-method" class="form-control" required>
+              <option value="TRANSFER_BANK">Transfer Bank</option>
+              <option value="TUNAI">Tunai / Cash</option>
+              <option value="GIRO">Cek / Bilyet Giro</option>
+              <option value="QRIS">QRIS / Digital</option>
+            </select>
+          </div>
+          <div class="form-col form-group">
+            <label class="form-label">No. Referensi / Bukti Transfer</label>
+            <input type="text" id="rp-reference" class="form-control" placeholder="Contoh: TRX-123456">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="App.closeModal('modal-record-payment')">Batal</button>
+        <button type="submit" class="btn btn-gold">Posting Pembayaran</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal: Document / PDF Preview -->
+<div id="modal-pdf-preview" class="modal-backdrop">
+  <div class="modal-dialog lg">
+    <div class="modal-header">
+      <div class="modal-title">Pratinjau Dokumen Resmi</div>
+      <div style="display: flex; gap: 8px;">
+        <button class="btn btn-secondary btn-sm" onclick="App.printPreviewContent()">🖨 Cetak</button>
+        <button class="modal-close" onclick="App.closeModal('modal-pdf-preview')">&times;</button>
+      </div>
+    </div>
+    <div class="modal-body" style="padding: 0; background: #525659;">
+      <iframe id="pdf-preview-iframe" style="width: 100%; height: 580px; border: none; background: #ffffff;"></iframe>
+    </div>
+  </div>
+</div>
+
+<!-- Modal: New User -->
+<div id="modal-new-user" class="modal-backdrop">
+  <div class="modal-dialog">
+    <div class="modal-header">
+      <div class="modal-title">Tambah Pengguna / Staf Kantor & Akses Login</div>
+      <button class="modal-close" onclick="App.closeModal('modal-new-user')">&times;</button>
+    </div>
+    <form onsubmit="App.submitNewUser(event)">
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label required">Email Akun</label>
+          <input type="email" id="nu-email" class="form-control" placeholder="staf@kantornotaris.com" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label required">Nama Lengkap & Gelar</label>
+          <input type="text" id="nu-name" class="form-control" placeholder="Contoh: Ahmad Fauzi, S.H." required>
+        </div>
+        <div class="form-row">
+          <div class="form-col form-group">
+            <label class="form-label required">Peran / Role</label>
+            <select id="nu-role" class="form-control" required>
+              <option value="STAFF">STAFF (Staf Operasional / Pelaksana)</option>
+              <option value="SUPERVISOR">SUPERVISOR (Reviewer / Pemeriksa Akta)</option>
+              <option value="ADMIN">ADMIN (Administrasi & Perkara)</option>
+              <option value="FINANCE">FINANCE (Kasir / Keuangan)</option>
+              <option value="OWNER">OWNER (Notaris / Kepala Kantor)</option>
+            </select>
+          </div>
+          <div class="form-col form-group">
+            <label class="form-label">No. HP / WA</label>
+            <input type="text" id="nu-phone" class="form-control" placeholder="08...">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label required">Password Awal Pengguna</label>
+          <input type="text" id="nu-password" class="form-control" value="NotaryGo123!" placeholder="Minimal 6 karakter" required>
+          <small style="color: #64748b; font-size: 11px;">Password awal untuk login staf. Staf dapat mengubahnya setelah login atau direset oleh Super Admin.</small>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="App.closeModal('modal-new-user')">Batal</button>
+        <button type="submit" class="btn btn-gold">Simpan Pengguna & Password</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal: Reset User Password (Super Admin Only) -->
+<div id="modal-reset-password" class="modal-backdrop">
+  <div class="modal-dialog">
+    <div class="modal-header">
+      <div class="modal-title">Reset Password Staf (Super Admin)</div>
+      <button class="modal-close" onclick="App.closeModal('modal-reset-password')">&times;</button>
+    </div>
+    <form onsubmit="App.submitResetPassword(event)">
+      <input type="hidden" id="rpw-user-id">
+      <div class="modal-body">
+        <p style="font-size: 13px; color: #475569; margin-bottom: 14px;">
+          Tetapkan kata sandi baru untuk akun: <strong id="rpw-target-user-display" style="color: #0f172a;">-</strong>
+        </p>
+        <div class="form-group">
+          <label class="form-label required">Password Baru</label>
+          <input type="text" id="rpw-new-password" class="form-control" placeholder="Minimal 6 karakter" required>
+          <small style="color: #64748b; font-size: 11px;">Password baru akan langsung aktif dan dapat digunakan staf untuk login.</small>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="App.closeModal('modal-reset-password')">Batal</button>
+        <button type="submit" class="btn btn-gold">Simpan Password Baru</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal: Change Password (Self Service) -->
+<div id="modal-change-password" class="modal-backdrop">
+  <div class="modal-dialog">
+    <div class="modal-header">
+      <div class="modal-title">Ganti Kata Sandi Akun Saya</div>
+      <button class="modal-close" onclick="App.closeModal('modal-change-password')">&times;</button>
+    </div>
+    <form onsubmit="App.submitChangePassword(event)">
+      <div class="modal-body">
+        <div class="form-group">
+          <label class="form-label required">Password Lama</label>
+          <input type="password" id="cp-old-password" class="form-control" placeholder="Masukkan password saat ini" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label required">Password Baru</label>
+          <input type="password" id="cp-new-password" class="form-control" placeholder="Minimal 6 karakter" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label required">Konfirmasi Password Baru</label>
+          <input type="password" id="cp-confirm-password" class="form-control" placeholder="Ulangi password baru" required>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="App.closeModal('modal-change-password')">Batal</button>
+        <button type="submit" class="btn btn-gold">Perbarui Password</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Modal: Handover Wizard -->
+<div id="modal-handover" class="modal-backdrop">
+  <div class="modal-dialog">
+    <div class="modal-header">
+      <div class="modal-title">Wizard Handover Tanggung Jawab Staf</div>
+      <button class="modal-close" onclick="App.closeModal('modal-handover')">&times;</button>
+    </div>
+    <form onsubmit="App.submitStaffHandover(event)">
+      <div class="modal-body">
+        <p style="font-size: 13px; color: #475569; margin-bottom: 14px;">
+          Pindahkan seluruh perkara aktif, tugas terbuka, jadwal follow-up, dan signing dari satu staf ke staf lainnya secara otomatis dan tercatat pada audit trail.
+        </p>
+        <div class="form-group">
+          <label class="form-label required">Staf Asal (Yang Menyerahkan)</label>
+          <select id="ho-from-email" class="form-control" required></select>
+        </div>
+        <div class="form-group">
+          <label class="form-label required">Staf Pengganti (Yang Menerima)</label>
+          <select id="ho-to-email" class="form-control" required></select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" onclick="App.closeModal('modal-handover')">Batal</button>
+        <button type="submit" class="btn btn-gold">Jalankan Handover</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Toast Container -->
+<div class="toast-container" id="toast-container"></div>
+
+<!-- Loading Overlay -->
+<div class="loading-overlay" id="loading-overlay">
+  <div class="spinner"></div>
+  <div style="font-weight: 600; color: #0f172a;" id="loading-message">Memuat data operasional...</div>
+</div>
+
+<?!= include('Scripts'); ?>
+
+
+<!-- EDIT CLIENT MODAL -->
+<div id="modal-edit-client" class="modal-overlay">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 class="modal-title">Edit Data Klien</h3>
+      <button class="modal-close" onclick="App.closeModal('modal-edit-client')">&times;</button>
+    </div>
+    <div class="modal-body">
+      <form id="form-edit-client" onsubmit="App.submitEditClient(event)">
+        <input type="hidden" id="edit-client-id">
+        <div class="form-group">
+          <label class="form-label required">Tipe Klien</label>
+          <select class="form-control" id="edit-client-type" required>
+            <option value="INDIVIDU">Individu / Perorangan</option>
+            <option value="BADAN_HUKUM">Badan Hukum (PT/Yayasan)</option>
+            <option value="PEMERINTAH">Instansi Pemerintah</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label required">Nama Klien / Perusahaan</label>
+          <input type="text" class="form-control" id="edit-client-name" required>
+        </div>
+        <div class="form-row">
+          <div class="form-col form-group">
+            <label class="form-label">No. Identitas (NIK/NPWP)</label>
+            <input type="text" class="form-control" id="edit-client-identifier">
+          </div>
+          <div class="form-col form-group">
+            <label class="form-label required">No. Telepon / WhatsApp</label>
+            <input type="text" class="form-control" id="edit-client-phone" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email</label>
+          <input type="email" class="form-control" id="edit-client-email">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Alamat Lengkap</label>
+          <textarea class="form-control" id="edit-client-address" rows="2"></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Catatan</label>
+          <textarea class="form-control" id="edit-client-notes" rows="2"></textarea>
+        </div>
+        <button type="submit" class="btn btn-gold" style="width: 100%;">Simpan Perubahan Klien</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- ORG MODALS -->
+<div id="modal-new-org" class="modal-overlay">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 class="modal-title">Tambah Mitra Organisasi</h3>
+      <button class="modal-close" onclick="App.closeModal('modal-new-org')">&times;</button>
+    </div>
+    <div class="modal-body">
+      <form onsubmit="App.submitNewOrg(event)">
+        <div class="form-group">
+          <label class="form-label required">Tipe Organisasi</label>
+          <select class="form-control" id="org-type" required>
+            <option value="BANK">Bank / Lembaga Keuangan</option>
+            <option value="DEVELOPER">Developer / Pengembang</option>
+            <option value="CORPORATE">Perusahaan / Korporasi</option>
+            <option value="AGENCY">Instansi / Agensi</option>
+            <option value="OTHER">Lainnya</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label required">Nama Organisasi</label>
+          <input type="text" class="form-control" id="org-name" required>
+        </div>
+        <div class="form-row">
+          <div class="form-col form-group">
+            <label class="form-label">Kontak Person (PIC)</label>
+            <input type="text" class="form-control" id="org-contact">
+          </div>
+          <div class="form-col form-group">
+            <label class="form-label">No. Telepon / WA</label>
+            <input type="text" class="form-control" id="org-phone">
+          </div>
+        </div>
+        <button type="submit" class="btn btn-gold" style="width: 100%;">Tambah Mitra</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div id="modal-edit-org" class="modal-overlay">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 class="modal-title">Edit Mitra Organisasi</h3>
+      <button class="modal-close" onclick="App.closeModal('modal-edit-org')">&times;</button>
+    </div>
+    <div class="modal-body">
+      <form onsubmit="App.submitEditOrg(event)">
+        <input type="hidden" id="edit-org-id">
+        <div class="form-group">
+          <label class="form-label required">Tipe Organisasi</label>
+          <select class="form-control" id="edit-org-type" required>
+            <option value="BANK">Bank / Lembaga Keuangan</option>
+            <option value="DEVELOPER">Developer / Pengembang</option>
+            <option value="CORPORATE">Perusahaan / Korporasi</option>
+            <option value="AGENCY">Instansi / Agensi</option>
+            <option value="OTHER">Lainnya</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label required">Nama Organisasi</label>
+          <input type="text" class="form-control" id="edit-org-name" required>
+        </div>
+        <div class="form-row">
+          <div class="form-col form-group">
+            <label class="form-label">Kontak Person (PIC)</label>
+            <input type="text" class="form-control" id="edit-org-contact">
+          </div>
+          <div class="form-col form-group">
+            <label class="form-label">No. Telepon / WA</label>
+            <input type="text" class="form-control" id="edit-org-phone">
+          </div>
+        </div>
+        <button type="submit" class="btn btn-gold" style="width: 100%;">Simpan Perubahan</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- EDIT MATTER MODAL -->
+<div id="modal-edit-matter" class="modal-overlay">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 class="modal-title">Edit Detail Perkara</h3>
+      <button class="modal-close" onclick="App.closeModal('modal-edit-matter')">&times;</button>
+    </div>
+    <div class="modal-body">
+      <form onsubmit="App.submitEditMatter(event)">
+        <input type="hidden" id="edit-matter-id">
+        <div class="form-group">
+          <label class="form-label required">Judul Perkara / Deskripsi Singkat</label>
+          <input type="text" class="form-control" id="edit-matter-title" required>
+        </div>
+        <div class="form-row">
+          <div class="form-col form-group">
+            <label class="form-label">Deadline</label>
+            <input type="date" class="form-control" id="edit-matter-deadline">
+          </div>
+          <div class="form-col form-group">
+            <label class="form-label">Prioritas</label>
+            <select class="form-control" id="edit-matter-priority">
+              <option value="LOW">Low</option>
+              <option value="MEDIUM">Medium</option>
+              <option value="HIGH">High</option>
+              <option value="CRITICAL">Critical</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-col form-group">
+            <label class="form-label required">Penanggung Jawab (PIC)</label>
+            <select class="form-control" id="edit-matter-pic" required></select>
+          </div>
+          <div class="form-col form-group">
+            <label class="form-label">Supervisor / Partner</label>
+            <select class="form-control" id="edit-matter-spv"></select>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-gold" style="width: 100%;">Simpan Perubahan</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- UPLOAD DOC MODAL -->
+<div id="modal-upload-doc" class="modal-overlay">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 class="modal-title">Catat / Unggah Dokumen Baru</h3>
+      <button class="modal-close" onclick="App.closeModal('modal-upload-doc')">&times;</button>
+    </div>
+    <div class="modal-body">
+      <form onsubmit="App.submitUploadDoc(event)">
+        <input type="hidden" id="upload-doc-matterId">
+        <div class="form-group">
+          <label class="form-label required">Tipe Dokumen</label>
+          <select class="form-control" id="upload-doc-type" required>
+            <option value="DRAFT_AKTA">Draft Akta / Perjanjian</option>
+            <option value="SK">Surat Keterangan (SK)</option>
+            <option value="SURAT_KUASA">Surat Kuasa</option>
+            <option value="LAMPIRAN">Lampiran Persyaratan</option>
+            <option value="INVOICE_PDF">Invoice / Tagihan PDF</option>
+            <option value="OTHER">Dokumen Lainnya</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label required">Judul Dokumen</label>
+          <input type="text" class="form-control" id="upload-doc-title" placeholder="Contoh: Draft AJB Klien X" required>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Versi Dokumen (opsional)</label>
+          <input type="text" class="form-control" id="upload-doc-version" placeholder="Contoh: V2">
+        </div>
+        <div class="form-group">
+          <label class="form-label">URL Berkas Google Drive (opsional)</label>
+          <input type="url" class="form-control" id="upload-doc-url" placeholder="https://drive.google.com/...">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Status Awal</label>
+          <select class="form-control" id="upload-doc-status" required>
+            <option value="DRAFT">DRAFT</option>
+            <option value="UNDER_REVIEW">UNDER_REVIEW</option>
+            <option value="APPROVED">APPROVED</option>
+            <option value="FINAL">FINAL</option>
+            <option value="SIGNED">SIGNED</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-gold" style="width: 100%;">Simpan Dokumen</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- UPDATE DOC STATUS MODAL -->
+<div id="modal-update-doc-status" class="modal-overlay">
+  <div class="modal-content" style="max-width: 400px;">
+    <div class="modal-header">
+      <h3 class="modal-title">Update Status Dokumen</h3>
+      <button class="modal-close" onclick="App.closeModal('modal-update-doc-status')">&times;</button>
+    </div>
+    <div class="modal-body">
+      <form onsubmit="App.submitUpdateDocStatus(event)">
+        <input type="hidden" id="update-doc-id">
+        <p style="margin-bottom: 15px;">Dokumen: <strong id="update-doc-title-label"></strong></p>
+        <div class="form-group">
+          <label class="form-label required">Status Baru</label>
+          <select class="form-control" id="update-doc-status-val" required>
+            <option value="DRAFT">DRAFT</option>
+            <option value="UNDER_REVIEW">UNDER_REVIEW</option>
+            <option value="APPROVED">APPROVED</option>
+            <option value="FINAL">FINAL</option>
+            <option value="SIGNED">SIGNED</option>
+            <option value="ARCHIVED">ARCHIVED</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Catatan Tambahan (opsional)</label>
+          <textarea class="form-control" id="update-doc-notes" rows="2"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" style="width: 100%;">Update Status</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- DELETE CONFIRMATION MODAL -->
+<div id="modal-delete-confirm" class="modal-overlay">
+  <div class="modal-content" style="max-width: 400px;">
+    <div class="modal-header">
+      <h3 class="modal-title" style="color: #dc2626;">Konfirmasi Penghapusan</h3>
+      <button class="modal-close" onclick="App.closeModal('modal-delete-confirm')">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p id="delete-confirm-msg">Apakah Anda yakin ingin menghapus data ini secara permanen?</p>
+      <input type="hidden" id="delete-confirm-type">
+      <input type="hidden" id="delete-confirm-id">
+      <div style="display: flex; gap: 10px; margin-top: 20px;">
+        <button class="btn btn-secondary" style="flex: 1;" onclick="App.closeModal('modal-delete-confirm')">Batal</button>
+        <button class="btn btn-danger" style="flex: 1;" onclick="App.executeDelete()">Ya, Hapus</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DATABASE RESET MODAL -->
+<div id="modal-reset-db" class="modal-overlay">
+  <div class="modal-content" style="max-width: 450px;">
+    <div class="modal-header">
+      <h3 class="modal-title" style="color: #dc2626;">⚠️ RESET SELURUH DATA TRANSAKSI</h3>
+      <button class="modal-close" onclick="App.closeModal('modal-reset-db')">&times;</button>
+    </div>
+    <div class="modal-body">
+      <p style="font-weight: bold; margin-bottom: 10px;">PERINGATAN KRITIKAL:</p>
+      <p style="font-size: 13px; margin-bottom: 15px;">Tindakan ini akan <strong style="color:#dc2626">MENGHAPUS PERMANEN</strong> seluruh data operasional (Perkara, Klien Intake, Dokumen, Tugas, Checklist, Tagihan, Pembayaran, Log Audit, dll).<br>Tindakan ini <b>TIDAK DAPAT DIBATALKAN</b>.</p>
+      <p style="font-size: 13px; margin-bottom: 15px;">Data yang <b>dipertahankan</b>: Profil Kantor, Pengguna/Staf, Jenis Layanan, Klien, Organisasi Mitra, dan Template Workflow.</p>
+      <form onsubmit="App.submitResetDb(event)">
+        <div class="form-group">
+          <label class="form-label">Ketik kata "RESET" (huruf kapital) untuk melanjutkan:</label>
+          <input type="text" class="form-control" id="reset-db-confirm-text" required placeholder="RESET">
+        </div>
+        <button type="submit" class="btn btn-danger" style="width: 100%;">Bersihkan Database Sekarang</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

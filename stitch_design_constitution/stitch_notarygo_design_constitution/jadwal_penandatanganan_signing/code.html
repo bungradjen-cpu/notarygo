@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Signing Management - NOTARYGO™</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed-variant": "#36485b",
+                        "on-secondary-fixed": "#301400",
+                        "secondary-container": "#fc8f34",
+                        "on-secondary": "#ffffff",
+                        "primary-fixed": "#d4e3ff",
+                        "secondary": "#944a00",
+                        "tertiary-fixed-dim": "#b5c8df",
+                        "surface-container-highest": "#e1e3e4",
+                        "on-primary": "#ffffff",
+                        "on-surface": "#191c1d",
+                        "outline-variant": "#c4c6cf",
+                        "tertiary": "#000610",
+                        "secondary-fixed": "#ffdcc5",
+                        "surface-container": "#edeeef",
+                        "status-critical": "#E74C3C",
+                        "on-primary-fixed-variant": "#2f486a",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary": "#ffffff",
+                        "inverse-primary": "#afc8f0",
+                        "primary-container": "#001f3f",
+                        "surface-dim": "#d9dadb",
+                        "on-tertiary-fixed": "#091d2e",
+                        "primary": "#000613",
+                        "tertiary-container": "#0d2031",
+                        "surface": "#f8f9fa",
+                        "on-primary-container": "#6f88ad",
+                        "surface-card": "#FFFFFF",
+                        "on-primary-fixed": "#001c3a",
+                        "outline": "#74777f",
+                        "status-archived": "#94A3B8",
+                        "on-surface-variant": "#43474e",
+                        "background": "#f8f9fa",
+                        "error-container": "#ffdad6",
+                        "on-secondary-fixed-variant": "#713700",
+                        "inverse-on-surface": "#f0f1f2",
+                        "primary-fixed-dim": "#afc8f0",
+                        "status-warning-low": "#F1C40F",
+                        "surface-bright": "#f8f9fa",
+                        "on-background": "#191c1d",
+                        "on-error-container": "#93000a",
+                        "surface-tint": "#476083",
+                        "on-secondary-container": "#663100",
+                        "on-tertiary-container": "#76889d",
+                        "surface-variant": "#e1e3e4",
+                        "status-warning-medium": "#E67E22",
+                        "surface-container-low": "#f3f4f5",
+                        "on-error": "#ffffff",
+                        "inverse-surface": "#2e3132",
+                        "surface-container-high": "#e7e8e9",
+                        "border-subtle": "#E2E8F0",
+                        "status-active": "#3498DB",
+                        "status-success": "#10B981",
+                        "tertiary-fixed": "#d1e4fb",
+                        "error": "#ba1a1a",
+                        "secondary-fixed-dim": "#ffb783"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-sm": "0.5rem",
+                        "stack-md": "1rem",
+                        "gutter": "1.5rem",
+                        "touch-target-min": "44px",
+                        "sidebar-width": "260px",
+                        "container-padding": "2rem"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "body-base": ["Inter"],
+                        "stats-number": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "title-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "display-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-base": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "stats-number": ["28px", { "lineHeight": "34px", "fontWeight": "700" }],
+                        "headline-lg": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "title-md": ["18px", { "lineHeight": "24px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8f9fa; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .material-symbols-outlined.filled { font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface h-screen overflow-hidden flex font-body-base">
+<!-- SideNavBar -->
+<aside class="docked h-screen w-sidebar fixed left-0 top-0 bg-primary-container dark:bg-primary-container border-r border-outline-variant shadow-sm flex flex-col py-gutter justify-between z-50">
+<div>
+<!-- Header Brand -->
+<div class="px-4 mb-8">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 bg-surface-container-lowest rounded-lg flex items-center justify-center shrink-0">
+<img alt="NotaryGo Logo" class="w-8 h-8 object-contain rounded" data-alt="A minimalist and highly professional geometric logo mark for a notary and legal operations system. The design is crisp, clean, and rendered in deep navy and subtle gold accents on a pristine white background. It exudes authority and modern efficiency." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDBUsnuSEJF7aJWLAWdppDWk5VtXTKwEhTR-u-k8t0PzmRFmIU6zvy3SYp1qZwg1X0end9IVXQy0duyBwQNy2Q9s00g4nbwlt3SKBQw1tKY34NqabIXmMxW9z_nphndTOG4-cg2teNOc9Tcm8UVrVfI4YdA2S_f7Bf9oYYIwmLdhj04FgHieNGaYb0HNdnC1KzOEeisaGnAWbZv8gxxAYjFQY9uWsQn1Hpfd7TTn2DrUg5_eUXveZPvww"/>
+</div>
+<div>
+<h1 class="text-title-md font-title-md font-bold text-surface-container-lowest">NOTARYGO™</h1>
+<p class="text-label-caps font-label-caps text-on-primary-container mt-1">Operational System</p>
+</div>
+</div>
+</div>
+<!-- Navigation Tabs -->
+<nav class="flex flex-col space-y-1 text-label-caps font-label-caps">
+<!-- Overview -->
+<a class="flex items-center gap-stack-md px-4 py-3 text-on-primary-container hover:text-white hover:bg-on-primary-container/10 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined text-lg">dashboard</span>
+<span>Overview</span>
+</a>
+<!-- Operations - ACTIVE -->
+<a class="flex items-center gap-stack-md px-4 py-3 bg-on-primary-container/20 text-white border-l-4 border-secondary opacity-90 transition-all" href="#">
+<span class="material-symbols-outlined text-lg filled">work</span>
+<span>Operations</span>
+</a>
+<!-- Documents -->
+<a class="flex items-center gap-stack-md px-4 py-3 text-on-primary-container hover:text-white hover:bg-on-primary-container/10 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined text-lg">description</span>
+<span>Documents</span>
+</a>
+<!-- Finance -->
+<a class="flex items-center gap-stack-md px-4 py-3 text-on-primary-container hover:text-white hover:bg-on-primary-container/10 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined text-lg">payments</span>
+<span>Finance</span>
+</a>
+<!-- Control -->
+<a class="flex items-center gap-stack-md px-4 py-3 text-on-primary-container hover:text-white hover:bg-on-primary-container/10 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined text-lg">settings_accessibility</span>
+<span>Control</span>
+</a>
+</nav>
+</div>
+<div class="px-4">
+<!-- CTA Button -->
+<button class="w-full bg-surface-container-lowest text-primary-container text-label-caps font-label-caps font-bold py-3 rounded-lg mb-6 hover:bg-surface-variant transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm">settings</span>
+                Quick Settings
+            </button>
+<!-- Footer Profile -->
+<a class="flex items-center gap-stack-md py-3 text-on-primary-container hover:text-white hover:bg-on-primary-container/10 transition-colors duration-200 rounded px-2 -mx-2" href="#">
+<span class="material-symbols-outlined text-2xl">account_circle</span>
+<span class="text-label-caps font-label-caps">Owner Profile</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-[260px] flex-1 flex flex-col h-screen relative bg-background">
+<!-- TopNavBar -->
+<header class="docked h-touch-target-min w-full sticky top-0 z-40 bg-surface dark:bg-surface border-b border-border-subtle flex justify-between items-center px-gutter shrink-0">
+<!-- Left: Search/Brand Info -->
+<div class="flex items-center gap-6">
+<div class="text-title-md font-title-md font-bold text-primary-container dark:text-primary-fixed truncate max-w-[400px]">
+                    Kantor Notaris &amp; PPAT Nama Notaris, S.H., M.Kn.
+                </div>
+<div class="relative hidden lg:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-sm">search</span>
+<input class="pl-9 pr-4 py-1.5 bg-surface-container-low border border-border-subtle rounded-md text-body-sm focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary w-64 transition-all" placeholder="Cari Matter atau Klien..." type="text"/>
+</div>
+</div>
+<!-- Right: Actions & Profile -->
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:text-primary transition-colors h-touch-target-min w-touch-target-min flex items-center justify-center rounded-full hover:bg-surface-container-highest">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors h-touch-target-min w-touch-target-min flex items-center justify-center rounded-full hover:bg-surface-container-highest">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+<div class="h-6 w-[1px] bg-border-subtle mx-2"></div>
+<button class="bg-primary-container text-white px-4 py-1.5 rounded text-label-caps font-label-caps hover:bg-primary-fixed-variant transition-colors flex items-center gap-1 shadow-sm">
+<span class="material-symbols-outlined text-sm font-bold">add</span>
+                    + Buat
+                </button>
+<div class="ml-2 w-8 h-8 rounded-full bg-surface-variant border border-border-subtle overflow-hidden shrink-0 cursor-pointer">
+<img alt="Owner Profile" class="w-full h-full object-cover" data-alt="A professional headshot of a mature legal professional or notary, sharply dressed in a dark suit against a bright white background. The lighting is crisp and even, conveying trust and competence in a corporate setting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD42fLtXD60rjtcrfbwqx8gYVUGvKIMjNiWtX8k4TOqq43tcmgdArdewOKjtTjtyZXMV9vfeLQE_XFA0Fml_mQGY8qTRXX1cbu7ZuR9fehHNE09zSGGpqF0qeFpeOYK-Kr8o3hRmYbX3sBcikB1KTaK6dLaxUgZKs6cfGe-XtChltpPSr14jEogTtajJDu3b3yOPcnY6mz_b3ZLVO1wJTivQKyHmHwOHadv9VioLeNRMnOIbbquOleIfQ"/>
+</div>
+</div>
+</header>
+<!-- Page Content Canvas -->
+<div class="flex-1 overflow-y-auto p-[2rem]">
+<!-- Page Header & Tabs -->
+<div class="mb-8 flex flex-col lg:flex-row lg:items-end justify-between gap-4">
+<div>
+<h2 class="text-headline-lg font-headline-lg text-primary-container mb-2">Signing Management</h2>
+<p class="text-body-base font-body-base text-on-surface-variant">Manage scheduled document executions and readiness status.</p>
+</div>
+<!-- Tab Navigation -->
+<div class="flex border-b border-border-subtle gap-8 text-label-caps font-label-caps">
+<button class="text-primary font-bold border-b-2 border-primary pb-2 px-1 transition-transform scale-95">Hari Ini</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors pb-2 px-1">Akan Datang</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors pb-2 px-1">Selesai</button>
+</div>
+</div>
+<!-- Content Grid (Cards Layout) -->
+<div class="grid grid-cols-1 xl:grid-cols-2 gap-6">
+<!-- Card 1: Ready -->
+<div class="bg-surface-card border border-border-subtle rounded-xl p-6 shadow-[0_4px_12px_rgba(0,0,0,0.03)] hover:shadow-[0_10px_25px_rgba(0,0,0,0.08)] transition-shadow duration-300 flex flex-col h-full relative overflow-hidden group">
+<!-- Subtle left accent for status -->
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-status-success"></div>
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-3">
+<div class="bg-surface-container-low text-primary-container px-3 py-1.5 rounded-md flex flex-col items-center justify-center border border-border-subtle">
+<span class="text-body-sm font-bold leading-none">10:00</span>
+<span class="text-[10px] uppercase text-outline mt-0.5">WIB</span>
+</div>
+<div>
+<h3 class="text-title-md font-title-md text-primary-container leading-tight">AJB &amp; SKMHT</h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-1">Ref: MT-2023-0891</p>
+</div>
+</div>
+<!-- Readiness Chip -->
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-status-success/10 text-status-success border border-status-success/20">
+<span class="material-symbols-outlined text-sm filled">check_circle</span>
+<span class="text-label-caps font-label-caps tracking-wider">READY</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-y-4 gap-x-6 mb-6">
+<div>
+<span class="text-[10px] uppercase font-semibold text-outline tracking-wider block mb-1">Client</span>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline-variant text-sm">person</span>
+<span class="text-body-sm text-on-surface">PT. Maju Bersama</span>
+</div>
+</div>
+<div>
+<span class="text-[10px] uppercase font-semibold text-outline tracking-wider block mb-1">PIC</span>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline-variant text-sm">badge</span>
+<span class="text-body-sm text-on-surface">Budi S.H.</span>
+</div>
+</div>
+<div class="col-span-2">
+<span class="text-[10px] uppercase font-semibold text-outline tracking-wider block mb-1">Participants (3)</span>
+<div class="flex items-center gap-2 text-body-sm text-on-surface">
+<span class="inline-block bg-surface-container-high px-2 py-0.5 rounded text-xs border border-border-subtle">Direktur</span>
+<span class="inline-block bg-surface-container-high px-2 py-0.5 rounded text-xs border border-border-subtle">Komisaris</span>
+<span class="inline-block bg-surface-container-high px-2 py-0.5 rounded text-xs border border-border-subtle">Pihak Bank</span>
+</div>
+</div>
+<div class="col-span-2">
+<span class="text-[10px] uppercase font-semibold text-outline tracking-wider block mb-1">Location</span>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline-variant text-sm">location_on</span>
+<span class="text-body-sm text-on-surface truncate">Ruang Meeting A, Kantor Notaris</span>
+</div>
+</div>
+</div>
+<div class="mt-auto pt-4 border-t border-border-subtle flex justify-end">
+<button class="bg-primary-container text-white px-5 py-2 rounded text-body-sm font-semibold hover:bg-on-primary-fixed-variant transition-colors shadow-sm flex items-center gap-2">
+                            Buka Perkara
+                            <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Card 2: Not Ready -->
+<div class="bg-surface-card border border-border-subtle rounded-xl p-6 shadow-[0_4px_12px_rgba(0,0,0,0.03)] hover:shadow-[0_10px_25px_rgba(0,0,0,0.08)] transition-shadow duration-300 flex flex-col h-full relative overflow-hidden group">
+<!-- Subtle left accent for status -->
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-status-critical"></div>
+<div class="flex justify-between items-start mb-4">
+<div class="flex items-center gap-3">
+<div class="bg-surface-container-low text-primary-container px-3 py-1.5 rounded-md flex flex-col items-center justify-center border border-border-subtle">
+<span class="text-body-sm font-bold leading-none">13:30</span>
+<span class="text-[10px] uppercase text-outline mt-0.5">WIB</span>
+</div>
+<div>
+<h3 class="text-title-md font-title-md text-primary-container leading-tight">Pendirian PT</h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-1">Ref: MT-2023-0902</p>
+</div>
+</div>
+<!-- Readiness Chip -->
+<div class="flex flex-col items-end gap-1">
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-error-container text-on-error-container border border-status-critical/20">
+<span class="material-symbols-outlined text-sm filled">error</span>
+<span class="text-label-caps font-label-caps tracking-wider">NOT READY</span>
+</div>
+<span class="text-[10px] text-status-critical font-medium">2 documents missing</span>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-y-4 gap-x-6 mb-6">
+<div>
+<span class="text-[10px] uppercase font-semibold text-outline tracking-wider block mb-1">Client</span>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline-variant text-sm">person</span>
+<span class="text-body-sm text-on-surface">Bpk. Ahmad Santoso</span>
+</div>
+</div>
+<div>
+<span class="text-[10px] uppercase font-semibold text-outline tracking-wider block mb-1">PIC</span>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline-variant text-sm">badge</span>
+<span class="text-body-sm text-on-surface">Siti M.Kn.</span>
+</div>
+</div>
+<div class="col-span-2">
+<span class="text-[10px] uppercase font-semibold text-outline tracking-wider block mb-1">Participants (2)</span>
+<div class="flex items-center gap-2 text-body-sm text-on-surface">
+<span class="inline-block bg-surface-container-high px-2 py-0.5 rounded text-xs border border-border-subtle">Calon Direktur</span>
+<span class="inline-block bg-surface-container-high px-2 py-0.5 rounded text-xs border border-border-subtle">Calon Komisaris</span>
+</div>
+</div>
+<div class="col-span-2">
+<span class="text-[10px] uppercase font-semibold text-outline tracking-wider block mb-1">Location</span>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline-variant text-sm">location_on</span>
+<span class="text-body-sm text-on-surface truncate">Cabang Selatan, Ruang VIP</span>
+</div>
+</div>
+</div>
+<div class="mt-auto pt-4 border-t border-border-subtle flex justify-end">
+<button class="bg-primary-container text-white px-5 py-2 rounded text-body-sm font-semibold hover:bg-on-primary-fixed-variant transition-colors shadow-sm flex items-center gap-2">
+                            Buka Perkara
+                            <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

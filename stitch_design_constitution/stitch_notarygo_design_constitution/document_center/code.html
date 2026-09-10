@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+
+<html lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Document Center - NOTARYGO</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary": "#ffffff",
+                        "surface-tint": "#476083",
+                        "tertiary-container": "#0d2031",
+                        "surface-variant": "#e1e3e4",
+                        "status-active": "#3498DB",
+                        "inverse-on-surface": "#f0f1f2",
+                        "status-success": "#10B981",
+                        "on-secondary-fixed": "#301400",
+                        "background": "#f8f9fa",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "secondary": "#944a00",
+                        "outline": "#74777f",
+                        "primary-fixed": "#d4e3ff",
+                        "primary-container": "#001f3f",
+                        "tertiary-fixed": "#d1e4fb",
+                        "surface": "#f8f9fa",
+                        "surface-card": "#FFFFFF",
+                        "on-primary-fixed-variant": "#2f486a",
+                        "surface-container-low": "#f3f4f5",
+                        "on-secondary-fixed-variant": "#713700",
+                        "error-container": "#ffdad6",
+                        "secondary-fixed": "#ffdcc5",
+                        "border-subtle": "#E2E8F0",
+                        "surface-container-high": "#e7e8e9",
+                        "tertiary-fixed-dim": "#b5c8df",
+                        "outline-variant": "#c4c6cf",
+                        "status-critical": "#E74C3C",
+                        "surface-dim": "#d9dadb",
+                        "on-background": "#191c1d",
+                        "on-secondary": "#ffffff",
+                        "status-warning-medium": "#E67E22",
+                        "on-surface": "#191c1d",
+                        "primary-fixed-dim": "#afc8f0",
+                        "surface-container": "#edeeef",
+                        "on-primary-fixed": "#001c3a",
+                        "on-tertiary-fixed-variant": "#36485b",
+                        "status-warning-low": "#F1C40F",
+                        "status-archived": "#94A3B8",
+                        "secondary-container": "#fc8f34",
+                        "on-error": "#ffffff",
+                        "inverse-surface": "#2e3132",
+                        "primary": "#000613",
+                        "on-primary-container": "#6f88ad",
+                        "secondary-fixed-dim": "#ffb783",
+                        "surface-bright": "#f8f9fa",
+                        "tertiary": "#000610",
+                        "on-tertiary-fixed": "#091d2e",
+                        "on-tertiary-container": "#76889d",
+                        "error": "#ba1a1a",
+                        "on-error-container": "#93000a",
+                        "on-surface-variant": "#43474e",
+                        "inverse-primary": "#afc8f0",
+                        "on-secondary-container": "#663100",
+                        "surface-container-highest": "#e1e3e4"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-sm": "0.5rem",
+                        "stack-md": "1rem",
+                        "container-padding": "2rem",
+                        "touch-target-min": "44px",
+                        "gutter": "1.5rem",
+                        "sidebar-width": "260px"
+                    },
+                    "fontFamily": {
+                        "display-lg": ["Inter"],
+                        "stats-number": ["Inter"],
+                        "title-md": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "body-base": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "body-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "display-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "stats-number": ["28px", { "lineHeight": "34px", "fontWeight": "700" }],
+                        "title-md": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "body-base": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-lg": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        .fill-icon { font-variation-settings: 'FILL' 1; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-base antialiased flex min-h-screen">
+<!-- SideNavBar -->
+<aside class="docked h-screen w-sidebar fixed left-0 top-0 border-r border-outline-variant shadow-sm bg-primary-container dark:bg-primary-container z-50 flex flex-col justify-between py-gutter">
+<div class="flex flex-col h-full py-gutter justify-between">
+<div>
+<div class="px-6 mb-8 flex items-center gap-3">
+<img alt="NotaryGo Logo" class="w-10 h-10 object-contain" data-alt="A clean, minimalist 3D rendering of an abstract geometric logo representing a law firm or notary, in crisp white against a dark navy blue background, modern SaaS aesthetic, sharp lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuADcr9V7LYGLKUT9xa0LNodoA8c2aiUpdNxuuLH5cUwLcEWuKrk0kA0IxuycPcQwhoAsXFo7wCdaxI9dyBQToWxkVKZi0qBnlZs6bmdnYDiY0z0Dw9_gHoCZrJSfUqN5_Oyr9-LJ4HwuK4Xtgikx9nmRPXuyHsZ11kQHU3IesgT1dXDRkWbnFQGzLvmEE-OLtZ8Wg6qZNE6poZUy1NJtdJiFbvAr0lVDPzPff7bIL2L8JY5TxskqgJoQw"/>
+<div>
+<h1 class="text-title-md font-title-md font-bold text-surface-container-lowest">NOTARYGO™</h1>
+<p class="text-label-caps font-label-caps text-on-primary-container">Operational System</p>
+</div>
+</div>
+<nav class="space-y-1">
+<a class="flex items-center gap-stack-md px-4 py-3 text-on-primary-container hover:text-white hover:bg-on-primary-container/10 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined text-title-md" data-icon="dashboard">dashboard</span>
+<span class="text-body-sm font-body-sm">Overview</span>
+</a>
+<a class="flex items-center gap-stack-md px-4 py-3 text-on-primary-container hover:text-white hover:bg-on-primary-container/10 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined text-title-md" data-icon="work">work</span>
+<span class="text-body-sm font-body-sm">Operations</span>
+</a>
+<a class="flex items-center gap-stack-md px-4 py-3 bg-on-primary-container/20 text-white border-l-4 border-secondary opacity-90 transition-all" href="#">
+<span class="material-symbols-outlined text-title-md" data-icon="description">description</span>
+<span class="text-body-sm font-body-sm">Documents</span>
+</a>
+<a class="flex items-center gap-stack-md px-4 py-3 text-on-primary-container hover:text-white hover:bg-on-primary-container/10 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined text-title-md" data-icon="payments">payments</span>
+<span class="text-body-sm font-body-sm">Finance</span>
+</a>
+<a class="flex items-center gap-stack-md px-4 py-3 text-on-primary-container hover:text-white hover:bg-on-primary-container/10 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined text-title-md" data-icon="settings_accessibility">settings_accessibility</span>
+<span class="text-body-sm font-body-sm">Control</span>
+</a>
+</nav>
+</div>
+<div class="px-4">
+<button class="w-full flex items-center justify-center gap-2 py-3 bg-surface-container-lowest/10 text-surface-container-lowest rounded-lg hover:bg-surface-container-lowest/20 transition-colors text-body-sm font-body-sm border border-surface-container-lowest/20 mb-4 h-touch-target-min">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+                    Quick Settings
+                </button>
+<a class="flex items-center gap-stack-md px-4 py-3 text-on-primary-container hover:text-white hover:bg-on-primary-container/10 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined text-title-md" data-icon="account_circle">account_circle</span>
+<span class="text-body-sm font-body-sm">Owner Profile</span>
+</a>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 ml-[260px] min-h-screen flex flex-col bg-background">
+<!-- TopNavBar -->
+<header class="docked h-touch-target-min w-full sticky top-0 z-40 border-b border-border-subtle bg-surface flex justify-between items-center px-gutter flat no shadows">
+<div class="flex items-center gap-4">
+<h2 class="text-title-md font-title-md font-bold text-primary-container dark:text-primary-fixed hidden md:block">Kantor Notaris &amp; PPAT Nama Notaris, S.H., M.Kn.</h2>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden md:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline" data-icon="search">search</span>
+<input class="pl-10 pr-4 py-2 border border-border-subtle rounded-lg bg-surface-container-lowest text-body-sm font-body-sm focus:border-primary-container focus:ring-1 focus:ring-primary-container w-64 h-[36px] outline-none" placeholder="Search..." type="text"/>
+</div>
+<button class="text-on-surface-variant hover:text-primary transition-colors h-10 w-10 flex items-center justify-center rounded-full hover:bg-surface-container-low">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors h-10 w-10 flex items-center justify-center rounded-full hover:bg-surface-container-low">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+</button>
+<button class="bg-primary-container text-white px-4 py-2 rounded-lg text-body-sm font-body-sm hover:bg-primary-container/90 transition-colors flex items-center gap-2 h-[36px]">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                    + Buat
+                </button>
+<img alt="Owner Profile" class="w-8 h-8 rounded-full border border-border-subtle object-cover ml-2" data-alt="A professional headshot of a notary or legal professional in a crisp dark suit against a plain light grey background, soft studio lighting, sharp focus on face." src="https://lh3.googleusercontent.com/aida-public/AB6AXuD_BMfB7NKw6JnsGhbBJ5_Q0NzjHzIYnFV1jneWD1AbxEVcvN3xxVvC7Hj62ri-iknBzU8ldiNfMJR8_urjsNSYpwIneF7rZBhNPU4yHbtO1nsepuqMnCgAgbKMpXaGIKcX4q1xoqYE6TOLzvLtYIxSeIMLxHQIM9N0vYizBj9892GNv5IYdoZgWJhgYmVPxgx7WTD54ofWze9YeVa3w38veP8r5KhvNhnUUWSnarvw_c_hzszefzaR6Q"/>
+</div>
+</header>
+<!-- Workspace Canvas -->
+<div class="p-container-padding flex-1">
+<!-- Page Header -->
+<div class="flex justify-between items-end mb-8">
+<div>
+<h1 class="text-headline-lg font-headline-lg text-on-surface mb-2">Document Center</h1>
+<p class="text-body-base font-body-base text-on-surface-variant">Pusat dokumen seluruh perkara kantor.</p>
+</div>
+<button class="bg-primary-container text-on-primary px-5 py-2.5 rounded-lg text-body-sm font-body-sm hover:bg-primary transition-colors flex items-center gap-2 h-touch-target-min shadow-sm">
+<span class="material-symbols-outlined" data-icon="upload_file">upload_file</span>
+                    + Unggah Dokumen
+                </button>
+</div>
+<!-- Filters Section -->
+<div class="bg-surface-card border border-border-subtle rounded-xl p-6 mb-6 shadow-[0_4px_12px_rgba(0,0,0,0.03)]">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4">
+<div class="flex flex-col gap-1">
+<label class="text-label-caps font-label-caps text-on-surface-variant">PERKARA</label>
+<select class="border border-border-subtle rounded-md bg-surface-container-lowest text-body-sm font-body-sm p-2.5 h-touch-target-min outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container text-on-surface">
+<option>Semua Perkara</option>
+</select>
+</div>
+<div class="flex flex-col gap-1">
+<label class="text-label-caps font-label-caps text-on-surface-variant">CLIENT</label>
+<select class="border border-border-subtle rounded-md bg-surface-container-lowest text-body-sm font-body-sm p-2.5 h-touch-target-min outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container text-on-surface">
+<option>Semua Client</option>
+</select>
+</div>
+<div class="flex flex-col gap-1">
+<label class="text-label-caps font-label-caps text-on-surface-variant">JENIS DOKUMEN</label>
+<select class="border border-border-subtle rounded-md bg-surface-container-lowest text-body-sm font-body-sm p-2.5 h-touch-target-min outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container text-on-surface">
+<option>Semua Jenis</option>
+</select>
+</div>
+<div class="flex flex-col gap-1">
+<label class="text-label-caps font-label-caps text-on-surface-variant">STATUS</label>
+<select class="border border-border-subtle rounded-md bg-surface-container-lowest text-body-sm font-body-sm p-2.5 h-touch-target-min outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container text-on-surface">
+<option>Semua Status</option>
+</select>
+</div>
+<div class="flex flex-col gap-1">
+<label class="text-label-caps font-label-caps text-on-surface-variant">UPLOADER</label>
+<select class="border border-border-subtle rounded-md bg-surface-container-lowest text-body-sm font-body-sm p-2.5 h-touch-target-min outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container text-on-surface">
+<option>Semua Uploader</option>
+</select>
+</div>
+<div class="flex flex-col gap-1">
+<label class="text-label-caps font-label-caps text-on-surface-variant">TANGGAL</label>
+<div class="relative">
+<input class="w-full border border-border-subtle rounded-md bg-surface-container-lowest text-body-sm font-body-sm p-2.5 h-touch-target-min outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container text-on-surface" type="date"/>
+</div>
+</div>
+</div>
+</div>
+<!-- Documents Table -->
+<div class="bg-surface-card border border-border-subtle rounded-xl shadow-[0_4px_12px_rgba(0,0,0,0.03)] overflow-hidden">
+<div class="overflow-x-auto no-scrollbar">
+<table class="w-full text-left whitespace-nowrap">
+<thead class="bg-surface border-b border-border-subtle">
+<tr>
+<th class="px-6 py-4 text-label-caps font-label-caps text-on-surface-variant tracking-wider">Nama Dokumen</th>
+<th class="px-6 py-4 text-label-caps font-label-caps text-on-surface-variant tracking-wider">Matter</th>
+<th class="px-6 py-4 text-label-caps font-label-caps text-on-surface-variant tracking-wider">Client</th>
+<th class="px-6 py-4 text-label-caps font-label-caps text-on-surface-variant tracking-wider">Jenis</th>
+<th class="px-6 py-4 text-label-caps font-label-caps text-on-surface-variant tracking-wider">Versi</th>
+<th class="px-6 py-4 text-label-caps font-label-caps text-on-surface-variant tracking-wider">Status</th>
+<th class="px-6 py-4 text-label-caps font-label-caps text-on-surface-variant tracking-wider">Updated</th>
+<th class="px-6 py-4 text-label-caps font-label-caps text-on-surface-variant tracking-wider">Uploader</th>
+<th class="px-6 py-4 text-label-caps font-label-caps text-on-surface-variant tracking-wider text-right">Aksi</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border-subtle bg-surface-card text-body-sm font-body-sm text-on-surface">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-outline" data-icon="description">description</span>
+<span class="font-semibold text-primary-container">Akta_Pendirian_PT_Maju.pdf</span>
+</div>
+</td>
+<td class="px-6 py-4 text-on-surface-variant">Pendirian PT Maju Jaya</td>
+<td class="px-6 py-4 text-on-surface-variant">Budi Santoso</td>
+<td class="px-6 py-4 text-on-surface-variant">Akta</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center justify-center px-2 py-1 rounded bg-surface-container text-on-surface-variant text-label-caps font-label-caps font-semibold">V4</span>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-status-success/10 text-status-success text-label-caps font-label-caps border border-status-success/20">
+<span class="material-symbols-outlined text-[14px] fill-icon" data-icon="check_circle">check_circle</span> Verified
+                                    </span>
+</td>
+<td class="px-6 py-4 text-on-surface-variant">12 Oct 2023, 14:30</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-primary-container text-white flex items-center justify-center text-[10px] font-bold">AS</div>
+<span>Admin Staff</span>
+</div>
+</td>
+<td class="px-6 py-4 text-right">
+<div class="relative inline-block text-left dropdown-container">
+<button aria-expanded="true" aria-haspopup="true" class="inline-flex justify-center w-full px-2 py-2 text-on-surface-variant hover:text-primary-container hover:bg-surface-container rounded-md focus:outline-none" type="button">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+<!-- Dropdown menu (hidden by default, handled by simple JS or CSS hover) -->
+<div class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-[0_10px_25px_rgba(0,0,0,0.08)] bg-surface-card border border-border-subtle hidden group-hover:block z-10">
+<div aria-labelledby="options-menu" aria-orientation="vertical" class="py-1" role="menu">
+<a class="group flex items-center px-4 py-2 text-body-sm font-body-sm text-on-surface hover:bg-surface-container hover:text-primary-container" href="#" role="menuitem">
+<span class="material-symbols-outlined mr-3 text-[18px]" data-icon="visibility">visibility</span> Open
+                                                </a>
+<a class="group flex items-center px-4 py-2 text-body-sm font-body-sm text-on-surface hover:bg-surface-container hover:text-primary-container" href="#" role="menuitem">
+<span class="material-symbols-outlined mr-3 text-[18px]" data-icon="download">download</span> Download
+                                                </a>
+<a class="group flex items-center px-4 py-2 text-body-sm font-body-sm text-on-surface hover:bg-surface-container hover:text-primary-container" href="#" role="menuitem">
+<span class="material-symbols-outlined mr-3 text-[18px]" data-icon="edit_document">edit_document</span> Edit Metadata
+                                                </a>
+<a class="group flex items-center px-4 py-2 text-body-sm font-body-sm text-primary-container font-semibold hover:bg-surface-container border-t border-border-subtle mt-1 pt-2" href="#" role="menuitem">
+<span class="material-symbols-outlined mr-3 text-[18px]" data-icon="upload">upload</span> Upload Versi Baru
+                                                </a>
+</div>
+</div>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-outline" data-icon="description">description</span>
+<span class="font-semibold text-primary-container">Draft_Perjanjian_Sewa.docx</span>
+</div>
+</td>
+<td class="px-6 py-4 text-on-surface-variant">Sewa Ruko Sudirman</td>
+<td class="px-6 py-4 text-on-surface-variant">PT Properti Tbk</td>
+<td class="px-6 py-4 text-on-surface-variant">Perjanjian</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center justify-center px-2 py-1 rounded bg-surface-container text-on-surface-variant text-label-caps font-label-caps font-semibold">V1</span>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-status-warning-medium/10 text-status-warning-medium text-label-caps font-label-caps border border-status-warning-medium/20">
+<span class="material-symbols-outlined text-[14px] fill-icon" data-icon="pending">pending</span> Review
+                                    </span>
+</td>
+<td class="px-6 py-4 text-on-surface-variant">14 Oct 2023, 09:15</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center text-[10px] font-bold">NH</div>
+<span>Notaris Hendra</span>
+</div>
+</td>
+<td class="px-6 py-4 text-right">
+<div class="relative inline-block text-left dropdown-container">
+<button class="inline-flex justify-center w-full px-2 py-2 text-on-surface-variant hover:text-primary-container hover:bg-surface-container rounded-md focus:outline-none" type="button">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+<div class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-[0_10px_25px_rgba(0,0,0,0.08)] bg-surface-card border border-border-subtle hidden group-hover:block z-10">
+<div class="py-1">
+<a class="group flex items-center px-4 py-2 text-body-sm font-body-sm text-on-surface hover:bg-surface-container hover:text-primary-container" href="#"><span class="material-symbols-outlined mr-3 text-[18px]" data-icon="visibility">visibility</span> Open</a>
+<a class="group flex items-center px-4 py-2 text-body-sm font-body-sm text-on-surface hover:bg-surface-container hover:text-primary-container" href="#"><span class="material-symbols-outlined mr-3 text-[18px]" data-icon="download">download</span> Download</a>
+<a class="group flex items-center px-4 py-2 text-body-sm font-body-sm text-on-surface hover:bg-surface-container hover:text-primary-container" href="#"><span class="material-symbols-outlined mr-3 text-[18px]" data-icon="edit_document">edit_document</span> Edit Metadata</a>
+<a class="group flex items-center px-4 py-2 text-body-sm font-body-sm text-primary-container font-semibold hover:bg-surface-container border-t border-border-subtle mt-1 pt-2" href="#"><span class="material-symbols-outlined mr-3 text-[18px]" data-icon="upload">upload</span> Upload Versi Baru</a>
+</div>
+</div>
+</div>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-low/50 transition-colors group">
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-outline" data-icon="description">description</span>
+<span class="font-semibold text-primary-container">KTP_Ahli_Waris.jpg</span>
+</div>
+</td>
+<td class="px-6 py-4 text-on-surface-variant">Warisan Bpk. Ahmad</td>
+<td class="px-6 py-4 text-on-surface-variant">Keluarga Ahmad</td>
+<td class="px-6 py-4 text-on-surface-variant">Identitas</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center justify-center px-2 py-1 rounded bg-surface-container text-on-surface-variant text-label-caps font-label-caps font-semibold">V1</span>
+</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container text-on-surface-variant text-label-caps font-label-caps border border-outline-variant">
+<span class="material-symbols-outlined text-[14px]" data-icon="draft">draft</span> Draft
+                                    </span>
+</td>
+<td class="px-6 py-4 text-on-surface-variant">15 Oct 2023, 11:20</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-primary-container text-white flex items-center justify-center text-[10px] font-bold">AS</div>
+<span>Admin Staff</span>
+</div>
+</td>
+<td class="px-6 py-4 text-right">
+<div class="relative inline-block text-left dropdown-container">
+<button class="inline-flex justify-center w-full px-2 py-2 text-on-surface-variant hover:text-primary-container hover:bg-surface-container rounded-md focus:outline-none" type="button">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+<div class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-[0_10px_25px_rgba(0,0,0,0.08)] bg-surface-card border border-border-subtle hidden group-hover:block z-10">
+<div class="py-1">
+<a class="group flex items-center px-4 py-2 text-body-sm font-body-sm text-on-surface hover:bg-surface-container hover:text-primary-container" href="#"><span class="material-symbols-outlined mr-3 text-[18px]" data-icon="visibility">visibility</span> Open</a>
+<a class="group flex items-center px-4 py-2 text-body-sm font-body-sm text-on-surface hover:bg-surface-container hover:text-primary-container" href="#"><span class="material-symbols-outlined mr-3 text-[18px]" data-icon="download">download</span> Download</a>
+<a class="group flex items-center px-4 py-2 text-body-sm font-body-sm text-on-surface hover:bg-surface-container hover:text-primary-container" href="#"><span class="material-symbols-outlined mr-3 text-[18px]" data-icon="edit_document">edit_document</span> Edit Metadata</a>
+<a class="group flex items-center px-4 py-2 text-body-sm font-body-sm text-primary-container font-semibold hover:bg-surface-container border-t border-border-subtle mt-1 pt-2" href="#"><span class="material-symbols-outlined mr-3 text-[18px]" data-icon="upload">upload</span> Upload Versi Baru</a>
+</div>
+</div>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination (Simple implementation for design) -->
+<div class="flex items-center justify-between px-6 py-3 border-t border-border-subtle bg-surface">
+<span class="text-body-sm font-body-sm text-on-surface-variant">Showing 1 to 3 of 45 results</span>
+<div class="flex gap-2">
+<button class="px-3 py-1 border border-border-subtle rounded-md text-on-surface-variant text-body-sm font-body-sm hover:bg-surface-container disabled:opacity-50" disabled="">Prev</button>
+<button class="px-3 py-1 border border-border-subtle rounded-md bg-primary-container text-white text-body-sm font-body-sm">1</button>
+<button class="px-3 py-1 border border-border-subtle rounded-md text-on-surface hover:bg-surface-container text-body-sm font-body-sm">2</button>
+<button class="px-3 py-1 border border-border-subtle rounded-md text-on-surface hover:bg-surface-container text-body-sm font-body-sm">3</button>
+<button class="px-3 py-1 border border-border-subtle rounded-md text-on-surface hover:bg-surface-container text-body-sm font-body-sm">Next</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>

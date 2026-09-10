@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Catat Pembayaran - NotaryGo</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-surface": "#2e3132",
+                        "status-active": "#3498DB",
+                        "on-tertiary-fixed": "#091d2e",
+                        "surface-container-lowest": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "on-tertiary-fixed-variant": "#36485b",
+                        "primary-container": "#001f3f",
+                        "primary": "#000613",
+                        "on-background": "#191c1d",
+                        "outline": "#74777f",
+                        "on-secondary-container": "#663100",
+                        "status-success": "#10B981",
+                        "primary-fixed-dim": "#afc8f0",
+                        "error-container": "#ffdad6",
+                        "on-primary": "#ffffff",
+                        "surface-dim": "#d9dadb",
+                        "surface-card": "#FFFFFF",
+                        "surface-tint": "#476083",
+                        "status-archived": "#94A3B8",
+                        "on-primary-fixed": "#001c3a",
+                        "surface-container-low": "#f3f4f5",
+                        "on-secondary": "#ffffff",
+                        "surface-container-highest": "#e1e3e4",
+                        "tertiary-fixed-dim": "#b5c8df",
+                        "border-subtle": "#E2E8F0",
+                        "on-surface-variant": "#43474e",
+                        "on-secondary-fixed-variant": "#713700",
+                        "outline-variant": "#c4c6cf",
+                        "secondary-container": "#fc8f34",
+                        "tertiary-fixed": "#d1e4fb",
+                        "on-secondary-fixed": "#301400",
+                        "status-warning-low": "#F1C40F",
+                        "on-surface": "#191c1d",
+                        "tertiary-container": "#0d2031",
+                        "inverse-on-surface": "#f0f1f2",
+                        "surface-variant": "#e1e3e4",
+                        "on-primary-fixed-variant": "#2f486a",
+                        "inverse-primary": "#afc8f0",
+                        "secondary-fixed-dim": "#ffb783",
+                        "surface-container-high": "#e7e8e9",
+                        "background": "#f8f9fa",
+                        "on-tertiary-container": "#76889d",
+                        "surface": "#f8f9fa",
+                        "surface-bright": "#f8f9fa",
+                        "on-error": "#ffffff",
+                        "secondary-fixed": "#ffdcc5",
+                        "tertiary": "#000610",
+                        "error": "#ba1a1a",
+                        "status-warning-medium": "#E67E22",
+                        "on-primary-container": "#6f88ad",
+                        "surface-container": "#edeeef",
+                        "secondary": "#944a00",
+                        "primary-fixed": "#d4e3ff",
+                        "on-tertiary": "#ffffff",
+                        "status-critical": "#E74C3C"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-padding": "2rem",
+                        "gutter": "1.5rem",
+                        "touch-target-min": "44px",
+                        "sidebar-width": "260px",
+                        "stack-md": "1rem",
+                        "stack-sm": "0.5rem"
+                    },
+                    "fontFamily": {
+                        "body-sm": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "title-md": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "stats-number": ["Inter"],
+                        "body-base": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "label-caps": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-lg": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "title-md": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "stats-number": ["28px", { "lineHeight": "34px", "fontWeight": "700" }],
+                        "body-base": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "display-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background min-h-screen text-on-surface font-body-base">
+<!-- Modal Overlay -->
+<div class="fixed inset-0 bg-inverse-surface/40 backdrop-blur-sm flex items-center justify-center z-50 p-4">
+<!-- Modal Content -->
+<div class="bg-surface-card w-full max-w-2xl rounded-xl shadow-lg border border-border-subtle flex flex-col overflow-hidden">
+<!-- Header -->
+<div class="px-gutter py-6 border-b border-border-subtle bg-surface-container-lowest flex items-start justify-between">
+<div>
+<h2 class="font-headline-lg text-headline-lg text-primary">Catat Pembayaran</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Masukkan detail pembayaran untuk Invoice INV-2309-042.</p>
+</div>
+<button aria-label="Close" class="text-on-surface-variant hover:text-primary transition-colors h-touch-target-min w-touch-target-min flex items-center justify-center rounded-full hover:bg-surface-container-low">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">close</span>
+</button>
+</div>
+<!-- Body -->
+<div class="p-gutter overflow-y-auto max-h-[716px]">
+<!-- Outstanding Summary Card -->
+<div class="bg-surface-container-low rounded-lg p-4 mb-8 flex items-center justify-between border border-border-subtle">
+<div class="flex items-center gap-stack-sm">
+<span class="material-symbols-outlined text-primary-container" style="font-variation-settings: 'FILL' 1;">account_balance_wallet</span>
+<span class="font-body-base text-body-base text-on-surface">Current Outstanding</span>
+</div>
+<span class="font-stats-number text-stats-number text-primary">Rp15.000.000</span>
+</div>
+<form class="space-y-6">
+<!-- Invoice (Pre-filled) -->
+<div>
+<label class="block font-label-caps text-label-caps text-on-surface-variant mb-2">Invoice</label>
+<input class="w-full h-touch-target-min rounded border-border-subtle bg-surface-container-lowest text-on-surface-variant cursor-not-allowed font-body-base text-body-base px-4" disabled="" type="text" value="INV-2309-042"/>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<!-- Tanggal Bayar -->
+<div>
+<label class="block font-label-caps text-label-caps text-on-surface mb-2">Tanggal Bayar</label>
+<div class="relative">
+<input class="w-full h-touch-target-min rounded border-border-subtle bg-surface-container-lowest text-on-surface font-body-base text-body-base px-4 focus:border-primary focus:ring-1 focus:ring-primary pl-10" type="date" value="2023-10-25"/>
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline pointer-events-none" style="font-variation-settings: 'FILL' 0;">calendar_today</span>
+</div>
+</div>
+<!-- Jumlah Bayar -->
+<div>
+<label class="block font-label-caps text-label-caps text-on-surface mb-2">Jumlah Bayar</label>
+<div class="relative">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 font-body-base text-body-base text-on-surface-variant">Rp</span>
+<input class="w-full h-touch-target-min rounded border-border-subtle bg-surface-container-lowest text-on-surface font-body-base text-body-base px-4 pl-12 focus:border-primary focus:ring-1 focus:ring-primary" placeholder="0" type="text"/>
+</div>
+</div>
+</div>
+<!-- Metode Pembayaran & Referensi -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<div>
+<label class="block font-label-caps text-label-caps text-on-surface mb-2">Metode Pembayaran</label>
+<div class="relative">
+<select class="w-full h-touch-target-min rounded border-border-subtle bg-surface-container-lowest text-on-surface font-body-base text-body-base px-4 appearance-none focus:border-primary focus:ring-1 focus:ring-primary">
+<option>Transfer Bank</option>
+<option>Tunai</option>
+<option>Cek</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-outline pointer-events-none" style="font-variation-settings: 'FILL' 0;">expand_more</span>
+</div>
+</div>
+<div>
+<label class="block font-label-caps text-label-caps text-on-surface mb-2">Referensi / No. Transaksi</label>
+<input class="w-full h-touch-target-min rounded border-border-subtle bg-surface-container-lowest text-on-surface font-body-base text-body-base px-4 focus:border-primary focus:ring-1 focus:ring-primary" placeholder="Contoh: TRF-BCA-001" type="text"/>
+</div>
+</div>
+<!-- Catatan -->
+<div>
+<label class="block font-label-caps text-label-caps text-on-surface mb-2">Catatan</label>
+<textarea class="w-full rounded border-border-subtle bg-surface-container-lowest text-on-surface font-body-base text-body-base p-4 focus:border-primary focus:ring-1 focus:ring-primary resize-none" placeholder="Tambahkan catatan jika perlu..." rows="3"></textarea>
+</div>
+</form>
+</div>
+<!-- Footer -->
+<div class="px-gutter py-4 border-t border-border-subtle bg-surface flex flex-col sm:flex-row items-center justify-between gap-4">
+<div class="flex items-center gap-2 text-on-surface-variant bg-surface-container-low px-3 py-2 rounded">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">info</span>
+<span class="font-body-sm text-body-sm">Confirmation Required: Memperbarui status invoice.</span>
+</div>
+<div class="flex items-center gap-3 w-full sm:w-auto">
+<button class="flex-1 sm:flex-none h-touch-target-min px-6 rounded bg-surface-container-lowest border border-primary text-primary font-body-base text-body-base hover:bg-surface-container-low transition-colors" type="button">
+                        Batal
+                    </button>
+<button class="flex-1 sm:flex-none h-touch-target-min px-6 rounded bg-primary-container text-on-primary font-body-base text-body-base font-bold hover:bg-on-tertiary-fixed transition-colors flex items-center justify-center gap-2 shadow-sm" type="button">
+                        Simpan Pembayaran
+                    </button>
+</div>
+</div>
+</div>
+</div>
+</body></html>

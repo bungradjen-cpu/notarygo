@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+
+<html lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Document Center - Mobile</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-tertiary-fixed-variant": "#36485b",
+                        "secondary": "#944a00",
+                        "surface-card": "#FFFFFF",
+                        "surface-container-high": "#e7e8e9",
+                        "surface-container": "#edeeef",
+                        "primary-fixed-dim": "#afc8f0",
+                        "on-secondary-fixed": "#301400",
+                        "outline-variant": "#c4c6cf",
+                        "primary": "#000613",
+                        "inverse-on-surface": "#f0f1f2",
+                        "status-critical": "#E74C3C",
+                        "surface-dim": "#d9dadb",
+                        "secondary-fixed": "#ffdcc5",
+                        "error-container": "#ffdad6",
+                        "tertiary-container": "#0d2031",
+                        "surface-container-highest": "#e1e3e4",
+                        "inverse-primary": "#afc8f0",
+                        "on-tertiary-fixed": "#091d2e",
+                        "on-primary": "#ffffff",
+                        "on-background": "#191c1d",
+                        "on-error": "#ffffff",
+                        "surface-tint": "#476083",
+                        "surface-container-low": "#f3f4f5",
+                        "border-subtle": "#E2E8F0",
+                        "tertiary": "#000610",
+                        "status-archived": "#94A3B8",
+                        "surface-bright": "#f8f9fa",
+                        "inverse-surface": "#2e3132",
+                        "background": "#f8f9fa",
+                        "on-secondary-container": "#663100",
+                        "primary-fixed": "#d4e3ff",
+                        "status-warning-medium": "#E67E22",
+                        "status-success": "#10B981",
+                        "on-primary-fixed": "#001c3a",
+                        "on-tertiary": "#ffffff",
+                        "surface": "#f8f9fa",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary-fixed-dim": "#b5c8df",
+                        "surface-variant": "#e1e3e4",
+                        "outline": "#74777f",
+                        "on-surface-variant": "#43474e",
+                        "on-error-container": "#93000a",
+                        "status-active": "#3498DB",
+                        "tertiary-fixed": "#d1e4fb",
+                        "on-tertiary-container": "#76889d",
+                        "on-surface": "#191c1d",
+                        "on-primary-container": "#6f88ad",
+                        "secondary-container": "#fc8f34",
+                        "on-primary-fixed-variant": "#2f486a",
+                        "primary-container": "#001f3f",
+                        "on-secondary-fixed-variant": "#713700",
+                        "error": "#ba1a1a",
+                        "secondary-fixed-dim": "#ffb783",
+                        "status-warning-low": "#F1C40F",
+                        "on-secondary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "sidebar-width": "260px",
+                        "touch-target-min": "44px",
+                        "stack-sm": "0.5rem",
+                        "container-padding": "2rem",
+                        "gutter": "1.5rem",
+                        "stack-md": "1rem"
+                    },
+                    "fontFamily": {
+                        "body-sm": ["Inter"],
+                        "body-base": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "headline-lg-mobile": ["Inter"],
+                        "title-md": ["Inter"],
+                        "stats-number": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "body-base": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "display-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-lg": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "headline-lg-mobile": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "title-md": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "stats-number": ["28px", { "lineHeight": "34px", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface antialiased flex flex-col min-h-screen">
+<!-- Top Navigation Bar -->
+<header class="bg-surface docked h-touch-target-min w-full sticky top-0 z-40 border-b border-border-subtle flex justify-between items-center px-4 md:hidden">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary" data-icon="menu">menu</span>
+<span class="text-title-md font-title-md font-bold text-primary-container">Kantor Notaris &amp; PPAT Nama Notaris, S.H., M.Kn.</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-on-surface-variant h-touch-target-min w-touch-target-min flex items-center justify-center rounded-full active:bg-surface-container" data-icon="search">search</span>
+<img alt="Owner Profile" class="w-8 h-8 rounded-full border border-border-subtle object-cover" data-alt="A small circular avatar placeholder image for a professional notary office owner. The image should feature a minimal, modern corporate style icon, suitable for a light-mode mobile UI setting, with a clean white or very light gray background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCNxXHkCycQZZhXING6gIEH5_B0kxwF8iQzLcYVK-7y0rs0FH5bmlPEn_cHyqNewRWN9pKc1cXhQIMibcPSEkzAHOldyrd6HO4KVjDRZqlgnqVNTrxkFSSVedBvA4UuRVBiYyyljQRAU5kf4-IYOb0mKLyvxxMI3kILWjnBXra2PMIt_EIDoPzZC724lkkbQLkVzNwRLFZizrOI7ocpE4JMstBjeBDFREJTgAcELlAA5TttQ-Kwf0bQKA"/>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="flex-grow p-4 md:hidden pb-24">
+<!-- Header Section -->
+<div class="flex justify-between items-center mb-6">
+<div>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary">Documents</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Manage legal files and templates</p>
+</div>
+</div>
+<!-- Filter / Search Bar (Mobile Style) -->
+<div class="relative mb-6">
+<span class="material-symbols-outlined absolute left-3 top-1/2 transform -translate-y-1/2 text-outline" data-icon="search">search</span>
+<input class="w-full bg-surface-container-lowest border border-border-subtle rounded-lg py-3 pl-10 pr-4 font-body-sm text-body-sm text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors h-touch-target-min" placeholder="Cari dokumen..." type="text"/>
+</div>
+<!-- Document List -->
+<div class="flex flex-col gap-4">
+<!-- Document Card 1: Verified -->
+<div class="bg-surface-card rounded-xl border border-border-subtle p-4 shadow-sm flex flex-col gap-3">
+<div class="flex justify-between items-start">
+<div class="flex items-start gap-3">
+<div class="bg-primary-container/10 p-2 rounded-lg text-primary">
+<span class="material-symbols-outlined" data-icon="picture_as_pdf">picture_as_pdf</span>
+</div>
+<div>
+<h3 class="font-title-md text-title-md text-primary break-all">Akta_Jual_Beli_V4.pdf</h3>
+<div class="flex items-center gap-2 mt-1">
+<span class="font-label-caps text-label-caps text-on-surface-variant">#MAT-2023-089</span>
+<span class="w-1 h-1 bg-outline-variant rounded-full"></span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">v4.0</span>
+</div>
+</div>
+</div>
+<!-- Trailing Actions (Three dots) -->
+<button class="text-on-surface-variant h-touch-target-min w-touch-target-min flex items-center justify-center rounded-full hover:bg-surface-container transition-colors -mr-2 -mt-2">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+<div class="flex justify-between items-center mt-2 border-t border-border-subtle pt-3">
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center gap-1 bg-status-success/10 text-status-success font-label-caps text-label-caps px-2 py-1 rounded-full">
+<span class="material-symbols-outlined text-[14px]" data-icon="check_circle">check_circle</span>
+                            Verified
+                        </span>
+<span class="font-body-sm text-body-sm text-outline">Oct 24, 2023</span>
+</div>
+<div class="flex gap-2">
+<button aria-label="Download" class="h-touch-target-min w-touch-target-min flex items-center justify-center text-primary bg-surface-container-lowest border border-border-subtle rounded-lg active:bg-surface-container transition-colors">
+<span class="material-symbols-outlined" data-icon="download">download</span>
+</button>
+<button class="h-touch-target-min px-4 flex items-center justify-center text-on-primary bg-primary rounded-lg font-body-sm text-body-sm font-semibold active:opacity-90 transition-opacity">
+                            Open
+                        </button>
+</div>
+</div>
+</div>
+<!-- Document Card 2: Draft -->
+<div class="bg-surface-card rounded-xl border border-border-subtle p-4 shadow-sm flex flex-col gap-3">
+<div class="flex justify-between items-start">
+<div class="flex items-start gap-3">
+<div class="bg-status-warning-medium/10 p-2 rounded-lg text-status-warning-medium">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+</div>
+<div>
+<h3 class="font-title-md text-title-md text-primary break-all">Surat_Kuasa_Draft_v1.docx</h3>
+<div class="flex items-center gap-2 mt-1">
+<span class="font-label-caps text-label-caps text-on-surface-variant">#MAT-2023-102</span>
+<span class="w-1 h-1 bg-outline-variant rounded-full"></span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">v1.2</span>
+</div>
+</div>
+</div>
+<!-- Trailing Actions -->
+<button class="text-on-surface-variant h-touch-target-min w-touch-target-min flex items-center justify-center rounded-full hover:bg-surface-container transition-colors -mr-2 -mt-2">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+<div class="flex justify-between items-center mt-2 border-t border-border-subtle pt-3">
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center gap-1 bg-status-warning-medium/10 text-status-warning-medium font-label-caps text-label-caps px-2 py-1 rounded-full">
+<span class="material-symbols-outlined text-[14px]" data-icon="pending">pending</span>
+                            Draft
+                        </span>
+<span class="font-body-sm text-body-sm text-outline">Oct 26, 2023</span>
+</div>
+<div class="flex gap-2">
+<button aria-label="Download" class="h-touch-target-min w-touch-target-min flex items-center justify-center text-primary bg-surface-container-lowest border border-border-subtle rounded-lg active:bg-surface-container transition-colors">
+<span class="material-symbols-outlined" data-icon="download">download</span>
+</button>
+<button class="h-touch-target-min px-4 flex items-center justify-center text-on-primary bg-primary rounded-lg font-body-sm text-body-sm font-semibold active:opacity-90 transition-opacity">
+                            Open
+                        </button>
+</div>
+</div>
+</div>
+<!-- Document Card 3: Critical/Overdue Action -->
+<div class="bg-surface-card rounded-xl border border-status-critical/30 p-4 shadow-sm flex flex-col gap-3 relative overflow-hidden">
+<div class="absolute top-0 left-0 w-1 h-full bg-status-critical"></div>
+<div class="flex justify-between items-start pl-2">
+<div class="flex items-start gap-3">
+<div class="bg-status-critical/10 p-2 rounded-lg text-status-critical">
+<span class="material-symbols-outlined" data-icon="error">error</span>
+</div>
+<div>
+<h3 class="font-title-md text-title-md text-primary break-all">Pernyataan_Pajak_Tenggat.pdf</h3>
+<div class="flex items-center gap-2 mt-1">
+<span class="font-label-caps text-label-caps text-on-surface-variant">#MAT-2023-045</span>
+<span class="w-1 h-1 bg-outline-variant rounded-full"></span>
+<span class="font-label-caps text-label-caps text-on-surface-variant">v2.0</span>
+</div>
+</div>
+</div>
+<button class="text-on-surface-variant h-touch-target-min w-touch-target-min flex items-center justify-center rounded-full hover:bg-surface-container transition-colors -mr-2 -mt-2">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+<div class="flex justify-between items-center mt-2 border-t border-border-subtle pt-3 pl-2">
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center gap-1 bg-status-critical/10 text-status-critical font-label-caps text-label-caps px-2 py-1 rounded-full">
+<span class="material-symbols-outlined text-[14px]" data-icon="warning">warning</span>
+                            Needs Sign
+                        </span>
+<span class="font-body-sm text-body-sm text-status-critical font-semibold">Overdue</span>
+</div>
+<div class="flex gap-2">
+<button class="h-touch-target-min px-4 flex items-center justify-center text-on-primary bg-primary rounded-lg font-body-sm text-body-sm font-semibold active:opacity-90 transition-opacity">
+                            Review
+                        </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Floating Action Button (FAB) for 'Unggah Baru' -->
+<button aria-label="Unggah Baru" class="fixed bottom-24 right-4 h-14 bg-primary text-on-primary rounded-full px-6 flex items-center gap-2 shadow-lg z-50 md:hidden active:scale-95 transition-transform">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+<span class="font-title-md text-title-md">Unggah Baru</span>
+</button>
+<!-- Bottom Navigation Bar (Mobile) -->
+<nav class="bg-surface border-t border-border-subtle fixed bottom-0 left-0 w-full z-40 pb-safe md:hidden">
+<div class="flex justify-around items-center h-16">
+<a class="flex flex-col items-center justify-center w-full h-full text-on-surface-variant active:text-primary" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="dashboard">dashboard</span>
+<span class="font-label-caps text-label-caps text-[10px]">Overview</span>
+</a>
+<a class="flex flex-col items-center justify-center w-full h-full text-on-surface-variant active:text-primary" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="work">work</span>
+<span class="font-label-caps text-label-caps text-[10px]">Operations</span>
+</a>
+<a class="flex flex-col items-center justify-center w-full h-full text-primary" href="#">
+<div class="px-4 py-1 rounded-full bg-primary-container/20 mb-1 flex items-center justify-center">
+<span class="material-symbols-outlined" data-icon="description" style="font-variation-settings: 'FILL' 1;">description</span>
+</div>
+<span class="font-label-caps text-label-caps text-[10px] font-bold">Documents</span>
+</a>
+<a class="flex flex-col items-center justify-center w-full h-full text-on-surface-variant active:text-primary" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="payments">payments</span>
+<span class="font-label-caps text-label-caps text-[10px]">Finance</span>
+</a>
+</div>
+</nav>
+</body></html>

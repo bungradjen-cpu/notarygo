@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Signing Management - NotaryGo</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary-fixed-variant": "#36485b",
+                    "secondary": "#944a00",
+                    "surface-card": "#FFFFFF",
+                    "surface-container-high": "#e7e8e9",
+                    "surface-container": "#edeeef",
+                    "primary-fixed-dim": "#afc8f0",
+                    "on-secondary-fixed": "#301400",
+                    "outline-variant": "#c4c6cf",
+                    "primary": "#000613",
+                    "inverse-on-surface": "#f0f1f2",
+                    "status-critical": "#E74C3C",
+                    "surface-dim": "#d9dadb",
+                    "secondary-fixed": "#ffdcc5",
+                    "error-container": "#ffdad6",
+                    "tertiary-container": "#0d2031",
+                    "surface-container-highest": "#e1e3e4",
+                    "inverse-primary": "#afc8f0",
+                    "on-tertiary-fixed": "#091d2e",
+                    "on-primary": "#ffffff",
+                    "on-background": "#191c1d",
+                    "on-error": "#ffffff",
+                    "surface-tint": "#476083",
+                    "surface-container-low": "#f3f4f5",
+                    "border-subtle": "#E2E8F0",
+                    "tertiary": "#000610",
+                    "status-archived": "#94A3B8",
+                    "surface-bright": "#f8f9fa",
+                    "inverse-surface": "#2e3132",
+                    "background": "#f8f9fa",
+                    "on-secondary-container": "#663100",
+                    "primary-fixed": "#d4e3ff",
+                    "status-warning-medium": "#E67E22",
+                    "status-success": "#10B981",
+                    "on-primary-fixed": "#001c3a",
+                    "on-tertiary": "#ffffff",
+                    "surface": "#f8f9fa",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary-fixed-dim": "#b5c8df",
+                    "surface-variant": "#e1e3e4",
+                    "outline": "#74777f",
+                    "on-surface-variant": "#43474e",
+                    "on-error-container": "#93000a",
+                    "status-active": "#3498DB",
+                    "tertiary-fixed": "#d1e4fb",
+                    "on-tertiary-container": "#76889d",
+                    "on-surface": "#191c1d",
+                    "on-primary-container": "#6f88ad",
+                    "secondary-container": "#fc8f34",
+                    "on-primary-fixed-variant": "#2f486a",
+                    "primary-container": "#001f3f",
+                    "on-secondary-fixed-variant": "#713700",
+                    "error": "#ba1a1a",
+                    "secondary-fixed-dim": "#ffb783",
+                    "status-warning-low": "#F1C40F",
+                    "on-secondary": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "sidebar-width": "260px",
+                    "touch-target-min": "44px",
+                    "stack-sm": "0.5rem",
+                    "container-padding": "2rem",
+                    "gutter": "1.5rem",
+                    "stack-md": "1rem"
+            },
+            "fontFamily": {
+                    "body-sm": ["Inter"],
+                    "body-base": ["Inter"],
+                    "display-lg": ["Inter"],
+                    "headline-lg": ["Inter"],
+                    "label-caps": ["Inter"],
+                    "headline-lg-mobile": ["Inter"],
+                    "title-md": ["Inter"],
+                    "stats-number": ["Inter"]
+            },
+            "fontSize": {
+                    "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "body-base": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                    "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "headline-lg": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                    "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}],
+                    "headline-lg-mobile": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                    "title-md": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                    "stats-number": ["28px", {"lineHeight": "34px", "fontWeight": "700"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+        }
+    </style>
+</head>
+<body class="flex flex-col min-h-screen">
+<!-- TopNavBar (Web Hidden, Mobile Visible) -->
+<nav class="flex justify-between items-center px-gutter h-touch-target-min w-full sticky top-0 z-40 bg-surface dark:bg-surface border-b border-border-subtle md:hidden shadow-sm">
+<div class="flex items-center gap-stack-sm">
+<button class="p-2 -ml-2 text-primary focus:outline-none focus:ring-2 focus:ring-primary rounded-full">
+<span class="material-symbols-outlined text-title-md">menu</span>
+</button>
+<span class="text-title-md font-title-md font-bold text-primary-container dark:text-primary-fixed truncate max-w-[200px]">Kantor Notaris &amp; PPAT Nama Notaris, S.H., M.Kn.</span>
+</div>
+<div class="flex items-center gap-stack-sm">
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors focus:outline-none focus:ring-2 focus:ring-primary rounded-full">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden bg-surface-variant flex-shrink-0">
+<img alt="Owner Profile" class="w-full h-full object-cover" data-alt="A professional headshot of a notary public, corporate modern style, well-lit, professional attire." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDk4cMcEua7HjJ57BsuNOs-U5xM4d2I-1Nb7g-7dgIOn1OpYCqBZDJOAwuo5_WLg1MTYT4p35im3ZT6iWFX9vPO7pUpCgJS1R6VNLNzi99hqDb-z-rtHP4vpf0mePjOUL301-7EpBfZSLL_xri8CtKGWYpnN2aT_zsI4Y4YcNtvIdmdN3ZlCYJu5Tx12vqmCqtSKL49GfpPCpnE-vSnvgznfYuTKGD1oH0y_hmgISQVFki0M7PQTYDOHg"/>
+</div>
+</div>
+</nav>
+<!-- SideNavBar (Web Visible, Mobile Hidden) -->
+<div class="hidden md:flex docked h-screen w-sidebar fixed left-0 top-0 bg-primary-container dark:bg-primary-container border-r border-outline-variant shadow-sm flex-col py-gutter justify-between z-50">
+<div>
+<div class="px-6 mb-8 flex items-center gap-stack-sm">
+<div class="w-10 h-10 rounded bg-on-primary-container/20 flex items-center justify-center flex-shrink-0">
+<img alt="NotaryGo Logo" class="w-6 h-6 object-contain" data-alt="A minimalist logo for a legal notary firm, featuring a stylized scale or document, corporate modern aesthetic, deep navy and white." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBoI7Ye_S__FdCOaHAKwdUP21pjL39eqotAMZQVKbNBveIimvHHsXhLLpVlQz4LKStdHoFu85Tv3PScEWFOJNvhRgL2Wbysj19sTgxOfhrqpZdyRzC9Pq7cpboKM8Y7CjSAtX9dOXJmmXOupZiBAin05sGvFxNWoMoAp2C6Rct4cvEw4s4qa3hwqsjp-_qdAVyUErk8e4r3W3EVVykETYBHECNaFUQuD88u5GLhLG8U1oNxGHKvLcpH_w"/>
+</div>
+<div>
+<h1 class="text-title-md font-title-md font-bold text-surface-container-lowest">NOTARYGO™</h1>
+<p class="text-label-caps font-label-caps text-primary-fixed dark:text-primary-fixed-dim opacity-80">Operational System</p>
+</div>
+</div>
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-stack-md px-4 py-3 text-on-primary-container hover:text-white hover:bg-on-primary-container/10 transition-colors duration-200 text-body-base font-body-base" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span>Overview</span>
+</a>
+<a class="flex items-center gap-stack-md px-4 py-3 bg-on-primary-container/20 text-white border-l-4 border-secondary opacity-90 transition-all text-body-base font-body-base" href="#">
+<span class="material-symbols-outlined">work</span>
+<span>Operations</span>
+</a>
+<a class="flex items-center gap-stack-md px-4 py-3 text-on-primary-container hover:text-white hover:bg-on-primary-container/10 transition-colors duration-200 text-body-base font-body-base" href="#">
+<span class="material-symbols-outlined">description</span>
+<span>Documents</span>
+</a>
+<a class="flex items-center gap-stack-md px-4 py-3 text-on-primary-container hover:text-white hover:bg-on-primary-container/10 transition-colors duration-200 text-body-base font-body-base" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span>Finance</span>
+</a>
+<a class="flex items-center gap-stack-md px-4 py-3 text-on-primary-container hover:text-white hover:bg-on-primary-container/10 transition-colors duration-200 text-body-base font-body-base" href="#">
+<span class="material-symbols-outlined">settings_accessibility</span>
+<span>Control</span>
+</a>
+</nav>
+</div>
+<div class="px-4">
+<button class="w-full mb-4 py-2 border border-outline-variant text-on-primary-container rounded flex items-center justify-center gap-2 hover:bg-on-primary-container/10 transition-colors text-body-sm font-body-sm">
+<span class="material-symbols-outlined text-sm">bolt</span>
+                Quick Settings
+            </button>
+<a class="flex items-center gap-stack-md px-4 py-3 text-on-primary-container hover:text-white hover:bg-on-primary-container/10 transition-colors duration-200 text-body-base font-body-base" href="#">
+<span class="material-symbols-outlined">account_circle</span>
+<span>Owner Profile</span>
+</a>
+</div>
+</div>
+<!-- Main Content Area -->
+<main class="flex-1 md:ml-sidebar flex flex-col p-4 md:p-container-padding bg-background max-w-[800px] mx-auto w-full">
+<header class="mb-6 md:mb-8 flex justify-between items-end">
+<div>
+<p class="text-label-caps font-label-caps text-outline uppercase tracking-wider mb-1">Today's Schedule</p>
+<h1 class="text-headline-lg-mobile md:text-headline-lg font-headline-lg-mobile md:font-headline-lg text-primary">Signing Management</h1>
+</div>
+<button class="hidden md:flex items-center justify-center h-touch-target-min px-4 bg-primary-container text-white rounded-lg hover:bg-primary transition-colors text-body-sm font-body-sm font-semibold shadow-sm">
+<span class="material-symbols-outlined mr-2">add</span>
+                Buat Jadwal
+            </button>
+</header>
+<!-- Date Scroller (Mobile mostly) -->
+<div class="flex gap-2 overflow-x-auto pb-4 mb-4 scrollbar-hide -mx-4 px-4 md:mx-0 md:px-0">
+<div class="flex flex-col items-center justify-center min-w-[60px] h-[72px] rounded-lg bg-surface-card border border-border-subtle cursor-pointer hover:border-primary transition-colors">
+<span class="text-label-caps font-label-caps text-outline">MON</span>
+<span class="text-title-md font-title-md text-primary">12</span>
+</div>
+<div class="flex flex-col items-center justify-center min-w-[60px] h-[72px] rounded-lg bg-primary-container text-white shadow-sm cursor-pointer border-2 border-primary-container">
+<span class="text-label-caps font-label-caps opacity-80">TUE</span>
+<span class="text-title-md font-title-md">13</span>
+<div class="w-1 h-1 bg-secondary rounded-full mt-1"></div>
+</div>
+<div class="flex flex-col items-center justify-center min-w-[60px] h-[72px] rounded-lg bg-surface-card border border-border-subtle cursor-pointer hover:border-primary transition-colors">
+<span class="text-label-caps font-label-caps text-outline">WED</span>
+<span class="text-title-md font-title-md text-primary">14</span>
+</div>
+<div class="flex flex-col items-center justify-center min-w-[60px] h-[72px] rounded-lg bg-surface-card border border-border-subtle cursor-pointer hover:border-primary transition-colors">
+<span class="text-label-caps font-label-caps text-outline">THU</span>
+<span class="text-title-md font-title-md text-primary">15</span>
+</div>
+<div class="flex flex-col items-center justify-center min-w-[60px] h-[72px] rounded-lg bg-surface-card border border-border-subtle cursor-pointer hover:border-primary transition-colors">
+<span class="text-label-caps font-label-caps text-outline">FRI</span>
+<span class="text-title-md font-title-md text-primary">16</span>
+</div>
+</div>
+<!-- Timeline Container -->
+<div class="relative pl-6 border-l-2 border-border-subtle space-y-8 pb-12">
+<!-- Timeline Item 1: Ready -->
+<div class="relative">
+<!-- Timeline Dot -->
+<div class="absolute -left-[31px] top-1 w-4 h-4 rounded-full bg-status-success border-4 border-background"></div>
+<div class="flex flex-col sm:flex-row sm:items-start gap-2 mb-2">
+<time class="text-title-md font-title-md text-primary min-w-[80px]">09:00</time>
+<div class="flex items-center h-6 px-2.5 rounded-full bg-status-success/10 text-status-success border border-status-success/20 w-fit">
+<span class="material-symbols-outlined text-[14px] mr-1" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="text-label-caps font-label-caps">READY</span>
+</div>
+</div>
+<div class="bg-surface-card rounded-xl border border-border-subtle p-4 shadow-[0_4px_12px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.06)] transition-shadow">
+<div class="flex justify-between items-start mb-3 gap-4">
+<div>
+<h3 class="text-body-base font-body-base font-semibold text-primary mb-1">Akta Jual Beli Tanah (AJB)</h3>
+<p class="text-body-sm font-body-sm text-outline flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">folder_open</span>
+                                MT-2023-10-001
+                            </p>
+</div>
+<button class="h-touch-target-min px-4 bg-surface text-primary border border-primary rounded-lg hover:bg-surface-variant transition-colors text-body-sm font-body-sm font-semibold shrink-0">
+                            Buka
+                        </button>
+</div>
+<div class="grid grid-cols-2 gap-4 mt-4 pt-4 border-t border-border-subtle">
+<div>
+<p class="text-label-caps font-label-caps text-outline mb-1">CLIENT</p>
+<p class="text-body-sm font-body-sm text-primary font-medium truncate">PT. Maju Mundur Sentosa</p>
+</div>
+<div>
+<p class="text-label-caps font-label-caps text-outline mb-1">PIC</p>
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-surface-container-high flex items-center justify-center text-label-caps font-label-caps text-primary">AN</div>
+<p class="text-body-sm font-body-sm text-primary truncate">Andi N.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Timeline Item 2: Not Ready -->
+<div class="relative">
+<!-- Timeline Dot -->
+<div class="absolute -left-[31px] top-1 w-4 h-4 rounded-full bg-status-critical border-4 border-background animate-pulse"></div>
+<div class="flex flex-col sm:flex-row sm:items-start gap-2 mb-2">
+<time class="text-title-md font-title-md text-primary min-w-[80px]">11:30</time>
+<div class="flex items-center h-6 px-2.5 rounded-full bg-status-critical/10 text-status-critical border border-status-critical/20 w-fit">
+<span class="material-symbols-outlined text-[14px] mr-1" style="font-variation-settings: 'FILL' 1;">warning</span>
+<span class="text-label-caps font-label-caps">NOT READY</span>
+</div>
+</div>
+<div class="bg-surface-card rounded-xl border border-status-critical/30 p-4 shadow-[0_4px_12px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.06)] transition-shadow">
+<div class="flex justify-between items-start mb-3 gap-4">
+<div>
+<h3 class="text-body-base font-body-base font-semibold text-primary mb-1">Perjanjian Kredit Bank</h3>
+<p class="text-body-sm font-body-sm text-outline flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">folder_open</span>
+                                MT-2023-10-042
+                            </p>
+</div>
+<button class="h-touch-target-min px-4 bg-surface text-primary border border-border-subtle rounded-lg hover:bg-surface-variant transition-colors text-body-sm font-body-sm font-semibold shrink-0">
+                            Buka
+                        </button>
+</div>
+<!-- Not Ready Reason Box -->
+<div class="bg-error-container/30 rounded-lg p-3 mb-4 flex items-start gap-2 border border-error-container/50">
+<span class="material-symbols-outlined text-status-critical text-[18px] mt-0.5">error_outline</span>
+<div>
+<p class="text-body-sm font-body-sm text-status-critical font-medium">Syarat Belum Lengkap</p>
+<p class="text-body-sm font-body-sm text-status-critical/80 mt-1">2 dokumen belum lengkap (KTP Direktur, NPWP Perusahaan)</p>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-4 pt-3 border-t border-border-subtle">
+<div>
+<p class="text-label-caps font-label-caps text-outline mb-1">CLIENT</p>
+<p class="text-body-sm font-body-sm text-primary font-medium truncate">Budi Santoso</p>
+</div>
+<div>
+<p class="text-label-caps font-label-caps text-outline mb-1">PIC</p>
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-surface-container-high flex items-center justify-center text-label-caps font-label-caps text-primary">SJ</div>
+<p class="text-body-sm font-body-sm text-primary truncate">Siti J.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Timeline Item 3: Warning/Pending -->
+<div class="relative">
+<!-- Timeline Dot -->
+<div class="absolute -left-[31px] top-1 w-4 h-4 rounded-full bg-status-warning-medium border-4 border-background"></div>
+<div class="flex flex-col sm:flex-row sm:items-start gap-2 mb-2">
+<time class="text-title-md font-title-md text-outline min-w-[80px]">14:00</time>
+<div class="flex items-center h-6 px-2.5 rounded-full bg-status-warning-medium/10 text-status-warning-medium border border-status-warning-medium/20 w-fit">
+<span class="material-symbols-outlined text-[14px] mr-1" style="font-variation-settings: 'FILL' 1;">pending_actions</span>
+<span class="text-label-caps font-label-caps">PENDING CLIENT</span>
+</div>
+</div>
+<div class="bg-surface-card rounded-xl border border-border-subtle p-4 shadow-[0_4px_12px_rgba(0,0,0,0.03)] hover:shadow-[0_8px_20px_rgba(0,0,0,0.06)] transition-shadow opacity-75 hover:opacity-100">
+<div class="flex justify-between items-start mb-3 gap-4">
+<div>
+<h3 class="text-body-base font-body-base font-semibold text-primary mb-1">Pendirian PT (PMA)</h3>
+<p class="text-body-sm font-body-sm text-outline flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">folder_open</span>
+                                MT-2023-11-008
+                            </p>
+</div>
+<button class="h-touch-target-min px-4 bg-surface text-primary border border-border-subtle rounded-lg hover:bg-surface-variant transition-colors text-body-sm font-body-sm font-semibold shrink-0">
+                            Buka
+                        </button>
+</div>
+<div class="grid grid-cols-2 gap-4 mt-4 pt-4 border-t border-border-subtle">
+<div>
+<p class="text-label-caps font-label-caps text-outline mb-1">CLIENT</p>
+<p class="text-body-sm font-body-sm text-primary font-medium truncate">Global Tech Ltd.</p>
+</div>
+<div>
+<p class="text-label-caps font-label-caps text-outline mb-1">PIC</p>
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-surface-container-high flex items-center justify-center text-label-caps font-label-caps text-primary">AN</div>
+<p class="text-body-sm font-body-sm text-primary truncate">Andi N.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- FAB (Mobile Only - Replaces Top Nav CTA) -->
+<button class="md:hidden fixed bottom-6 right-6 w-14 h-14 bg-primary-container text-white rounded-full shadow-[0_4px_14px_rgba(0,0,0,0.25)] flex items-center justify-center hover:bg-primary transition-colors focus:outline-none focus:ring-4 focus:ring-primary-container/30 z-50">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">add</span>
+</button>
+</body></html>

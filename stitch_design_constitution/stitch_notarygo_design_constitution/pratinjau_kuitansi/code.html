@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Kuitansi Preview - NotaryGo</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "inverse-surface": "#2e3132",
+                      "status-active": "#3498DB",
+                      "on-tertiary-fixed": "#091d2e",
+                      "surface-container-lowest": "#ffffff",
+                      "on-error-container": "#93000a",
+                      "on-tertiary-fixed-variant": "#36485b",
+                      "primary-container": "#001f3f",
+                      "primary": "#000613",
+                      "on-background": "#191c1d",
+                      "outline": "#74777f",
+                      "on-secondary-container": "#663100",
+                      "status-success": "#10B981",
+                      "primary-fixed-dim": "#afc8f0",
+                      "error-container": "#ffdad6",
+                      "on-primary": "#ffffff",
+                      "surface-dim": "#d9dadb",
+                      "surface-card": "#FFFFFF",
+                      "surface-tint": "#476083",
+                      "status-archived": "#94A3B8",
+                      "on-primary-fixed": "#001c3a",
+                      "surface-container-low": "#f3f4f5",
+                      "on-secondary": "#ffffff",
+                      "surface-container-highest": "#e1e3e4",
+                      "tertiary-fixed-dim": "#b5c8df",
+                      "border-subtle": "#E2E8F0",
+                      "on-surface-variant": "#43474e",
+                      "on-secondary-fixed-variant": "#713700",
+                      "outline-variant": "#c4c6cf",
+                      "secondary-container": "#fc8f34",
+                      "tertiary-fixed": "#d1e4fb",
+                      "on-secondary-fixed": "#301400",
+                      "status-warning-low": "#F1C40F",
+                      "on-surface": "#191c1d",
+                      "tertiary-container": "#0d2031",
+                      "inverse-on-surface": "#f0f1f2",
+                      "surface-variant": "#e1e3e4",
+                      "on-primary-fixed-variant": "#2f486a",
+                      "inverse-primary": "#afc8f0",
+                      "secondary-fixed-dim": "#ffb783",
+                      "surface-container-high": "#e7e8e9",
+                      "background": "#f8f9fa",
+                      "on-tertiary-container": "#76889d",
+                      "surface": "#f8f9fa",
+                      "surface-bright": "#f8f9fa",
+                      "on-error": "#ffffff",
+                      "secondary-fixed": "#ffdcc5",
+                      "tertiary": "#000610",
+                      "error": "#ba1a1a",
+                      "status-warning-medium": "#E67E22",
+                      "on-primary-container": "#6f88ad",
+                      "surface-container": "#edeeef",
+                      "secondary": "#944a00",
+                      "primary-fixed": "#d4e3ff",
+                      "on-tertiary": "#ffffff",
+                      "status-critical": "#E74C3C"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "container-padding": "2rem",
+                      "gutter": "1.5rem",
+                      "touch-target-min": "44px",
+                      "sidebar-width": "260px",
+                      "stack-md": "1rem",
+                      "stack-sm": "0.5rem"
+              },
+              "fontFamily": {
+                      "body-sm": [
+                              "Inter"
+                      ],
+                      "headline-lg": [
+                              "Inter"
+                      ],
+                      "title-md": [
+                              "Inter"
+                      ],
+                      "headline-lg-mobile": [
+                              "Inter"
+                      ],
+                      "stats-number": [
+                              "Inter"
+                      ],
+                      "body-base": [
+                              "Inter"
+                      ],
+                      "display-lg": [
+                              "Inter"
+                      ],
+                      "label-caps": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "body-sm": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-lg": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "title-md": [
+                              "18px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "20px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "stats-number": [
+                              "28px",
+                              {
+                                      "lineHeight": "34px",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-base": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "display-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "label-caps": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "600"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+        .watermark {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-45deg);
+            font-size: 8rem;
+            font-weight: 800;
+            color: rgba(16, 185, 129, 0.08); /* status-success with low opacity */
+            pointer-events: none;
+            z-index: 0;
+            white-space: nowrap;
+        }
+        .print-area {
+            position: relative;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body class="bg-surface-container-low text-on-surface font-body-base min-h-screen flex flex-col md:flex-row">
+<!-- Sidebar Navigation -->
+<nav class="docked h-screen w-sidebar fixed left-0 top-0 hidden md:flex flex-col h-full py-gutter justify-between bg-primary-container border-r border-outline-variant shadow-sm z-50">
+<div>
+<div class="px-6 pb-8 pt-4">
+<div class="flex items-center gap-3 mb-2">
+<img alt="NotaryGo Logo" class="w-8 h-8 rounded" data-alt="A minimalist and authoritative corporate logo for a legal software company called 'NotaryGo'. The design features an abstract geometric shape resembling a balanced scale or a sealed document, rendered in crisp white against a deep navy blue background. The aesthetic is clean, modern, and highly professional, communicating trust and efficiency." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDQ-Shcu7cOhusEgM1XfL3v-FnnxV79BvHGkP7Pft2DCH181EUMLQdDtuWhgxt1iYJbDcaHy-g3sW_EjRFsmETcTVn7orBMQt8wRZnLkvHWVPPEP2Ly9rLXp5rsDMj-VSAqQAZJfJ8kV1_FNDxfEUY08zSTB1yJZh0oC4uPZILU4x-fUQocR15LlU23odjBgSPIEL1YkIaXUNA-nslzeE5hqCAXQnC82HKuzZ6o-19jq0jMd8FCBgo4zg"/>
+<div>
+<h1 class="text-title-md font-title-md font-bold text-surface-container-lowest">NOTARYGO™</h1>
+<p class="text-label-caps font-label-caps text-primary-fixed-dim">Operational System</p>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-1 mt-4">
+<a class="flex items-center gap-stack-md px-4 py-3 text-on-primary-container hover:text-white hover:bg-on-primary-container/10 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="text-body-base font-body-base">Overview</span>
+</a>
+<a class="flex items-center gap-stack-md px-4 py-3 text-on-primary-container hover:text-white hover:bg-on-primary-container/10 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="work">work</span>
+<span class="text-body-base font-body-base">Operations</span>
+</a>
+<a class="flex items-center gap-stack-md px-4 py-3 text-on-primary-container hover:text-white hover:bg-on-primary-container/10 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+<span class="text-body-base font-body-base">Documents</span>
+</a>
+<a class="flex items-center gap-stack-md px-4 py-3 bg-on-primary-container/20 text-white border-l-4 border-secondary opacity-90 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span class="text-body-base font-body-base">Finance</span>
+</a>
+<a class="flex items-center gap-stack-md px-4 py-3 text-on-primary-container hover:text-white hover:bg-on-primary-container/10 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="settings_accessibility">settings_accessibility</span>
+<span class="text-body-base font-body-base">Control</span>
+</a>
+</div>
+</div>
+<div class="px-4">
+<button class="w-full flex items-center justify-center gap-2 bg-surface-container-lowest/10 text-white py-2 rounded border border-outline/30 hover:bg-surface-container-lowest/20 transition-colors mb-4">
+<span class="text-body-sm font-body-sm">Quick Settings</span>
+</button>
+<a class="flex items-center gap-stack-md px-4 py-3 text-on-primary-container hover:text-white hover:bg-on-primary-container/10 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+<span class="text-body-base font-body-base">Owner Profile</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="flex-1 md:ml-sidebar flex flex-col min-h-screen">
+<!-- Top App Bar -->
+<header class="docked h-touch-target-min w-full sticky top-0 z-40 border-b border-border-subtle bg-surface flex justify-between items-center px-gutter">
+<div class="flex items-center gap-4">
+<button class="md:hidden p-2 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<div class="hidden md:flex items-center gap-2 text-on-surface-variant">
+<span class="material-symbols-outlined text-sm">search</span>
+<input class="border-none bg-transparent focus:ring-0 text-body-sm w-64 placeholder-on-surface-variant/50" placeholder="Search..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<h2 class="text-title-md font-title-md font-bold text-primary-container hidden lg:block">Kantor Notaris &amp; PPAT Nama Notaris, S.H., M.Kn.</h2>
+<div class="flex items-center gap-2 ml-4">
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors rounded-full hover:bg-surface-container">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors rounded-full hover:bg-surface-container">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+</button>
+<button class="h-touch-target-min px-4 bg-primary text-white rounded text-body-sm font-body-sm font-semibold hover:bg-primary/90 transition-colors flex items-center gap-2 ml-2">
+                        + Buat
+                    </button>
+<img alt="Owner Profile" class="w-8 h-8 rounded-full ml-2 border border-border-subtle object-cover" data-alt="A professional headshot of a corporate notary or legal owner in a sharp navy suit, standing in a well-lit, modern office environment. The image is cropped as a small circular avatar, emphasizing a trustworthy and authoritative presence suitable for a high-end legal software profile picture." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCyImYhQOFtw8Eb0wQH-n9w32Uz36BJm02J9mGPvAnmVtBpsYGpx35vjHtMTQmdND4znkpOfdR1_3GEcjQeo5myYDWrSdFN39pJU6i1Omds9RK6NuHpXWbMTh-3V2-YU8kxbjjQxAN-u_ZxPOnl4P4T5-D269LudJ1gAJu3KSsC0Ivvof-7ZR-rZQYX40kbnDwA6RjOXzafSo0yynkhbJ-SAqeB8LC-tbH_9paK7qdhqI2-JPuOcj1F9w"/>
+</div>
+</div>
+</header>
+<!-- Workspace / Canvas -->
+<main class="flex-1 p-container-padding flex flex-col items-center justify-start overflow-y-auto">
+<!-- Page Header / Actions -->
+<div class="w-full max-w-4xl flex justify-between items-center mb-8">
+<div>
+<h1 class="text-headline-lg font-headline-lg text-primary">Kuitansi Preview</h1>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-1">Receipt No: KWT-2309-005</p>
+</div>
+<div class="flex gap-4">
+<button class="h-touch-target-min px-6 bg-surface-card border border-primary text-primary rounded flex items-center gap-2 hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-sm">download</span>
+<span class="text-body-sm font-body-sm font-semibold">Download PDF</span>
+</button>
+<button class="h-touch-target-min px-6 bg-primary text-white rounded flex items-center gap-2 hover:bg-primary/90 transition-colors shadow-sm">
+<span class="material-symbols-outlined text-sm">print</span>
+<span class="text-body-sm font-body-sm font-semibold">Cetak Kuitansi</span>
+</button>
+</div>
+</div>
+<!-- Receipt Document Wrapper -->
+<div class="w-full max-w-4xl bg-surface-card rounded-xl shadow-lg border border-border-subtle p-12 relative overflow-hidden flex flex-col min-h-[600px]">
+<!-- Watermark -->
+<div class="watermark">LUNAS</div>
+<div class="print-area flex-1 flex flex-col">
+<!-- Receipt Header -->
+<div class="flex justify-between items-start border-b border-border-subtle pb-8 mb-8">
+<div class="flex items-center gap-4">
+<img alt="NOTARYGO Logo" class="w-12 h-12 rounded object-contain" data-alt="A clean, minimalist corporate logo for a legal software company called 'NotaryGo'. The design features an abstract geometric shape resembling a balanced scale or a sealed document, rendered in deep navy blue against a crisp white background. The aesthetic is modern, highly professional, and conveys trust and efficiency." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDyaHiBoqjv8lBLM3UruCguH6ff_8UnS73Y-AXWoOz8lm0VAZxYoNnmeaNKW0yy72YGM7PqfQY7E6BA4iAS3bv5zWQhHatO-8q6E7KK_IU_E0nRnUgYn52eO_FkwyDa5TfQ8J0KMB6FrNRbfY9gNNMV1h0-kXFB-27YRzous-c24i8s2JzNOB_0vII0vuYUEOEYbh7LzezVGUqrdJ7u1EDzT5Il4iUicE-3i2MmcxyoC14gT4785F1vkQ"/>
+<div>
+<h2 class="text-title-md font-title-md font-bold text-primary">Kantor Notaris &amp; PPAT</h2>
+<h3 class="text-headline-lg font-headline-lg text-primary mt-1">Nama Notaris, S.H., M.Kn.</h3>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-2">Jl. Sudirman No. 123, Jakarta Pusat</p>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Telp: (021) 555-0198 | Email: info@notarisnama.co.id</p>
+</div>
+</div>
+<div class="text-right">
+<h1 class="text-headline-lg font-headline-lg font-bold text-primary tracking-wide">KUITANSI PEMBAYARAN</h1>
+<p class="text-body-base font-body-base font-semibold text-on-surface-variant mt-2">No: KWT-2309-005</p>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-1">Tanggal: 10 September 2026</p>
+</div>
+</div>
+<!-- Receipt Details Grid -->
+<div class="grid grid-cols-[200px_1fr] gap-y-6 text-body-base font-body-base text-primary mb-12">
+<div class="font-semibold text-on-surface-variant">Sudah terima dari</div>
+<div class="font-bold border-b border-dashed border-border-subtle pb-1">: Ibu Ida Rosdiana</div>
+<div class="font-semibold text-on-surface-variant">Sejumlah</div>
+<div class="font-bold border-b border-dashed border-border-subtle pb-1 flex items-center">
+<span class="mr-2">:</span>
+<div class="bg-surface-container-low px-4 py-2 rounded border border-border-subtle inline-block text-stats-number font-stats-number text-primary">
+                                Rp15.000.000
+                            </div>
+</div>
+<div class="font-semibold text-on-surface-variant">Terbilang</div>
+<div class="italic border-b border-dashed border-border-subtle pb-1 text-on-surface-variant">: # Lima Belas Juta Rupiah #</div>
+<div class="font-semibold text-on-surface-variant">Untuk pembayaran</div>
+<div class="border-b border-dashed border-border-subtle pb-1">: Pelunasan Jasa Notaris &amp; Biaya PNBP (Ref: INV-2309-042)</div>
+<div class="font-semibold text-on-surface-variant">Metode Pembayaran</div>
+<div class="border-b border-dashed border-border-subtle pb-1">: Transfer Bank (BCA)</div>
+</div>
+<!-- Signatures / Footer -->
+<div class="mt-auto pt-12 flex justify-between items-end">
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-status-success/10 text-status-success border border-status-success/20">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="text-label-caps font-label-caps font-bold">LUNAS</span>
+</span>
+</div>
+<div class="text-center w-64">
+<p class="text-body-sm font-body-sm text-on-surface-variant mb-16">Jakarta, 10 September 2026</p>
+<div class="border-b border-primary mb-2"></div>
+<p class="text-body-base font-body-base font-bold text-primary">Nama Notaris, S.H., M.Kn.</p>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Notaris &amp; PPAT</p>
+</div>
+</div>
+</div>
+<!-- Decorative Bottom Edge (Simulating tear/receipt edge slightly) -->
+<div class="absolute bottom-0 left-0 w-full h-2 bg-[radial-gradient(circle,transparent_4px,#FFFFFF_4px)] bg-[length:12px_12px] bg-bottom opacity-50"></div>
+</div>
+</main>
+</div>
+</body></html>

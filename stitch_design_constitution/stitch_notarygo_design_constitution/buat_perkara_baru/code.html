@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+
+<html class="h-full bg-background dark:bg-background" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Create Matter - NOTARYGO</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error-container": "#93000a",
+                        "inverse-primary": "#afc8f0",
+                        "surface-variant": "#e1e3e4",
+                        "primary-fixed": "#d4e3ff",
+                        "on-surface": "#191c1d",
+                        "tertiary-container": "#0d2031",
+                        "status-success": "#10B981",
+                        "status-active": "#3498DB",
+                        "surface-card": "#FFFFFF",
+                        "primary-container": "#001f3f",
+                        "status-warning-medium": "#E67E22",
+                        "on-background": "#191c1d",
+                        "tertiary-fixed": "#d1e4fb",
+                        "surface-dim": "#d9dadb",
+                        "tertiary-fixed-dim": "#b5c8df",
+                        "secondary-fixed-dim": "#ffb783",
+                        "on-primary": "#ffffff",
+                        "on-secondary-container": "#663100",
+                        "surface-container-low": "#f3f4f5",
+                        "secondary": "#944a00",
+                        "on-secondary-fixed": "#301400",
+                        "on-secondary": "#ffffff",
+                        "surface-bright": "#f8f9fa",
+                        "secondary-container": "#fc8f34",
+                        "on-tertiary-fixed-variant": "#36485b",
+                        "surface-container": "#edeeef",
+                        "on-tertiary-fixed": "#091d2e",
+                        "surface-container-high": "#e7e8e9",
+                        "secondary-fixed": "#ffdcc5",
+                        "on-primary-container": "#6f88ad",
+                        "inverse-surface": "#2e3132",
+                        "on-secondary-fixed-variant": "#713700",
+                        "on-surface-variant": "#43474e",
+                        "border-subtle": "#E2E8F0",
+                        "primary-fixed-dim": "#afc8f0",
+                        "error": "#ba1a1a",
+                        "primary": "#000613",
+                        "background": "#f8f9fa",
+                        "status-warning-low": "#F1C40F",
+                        "outline": "#74777f",
+                        "surface-tint": "#476083",
+                        "error-container": "#ffdad6",
+                        "on-tertiary-container": "#76889d",
+                        "surface-container-highest": "#e1e3e4",
+                        "surface-container-lowest": "#ffffff",
+                        "on-primary-fixed-variant": "#2f486a",
+                        "surface": "#f8f9fa",
+                        "on-primary-fixed": "#001c3a",
+                        "status-archived": "#94A3B8",
+                        "tertiary": "#000610",
+                        "inverse-on-surface": "#f0f1f2",
+                        "on-error": "#ffffff",
+                        "status-critical": "#E74C3C",
+                        "outline-variant": "#c4c6cf",
+                        "on-tertiary": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "gutter": "1.5rem",
+                        "touch-target-min": "44px",
+                        "sidebar-width": "260px",
+                        "container-padding": "2rem",
+                        "stack-sm": "0.5rem",
+                        "stack-md": "1rem"
+                    },
+                    "fontFamily": {
+                        "headline-lg-mobile": ["Inter"],
+                        "display-lg": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "body-sm": ["Inter"],
+                        "stats-number": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "title-md": ["Inter"],
+                        "body-base": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg-mobile": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+                        "display-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "label-caps": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600" }],
+                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "stats-number": ["28px", { "lineHeight": "34px", "fontWeight": "700" }],
+                        "headline-lg": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "title-md": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "body-base": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .sidebar-active-tab {
+            border-left: 4px solid #944a00;
+            background-color: rgba(111, 136, 173, 0.2);
+            color: white;
+        }
+    </style>
+</head>
+<body class="h-full flex text-on-surface bg-background">
+<!-- SideNav (Shared Component) -->
+<aside class="hidden md:flex flex-col h-screen w-sidebar fixed left-0 top-0 bg-primary-container dark:bg-primary-container border-r border-outline-variant shadow-sm z-50">
+<div class="flex flex-col h-full py-gutter justify-between">
+<div>
+<!-- Header -->
+<div class="px-6 mb-8 flex items-center gap-3">
+<img alt="NotaryGo Logo" class="w-8 h-8 object-contain rounded" data-alt="A minimalist and authoritative crest logo for NotaryGo, designed with sharp geometric lines in crisp white against a deep navy blue background. The aesthetic is modern, professional, and corporate, emphasizing trust and legal precision." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA2N45q8FeUkbHzzaeZHX-j7_dWvMGwJyfWpIJeT6N2AcYt2G4RBoEm-RsNpCLoCM_I8R4yR3mYv_3kmE1sFRd1iQU5l1Wu4LYLxi5zAe2BkvrECr-4brxgYw1XLvp6fkkZHM7GCITbiEc2C-vux5vMB0n7nVjn_1K8Wfo9cFf9k5k3tTlHQd9JQlSVkkM-7stckOV2FyrKnP86nxZUevt0ZhGxEFH6ETa6fufpLp9MV-sfkRPmiEI8Jg"/>
+<div>
+<h1 class="text-title-md font-title-md font-bold text-surface-container-lowest">NOTARYGO™</h1>
+<p class="text-label-caps font-label-caps text-on-primary-container">Operational System</p>
+</div>
+</div>
+<!-- Navigation Tabs -->
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-stack-md px-4 py-3 text-on-primary-container hover:text-white hover:bg-on-primary-container/10 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="text-body-base font-body-base">Overview</span>
+</a>
+<!-- Active Tab based on "Create Matter" intent -> Operations -->
+<a class="sidebar-active-tab flex items-center gap-stack-md px-4 py-3 hover:bg-on-primary-container/10 transition-colors duration-200 opacity-90 transition-all" href="#">
+<span class="material-symbols-outlined" data-icon="work">work</span>
+<span class="text-body-base font-body-base">Operations</span>
+</a>
+<a class="flex items-center gap-stack-md px-4 py-3 text-on-primary-container hover:text-white hover:bg-on-primary-container/10 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+<span class="text-body-base font-body-base">Documents</span>
+</a>
+<a class="flex items-center gap-stack-md px-4 py-3 text-on-primary-container hover:text-white hover:bg-on-primary-container/10 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span class="text-body-base font-body-base">Finance</span>
+</a>
+<a class="flex items-center gap-stack-md px-4 py-3 text-on-primary-container hover:text-white hover:bg-on-primary-container/10 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="settings_accessibility">settings_accessibility</span>
+<span class="text-body-base font-body-base">Control</span>
+</a>
+</nav>
+</div>
+<!-- Footer / CTA -->
+<div class="px-4">
+<button class="w-full mb-4 py-2 px-4 bg-secondary text-on-secondary rounded text-label-caps font-label-caps font-semibold hover:opacity-90 transition-opacity">
+                    Quick Settings
+                </button>
+<a class="flex items-center gap-stack-md px-2 py-3 text-on-primary-container hover:text-white transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+<span class="text-body-base font-body-base">Owner Profile</span>
+</a>
+</div>
+</div>
+</aside>
+<!-- Main Content Wrapper -->
+<main class="flex-1 flex flex-col md:ml-[260px] min-h-screen">
+<!-- TopNavBar (Shared Component) -->
+<header class="hidden md:flex docked h-touch-target-min w-full sticky top-0 z-40 border-b border-border-subtle bg-surface justify-between items-center px-gutter">
+<!-- Brand / Product Name -->
+<div class="text-title-md font-title-md font-bold text-primary-container dark:text-primary-fixed">
+                Kantor Notaris & PPAT Nama Notaris, S.H., M.Kn.
+            </div>
+<!-- Trailing Actions -->
+<div class="flex items-center gap-4">
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
+</button>
+<div class="h-8 w-8 rounded-full overflow-hidden border border-border-subtle">
+<img alt="Owner Profile" class="w-full h-full object-cover" data-alt="A professional headshot of a distinguished individual in a tailored dark navy suit, against a stark white studio background. The lighting is crisp and even, reflecting a corporate, trustworthy, and authoritative persona suitable for a legal or financial executive." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBhcOiRFitIIyWpOfUBuNAyTrSdN-7_YSW1o7dXNZa9_YG2vsias4yXgB4h0NM6bZ0WjgPXSHuNEKTQ8Da6j5dqveeX16W2T379ZO1I0cqII1rTgxnh_dYLT3rEZ0VP61x0qQ3pFFt1rBlbf3Bu2yeb7_l0RU3sosm5Ps8RA9F6jZJidjqBCCzkiMS_iGUqLfUDCq8XTyHOz6wAH2K59PAunCRbYdiAV7PM1uRPcxzO14vdoTU4HudZhw"/>
+</div>
+<button class="px-4 h-8 bg-primary text-on-primary rounded text-label-caps font-label-caps hover:bg-opacity-90 transition-colors">
+                    + Buat
+                </button>
+</div>
+</header>
+<!-- Canvas Area -->
+<div class="flex-1 p-container-padding bg-background overflow-y-auto">
+<div class="max-w-4xl mx-auto">
+<!-- Page Header -->
+<div class="mb-8 flex items-center justify-between">
+<div>
+<h2 class="text-display-lg font-display-lg text-primary">Buat Perkara Baru</h2>
+<p class="text-body-base font-body-base text-on-surface-variant mt-1">Registrasi informasi dasar dan parameter pengendalian operasional.</p>
+</div>
+<div class="flex gap-3">
+<button class="h-touch-target-min px-6 rounded bg-surface-card border border-primary text-primary font-title-md text-title-md hover:bg-surface-container-low transition-colors shadow-sm">
+                            Simpan Draft
+                        </button>
+<button class="h-touch-target-min px-6 rounded bg-primary text-on-primary font-title-md text-title-md hover:bg-opacity-90 transition-colors shadow-sm">
+                            Buat Perkara
+                        </button>
+</div>
+</div>
+<!-- Form Layout -->
+<form class="space-y-6">
+<!-- Section 1: Informasi Dasar -->
+<section class="bg-surface-card rounded-xl border border-border-subtle shadow-[0px_4px_12px_rgba(0,0,0,0.03)] overflow-hidden">
+<div class="px-6 py-4 border-b border-border-subtle bg-surface-bright">
+<h3 class="text-title-md font-title-md text-primary flex items-center gap-2">
+<span class="material-symbols-outlined text-outline" data-icon="info">info</span>
+                                1. Informasi Dasar
+                            </h3>
+</div>
+<div class="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="text-label-caps font-label-caps text-on-surface-variant block">Client</label>
+<div class="relative">
+<input class="w-full h-touch-target-min border border-outline-variant rounded px-3 text-body-base font-body-base focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none bg-surface-container-lowest" placeholder="Pilih atau cari Client..." type="text"/>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-outline" data-icon="search">search</span>
+</div>
+</div>
+<div class="space-y-2">
+<label class="text-label-caps font-label-caps text-on-surface-variant block">Jenis Layanan</label>
+<select class="w-full h-touch-target-min border border-outline-variant rounded px-3 text-body-base font-body-base focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none bg-surface-container-lowest appearance-none">
+<option disabled="" selected="" value="">Pilih Jenis Layanan...</option>
+<option>Akta Jual Beli (AJB)</option>
+<option>Sertifikat Hak Milik (SHM)</option>
+<option>Pendirian PT</option>
+</select>
+</div>
+<div class="md:col-span-2 space-y-2">
+<label class="text-label-caps font-label-caps text-on-surface-variant block">Judul Perkara</label>
+<input class="w-full h-touch-target-min border border-outline-variant rounded px-3 text-body-base font-body-base focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none bg-surface-container-lowest" placeholder="Masukkan judul singkat..." type="text"/>
+</div>
+<div class="md:col-span-2 space-y-2">
+<label class="text-label-caps font-label-caps text-on-surface-variant block">Deskripsi</label>
+<textarea class="w-full border border-outline-variant rounded p-3 text-body-base font-body-base focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none bg-surface-container-lowest resize-none" placeholder="Detail tambahan mengenai perkara..." rows="3"></textarea>
+</div>
+</div>
+</section>
+<!-- Section 2: Penanggung Jawab -->
+<section class="bg-surface-card rounded-xl border border-border-subtle shadow-[0px_4px_12px_rgba(0,0,0,0.03)] overflow-hidden">
+<div class="px-6 py-4 border-b border-border-subtle bg-surface-bright">
+<h3 class="text-title-md font-title-md text-primary flex items-center gap-2">
+<span class="material-symbols-outlined text-outline" data-icon="assignment_ind">assignment_ind</span>
+                                2. Penanggung Jawab
+                            </h3>
+</div>
+<div class="p-6 grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="text-label-caps font-label-caps text-on-surface-variant block">PIC (Person in Charge)</label>
+<select class="w-full h-touch-target-min border border-outline-variant rounded px-3 text-body-base font-body-base focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none bg-surface-container-lowest appearance-none">
+<option disabled="" selected="" value="">Tugaskan PIC...</option>
+<option>Budi Santoso</option>
+<option>Siti Aminah</option>
+</select>
+</div>
+<div class="space-y-2">
+<label class="text-label-caps font-label-caps text-on-surface-variant block">Supervisor</label>
+<select class="w-full h-touch-target-min border border-outline-variant rounded px-3 text-body-base font-body-base focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none bg-surface-container-lowest appearance-none">
+<option disabled="" selected="" value="">Tugaskan Supervisor...</option>
+<option>Dr. Hendra (Senior Partner)</option>
+<option>Linda Kusuma (Managing Partner)</option>
+</select>
+</div>
+</div>
+</section>
+<!-- Section 3: Pengendalian -->
+<section class="bg-surface-card rounded-xl border border-border-subtle shadow-[0px_4px_12px_rgba(0,0,0,0.03)] overflow-hidden">
+<div class="px-6 py-4 border-b border-border-subtle bg-surface-bright">
+<h3 class="text-title-md font-title-md text-primary flex items-center gap-2">
+<span class="material-symbols-outlined text-outline" data-icon="flag">flag</span>
+                                3. Pengendalian
+                            </h3>
+</div>
+<div class="p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="space-y-2">
+<label class="text-label-caps font-label-caps text-on-surface-variant block">Priority</label>
+<div class="flex gap-2 h-touch-target-min">
+<button class="flex-1 border border-outline-variant rounded bg-surface-container-lowest text-body-sm font-body-sm text-on-surface hover:bg-surface-container-low transition-colors" type="button">Low</button>
+<button class="flex-1 border-2 border-status-active bg-status-active/10 rounded text-body-sm font-body-sm text-status-active font-bold" type="button">Medium</button>
+<button class="flex-1 border border-outline-variant rounded bg-surface-container-lowest text-body-sm font-body-sm text-on-surface hover:bg-surface-container-low transition-colors" type="button">High</button>
+</div>
+</div>
+<div class="space-y-2">
+<label class="text-label-caps font-label-caps text-on-surface-variant block">Deadline</label>
+<div class="relative">
+<input class="w-full h-touch-target-min border border-outline-variant rounded px-3 text-body-base font-body-base focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none bg-surface-container-lowest" type="date"/>
+</div>
+</div>
+<div class="space-y-2">
+<label class="text-label-caps font-label-caps text-on-surface-variant block">Next Action</label>
+<input class="w-full h-touch-target-min border border-outline-variant rounded px-3 text-body-base font-body-base focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none bg-surface-container-lowest" placeholder="Tindakan selanjutnya..." type="text"/>
+</div>
+</div>
+</section>
+<!-- Grid for Section 4 & 5 -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Section 4: Workflow -->
+<section class="bg-surface-card rounded-xl border border-border-subtle shadow-[0px_4px_12px_rgba(0,0,0,0.03)] overflow-hidden">
+<div class="px-6 py-4 border-b border-border-subtle bg-surface-bright">
+<h3 class="text-title-md font-title-md text-primary flex items-center gap-2">
+<span class="material-symbols-outlined text-outline" data-icon="account_tree">account_tree</span>
+                                    4. Workflow
+                                </h3>
+</div>
+<div class="p-6 space-y-2">
+<label class="text-label-caps font-label-caps text-on-surface-variant block">Workflow Template</label>
+<select class="w-full h-touch-target-min border border-outline-variant rounded px-3 text-body-base font-body-base focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none bg-surface-container-lowest appearance-none">
+<option disabled="" selected="" value="">Pilih Template Standar...</option>
+<option>Standar AJB - 5 Tahap</option>
+<option>Standar PT - 8 Tahap</option>
+</select>
+<p class="text-body-sm font-body-sm text-outline mt-2">Pilih template untuk otomatisasi tahapan dokumen.</p>
+</div>
+</section>
+<!-- Section 5: Mitra -->
+<section class="bg-surface-card rounded-xl border border-border-subtle shadow-[0px_4px_12px_rgba(0,0,0,0.03)] overflow-hidden">
+<div class="px-6 py-4 border-b border-border-subtle bg-surface-bright">
+<h3 class="text-title-md font-title-md text-primary flex items-center gap-2">
+<span class="material-symbols-outlined text-outline" data-icon="handshake">handshake</span>
+                                    5. Mitra
+                                </h3>
+</div>
+<div class="p-6 space-y-2">
+<label class="text-label-caps font-label-caps text-on-surface-variant block">Bank / Developer / Corporate (Optional)</label>
+<div class="relative">
+<input class="w-full h-touch-target-min border border-outline-variant rounded px-3 text-body-base font-body-base focus:border-primary focus:ring-1 focus:ring-primary focus:outline-none bg-surface-container-lowest" placeholder="Cari Mitra Terkait..." type="text"/>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-outline" data-icon="domain">domain</span>
+</div>
+</div>
+</section>
+</div>
+</form>
+<!-- Bottom Spacing -->
+<div class="h-12"></div>
+</div>
+</div>
+</main>
+</body></html>

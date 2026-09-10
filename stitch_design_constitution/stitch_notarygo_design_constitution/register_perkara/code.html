@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+
+<html lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Register Perkara - NOTARYGO</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-error-container": "#93000a",
+                      "inverse-primary": "#afc8f0",
+                      "surface-variant": "#e1e3e4",
+                      "primary-fixed": "#d4e3ff",
+                      "on-surface": "#191c1d",
+                      "tertiary-container": "#0d2031",
+                      "status-success": "#10B981",
+                      "status-active": "#3498DB",
+                      "surface-card": "#FFFFFF",
+                      "primary-container": "#001f3f",
+                      "status-warning-medium": "#E67E22",
+                      "on-background": "#191c1d",
+                      "tertiary-fixed": "#d1e4fb",
+                      "surface-dim": "#d9dadb",
+                      "tertiary-fixed-dim": "#b5c8df",
+                      "secondary-fixed-dim": "#ffb783",
+                      "on-primary": "#ffffff",
+                      "on-secondary-container": "#663100",
+                      "surface-container-low": "#f3f4f5",
+                      "secondary": "#944a00",
+                      "on-secondary-fixed": "#301400",
+                      "on-secondary": "#ffffff",
+                      "surface-bright": "#f8f9fa",
+                      "secondary-container": "#fc8f34",
+                      "on-tertiary-fixed-variant": "#36485b",
+                      "surface-container": "#edeeef",
+                      "on-tertiary-fixed": "#091d2e",
+                      "surface-container-high": "#e7e8e9",
+                      "secondary-fixed": "#ffdcc5",
+                      "on-primary-container": "#6f88ad",
+                      "inverse-surface": "#2e3132",
+                      "on-secondary-fixed-variant": "#713700",
+                      "on-surface-variant": "#43474e",
+                      "border-subtle": "#E2E8F0",
+                      "primary-fixed-dim": "#afc8f0",
+                      "error": "#ba1a1a",
+                      "primary": "#000613",
+                      "background": "#f8f9fa",
+                      "status-warning-low": "#F1C40F",
+                      "outline": "#74777f",
+                      "surface-tint": "#476083",
+                      "error-container": "#ffdad6",
+                      "on-tertiary-container": "#76889d",
+                      "surface-container-highest": "#e1e3e4",
+                      "surface-container-lowest": "#ffffff",
+                      "on-primary-fixed-variant": "#2f486a",
+                      "surface": "#f8f9fa",
+                      "on-primary-fixed": "#001c3a",
+                      "status-archived": "#94A3B8",
+                      "tertiary": "#000610",
+                      "inverse-on-surface": "#f0f1f2",
+                      "on-error": "#ffffff",
+                      "status-critical": "#E74C3C",
+                      "outline-variant": "#c4c6cf",
+                      "on-tertiary": "#ffffff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "gutter": "1.5rem",
+                      "touch-target-min": "44px",
+                      "sidebar-width": "260px",
+                      "container-padding": "2rem",
+                      "stack-sm": "0.5rem",
+                      "stack-md": "1rem"
+              },
+              "fontFamily": {
+                      "headline-lg-mobile": [
+                              "Inter"
+                      ],
+                      "display-lg": [
+                              "Inter"
+                      ],
+                      "label-caps": [
+                              "Inter"
+                      ],
+                      "body-sm": [
+                              "Inter"
+                      ],
+                      "stats-number": [
+                              "Inter"
+                      ],
+                      "headline-lg": [
+                              "Inter"
+                      ],
+                      "title-md": [
+                              "Inter"
+                      ],
+                      "body-base": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "headline-lg-mobile": [
+                              "20px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "display-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "label-caps": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-sm": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "stats-number": [
+                              "28px",
+                              {
+                                      "lineHeight": "34px",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-lg": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "title-md": [
+                              "18px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-base": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined[data-weight="fill"] {
+            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-base antialiased flex h-screen overflow-hidden">
+<!-- SideNavBar -->
+<nav class="hidden md:flex flex-col h-screen w-sidebar fixed left-0 top-0 bg-primary-container dark:bg-primary-container border-r border-outline-variant shadow-sm py-gutter justify-between z-50">
+<div class="flex flex-col">
+<!-- Header -->
+<div class="px-6 pb-8 mb-4 border-b border-on-primary-container/20">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-surface-container-lowest flex items-center justify-center shadow-sm">
+<span class="material-symbols-outlined text-primary-container" data-weight="fill">gavel</span>
+</div>
+<div>
+<h1 class="text-title-md font-title-md font-bold text-surface-container-lowest">NOTARYGO™</h1>
+<p class="text-label-caps font-label-caps text-on-primary-container uppercase tracking-widest mt-1">Operational System</p>
+</div>
+</div>
+</div>
+<!-- Tabs -->
+<ul class="flex flex-col space-y-1 mt-2">
+<li>
+<a class="flex items-center gap-stack-md px-4 py-3 text-on-primary-container hover:text-white hover:bg-on-primary-container/10 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-body-base font-body-base">Overview</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-stack-md px-4 py-3 bg-on-primary-container/20 text-white border-l-4 border-secondary opacity-90 transition-all" href="#">
+<span class="material-symbols-outlined" data-weight="fill">work</span>
+<span class="text-body-base font-body-base font-medium">Operations</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-stack-md px-4 py-3 text-on-primary-container hover:text-white hover:bg-on-primary-container/10 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="text-body-base font-body-base">Documents</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-stack-md px-4 py-3 text-on-primary-container hover:text-white hover:bg-on-primary-container/10 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="text-body-base font-body-base">Finance</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-stack-md px-4 py-3 text-on-primary-container hover:text-white hover:bg-on-primary-container/10 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">settings_accessibility</span>
+<span class="text-body-base font-body-base">Control</span>
+</a>
+</li>
+</ul>
+</div>
+<div class="px-4 mt-auto space-y-2">
+<button class="w-full flex items-center justify-center gap-2 py-3 bg-white/10 hover:bg-white/20 text-white rounded-lg transition-colors border border-white/10">
+<span class="material-symbols-outlined text-[20px]">settings</span>
+<span class="text-body-sm font-medium">Quick Settings</span>
+</button>
+<a class="flex items-center gap-stack-md px-4 py-3 text-on-primary-container hover:text-white hover:bg-on-primary-container/10 transition-colors duration-200 rounded-lg" href="#">
+<span class="material-symbols-outlined">account_circle</span>
+<span class="text-body-base font-body-base">Owner Profile</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="flex-1 ml-0 md:ml-sidebar flex flex-col min-h-screen relative">
+<!-- TopNavBar -->
+<header class="h-touch-target-min w-full sticky top-0 z-40 bg-surface dark:bg-surface border-b border-border-subtle flex justify-between items-center px-gutter">
+<div class="flex items-center gap-4 flex-1">
+<button class="md:hidden text-on-surface-variant p-2 -ml-2 rounded-lg hover:bg-surface-variant">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<div class="hidden sm:block text-title-md font-title-md font-bold text-primary-container dark:text-primary-fixed truncate max-w-[400px]">
+                    Kantor Notaris &amp; PPAT Nama Notaris, S.H., M.Kn.
+                </div>
+</div>
+<div class="flex-1 flex justify-center px-4 max-w-md w-full relative">
+<span class="material-symbols-outlined absolute left-7 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border border-border-subtle rounded-lg text-body-sm focus:outline-none focus:ring-2 focus:ring-primary-container focus:border-transparent transition-shadow" placeholder="Global search..." type="text"/>
+</div>
+<div class="flex items-center gap-3 flex-1 justify-end">
+<button class="hidden sm:flex items-center justify-center w-10 h-10 rounded-full text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="hidden sm:flex items-center justify-center w-10 h-10 rounded-full text-on-surface-variant hover:bg-surface-container hover:text-primary transition-colors">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+<button class="bg-primary text-white px-4 h-touch-target-min rounded-lg text-body-sm font-semibold hover:bg-primary-container transition-colors whitespace-nowrap hidden sm:flex items-center shadow-sm">
+                    + Buat
+                </button>
+<div class="w-9 h-9 rounded-full bg-tertiary-fixed ml-2 flex-shrink-0 overflow-hidden border border-border-subtle">
+<img alt="Owner Profile" class="w-full h-full object-cover" data-alt="Professional headshot of a notary owner, well-lit, corporate attire, modern light-mode office background, confident smile, clean aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAmdNKrytLfzBO1S1UO8ygRLJw8Pw1H9xPosNBaWyiuVqFEFKI-2Z-lkz5yoMW3M9ko202EK7sAW-AslR406f-EPLUfuMbNSZ9mo9McnBvdoTtALiJIbCZOZLgWvvCHpKwpxBHAPV-Iqdcw9dfkG2X16rGEfVpDVP413lyL7I1KJnfxhW4PsDrYZ6f9NjyWegZ9cQkSVuPYUHcV1stwQ0I0Uz_VZJJUTcS16v1fkwGfQg5bzrtP3DcEoA"/>
+</div>
+</div>
+</header>
+<!-- Canvas -->
+<main class="flex-1 overflow-y-auto p-container-padding bg-surface-bright">
+<div class="max-w-7xl mx-auto space-y-6">
+<!-- Page Header & Actions -->
+<div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+<div>
+<h2 class="text-display-lg font-display-lg text-on-surface">Register Perkara</h2>
+<p class="text-body-base font-body-base text-on-surface-variant mt-1">Kelola dan pantau seluruh perkara aktif dan arsip.</p>
+</div>
+<button class="bg-primary-container text-white px-6 h-touch-target-min rounded-lg text-body-base font-semibold hover:bg-primary transition-colors shadow-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]">add_task</span>
+                        Buat Perkara
+                    </button>
+</div>
+<!-- Filters Bar (Simplified for 0.25 effort) -->
+<div class="bg-surface-card p-4 rounded-xl border border-border-subtle shadow-sm flex flex-wrap gap-3 items-center">
+<div class="text-body-sm font-semibold text-on-surface-variant mr-2 flex items-center gap-1">
+<span class="material-symbols-outlined text-[18px]">filter_list</span> Filters:
+                     </div>
+<select class="bg-surface border border-border-subtle rounded-lg text-body-sm py-2 pl-3 pr-8 focus:ring-primary-container h-[40px]">
+<option>Status</option>
+<option>Active</option>
+</select>
+<select class="bg-surface border border-border-subtle rounded-lg text-body-sm py-2 pl-3 pr-8 focus:ring-primary-container h-[40px]">
+<option>Layanan</option>
+</select>
+<select class="bg-surface border border-border-subtle rounded-lg text-body-sm py-2 pl-3 pr-8 focus:ring-primary-container h-[40px]">
+<option>PIC</option>
+</select>
+<button class="text-body-sm text-primary-container font-medium hover:underline ml-auto">Clear All</button>
+</div>
+<!-- Data Table -->
+<div class="bg-surface-card rounded-xl border border-border-subtle shadow-sm overflow-hidden">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface border-b border-border-subtle">
+<th class="py-3 px-4 text-label-caps font-label-caps text-on-surface-variant uppercase whitespace-nowrap">No. Perkara</th>
+<th class="py-3 px-4 text-label-caps font-label-caps text-on-surface-variant uppercase whitespace-nowrap">Klien</th>
+<th class="py-3 px-4 text-label-caps font-label-caps text-on-surface-variant uppercase whitespace-nowrap">Layanan</th>
+<th class="py-3 px-4 text-label-caps font-label-caps text-on-surface-variant uppercase whitespace-nowrap">Status</th>
+<th class="py-3 px-4 text-label-caps font-label-caps text-on-surface-variant uppercase whitespace-nowrap">Aksi</th>
+</tr>
+</thead>
+<tbody class="text-body-sm font-body-sm text-on-surface divide-y divide-border-subtle">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="py-4 px-4 font-medium text-primary-container whitespace-nowrap">AJB-2026-0012</td>
+<td class="py-4 px-4 whitespace-nowrap">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-tertiary-container text-white flex items-center justify-center text-xs font-bold">IR</div>
+                                            Ibu Ida Rosdiana
+                                        </div>
+</td>
+<td class="py-4 px-4 text-on-surface-variant whitespace-nowrap">Akta Jual Beli</td>
+<td class="py-4 px-4 whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold bg-blue-100 text-status-active border border-blue-200">
+<span class="material-symbols-outlined text-[14px]">sync</span>
+                                            Active
+                                        </span>
+</td>
+<td class="py-4 px-4 whitespace-nowrap text-right">
+<button class="text-on-surface-variant hover:text-primary transition-colors p-1 rounded-md hover:bg-surface-variant">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-low transition-colors group">
+<td class="py-4 px-4 font-medium text-primary-container whitespace-nowrap">HT-2026-0008</td>
+<td class="py-4 px-4 whitespace-nowrap">
+<div class="flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-secondary text-white flex items-center justify-center text-xs font-bold">RH</div>
+                                            Bapak Rudi Hartono
+                                        </div>
+</td>
+<td class="py-4 px-4 text-on-surface-variant whitespace-nowrap">Hak Tanggungan</td>
+<td class="py-4 px-4 whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold bg-red-100 text-status-critical border border-red-200">
+<span class="material-symbols-outlined text-[14px]">error</span>
+                                            Critical
+                                        </span>
+</td>
+<td class="py-4 px-4 whitespace-nowrap text-right">
+<button class="text-on-surface-variant hover:text-primary transition-colors p-1 rounded-md hover:bg-surface-variant">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

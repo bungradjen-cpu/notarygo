@@ -1,0 +1,1965 @@
+<script>
+/**
+ * NOTARYGO™ — Notary Office Operational Control System
+ * Client-Side Application Controller & RPC Manager
+ */
+
+var App = (function() {
+  var state = {
+    currentUser: null,
+    office: null,
+    serviceTypes: [],
+    staffList: [],
+    organizations: [],
+    currentView: 'dashboard',
+    viewParams: {},
+    mattersList: [],
+    activeMatterId: null,
+    activeMatterDetail: null
+  };
+
+  /**
+   * Application Initialization
+   */
+  function init() {
+    var savedSession = null;
+    try {
+      var raw = localStorage.getItem('NOTARYGO_AUTH_USER');
+      if (raw) savedSession = JSON.parse(raw);
+    } catch (e) {}
+
+    if (!savedSession || !savedSession.email) {
+      // User not logged in: display Login screen
+      document.getElementById('view-login').style.display = 'flex';
+      document.getElementById('app-workspace').style.display = 'none';
+      
+      // Fetch public office branding for login header
+      callServer('apiGetInitialState', [''], function(res) {
+        if (res.success && res.data.office) {
+          state.office = res.data.office;
+          document.getElementById('login-office-name').innerText = state.office.officeName || 'NOTARYGO™';
+        }
+      });
+      return;
+    }
+
+    showLoading('Menghubungkan ke NOTARYGO™...');
+    callServer('apiGetInitialState', [savedSession.email], function(res) {
+      hideLoading();
+      if (!res.success || !res.data.currentUser) {
+        // Invalid session or deactivated
+        localStorage.removeItem('NOTARYGO_AUTH_USER');
+        document.getElementById('view-login').style.display = 'flex';
+        document.getElementById('app-workspace').style.display = 'none';
+        showToast(res.message || 'Sesi login telah berakhir. Silakan login kembali.', 'warning');
+        return;
+      }
+
+      var data = res.data;
+      state.currentUser = data.currentUser;
+      state.office = data.office;
+      state.serviceTypes = data.serviceTypes || [];
+      state.staffList = data.staffList || [];
+      state.organizations = data.organizations || [];
+
+      // Switch view from Login to Workspace
+      document.getElementById('view-login').style.display = 'none';
+      document.getElementById('app-workspace').style.display = 'flex';
+
+      // Update UI Branding
+      if (state.office) {
+        document.getElementById('brand-office-name').innerText = state.office.officeName || 'NOTARYGO™';
+        document.getElementById('brand-notary-name').innerText = state.office.notaryName || 'Notary Control';
+        document.getElementById('nav-office-title').innerHTML = '<strong>' + (state.office.officeName || 'KANTOR NOTARIS & PPAT').toUpperCase() + '</strong>';
+      }
+
+      // Update Current User in Sidebar
+      if (state.currentUser) {
+        document.getElementById('sidebar-user-name').innerText = state.currentUser.name || state.currentUser.email;
+        document.getElementById('sidebar-user-role').innerText = state.currentUser.role;
+        document.getElementById('sidebar-user-avatar').innerText = (state.currentUser.name || 'U').charAt(0).toUpperCase();
+      }
+
+      // Update Alert Badges
+      if (data.alertCount > 0) {
+        var ab = document.getElementById('nav-badge-attention');
+        ab.innerText = data.alertCount;
+        ab.style.display = 'inline-block';
+      }
+
+      populateGlobalDropdowns();
+      navigateTo('dashboard');
+    }, function(err) {
+      hideLoading();
+      showToast('Terjadi kesalahan koneksi server: ' + err, 'error');
+    });
+  }
+
+  /**
+   * Login Form Submission Handler
+   */
+  function submitLogin(e) {
+    e.preventDefault();
+    var email = document.getElementById('login-email').value;
+    var password = document.getElementById('login-password').value;
+
+    showLoading('Memverifikasi kredensial akun...');
+    callServer('apiLogin', [email, password], function(res) {
+      hideLoading();
+      if (res.success && res.data) {
+        localStorage.setItem('NOTARYGO_AUTH_USER', JSON.stringify(res.data));
+        state.currentUser = res.data;
+        showToast('Selamat datang, ' + res.data.name + '!', 'success');
+        init();
+      } else {
+        showToast(res.message || 'Email atau password salah.', 'error');
+      }
+    }, function(err) {
+      hideLoading();
+      showToast('Login gagal: ' + err, 'error');
+    });
+  }
+
+  /**
+   * User Logout Handler
+   */
+  function logout() {
+    if (!confirm('Apakah Anda yakin ingin keluar dari sesi akun ini?')) return;
+    localStorage.removeItem('NOTARYGO_AUTH_USER');
+    state.currentUser = null;
+    document.getElementById('login-password').value = '';
+    document.getElementById('app-workspace').style.display = 'none';
+    document.getElementById('view-login').style.display = 'flex';
+    showToast('Anda telah keluar dari sistem NOTARYGO™.', 'info');
+  }
+
+  /**
+   * Navigation & Router
+   */
+  function navigateTo(viewName, params) {
+    state.currentView = viewName;
+    state.viewParams = params || {};
+
+    // Update Sidebar Active state
+    var navItems = document.querySelectorAll('.app-sidebar .nav-item');
+    navItems.forEach(function(el) { el.classList.remove('active'); });
+
+    var targetViews = document.querySelectorAll('.view-container');
+    targetViews.forEach(function(v) { v.classList.remove('active'); });
+
+    var activeView = document.getElementById('view-' + viewName);
+    if (activeView) {
+      activeView.classList.add('active');
+    }
+
+    // Close mobile sidebar if open
+    document.getElementById('app-sidebar').classList.remove('open');
+
+    // Trigger View Loaders
+    if (viewName === 'dashboard') loadDashboard();
+    else if (viewName === 'my-work') loadMyWork();
+    else if (viewName === 'attention') loadAttentionRequired();
+    else if (viewName === 'matters') loadMatters(params);
+    else if (viewName === 'matter-detail') loadMatterDetail(params.matterId);
+    else if (viewName === 'clients') loadClients();
+    else if (viewName === 'organizations') loadOrganizations();
+    else if (viewName === 'tasks') loadTasks();
+    else if (viewName === 'signing') loadSignings();
+    else if (viewName === 'invoices') loadInvoices();
+    else if (viewName === 'reports') loadReports();
+    else if (viewName === 'audit') loadAuditLogs();
+    else if (viewName === 'settings') loadSettings();
+  }
+
+  function refreshCurrentView() {
+    navigateTo(state.currentView, state.viewParams);
+  }
+
+  function toggleSidebar() {
+    document.getElementById('app-sidebar').classList.toggle('open');
+  }
+
+  /**
+   * Server RPC Communication Bridge
+   */
+  function callServer(functionName, args, onSuccess, onError) {
+    if (typeof google === 'undefined' || !google.script || !google.script.run) {
+      console.warn('Google Script Runner is not available in mock/test browser mode.');
+      if (onError) onError('Google Script Runner tidak tersedia.');
+      return;
+    }
+
+    var runner = google.script.run
+      .withSuccessHandler(function(response) {
+        if (onSuccess) onSuccess(response);
+      })
+      .withFailureHandler(function(error) {
+        console.error('RPC Error on ' + functionName + ':', error);
+        if (onError) onError(error.message || String(error));
+        else showToast('Kesalahan server: ' + (error.message || error), 'error');
+      });
+
+    runner[functionName].apply(runner, args || []);
+  }
+
+  /**
+   * Modal Management
+   */
+  function openModal(modalId) {
+    var modal = document.getElementById(modalId);
+    if (modal) modal.classList.add('active');
+  }
+
+  function closeModal(modalId) {
+    var modal = document.getElementById(modalId);
+    if (modal) modal.classList.remove('active');
+  }
+
+  /**
+   * Toast Notifications
+   */
+  function showToast(message, type) {
+    var container = document.getElementById('toast-container');
+    var toast = document.createElement('div');
+    toast.className = 'toast ' + (type || 'info');
+    toast.innerHTML = '<div style="flex:1; font-size:13px; font-weight:500;">' + message + '</div>';
+    container.appendChild(toast);
+
+    setTimeout(function() {
+      toast.style.opacity = '0';
+      toast.style.transform = 'translateY(10px)';
+      toast.style.transition = 'all 0.3s ease';
+      setTimeout(function() { toast.remove(); }, 300);
+    }, 4000);
+  }
+
+  function showLoading(msg) {
+    document.getElementById('loading-message').innerText = msg || 'Memuat...';
+    document.getElementById('loading-overlay').classList.add('active');
+  }
+
+  function hideLoading() {
+    document.getElementById('loading-overlay').classList.remove('active');
+  }
+
+  /**
+   * Populate Global Form Dropdowns
+   */
+  function populateGlobalDropdowns() {
+    // Clients dropdown
+    var clientSelect = document.getElementById('nm-client-id');
+    if (clientSelect) {
+      callServer('apiGetClients', [], function(res) {
+        if (res.success && res.data) {
+          clientSelect.innerHTML = '<option value="">-- Pilih Klien --</option>' +
+            res.data.map(function(c){ return '<option value="' + c.clientId + '">' + c.name + ' (' + (c.phone || '-') + ')</option>'; }).join('');
+        }
+      });
+    }
+
+    // Service Types dropdowns
+    var serviceOptions = '<option value="">-- Pilih Jenis Layanan --</option>' +
+      state.serviceTypes.map(function(s){ return '<option value="' + s.serviceTypeId + '">' + s.name + '</option>'; }).join('');
+    
+    var nmService = document.getElementById('nm-service-type-id');
+    if (nmService) nmService.innerHTML = serviceOptions;
+    var niService = document.getElementById('ni-service');
+    if (niService) niService.innerHTML = serviceOptions;
+    var filterService = document.getElementById('filter-matters-service');
+    if (filterService) filterService.innerHTML = '<option value="">Semua Layanan</option>' + state.serviceTypes.map(function(s){ return '<option value="' + s.serviceTypeId + '">' + s.name + '</option>'; }).join('');
+
+    // PIC / Staff dropdowns
+    var staffOptions = '<option value="">-- Pilih Staf PIC --</option>' +
+      state.staffList.map(function(st){ return '<option value="' + st.email + '">' + st.name + ' (' + st.role + ')</option>'; }).join('');
+    
+    var nmPic = document.getElementById('nm-pic');
+    if (nmPic) nmPic.innerHTML = staffOptions;
+    var atAssigned = document.getElementById('at-assigned-to');
+    if (atAssigned) atAssigned.innerHTML = staffOptions;
+    var hoFrom = document.getElementById('ho-from-email');
+    if (hoFrom) hoFrom.innerHTML = staffOptions;
+    var hoTo = document.getElementById('ho-to-email');
+    if (hoTo) hoTo.innerHTML = staffOptions;
+    var filterPic = document.getElementById('filter-matters-pic');
+    if (filterPic) filterPic.innerHTML = '<option value="">Semua PIC</option>' + state.staffList.map(function(st){ return '<option value="' + st.email + '">' + st.name + '</option>'; }).join('');
+
+    // Organizations dropdown
+    var orgOptions = '<option value="">-- Tanpa Rekanan --</option>' +
+      state.organizations.map(function(o){ return '<option value="' + o.organizationId + '">' + o.name + ' (' + o.type + ')</option>'; }).join('');
+    var nmOrg = document.getElementById('nm-org-id');
+    if (nmOrg) nmOrg.innerHTML = orgOptions;
+  }
+
+  // ==========================================
+  // VIEW LOADERS
+  // ==========================================
+
+  function loadDashboard() {
+    showLoading('Memuat Dashboard...');
+    callServer('apiGetDashboardData', [], function(res) {
+      hideLoading();
+      if (!res.success) return showToast(res.message, 'error');
+
+      var data = res.data;
+      var kpi = data.kpi;
+      document.getElementById('kpi-active-matters').innerText = kpi.active;
+      document.getElementById('kpi-overdue-matters').innerText = kpi.overdue;
+      document.getElementById('kpi-pending-matters').innerText = kpi.pending;
+      document.getElementById('kpi-deadlines-today').innerText = kpi.deadlinesToday;
+      document.getElementById('kpi-signing-today').innerText = kpi.todaySignings;
+      document.getElementById('kpi-no-pic').innerText = kpi.noPic;
+      document.getElementById('kpi-outstanding').innerText = formatRupiah(kpi.outstandingTotal);
+
+      // Critical alerts banner
+      var alertContainer = document.getElementById('dashboard-critical-alerts-list');
+      var alerts = data.alerts.critical || [];
+      if (alerts.length > 0) {
+        var html = '<ul style="margin: 0; padding-left: 20px; color: #991b1b; font-size: 13px;">';
+        for (var a = 0; a < alerts.length; a++) {
+          var alt = alerts[a];
+          html += '<li style="margin-bottom: 6px;"><strong>' + (alt.matterNumber || alt.entityType) + ':</strong> ' + alt.reason + ' <button class="btn btn-secondary btn-sm" style="padding: 2px 6px; font-size: 10px; margin-left: 6px;" onclick="App.navigateTo(\'matter-detail\', { matterId: \'' + alt.entityId + '\' })">Buka Perkara →</button></li>';
+        }
+        html += '</ul>';
+        alertContainer.innerHTML = html;
+      } else {
+        alertContainer.innerHTML = '<p style="color: #15803d; font-size: 13px; font-weight: 500;">✓ Tidak ada alert kritis saat ini. Seluruh berkas berjalan normal.</p>';
+      }
+
+      // Recent Matters Table
+      var tbody = document.getElementById('dashboard-recent-matters-tbody');
+      var matters = data.recentMatters || [];
+      if (matters.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="9" style="text-align:center; color:#94a3b8; padding:24px;">Belum ada perkara terdaftar. Buat perkara baru sekarang.</td></tr>';
+      } else {
+        tbody.innerHTML = matters.map(function(m) {
+          return '<tr>' +
+            '<td><strong>' + m.matterNumber + '</strong></td>' +
+            '<td>' + m.clientNameSnapshot + '</td>' +
+            '<td>' + m.serviceTypeNameSnapshot + '</td>' +
+            '<td>' + m.title + '</td>' +
+            '<td>' + (m.assignedPIC || '<span style="color:#ef4444; font-weight:bold;">BELUM ADA PIC</span>') + '</td>' +
+            '<td><span class="badge badge-active">' + m.currentWorkflowStep + '</span></td>' +
+            '<td>' + (m.deadline || '-') + '</td>' +
+            '<td>' + renderStatusBadge(m.matterStatus) + '</td>' +
+            '<td style="text-align:right;"><button class="btn btn-secondary btn-sm" onclick="App.navigateTo(\'matter-detail\', { matterId: \'' + m.matterId + '\' })">Detail →</button></td>' +
+            '</tr>';
+        }).join('');
+      }
+    });
+  }
+
+  function loadMyWork() {
+    showLoading('Memuat My Work...');
+    callServer('apiGetMyWork', [state.currentUser ? state.currentUser.email : ''], function(res) {
+      hideLoading();
+      if (!res.success) return showToast(res.message, 'error');
+
+      var data = res.data;
+      document.getElementById('mywork-kpi-tasks').innerText = data.summary.totalTasks;
+      document.getElementById('mywork-kpi-overdue').innerText = data.summary.overdueTasks;
+      document.getElementById('mywork-kpi-matters').innerText = data.summary.activeMatters;
+      document.getElementById('mywork-kpi-followups').innerText = data.summary.dueFollowUps;
+      document.getElementById('mywork-kpi-signings').innerText = data.summary.upcomingSignings;
+
+      // Update navbar badge
+      var nb = document.getElementById('nav-badge-mywork');
+      if (data.summary.totalTasks > 0) {
+        nb.innerText = data.summary.totalTasks;
+        nb.style.display = 'inline-block';
+      } else {
+        nb.style.display = 'none';
+      }
+
+      // Tasks Table
+      var tTbody = document.getElementById('mywork-tasks-tbody');
+      var tasks = data.tasks || [];
+      if (tasks.length === 0) {
+        tTbody.innerHTML = '<tr><td colspan="8" style="text-align:center; color:#15803d; padding:24px; font-weight:500;">✓ Tidak ada tugas tertunda untuk Anda hari ini.</td></tr>';
+      } else {
+        tTbody.innerHTML = tasks.map(function(t) {
+          var isOverdue = t.deadline && t.deadline < getTodayIso();
+          return '<tr style="' + (isOverdue ? 'background-color: #fef2f2;' : '') + '">' +
+            '<td><strong>' + t.taskNumber + '</strong></td>' +
+            '<td><strong>' + t.title + '</strong>' + (t.description ? '<br><small style="color:#64748b;">' + t.description + '</small>' : '') + '</td>' +
+            '<td>' + t.matterId + '</td>' +
+            '<td><span class="badge ' + (t.priority === 'CRITICAL' ? 'badge-critical' : (t.priority === 'HIGH' ? 'badge-warning' : 'badge-safe')) + '">' + t.priority + '</span></td>' +
+            '<td>' + (t.deadline ? '<span style="' + (isOverdue ? 'color:#dc2626; font-weight:bold;' : '') + '">' + t.deadline + '</span>' : '-') + '</td>' +
+            '<td>' + t.progress + '%</td>' +
+            '<td><span class="badge badge-active">' + t.status + '</span></td>' +
+            '<td style="text-align:right;"><button class="btn btn-gold btn-sm" onclick="App.quickCompleteTask(\'' + t.taskId + '\')">✓ Selesai</button></td>' +
+            '</tr>';
+        }).join('');
+      }
+
+      // Matters Table
+      var mTbody = document.getElementById('mywork-matters-tbody');
+      var matters = data.matters || [];
+      if (matters.length === 0) {
+        mTbody.innerHTML = '<tr><td colspan="7" style="text-align:center; color:#94a3b8; padding:20px;">Belum ada perkara yang ditugaskan kepada Anda.</td></tr>';
+      } else {
+        mTbody.innerHTML = matters.map(function(m) {
+          return '<tr>' +
+            '<td><strong>' + m.matterNumber + '</strong></td>' +
+            '<td>' + m.clientNameSnapshot + '</td>' +
+            '<td>' + m.title + '</td>' +
+            '<td><span class="badge badge-active">' + m.currentWorkflowStep + '</span></td>' +
+            '<td>' + (m.nextAction || '-') + '</td>' +
+            '<td>' + (m.deadline || '-') + '</td>' +
+            '<td style="text-align:right;"><button class="btn btn-secondary btn-sm" onclick="App.navigateTo(\'matter-detail\', { matterId: \'' + m.matterId + '\' })">Buka →</button></td>' +
+            '</tr>';
+        }).join('');
+      }
+    });
+  }
+
+  function loadAttentionRequired() {
+    showLoading('Memindai Exception...');
+    callServer('apiGetAttentionRequired', [], function(res) {
+      hideLoading();
+      if (!res.success) return showToast(res.message, 'error');
+
+      var data = res.data;
+      var crit = data.critical || [];
+      var warn = data.warning || [];
+      var watch = data.watch || [];
+
+      document.getElementById('badge-critical-count').innerText = crit.length + ' Isu';
+      document.getElementById('badge-warning-count').innerText = warn.length + ' Isu';
+      document.getElementById('badge-watch-count').innerText = watch.length + ' Isu';
+
+      function renderAlertCards(list, containerId, badgeClass) {
+        var el = document.getElementById(containerId);
+        if (list.length === 0) {
+          el.innerHTML = '<p style="color:#64748b; font-size:13px;">Tidak ada alert pada kategori ini.</p>';
+        } else {
+          el.innerHTML = list.map(function(a) {
+            return '<div style="padding: 12px; border: 1px solid #e2e8f0; border-radius: 6px; margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between; background:#ffffff;">' +
+              '<div>' +
+              '<strong style="color:#0f172a; font-size:13px;">' + (a.matterNumber || a.entityType) + '</strong> - ' + (a.clientName ? a.clientName + ' (' + a.title + ')' : '') + '<br>' +
+              '<span style="font-size:12px; color:#475569;">' + a.reason + '</span>' +
+              '</div>' +
+              '<div>' +
+              (a.entityType === 'MATTER' || a.entityType === 'PENDING' || a.entityType === 'SIGNING' ? '<button class="btn btn-secondary btn-sm" onclick="App.navigateTo(\'matter-detail\', { matterId: \'' + (a.matterId || a.entityId) + '\' })">Buka Perkara →</button>' : '') +
+              '</div>' +
+              '</div>';
+          }).join('');
+        }
+      }
+
+      renderAlertCards(crit, 'attention-critical-container', 'badge-critical');
+      renderAlertCards(warn, 'attention-warning-container', 'badge-warning');
+      renderAlertCards(watch, 'attention-watch-container', 'badge-watch');
+    });
+  }
+
+  function loadMatters(filter) {
+    showLoading('Memuat Register Perkara...');
+    callServer('apiGetMatters', [filter || {}], function(res) {
+      hideLoading();
+      if (!res.success) return showToast(res.message, 'error');
+
+      state.mattersList = res.data || [];
+      var tbody = document.getElementById('matters-table-tbody');
+
+      if (state.mattersList.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="9" style="text-align:center; color:#94a3b8; padding:30px;">Tidak ada perkara yang cocok dengan filter pencarian.</td></tr>';
+      } else {
+        tbody.innerHTML = state.mattersList.map(function(m) {
+          return '<tr>' +
+            '<td><strong>' + m.matterNumber + '</strong></td>' +
+            '<td>' + m.clientNameSnapshot + '</td>' +
+            '<td>' + m.serviceTypeNameSnapshot + '</td>' +
+            '<td>' + m.title + '</td>' +
+            '<td>' + (m.assignedPIC || '<span style="color:#ef4444; font-weight:bold;">BELUM ADA PIC</span>') + '</td>' +
+            '<td><span class="badge badge-active">' + m.currentWorkflowStep + '</span></td>' +
+            '<td>' + (m.deadline || '-') + '</td>' +
+            '<td>' + renderStatusBadge(m.matterStatus) + '</td>' +
+            '<td style="text-align:right;">' +
+            '<button class="btn btn-secondary btn-sm" onclick="App.navigateTo(\'matter-detail\', { matterId: \'' + m.matterId + '\' })">Buka →</button>' +
+            '</td>' +
+            '</tr>';
+        }).join('');
+      }
+    });
+  }
+
+  function onMattersFilterChange() {
+    var search = document.getElementById('filter-matters-search').value;
+    var status = document.getElementById('filter-matters-status').value;
+    var service = document.getElementById('filter-matters-service').value;
+    var pic = document.getElementById('filter-matters-pic').value;
+
+    loadMatters({
+      searchQuery: search,
+      status: status,
+      serviceTypeId: service,
+      assignedPIC: pic,
+      includeCancelled: status === 'CANCELLED',
+      includeArchived: status === 'ARCHIVED'
+    });
+  }
+
+  function loadMatterDetail(matterId) {
+    if (!matterId) return navigateTo('matters');
+    state.activeMatterId = matterId;
+    showLoading('Memuat Detail Perkara...');
+
+    callServer('apiGetMatterDetail', [matterId], function(res) {
+      hideLoading();
+      if (!res.success) {
+        showToast(res.message, 'error');
+        return navigateTo('matters');
+      }
+
+      var data = res.data;
+      state.activeMatterDetail = data;
+      var m = data.matter;
+
+      document.getElementById('md-title').innerText = m.title;
+      document.getElementById('md-sub').innerText = 'No. Perkara: ' + m.matterNumber + ' | Klien: ' + m.clientNameSnapshot + ' | Layanan: ' + m.serviceTypeNameSnapshot;
+      document.getElementById('md-status-badge').className = 'badge ' + getBadgeClassForStatus(m.matterStatus);
+      document.getElementById('md-status-badge').innerText = m.matterStatus;
+
+      // Action bar buttons
+      var actionsBar = document.getElementById('md-actions-bar');
+      actionsBar.innerHTML = '';
+      if (m.matterStatus === 'ACTIVE' || m.matterStatus === 'PENDING') {
+        actionsBar.innerHTML += '<button class="btn btn-secondary btn-sm" onclick="App.openSetPendingModal()">⏸ Set Pending</button>';
+        actionsBar.innerHTML += '<button class="btn btn-danger btn-sm" onclick="App.openCancelMatterModal()">✕ Batalkan Perkara</button>';
+      } else if (m.matterStatus === 'CANCELLED' || m.matterStatus === 'ARCHIVED') {
+        actionsBar.innerHTML += '<button class="btn btn-gold btn-sm" onclick="App.restoreMatter(\'' + m.matterId + '\')">↺ Pulihkan ke AKTIF</button>';
+      }
+
+      // Workflow Timeline
+      renderWorkflowTimeline(data.workflowHistory, m.currentWorkflowStep);
+
+      // Operational Info
+      document.getElementById('md-info-pic').innerText = m.assignedPIC || 'Belum Ditugaskan';
+      document.getElementById('md-info-spv').innerText = m.supervisor || '-';
+      document.getElementById('md-info-deadline').innerText = m.deadline ? m.deadline + ' (' + data.deadlineRisk + ')' : '-';
+      document.getElementById('md-info-priority').innerText = m.priority;
+      document.getElementById('md-info-pending').innerText = m.pendingStatus === 'PENDING' ? m.pendingReason : 'Tidak Pending';
+      document.getElementById('md-info-nextaction').innerText = m.nextAction || '-';
+
+      // Checklist Table
+      var chkStats = data.checklistStats;
+      document.getElementById('md-checklist-percent-badge').innerText = chkStats.percentage + '% Lengkap (' + chkStats.verifiedCount + '/' + chkStats.requiredTotal + ')';
+      var chkTbody = document.getElementById('md-checklist-tbody');
+      var chkItems = data.checklistItems || [];
+      if (chkItems.length === 0) {
+        chkTbody.innerHTML = '<tr><td colspan="6" style="text-align:center; color:#94a3b8; padding:16px;">Belum ada syarat berkas.</td></tr>';
+      } else {
+        chkTbody.innerHTML = chkItems.map(function(it) {
+          return '<tr>' +
+            '<td><strong>' + it.documentType + '</strong>' + (it.required ? ' <span style="color:#ef4444;">*</span>' : '') + '</td>' +
+            '<td>' + renderStatusBadge(it.status) + '</td>' +
+            '<td>' + (it.receivedDate || '-') + '</td>' +
+            '<td>' + (it.verifiedBy || '-') + '</td>' +
+            '<td>' + (it.note || '-') + '</td>' +
+            '<td style="text-align:right;"><button class="btn btn-secondary btn-sm" onclick="App.openVerifyChecklistModal(\'' + it.checklistItemId + '\', \'' + it.documentType.replace(/'/g, "\\'") + '\', \'' + it.status + '\')">Verifikasi</button></td>' +
+            '</tr>';
+        }).join('');
+      }
+
+      // Tasks Table
+      var tTbody = document.getElementById('md-tasks-tbody');
+      var tasks = data.tasks || [];
+      if (tasks.length === 0) {
+        tTbody.innerHTML = '<tr><td colspan="6" style="text-align:center; color:#94a3b8; padding:16px;">Belum ada tugas operasional.</td></tr>';
+      } else {
+        tTbody.innerHTML = tasks.map(function(t) {
+          return '<tr>' +
+            '<td><strong>' + t.taskNumber + '</strong></td>' +
+            '<td>' + t.title + '</td>' +
+            '<td>' + t.assignedTo + '</td>' +
+            '<td>' + (t.deadline || '-') + '</td>' +
+            '<td>' + renderStatusBadge(t.status) + '</td>' +
+            '<td style="text-align:right;"><button class="btn btn-secondary btn-sm" onclick="App.openPdfPreview(\'TASK\', \'' + t.taskId + '\')">PDF</button> ' +
+                   '<button class="btn btn-danger btn-sm" onclick="App.confirmDelete(\'TASK\', \'' + t.taskId + '\', \'Hapus Tugas ini?\')">🗑️</button></td>' +
+                   '</tr>';
+        }).join('');
+      }
+
+      // Documents Table
+      var dDocTbody = document.getElementById('md-docs-tbody');
+      var docs = data.documents || [];
+      if (docs.length === 0) {
+        dDocTbody.innerHTML = '<tr><td colspan="6" style="text-align:center; color:#94a3b8; padding:16px;">Belum ada dokumen terdaftar.</td></tr>';
+      } else {
+        dDocTbody.innerHTML = docs.map(function(d) {
+          return '<tr>' +
+            '<td><strong>' + d.title + '</strong></td>' +
+            '<td>' + d.documentType + '</td>' +
+            '<td>' + d.version + '</td>' +
+            '<td>' + renderStatusBadge(d.status) + '</td>' +
+            '<td>' + (d.generatedAt ? d.generatedAt.substring(0, 10) : '-') + '</td>' +
+            '<td style="text-align:right;"><a href="' + (d.driveUrl || '#') + '" target="_blank" class="btn btn-secondary btn-sm">Buka Drive ↗</a></td>' +
+            '</tr>';
+        }).join('');
+      }
+
+      // Signing Container
+      var sContainer = document.getElementById('md-signing-container');
+      var signings = data.signings || [];
+      if (signings.length === 0) {
+        sContainer.innerHTML = '<p style="color:#64748b; font-size:13px;">Belum ada jadwal penandatanganan.</p>';
+      } else {
+        sContainer.innerHTML = signings.map(function(s) {
+          return '<div style="padding:10px; border:1px solid #e2e8f0; border-radius:6px; margin-bottom:8px;">' +
+            '<strong>' + s.date + ' jam ' + s.startTime + '</strong><br>' +
+            '<span style="font-size:12px; color:#64748b;">Peserta: ' + s.participants + '</span><br>' +
+            '<span class="badge ' + (s.readinessStatus === 'READY' ? 'badge-safe' : 'badge-critical') + '" style="margin-top:4px;">Kesiapan: ' + s.readinessStatus + '</span>' +
+            '</div>';
+        }).join('');
+      }
+
+      // Invoices Container
+      var invContainer = document.getElementById('md-invoices-container');
+      var invoices = data.invoices || [];
+      if (invoices.length === 0) {
+        invContainer.innerHTML = '<p style="color:#64748b; font-size:13px;">Belum ada tagihan.</p>';
+      } else {
+        invContainer.innerHTML = invoices.map(function(inv) {
+          return '<div style="padding:10px; border:1px solid #e2e8f0; border-radius:6px; margin-bottom:8px;">' +
+            '<strong>' + inv.invoiceNumber + '</strong> - ' + formatRupiah(inv.total) + '<br>' +
+            '<span style="font-size:12px; color:#64748b;">Sisa: ' + formatRupiah(inv.outstanding) + '</span> ' + renderStatusBadge(inv.status) + '<br>' +
+            '<div style="margin-top:6px; display:flex; gap:6px;">' +
+            '<button class="btn btn-secondary btn-sm" onclick="App.openPdfPreview(\'INVOICE\', \'' + inv.invoiceId + '\')">PDF Invoice</button>' +
+            (inv.status !== 'PAID' ? '<button class="btn btn-gold btn-sm" onclick="App.openRecordPaymentModal(\'' + inv.invoiceId + '\', ' + inv.outstanding + ')">Bayar</button>' : '') +
+            '</div></div>';
+        }).join('');
+      }
+
+      // History Timeline
+      var hContainer = document.getElementById('md-history-container');
+      var history = data.workflowHistory || [];
+      hContainer.innerHTML = history.map(function(h) {
+        return '<div style="border-left: 2px solid #0f172a; padding-left: 12px; margin-bottom: 12px; position: relative;">' +
+          '<div style="position: absolute; left: -5px; top: 0; width: 8px; height: 8px; border-radius: 50%; background: #0f172a;"></div>' +
+          '<strong style="font-size: 12px; color: #0f172a;">' + h.fromStep + ' → ' + h.toStep + '</strong><br>' +
+          '<span style="font-size: 11px; color: #64748b;">' + h.changedBy + ' | ' + (h.changedAt ? h.changedAt.substring(0, 19).replace('T', ' ') : '-') + '</span><br>' +
+          '<span style="font-size: 12px; color: #334155;">' + (h.note || '-') + '</span>' +
+          '</div>';
+      }).join('');
+    });
+  }
+
+  function renderWorkflowTimeline(history, currentStep) {
+    var defaultSteps = [
+      'INCOMING', 'DOCUMENT_CHECKING', 'WAITING_DOCUMENT', 'DRAFTING',
+      'INTERNAL_REVIEW', 'NOTARY_APPROVAL', 'CLIENT_APPROVAL', 'SIGNING', 'PROCESSING', 'COMPLETED'
+    ];
+
+    var container = document.getElementById('md-workflow-timeline');
+    var currentIndex = defaultSteps.indexOf(currentStep);
+
+    container.innerHTML = defaultSteps.map(function(st, idx) {
+      var isPassed = currentIndex !== -1 && idx < currentIndex;
+      var isCurrent = st === currentStep;
+      var bg = isCurrent ? '#0f172a' : (isPassed ? '#10b981' : '#e2e8f0');
+      var fg = isCurrent || isPassed ? '#ffffff' : '#64748b';
+
+      return '<div style="flex: 1; min-width: 110px; text-align: center; padding: 8px; border-radius: 6px; background: ' + bg + '; color: ' + fg + '; font-size: 11px; font-weight: 600;">' +
+        '<div>' + (idx + 1) + '. ' + st.replace(/_/g, ' ') + '</div>' +
+        '</div>';
+    }).join('');
+  }
+
+  function loadClients() {
+    showLoading('Memuat Klien & Intake...');
+    callServer('apiGetClients', [], function(res) {
+      if (res.success && res.data) {
+        var tbody = document.getElementById('clients-table-tbody');
+        tbody.innerHTML = res.data.map(function(c) {
+          return '<tr>' +
+            '<td><strong>' + c.clientId + '</strong></td>' +
+            '<td><strong>' + c.name + '</strong></td>' +
+            '<td>' + c.clientType + '</td>' +
+            '<td>' + (c.phone || '-') + '</td>' +
+            '<td>' + (c.email || '-') + '</td>' +
+            '<td>' + (c.company || '-') + '</td>' +
+            '<td>' + (c.createdAt ? c.createdAt.substring(0, 10) : '-') + '</td>' +
+            '<td style="text-align:right;">' +
+            '<button class="btn btn-secondary btn-sm" onclick="App.openEditClientModal(\'' + c.clientId + '\')">✏️</button> ' +
+            '<button class="btn btn-danger btn-sm" onclick="App.confirmDelete(\'CLIENT\', \'' + c.clientId + '\', \'Hapus Klien ini?\')">🗑️</button>' +
+            '</td>' +
+            '</tr>';
+        }).join('');
+      }
+    });
+
+    callServer('apiGetIntakes', [], function(res) {
+      hideLoading();
+      if (res.success && res.data) {
+        var tbody = document.getElementById('intakes-table-tbody');
+        if (res.data.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; color:#94a3b8; padding:20px;">Belum ada data intake.</td></tr>';
+        } else {
+          tbody.innerHTML = res.data.map(function(it) {
+            return '<tr>' +
+              '<td><strong>' + it.clientName + '</strong></td>' +
+              '<td>' + it.phone + '</td>' +
+              '<td>' + it.serviceTypeId + '</td>' +
+              '<td><span class="badge badge-active">' + it.status + '</span></td>' +
+              '<td>' + formatRupiah(it.quotationAmount) + '</td>' +
+              '<td>' + (it.notes || '-') + '</td>' +
+              '<td style="text-align:right;">' +
+              (it.status !== 'CONVERTED' ? '<button class="btn btn-gold btn-sm" onclick="App.convertIntake(\'' + it.intakeId + '\')">Konversi ke Perkara →</button>' : '<span class="badge badge-safe">Terkonversi: ' + it.convertedMatterId + '</span>') +
+              '</td>' +
+              '</tr>';
+          }).join('');
+        }
+      }
+    });
+  }
+
+  function loadOrganizations() {
+    showLoading('Memuat Mitra...');
+    callServer('apiGetOrganizations', [], function(res) {
+      hideLoading();
+      if (res.success && res.data) {
+        var tbody = document.getElementById('orgs-table-tbody');
+        tbody.innerHTML = res.data.map(function(o) {
+          return '<tr>' +
+            '<td><strong>' + o.name + '</strong></td>' +
+            '<td><span class="badge badge-active">' + o.type + '</span></td>' +
+            '<td>' + (o.contactPerson || '-') + '</td>' +
+            '<td>' + (o.phone || '-') + '</td>' +
+            '<td>' + (o.email || '-') + '</td>' +
+            '<td>' + renderStatusBadge(o.status) + '</td>' +
+            '</tr>';
+        }).join('');
+      }
+    });
+  }
+
+  function loadTasks() {
+    showLoading('Memuat Master Tugas...');
+    callServer('apiGetPendingList', [], function(res) {
+      if (res.success && res.data) {
+        var tbody = document.getElementById('pending-table-tbody');
+        if (res.data.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; color:#15803d; padding:24px; font-weight:500;">✓ Tidak ada perkara pending saat ini.</td></tr>';
+        } else {
+          tbody.innerHTML = res.data.map(function(p) {
+            return '<tr>' +
+              '<td><strong>' + p.matterNumber + '</strong></td>' +
+              '<td>' + p.clientName + '</td>' +
+              '<td><span class="badge badge-warning">' + p.reasonCode + '</span></td>' +
+              '<td>' + p.reasonDetail + '</td>' +
+              '<td>' + p.pendingSince + '</td>' +
+              '<td><strong>' + p.pendingDays + ' Hari</strong></td>' +
+              '<td>' + p.PIC + '</td>' +
+              '<td style="text-align:right;">' +
+              (p.status === 'ACTIVE' ? '<button class="btn btn-gold btn-sm" onclick="App.resolvePending(\'' + p.pendingId + '\')">✓ Selesaikan Pending</button>' : '<span class="badge badge-safe">Selesai</span>') +
+              '</td>' +
+              '</tr>';
+          }).join('');
+        }
+      }
+    });
+
+    callServer('apiGetTasks', [{}], function(res) {
+      hideLoading();
+      if (res.success && res.data) {
+        var tbody = document.getElementById('tasks-master-tbody');
+        tbody.innerHTML = res.data.map(function(t) {
+          return '<tr>' +
+            '<td><strong>' + t.taskNumber + '</strong></td>' +
+            '<td>' + t.title + '</td>' +
+            '<td>' + t.matterId + '</td>' +
+            '<td>' + t.assignedTo + '</td>' +
+            '<td><span class="badge ' + (t.priority === 'CRITICAL' ? 'badge-critical' : 'badge-safe') + '">' + t.priority + '</span></td>' +
+            '<td>' + (t.deadline || '-') + '</td>' +
+            '<td>' + t.progress + '%</td>' +
+            '<td>' + renderStatusBadge(t.status) + '</td>' +
+            '</tr>';
+        }).join('');
+      }
+    });
+  }
+
+  function loadSignings() {
+    showLoading('Memuat Jadwal Signing...');
+    callServer('apiGetSignings', [{}], function(res) {
+      hideLoading();
+      if (res.success && res.data) {
+        var tbody = document.getElementById('signing-master-tbody');
+        if (res.data.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="8" style="text-align:center; color:#94a3b8; padding:24px;">Belum ada jadwal penandatanganan.</td></tr>';
+        } else {
+          tbody.innerHTML = res.data.map(function(s) {
+            return '<tr>' +
+              '<td><strong>' + s.date + ' ' + s.startTime + '</strong></td>' +
+              '<td>' + s.matterId + '</td>' +
+              '<td>' + s.participants + '</td>' +
+              '<td>' + (s.location || '-') + '</td>' +
+              '<td>' + s.PIC + '</td>' +
+              '<td><span class="badge ' + (s.readinessStatus === 'READY' ? 'badge-safe' : 'badge-critical') + '">' + (s.readinessStatus || 'NOT_READY') + '</span></td>' +
+              '<td>' + renderStatusBadge(s.status) + '</td>' +
+              '<td style="text-align:right;"><button class="btn btn-secondary btn-sm" onclick="App.navigateTo(\'matter-detail\', { matterId: \'' + s.matterId + '\' })">Detail Perkara</button></td>' +
+              '</tr>';
+          }).join('');
+        }
+      }
+    });
+  }
+
+  function loadInvoices() {
+    showLoading('Memuat Tagihan...');
+    callServer('apiGetInvoices', [{}], function(res) {
+      hideLoading();
+      if (res.success && res.data) {
+        var tbody = document.getElementById('invoices-master-tbody');
+        if (res.data.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="10" style="text-align:center; color:#94a3b8; padding:24px;">Belum ada tagihan diterbitkan.</td></tr>';
+        } else {
+          tbody.innerHTML = res.data.map(function(inv) {
+            return '<tr>' +
+              '<td><strong>' + inv.invoiceNumber + '</strong></td>' +
+              '<td>' + inv.clientId + '</td>' +
+              '<td>' + inv.matterId + '</td>' +
+              '<td>' + inv.invoiceDate + '</td>' +
+              '<td>' + inv.dueDate + '</td>' +
+              '<td>' + formatRupiah(inv.total) + '</td>' +
+              '<td>' + formatRupiah(inv.paidAmount) + '</td>' +
+              '<td><strong>' + formatRupiah(inv.outstanding) + '</strong></td>' +
+              '<td>' + renderStatusBadge(inv.status) + '</td>' +
+              '<td style="text-align:right; white-space:nowrap;">' +
+              '<button class="btn btn-secondary btn-sm" onclick="App.openPdfPreview(\'INVOICE\', \'' + inv.invoiceId + '\')">PDF</button> ' +
+              (inv.status !== 'PAID' ? '<button class="btn btn-gold btn-sm" onclick="App.openRecordPaymentModal(\'' + inv.invoiceId + '\', ' + inv.outstanding + ')">Bayar</button>' : '') +
+              '</td>' +
+              '</tr>';
+          }).join('');
+        }
+      }
+    });
+  }
+
+  function loadReports() {
+    showLoading('Memuat Laporan...');
+    callServer('apiGetReports', ['AGING'], function(res) {
+      if (res.success && res.data) {
+        var container = document.getElementById('report-aging-container');
+        var aging = res.data;
+        container.innerHTML = Object.keys(aging).map(function(bucket) {
+          var count = aging[bucket];
+          return '<div style="margin-bottom:12px;">' +
+            '<div style="display:flex; justify-content:space-between; font-size:12px; margin-bottom:4px;">' +
+            '<strong>' + bucket + '</strong><span>' + count + ' Perkara</span>' +
+            '</div>' +
+            '<div class="progress-bar-container"><div class="progress-bar-fill" style="width:' + Math.min(100, count * 10) + '%;"></div></div>' +
+            '</div>';
+        }).join('');
+      }
+    });
+
+    callServer('apiGetReports', ['SERVICES'], function(res) {
+      if (res.success && res.data) {
+        var tbody = document.getElementById('report-services-tbody');
+        tbody.innerHTML = res.data.map(function(s) {
+          return '<tr>' +
+            '<td><strong>' + s.name + '</strong></td>' +
+            '<td>' + s.totalMatters + '</td>' +
+            '<td>' + s.activeMatters + '</td>' +
+            '<td>' + s.completedMatters + '</td>' +
+            '</tr>';
+        }).join('');
+      }
+    });
+
+    callServer('apiGetReports', ['WORKLOAD'], function(res) {
+      hideLoading();
+      if (res.success && res.data) {
+        var tbody = document.getElementById('report-workload-tbody');
+        tbody.innerHTML = res.data.map(function(w) {
+          return '<tr>' +
+            '<td><strong>' + w.name + '</strong></td>' +
+            '<td>' + w.email + '</td>' +
+            '<td><span class="badge badge-active">' + w.role + '</span></td>' +
+            '<td><strong>' + w.activeMatters + '</strong></td>' +
+            '<td>' + w.openTasks + '</td>' +
+            '<td><span style="' + (w.overdueTasks > 0 ? 'color:#dc2626; font-weight:bold;' : '') + '">' + w.overdueTasks + '</span></td>' +
+            '<td>' + w.followUps + '</td>' +
+            '<td>' + w.signings + '</td>' +
+            '</tr>';
+        }).join('');
+      }
+    });
+  }
+
+  function loadAuditLogs() {
+    showLoading('Memuat Audit Log...');
+    callServer('apiGetActivityLogs', [{}], function(res) {
+      hideLoading();
+      if (res.success && res.data) {
+        var tbody = document.getElementById('audit-table-tbody');
+        var logs = res.data.logs || [];
+        tbody.innerHTML = logs.map(function(l) {
+          return '<tr>' +
+            '<td>' + (l.timestamp ? l.timestamp.substring(0, 19).replace('T', ' ') : '-') + '</td>' +
+            '<td><strong>' + l.actorEmail + '</strong></td>' +
+            '<td><span class="badge badge-active">' + l.action + '</span></td>' +
+            '<td>' + l.entityType + ' (' + l.entityId + ')</td>' +
+            '<td>' + l.description + '</td>' +
+            '<td><code style="font-size:10px;">' + (l.requestId || '-') + '</code></td>' +
+            '</tr>';
+        }).join('');
+      }
+    });
+  }
+
+  function loadSettings() {
+    if (state.office) {
+      document.getElementById('setting-office-name').value = state.office.officeName || '';
+      document.getElementById('setting-notary-name').value = state.office.notaryName || '';
+      document.getElementById('setting-notary-title').value = state.office.notaryTitle || '';
+      document.getElementById('setting-city').value = state.office.city || '';
+      document.getElementById('setting-phone').value = state.office.phone || '';
+      document.getElementById('setting-address').value = state.office.address || '';
+      document.getElementById('setting-bank-name').value = state.office.bankName || '';
+      document.getElementById('setting-bank-acc').value = state.office.bankAccount || '';
+    }
+
+    // Load Backup History
+    callServer('apiGetBackupHistory', [], function(res) {
+      if (res.success && res.data) {
+        var list = res.data;
+        var container = document.getElementById('settings-backup-list');
+        if (list.length > 0) {
+          document.getElementById('setting-last-backup').innerText = 'Backup Terakhir: ' + list[0].createdAt.substring(0, 19).replace('T', ' ');
+          container.innerHTML = list.map(function(b) {
+            return '<div style="font-size:12px; padding:6px 0; border-bottom:1px solid #f1f5f9;">' +
+              '<strong>' + b.fileName + '</strong><br>' +
+              '<span style="color:#64748b;">' + b.createdAt.substring(0, 19).replace('T', ' ') + ' | Status: ' + b.status + '</span>' +
+              '</div>';
+          }).join('');
+        }
+      }
+    });
+
+    // Load Staff Users and Login Credentials Table (Super Admin)
+    callServer('apiGetUsers', [], function(res) {
+      if (res.success && res.data) {
+        var tbody = document.getElementById('settings-users-tbody');
+        var users = res.data;
+        tbody.innerHTML = users.map(function(u) {
+          var isMe = state.currentUser && state.currentUser.userId === u.userId;
+          return '<tr>' +
+            '<td><strong>' + u.name + '</strong>' + (isMe ? ' <span class="badge badge-safe">Akun Anda</span>' : '') + '</td>' +
+            '<td>' + u.email + '</td>' +
+            '<td><span class="badge badge-active">' + u.role + '</span></td>' +
+            '<td>' + (u.phone || '-') + '</td>' +
+            '<td>' + renderStatusBadge(u.status) + '</td>' +
+            '<td>' + (u.lastLoginAt ? u.lastLoginAt.substring(0, 19).replace('T', ' ') : 'Belum pernah login') + '</td>' +
+            '<td style="text-align:right; white-space:nowrap;">' +
+            '<button class="btn btn-secondary btn-sm" onclick="App.openResetPasswordModal(\'' + u.userId + '\', \'' + u.name.replace(/'/g, "\\'") + '\', \'' + u.email + '\')">🔑 Reset Password</button> ' +
+            (!isMe && u.status === 'ACTIVE' ? '<button class="btn btn-danger btn-sm" onclick="App.deactivateUser(\'' + u.userId + '\')">Nonaktifkan</button>' : '') +
+            '</td>' +
+            '</tr>';
+        }).join('');
+      }
+    });
+  }
+
+  // ==========================================
+  // FORM SUBMISSION HANDLERS
+  // ==========================================
+
+  function submitNewMatter(e) {
+    e.preventDefault();
+    var payload = {
+      clientId: document.getElementById('nm-client-id').value,
+      serviceTypeId: document.getElementById('nm-service-type-id').value,
+      title: document.getElementById('nm-title').value,
+      assignedPIC: document.getElementById('nm-pic').value,
+      priority: document.getElementById('nm-priority').value,
+      organizationId: document.getElementById('nm-org-id').value,
+      deadline: document.getElementById('nm-deadline').value,
+      description: document.getElementById('nm-description').value
+    };
+
+    showLoading('Membuat perkara baru...');
+    callServer('apiCreateMatter', [payload], function(res) {
+      hideLoading();
+      if (res.success) {
+        closeModal('modal-new-matter');
+        showToast('Perkara ' + res.data.matterNumber + ' berhasil dibuat!', 'success');
+        navigateTo('matter-detail', { matterId: res.data.matterId });
+      } else {
+        showToast(res.message, 'error');
+      }
+    });
+  }
+
+  function openTransitionWorkflowModal() {
+    var detail = state.activeMatterDetail;
+    if (!detail) return;
+    var current = detail.matter.currentWorkflowStep;
+
+    var steps = [
+      'INCOMING', 'DOCUMENT_CHECKING', 'WAITING_DOCUMENT', 'DRAFTING',
+      'INTERNAL_REVIEW', 'NOTARY_APPROVAL', 'CLIENT_APPROVAL', 'SIGNING', 'PROCESSING', 'COMPLETED'
+    ];
+
+    var sel = document.getElementById('tw-target-step');
+    sel.innerHTML = steps.map(function(s) {
+      return '<option value="' + s + '" ' + (s === current ? 'disabled' : '') + '>' + s + '</option>';
+    }).join('');
+
+    openModal('modal-transition-workflow');
+  }
+
+  function submitTransitionWorkflow(e) {
+    e.preventDefault();
+    var targetStep = document.getElementById('tw-target-step').value;
+    var note = document.getElementById('tw-note').value;
+    var isOverride = document.getElementById('tw-is-override').checked;
+    var overrideReason = document.getElementById('tw-override-reason').value;
+
+    showLoading('Menyimpan transisi tahapan...');
+    callServer('apiTransitionWorkflow', [state.activeMatterId, targetStep, note, isOverride, overrideReason], function(res) {
+      hideLoading();
+      if (res.success) {
+        closeModal('modal-transition-workflow');
+        showToast('Tahapan alur kerja berhasil diperbarui ke: ' + targetStep, 'success');
+        loadMatterDetail(state.activeMatterId);
+      } else {
+        showToast(res.message, 'error');
+      }
+    });
+  }
+
+  function openCancelMatterModal() {
+    openModal('modal-cancel-matter');
+  }
+
+  function submitCancelMatter(e) {
+    e.preventDefault();
+    var reason = document.getElementById('cm-reason').value;
+    var note = document.getElementById('cm-note').value;
+
+    showLoading('Membatalkan perkara...');
+    callServer('apiCancelMatter', [state.activeMatterId, reason, note], function(res) {
+      hideLoading();
+      if (res.success) {
+        closeModal('modal-cancel-matter');
+        showToast('Perkara telah dibatalkan dan dipindahkan ke arsip.', 'warning');
+        loadMatterDetail(state.activeMatterId);
+      } else {
+        showToast(res.message, 'error');
+      }
+    });
+  }
+
+  function restoreMatter(matterId) {
+    if (!confirm('Apakah Anda yakin ingin memulihkan perkara ini kembali ke status AKTIF?')) return;
+    showLoading('Memulihkan perkara...');
+    callServer('apiRestoreMatter', [matterId, 'Dipulihkan oleh pengguna'], function(res) {
+      hideLoading();
+      if (res.success) {
+        showToast('Perkara berhasil dipulihkan kembali ke status AKTIF.', 'success');
+        loadMatterDetail(matterId);
+      } else {
+        showToast(res.message, 'error');
+      }
+    });
+  }
+
+  function openSetPendingModal() {
+    openModal('modal-set-pending');
+  }
+
+  function submitSetPending(e) {
+    e.preventDefault();
+    var payload = {
+      matterId: state.activeMatterId,
+      reasonCode: document.getElementById('sp-reason-code').value,
+      reasonDetail: document.getElementById('sp-reason-detail').value,
+      expectedResumeDate: document.getElementById('sp-resume-date').value
+    };
+
+    showLoading('Menetapkan status pending...');
+    callServer('apiSetMatterPending', [payload], function(res) {
+      hideLoading();
+      if (res.success) {
+        closeModal('modal-set-pending');
+        showToast('Perkara berhasil ditetapkan PENDING.', 'warning');
+        loadMatterDetail(state.activeMatterId);
+      } else {
+        showToast(res.message, 'error');
+      }
+    });
+  }
+
+  function resolvePending(pendingId) {
+    var note = prompt('Masukkan catatan penyelesaian pending:');
+    if (note === null) return;
+
+    showLoading('Menyelesaikan status pending...');
+    callServer('apiResolvePending', [pendingId, note], function(res) {
+      hideLoading();
+      if (res.success) {
+        showToast('Status pending berhasil diselesaikan! Perkara kembali AKTIF.', 'success');
+        refreshCurrentView();
+      } else {
+        showToast(res.message, 'error');
+      }
+    });
+  }
+
+  function openAddTaskModal() {
+    openModal('modal-add-task');
+  }
+
+  function submitAddTask(e) {
+    e.preventDefault();
+    var payload = {
+      matterId: state.activeMatterId,
+      title: document.getElementById('at-title').value,
+      assignedTo: document.getElementById('at-assigned-to').value,
+      priority: document.getElementById('at-priority').value,
+      deadline: document.getElementById('at-deadline').value,
+      description: document.getElementById('at-description').value
+    };
+
+    showLoading('Menambahkan tugas...');
+    callServer('apiCreateTask', [payload], function(res) {
+      hideLoading();
+      if (res.success) {
+        closeModal('modal-add-task');
+        showToast('Tugas ' + res.data.taskNumber + ' berhasil ditugaskan!', 'success');
+        loadMatterDetail(state.activeMatterId);
+      } else {
+        showToast(res.message, 'error');
+      }
+    });
+  }
+
+  function quickCompleteTask(taskId) {
+    showLoading('Menyelesaikan tugas...');
+    callServer('apiCompleteTask', [taskId, 'Selesai melalui My Work'], function(res) {
+      hideLoading();
+      if (res.success) {
+        showToast('Tugas berhasil diselesaikan (100%)!', 'success');
+        loadMyWork();
+      } else {
+        showToast(res.message, 'error');
+      }
+    });
+  }
+
+  function openAddChecklistModal() {
+    openModal('modal-add-checklist');
+  }
+
+  function submitAddChecklistItem(e) {
+    e.preventDefault();
+    var docType = document.getElementById('ac-doc-type').value;
+    var req = document.getElementById('ac-required').checked;
+    var note = document.getElementById('ac-note').value;
+
+    showLoading('Menambahkan syarat checklist...');
+    callServer('apiAddChecklistItem', [state.activeMatterId, docType, req, note], function(res) {
+      hideLoading();
+      if (res.success) {
+        closeModal('modal-add-checklist');
+        showToast('Syarat dokumen berhasil ditambahkan!', 'success');
+        loadMatterDetail(state.activeMatterId);
+      } else {
+        showToast(res.message, 'error');
+      }
+    });
+  }
+
+  function openVerifyChecklistModal(itemId, docName, currentStatus) {
+    document.getElementById('vc-item-id').value = itemId;
+    document.getElementById('vc-doc-name').innerText = docName;
+    document.getElementById('vc-status').value = currentStatus;
+    openModal('modal-verify-checklist');
+  }
+
+  function submitVerifyChecklist(e) {
+    e.preventDefault();
+    var itemId = document.getElementById('vc-item-id').value;
+    var status = document.getElementById('vc-status').value;
+    var note = document.getElementById('vc-note').value;
+
+    showLoading('Menyimpan verifikasi berkas...');
+    callServer('apiUpdateChecklistItem', [itemId, status, note, '', ''], function(res) {
+      hideLoading();
+      if (res.success) {
+        closeModal('modal-verify-checklist');
+        showToast('Verifikasi berkas berhasil disimpan!', 'success');
+        loadMatterDetail(state.activeMatterId);
+      } else {
+        showToast(res.message, 'error');
+      }
+    });
+  }
+
+  function generateDocRequestText() {
+    callServer('apiGetDocumentRequestText', [state.activeMatterId], function(res) {
+      if (res.success && res.data) {
+        prompt('Salin permohonan dokumen untuk klien (WhatsApp / Pesan):', res.data);
+      }
+    });
+  }
+
+  function submitNewClient(e) {
+    e.preventDefault();
+    var payload = {
+      name: document.getElementById('nc-name').value,
+      clientType: document.getElementById('nc-type').value,
+      identifier: document.getElementById('nc-id').value,
+      phone: document.getElementById('nc-phone').value,
+      email: document.getElementById('nc-email').value,
+      address: document.getElementById('nc-address').value
+    };
+
+    showLoading('Menyimpan klien...');
+    callServer('apiCreateClient', [payload], function(res) {
+      hideLoading();
+      if (res.success) {
+        closeModal('modal-new-client');
+        showToast('Klien ' + res.data.name + ' berhasil ditambahkan!', 'success');
+        populateGlobalDropdowns();
+        loadClients();
+      } else {
+        showToast(res.message, 'error');
+      }
+    });
+  }
+
+  function submitNewIntake(e) {
+    e.preventDefault();
+    var payload = {
+      clientName: document.getElementById('ni-name').value,
+      phone: document.getElementById('ni-phone').value,
+      serviceTypeId: document.getElementById('ni-service').value,
+      quotationAmount: document.getElementById('ni-amount').value,
+      notes: document.getElementById('ni-notes').value
+    };
+
+    showLoading('Menyimpan intake...');
+    callServer('apiCreateIntake', [payload], function(res) {
+      hideLoading();
+      if (res.success) {
+        closeModal('modal-new-intake');
+        showToast('Prospek intake berhasil dicatat!', 'success');
+        loadClients();
+      } else {
+        showToast(res.message, 'error');
+      }
+    });
+  }
+
+  function convertIntake(intakeId) {
+    if (!confirm('Konversi prospek ini menjadi perkara aktif sekarang?')) return;
+    showLoading('Mengkonversi intake ke perkara...');
+    callServer('apiConvertIntakeToMatter', [intakeId, {}], function(res) {
+      hideLoading();
+      if (res.success) {
+        showToast('Berhasil dikonversi menjadi perkara ' + res.data.matterNumber + '!', 'success');
+        navigateTo('matter-detail', { matterId: res.data.matterId });
+      } else {
+        showToast(res.message, 'error');
+      }
+    });
+  }
+
+  function openScheduleSigningModal() {
+    openModal('modal-schedule-signing');
+  }
+
+  function submitScheduleSigning(e) {
+    e.preventDefault();
+    var payload = {
+      matterId: state.activeMatterId,
+      date: document.getElementById('ss-date').value,
+      startTime: document.getElementById('ss-time').value,
+      participants: document.getElementById('ss-participants').value,
+      location: document.getElementById('ss-location').value,
+      notes: document.getElementById('ss-notes').value
+    };
+
+    showLoading('Menjadwalkan penandatanganan...');
+    callServer('apiScheduleSigning', [payload], function(res) {
+      hideLoading();
+      if (res.success) {
+        closeModal('modal-schedule-signing');
+        showToast('Jadwal penandatanganan berhasil disimpan!', 'success');
+        loadMatterDetail(state.activeMatterId);
+      } else {
+        showToast(res.message, 'error');
+      }
+    });
+  }
+
+  function openCreateInvoiceModal() {
+    document.getElementById('ci-date').value = getTodayIso();
+    var d = new Date();
+    d.setDate(d.getDate() + 14); // default +14 days
+    document.getElementById('ci-due').value = d.toISOString().substring(0, 10);
+    document.getElementById('ci-item-desc').value = 'Jasa Notaris & PPAT';
+    document.getElementById('ci-item-amount').value = '';
+    document.getElementById('ci-discount').value = '0';
+    document.getElementById('ci-notes').value = '';
+    openModal('modal-create-invoice');
+  }
+
+  function submitCreateInvoice(e) {
+    e.preventDefault();
+    var detail = state.activeMatterDetail;
+    if (!detail) return;
+
+    var payload = {
+      matterId: state.activeMatterId,
+      clientId: detail.matter.clientId,
+      invoiceDate: document.getElementById('ci-date').value,
+      dueDate: document.getElementById('ci-due').value,
+      items: [
+        {
+          description: document.getElementById('ci-item-desc').value,
+          amount: document.getElementById('ci-item-amount').value
+        }
+      ],
+      discount: document.getElementById('ci-discount').value,
+      notes: document.getElementById('ci-notes').value
+    };
+
+    showLoading('Menerbitkan tagihan invoice...');
+    callServer('apiCreateInvoice', [payload], function(res) {
+      hideLoading();
+      if (res.success) {
+        closeModal('modal-create-invoice');
+        showToast('Tagihan ' + res.data.invoiceNumber + ' berhasil diterbitkan!', 'success');
+        loadMatterDetail(state.activeMatterId);
+      } else {
+        showToast(res.message, 'error');
+      }
+    });
+  }
+
+  function openRecordPaymentModal(invoiceId, outstanding) {
+    document.getElementById('rp-invoice-id').value = invoiceId;
+    document.getElementById('rp-outstanding-display').innerText = formatRupiah(outstanding);
+    document.getElementById('rp-amount').value = outstanding;
+    document.getElementById('rp-date').value = getTodayIso();
+    openModal('modal-record-payment');
+  }
+
+  function submitRecordPayment(e) {
+    e.preventDefault();
+    var payload = {
+      invoiceId: document.getElementById('rp-invoice-id').value,
+      amount: document.getElementById('rp-amount').value,
+      paymentDate: document.getElementById('rp-date').value,
+      method: document.getElementById('rp-method').value,
+      reference: document.getElementById('rp-reference').value
+    };
+
+    showLoading('Memposting pembayaran...');
+    callServer('apiRecordPayment', [payload], function(res) {
+      hideLoading();
+      if (res.success) {
+        closeModal('modal-record-payment');
+        showToast('Pembayaran berhasil dicatat! Status: ' + res.data.invoiceStatus, 'success');
+        if (state.currentView === 'matter-detail') loadMatterDetail(state.activeMatterId);
+        else if (state.currentView === 'invoices') loadInvoices();
+      } else {
+        showToast(res.message, 'error');
+      }
+    });
+  }
+
+  function openPdfPreview(type, entityId) {
+    showLoading('Menghasilkan pratinjau dokumen...');
+    callServer('apiGetPdfHtml', [type, entityId], function(res) {
+      hideLoading();
+      if (res.success && res.data) {
+        var iframe = document.getElementById('pdf-preview-iframe');
+        iframe.srcdoc = res.data;
+        openModal('modal-pdf-preview');
+      } else {
+        showToast(res.message, 'error');
+      }
+    });
+  }
+
+  function printPreviewContent() {
+    var iframe = document.getElementById('pdf-preview-iframe');
+    if (iframe && iframe.contentWindow) {
+      iframe.contentWindow.print();
+    }
+  }
+
+  function saveOfficeProfile(e) {
+    e.preventDefault();
+    var payload = {
+      officeName: document.getElementById('setting-office-name').value,
+      notaryName: document.getElementById('setting-notary-name').value,
+      notaryTitle: document.getElementById('setting-notary-title').value,
+      city: document.getElementById('setting-city').value,
+      phone: document.getElementById('setting-phone').value,
+      address: document.getElementById('setting-address').value,
+      bankName: document.getElementById('setting-bank-name').value,
+      bankAccount: document.getElementById('setting-bank-acc').value
+    };
+
+    showLoading('Menyimpan profil kantor...');
+    callServer('apiUpdateOfficeProfile', [payload], function(res) {
+      hideLoading();
+      if (res.success) {
+        state.office = res.data;
+        showToast('Profil kantor dan branding berhasil diperbarui!', 'success');
+      } else {
+        showToast(res.message, 'error');
+      }
+    });
+  }
+
+  function runHealthCheck() {
+    showLoading('Menjalankan Diagnostik...');
+    callServer('apiRunHealthCheck', [], function(res) {
+      hideLoading();
+      if (res.success && res.data) {
+        var h = res.data;
+        var container = document.getElementById('settings-health-container');
+        container.innerHTML = '<div style="margin-bottom:8px;"><strong>Status Sistem:</strong> <span class="badge ' + (h.status === 'HEALTHY' ? 'badge-safe' : 'badge-warning') + '">' + h.status + '</span></div>' +
+          h.checks.map(function(c) {
+            return '<div style="font-size:12px; padding:4px 0; border-bottom:1px solid #f1f5f9;">' +
+              '<strong>[' + c.component + ']</strong> ' + c.name + ': <span style="color:' + (c.status === 'PASS' ? '#16a34a' : '#ea580c') + ';">' + c.message + '</span>' +
+              '</div>';
+          }).join('');
+      }
+    });
+  }
+
+  function createBackup() {
+    showLoading('Membuat snapshot backup...');
+    callServer('apiCreateBackup', ['Manual backup via Settings'], function(res) {
+      hideLoading();
+      if (res.success) {
+        showToast('Snapshot backup database berhasil dibuat!', 'success');
+        loadSettings();
+      } else {
+        showToast(res.message, 'error');
+      }
+    });
+  }
+
+  function seedDemoData() {
+    if (!confirm('Apakah Anda yakin ingin melakukan seeding data demo ke database? (Hanya untuk mode DEV/TEST)')) return;
+    showLoading('Melakukan seeding data demo...');
+    callServer('apiSeedDemoData', [], function(res) {
+      hideLoading();
+      if (res.success) {
+        showToast('Seeding data demo berhasil diselesaikan!', 'success');
+        navigateTo('dashboard');
+      } else {
+        showToast(res.message, 'error');
+      }
+    });
+  }
+
+  function submitNewUser(e) {
+    e.preventDefault();
+    var payload = {
+      email: document.getElementById('nu-email').value,
+      name: document.getElementById('nu-name').value,
+      role: document.getElementById('nu-role').value,
+      phone: document.getElementById('nu-phone').value,
+      password: document.getElementById('nu-password').value
+    };
+
+    showLoading('Menambahkan pengguna & membuat password...');
+    callServer('apiCreateUser', [payload], function(res) {
+      hideLoading();
+      if (res.success) {
+        closeModal('modal-new-user');
+        showToast('Staf ' + res.data.name + ' berhasil ditambahkan!', 'success');
+        populateGlobalDropdowns();
+        if (state.currentView === 'settings') loadSettings();
+      } else {
+        showToast(res.message, 'error');
+      }
+    });
+  }
+
+  function deactivateUser(userId) {
+    if (!confirm('Apakah Anda yakin ingin menonaktifkan akses akun staf ini?')) return;
+    showLoading('Menonaktifkan pengguna...');
+    callServer('apiDeactivateUser', [userId], function(res) {
+      hideLoading();
+      if (res.success) {
+        showToast('Akses pengguna berhasil dinonaktifkan.', 'warning');
+        loadSettings();
+      } else {
+        showToast(res.message, 'error');
+      }
+    });
+  }
+
+  function openResetPasswordModal(userId, userName, userEmail) {
+    document.getElementById('rpw-user-id').value = userId;
+    document.getElementById('rpw-target-user-display').innerText = userName + ' (' + userEmail + ')';
+    document.getElementById('rpw-new-password').value = 'NotaryGo123!';
+    openModal('modal-reset-password');
+  }
+
+  function submitResetPassword(e) {
+    e.preventDefault();
+    var userId = document.getElementById('rpw-user-id').value;
+    var newPassword = document.getElementById('rpw-new-password').value;
+
+    showLoading('Mereset password...');
+    callServer('apiResetUserPassword', [userId, newPassword], function(res) {
+      hideLoading();
+      if (res.success) {
+        closeModal('modal-reset-password');
+        showToast('Password pengguna berhasil direset!', 'success');
+        loadSettings();
+      } else {
+        showToast(res.message, 'error');
+      }
+    });
+  }
+
+  function openChangePasswordModal() {
+    document.getElementById('cp-old-password').value = '';
+    document.getElementById('cp-new-password').value = '';
+    document.getElementById('cp-confirm-password').value = '';
+    openModal('modal-change-password');
+  }
+
+  function submitChangePassword(e) {
+    e.preventDefault();
+    var oldPass = document.getElementById('cp-old-password').value;
+    var newPass = document.getElementById('cp-new-password').value;
+    var confirmPass = document.getElementById('cp-confirm-password').value;
+
+    if (newPass !== confirmPass) {
+      return showToast('Konfirmasi password baru tidak cocok.', 'error');
+    }
+
+    if (!state.currentUser) return;
+
+    showLoading('Memperbarui password akun...');
+    callServer('apiChangePassword', [state.currentUser.userId, oldPass, newPass], function(res) {
+      hideLoading();
+      if (res.success) {
+        closeModal('modal-change-password');
+        showToast('Kata sandi Anda berhasil diperbarui!', 'success');
+      } else {
+        showToast(res.message, 'error');
+      }
+    });
+  }
+
+  function submitStaffHandover(e) {
+    e.preventDefault();
+    var fromEmail = document.getElementById('ho-from-email').value;
+    var toEmail = document.getElementById('ho-to-email').value;
+
+    showLoading('Menjalankan handover tanggung jawab...');
+    callServer('apiHandoverStaff', [fromEmail, toEmail], function(res) {
+      hideLoading();
+      if (res.success) {
+        closeModal('modal-handover');
+        var tr = res.data.transferred;
+        showToast('Handover selesai: ' + tr.matters + ' perkara, ' + tr.tasks + ' task dialihkan ke ' + toEmail, 'success');
+      } else {
+        showToast(res.message, 'error');
+      }
+    });
+  }
+
+  function onGlobalSearch(e) {
+    if (e.key === 'Enter') {
+      var query = document.getElementById('global-search-input').value;
+      if (query.trim()) {
+        navigateTo('matters', { searchQuery: query });
+      }
+    }
+  }
+
+  // ==========================================
+  // FORMATTING HELPERS
+  // ==========================================
+
+  function formatRupiah(num) {
+    var val = Math.round(Number(num) || 0);
+    return 'Rp ' + val.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+  }
+
+  function getTodayIso() {
+    var d = new Date();
+    return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2);
+  }
+
+  function getBadgeClassForStatus(status) {
+    if (status === 'COMPLETED' || status === 'VERIFIED' || status === 'PAID' || status === 'READY') return 'badge-safe';
+    if (status === 'ACTIVE' || status === 'ISSUED' || status === 'SCHEDULED') return 'badge-active';
+    if (status === 'PENDING' || status === 'WATCH' || status === 'WAITING') return 'badge-watch';
+    if (status === 'WARNING' || status === 'NEED_REVISION' || status === 'PARTIAL') return 'badge-warning';
+    if (status === 'CANCELLED' || status === 'CRITICAL' || status === 'OVERDUE' || status === 'NOT_READY') return 'badge-critical';
+    if (status === 'ARCHIVED') return 'badge-archived';
+    return 'badge-active';
+  }
+
+  function renderStatusBadge(status) {
+    return '<span class="badge ' + getBadgeClassForStatus(status) + '">' + (status || '-') + '</span>';
+  }
+
+  // Public Interface
+  
+  // -- NEW HANDLERS FOR EDIT, DELETE AND RESET --
+  function confirmDelete(type, id, msg) {
+    document.getElementById('delete-confirm-type').value = type;
+    document.getElementById('delete-confirm-id').value = id;
+    document.getElementById('delete-confirm-msg').innerText = msg || 'Apakah Anda yakin ingin menghapus data ini secara permanen?';
+    openModal('modal-delete-confirm');
+  }
+
+  function executeDelete() {
+    var type = document.getElementById('delete-confirm-type').value;
+    var id = document.getElementById('delete-confirm-id').value;
+    closeModal('modal-delete-confirm');
+    showLoading('Menghapus...');
+    
+    var endpoint = '';
+    if(type === 'CLIENT') endpoint = 'apiDeleteClient';
+    if(type === 'ORG') endpoint = 'apiDeleteOrganization';
+    if(type === 'MATTER') endpoint = 'apiDeleteMatter';
+    if(type === 'TASK') endpoint = 'apiDeleteTask';
+    if(type === 'INVOICE') endpoint = 'apiDeleteInvoice';
+    if(type === 'DOCUMENT') endpoint = 'apiDeleteDocument';
+
+    if(endpoint) {
+      callServer(endpoint, [id], function(res) {
+        hideLoading();
+        if(res.success) {
+          showToast(res.data.message || 'Berhasil dihapus.', 'success');
+          if(type === 'CLIENT') loadClients();
+          if(type === 'ORG') loadOrganizations();
+          if(type === 'MATTER') {
+            if(state.currentView === 'matter-detail') navigateTo('matters');
+            else loadMatters();
+          }
+          if(type === 'TASK') loadTasks();
+          if(type === 'INVOICE') loadInvoices();
+          if(type === 'DOCUMENT' && state.activeMatterId) loadMatterDetail(state.activeMatterId);
+        } else {
+          showToast(res.message, 'error');
+        }
+      });
+    }
+  }
+
+  function submitResetDb(e) {
+    e.preventDefault();
+    var confirmText = document.getElementById('reset-db-confirm-text').value;
+    if(confirmText !== 'RESET') {
+      showToast('Ketik RESET dengan huruf kapital untuk mengonfirmasi.', 'warning');
+      return;
+    }
+    closeModal('modal-reset-db');
+    showLoading('Membersihkan database... Mohon tunggu.');
+    callServer('apiPurgeOperationalData', [], function(res) {
+      hideLoading();
+      if(res.success) {
+        showToast('Database berhasil dibersihkan!', 'success');
+        setTimeout(function(){ window.location.reload(); }, 2000);
+      } else {
+        showToast(res.message, 'error');
+      }
+    });
+  }
+
+  function openEditClientModal(clientId) {
+    var c = state.clientsList ? state.clientsList.find(x => x.clientId === clientId) : null;
+    if(!c) {
+      // Find from table if full list not loaded
+      callServer('apiGetClients', [], function(res) {
+        if(res.success) {
+          state.clientsList = res.data;
+          var cc = state.clientsList.find(x => x.clientId === clientId);
+          if(cc) populateEditClient(cc);
+        }
+      });
+    } else {
+      populateEditClient(c);
+    }
+  }
+
+  function populateEditClient(c) {
+    document.getElementById('edit-client-id').value = c.clientId;
+    document.getElementById('edit-client-type').value = c.clientType || 'INDIVIDU';
+    document.getElementById('edit-client-name').value = c.name;
+    document.getElementById('edit-client-identifier').value = c.identifier || '';
+    document.getElementById('edit-client-phone').value = c.phone || '';
+    document.getElementById('edit-client-email').value = c.email || '';
+    document.getElementById('edit-client-address').value = c.address || '';
+    document.getElementById('edit-client-notes').value = c.notes || '';
+    openModal('modal-edit-client');
+  }
+
+  function submitEditClient(e) {
+    e.preventDefault();
+    var id = document.getElementById('edit-client-id').value;
+    var data = {
+      clientType: document.getElementById('edit-client-type').value,
+      name: document.getElementById('edit-client-name').value,
+      identifier: document.getElementById('edit-client-identifier').value,
+      phone: document.getElementById('edit-client-phone').value,
+      email: document.getElementById('edit-client-email').value,
+      address: document.getElementById('edit-client-address').value,
+      notes: document.getElementById('edit-client-notes').value
+    };
+    closeModal('modal-edit-client');
+    showLoading('Menyimpan...');
+    callServer('apiUpdateClient', [id, data], function(res) {
+      hideLoading();
+      if(res.success) {
+        showToast('Klien diperbarui', 'success');
+        loadClients();
+      } else {
+        showToast(res.message, 'error');
+      }
+    });
+  }
+
+  function openEditOrgModal(orgId) {
+    var org = state.organizations.find(x => x.organizationId === orgId);
+    if(org) {
+      document.getElementById('edit-org-id').value = org.organizationId;
+      document.getElementById('edit-org-type').value = org.type || 'BANK';
+      document.getElementById('edit-org-name').value = org.name;
+      document.getElementById('edit-org-contact').value = org.contactPerson || '';
+      document.getElementById('edit-org-phone').value = org.phone || '';
+      openModal('modal-edit-org');
+    }
+  }
+
+  function submitNewOrg(e) {
+    e.preventDefault();
+    var data = {
+      type: document.getElementById('org-type').value,
+      name: document.getElementById('org-name').value,
+      contactPerson: document.getElementById('org-contact').value,
+      phone: document.getElementById('org-phone').value
+    };
+    closeModal('modal-new-org');
+    showLoading('Menyimpan...');
+    callServer('apiCreateOrganization', [data], function(res) {
+      hideLoading();
+      if(res.success) {
+        showToast('Mitra berhasil ditambahkan', 'success');
+        loadOrganizations();
+      } else {
+        showToast(res.message, 'error');
+      }
+    });
+  }
+
+  function submitEditOrg(e) {
+    e.preventDefault();
+    var id = document.getElementById('edit-org-id').value;
+    var data = {
+      type: document.getElementById('edit-org-type').value,
+      name: document.getElementById('edit-org-name').value,
+      contactPerson: document.getElementById('edit-org-contact').value,
+      phone: document.getElementById('edit-org-phone').value
+    };
+    closeModal('modal-edit-org');
+    showLoading('Menyimpan...');
+    callServer('apiUpdateOrganization', [id, data], function(res) {
+      hideLoading();
+      if(res.success) {
+        showToast('Mitra diperbarui', 'success');
+        loadOrganizations();
+      } else {
+        showToast(res.message, 'error');
+      }
+    });
+  }
+
+  function openEditMatterModal() {
+    if(!state.activeMatterDetail) return;
+    var m = state.activeMatterDetail.matter;
+    document.getElementById('edit-matter-id').value = m.matterId;
+    document.getElementById('edit-matter-title').value = m.title;
+    document.getElementById('edit-matter-deadline').value = m.deadline ? m.deadline.substring(0,10) : '';
+    document.getElementById('edit-matter-priority').value = m.priority || 'MEDIUM';
+    
+    populateStaffSelect('edit-matter-pic', m.assignedPIC);
+    populateStaffSelect('edit-matter-spv', m.supervisor);
+    
+    openModal('modal-edit-matter');
+  }
+
+  function submitEditMatter(e) {
+    e.preventDefault();
+    var id = document.getElementById('edit-matter-id').value;
+    var data = {
+      title: document.getElementById('edit-matter-title').value,
+      deadline: document.getElementById('edit-matter-deadline').value,
+      priority: document.getElementById('edit-matter-priority').value,
+      assignedPIC: document.getElementById('edit-matter-pic').value,
+      supervisor: document.getElementById('edit-matter-spv').value
+    };
+    closeModal('modal-edit-matter');
+    showLoading('Menyimpan...');
+    callServer('apiUpdateMatter', [id, data], function(res) {
+      hideLoading();
+      if(res.success) {
+        showToast('Detail perkara diperbarui', 'success');
+        loadMatterDetail(id);
+      } else {
+        showToast(res.message, 'error');
+      }
+    });
+  }
+
+  function openUploadDocModal() {
+    if(!state.activeMatterId) {
+      showToast('Silakan buka satu perkara terlebih dahulu.', 'warning');
+      return;
+    }
+    document.getElementById('upload-doc-matterId').value = state.activeMatterId;
+    document.getElementById('upload-doc-title').value = '';
+    document.getElementById('upload-doc-version').value = '';
+    document.getElementById('upload-doc-url').value = '';
+    openModal('modal-upload-doc');
+  }
+
+  function submitUploadDoc(e) {
+    e.preventDefault();
+    var data = {
+      matterId: document.getElementById('upload-doc-matterId').value,
+      documentType: document.getElementById('upload-doc-type').value,
+      title: document.getElementById('upload-doc-title').value,
+      version: document.getElementById('upload-doc-version').value,
+      driveUrl: document.getElementById('upload-doc-url').value,
+      status: document.getElementById('upload-doc-status').value
+    };
+    closeModal('modal-upload-doc');
+    showLoading('Mencatat dokumen...');
+    callServer('apiRegisterDocument', [data], function(res) {
+      hideLoading();
+      if(res.success) {
+        showToast('Dokumen berhasil dicatat.', 'success');
+        loadMatterDetail(data.matterId);
+      } else {
+        showToast(res.message, 'error');
+      }
+    });
+  }
+
+  function openUpdateDocStatusModal(docId, docTitle, status) {
+    document.getElementById('update-doc-id').value = docId;
+    document.getElementById('update-doc-title-label').innerText = docTitle;
+    document.getElementById('update-doc-status-val').value = status;
+    document.getElementById('update-doc-notes').value = '';
+    openModal('modal-update-doc-status');
+  }
+
+  function submitUpdateDocStatus(e) {
+    e.preventDefault();
+    var id = document.getElementById('update-doc-id').value;
+    var status = document.getElementById('update-doc-status-val').value;
+    var notes = document.getElementById('update-doc-notes').value;
+    closeModal('modal-update-doc-status');
+    showLoading('Mengupdate status...');
+    callServer('apiUpdateDocumentStatus', [id, status, notes], function(res) {
+      hideLoading();
+      if(res.success) {
+        showToast('Status dokumen diperbarui', 'success');
+        if(state.activeMatterId) loadMatterDetail(state.activeMatterId);
+      } else {
+        showToast(res.message, 'error');
+      }
+    });
+  }
+
+  return {
+
+    confirmDelete: confirmDelete,
+    executeDelete: executeDelete,
+    submitResetDb: submitResetDb,
+    openEditClientModal: openEditClientModal,
+    submitEditClient: submitEditClient,
+    openNewOrgModal: openModal.bind(null, 'modal-new-org'),
+    submitNewOrg: submitNewOrg,
+    openEditOrgModal: openEditOrgModal,
+    submitEditOrg: submitEditOrg,
+    openEditMatterModal: openEditMatterModal,
+    submitEditMatter: submitEditMatter,
+    openUploadDocModal: openUploadDocModal,
+    submitUploadDoc: submitUploadDoc,
+    openUpdateDocStatusModal: openUpdateDocStatusModal,
+    submitUpdateDocStatus: submitUpdateDocStatus,
+    printPdfPreview: printPdfPreview,
+    confirmDeleteMatter: function() {
+      if(state.activeMatterDetail) confirmDelete('MATTER', state.activeMatterDetail.matter.matterId, 'Hapus Perkara ini beserta Task dan Invoice-nya?');
+    },
+
+    state: state,
+    init: init,
+    submitLogin: submitLogin,
+    logout: logout,
+    navigateTo: navigateTo,
+    refreshCurrentView: refreshCurrentView,
+    toggleSidebar: toggleSidebar,
+    openModal: openModal,
+    closeModal: closeModal,
+    showToast: showToast,
+    onMattersFilterChange: onMattersFilterChange,
+    submitNewMatter: submitNewMatter,
+    openTransitionWorkflowModal: openTransitionWorkflowModal,
+    submitTransitionWorkflow: submitTransitionWorkflow,
+    openCancelMatterModal: openCancelMatterModal,
+    submitCancelMatter: submitCancelMatter,
+    restoreMatter: restoreMatter,
+    openSetPendingModal: openSetPendingModal,
+    submitSetPending: submitSetPending,
+    resolvePending: resolvePending,
+    openAddTaskModal: openAddTaskModal,
+    submitAddTask: submitAddTask,
+    quickCompleteTask: quickCompleteTask,
+    openAddChecklistModal: openAddChecklistModal,
+    submitAddChecklistItem: submitAddChecklistItem,
+    openVerifyChecklistModal: openVerifyChecklistModal,
+    submitVerifyChecklist: submitVerifyChecklist,
+    generateDocRequestText: generateDocRequestText,
+    submitNewClient: submitNewClient,
+    submitNewIntake: submitNewIntake,
+    convertIntake: convertIntake,
+    openScheduleSigningModal: openScheduleSigningModal,
+    submitScheduleSigning: submitScheduleSigning,
+    openCreateInvoiceModal: openCreateInvoiceModal,
+    submitCreateInvoice: submitCreateInvoice,
+    openRecordPaymentModal: openRecordPaymentModal,
+    submitRecordPayment: submitRecordPayment,
+    openPdfPreview: openPdfPreview,
+    printPreviewContent: printPreviewContent,
+    saveOfficeProfile: saveOfficeProfile,
+    runHealthCheck: runHealthCheck,
+    createBackup: createBackup,
+    seedDemoData: seedDemoData,
+    submitNewUser: submitNewUser,
+    deactivateUser: deactivateUser,
+    openResetPasswordModal: openResetPasswordModal,
+    submitResetPassword: submitResetPassword,
+    openChangePasswordModal: openChangePasswordModal,
+    submitChangePassword: submitChangePassword,
+    submitStaffHandover: submitStaffHandover,
+    onGlobalSearch: onGlobalSearch
+  };
+})();
+
+document.addEventListener('DOMContentLoaded', function() {
+  App.init();
+});
+</script>

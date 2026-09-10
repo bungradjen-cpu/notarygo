@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Record Payment</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-tertiary-fixed-variant": "#36485b",
+                    "secondary": "#944a00",
+                    "surface-card": "#FFFFFF",
+                    "surface-container-high": "#e7e8e9",
+                    "surface-container": "#edeeef",
+                    "primary-fixed-dim": "#afc8f0",
+                    "on-secondary-fixed": "#301400",
+                    "outline-variant": "#c4c6cf",
+                    "primary": "#000613",
+                    "inverse-on-surface": "#f0f1f2",
+                    "status-critical": "#E74C3C",
+                    "surface-dim": "#d9dadb",
+                    "secondary-fixed": "#ffdcc5",
+                    "error-container": "#ffdad6",
+                    "tertiary-container": "#0d2031",
+                    "surface-container-highest": "#e1e3e4",
+                    "inverse-primary": "#afc8f0",
+                    "on-tertiary-fixed": "#091d2e",
+                    "on-primary": "#ffffff",
+                    "on-background": "#191c1d",
+                    "on-error": "#ffffff",
+                    "surface-tint": "#476083",
+                    "surface-container-low": "#f3f4f5",
+                    "border-subtle": "#E2E8F0",
+                    "tertiary": "#000610",
+                    "status-archived": "#94A3B8",
+                    "surface-bright": "#f8f9fa",
+                    "inverse-surface": "#2e3132",
+                    "background": "#f8f9fa",
+                    "on-secondary-container": "#663100",
+                    "primary-fixed": "#d4e3ff",
+                    "status-warning-medium": "#E67E22",
+                    "status-success": "#10B981",
+                    "on-primary-fixed": "#001c3a",
+                    "on-tertiary": "#ffffff",
+                    "surface": "#f8f9fa",
+                    "surface-container-lowest": "#ffffff",
+                    "tertiary-fixed-dim": "#b5c8df",
+                    "surface-variant": "#e1e3e4",
+                    "outline": "#74777f",
+                    "on-surface-variant": "#43474e",
+                    "on-error-container": "#93000a",
+                    "status-active": "#3498DB",
+                    "tertiary-fixed": "#d1e4fb",
+                    "on-tertiary-container": "#76889d",
+                    "on-surface": "#191c1d",
+                    "on-primary-container": "#6f88ad",
+                    "secondary-container": "#fc8f34",
+                    "on-primary-fixed-variant": "#2f486a",
+                    "primary-container": "#001f3f",
+                    "on-secondary-fixed-variant": "#713700",
+                    "error": "#ba1a1a",
+                    "secondary-fixed-dim": "#ffb783",
+                    "status-warning-low": "#F1C40F",
+                    "on-secondary": "#ffffff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.25rem",
+                    "lg": "0.5rem",
+                    "xl": "0.75rem",
+                    "full": "9999px"
+            },
+            "spacing": {
+                    "sidebar-width": "260px",
+                    "touch-target-min": "44px",
+                    "stack-sm": "0.5rem",
+                    "container-padding": "2rem",
+                    "gutter": "1.5rem",
+                    "stack-md": "1rem"
+            },
+            "fontFamily": {
+                    "body-sm": [
+                            "Inter"
+                    ],
+                    "body-base": [
+                            "Inter"
+                    ],
+                    "display-lg": [
+                            "Inter"
+                    ],
+                    "headline-lg": [
+                            "Inter"
+                    ],
+                    "label-caps": [
+                            "Inter"
+                    ],
+                    "headline-lg-mobile": [
+                            "Inter"
+                    ],
+                    "title-md": [
+                            "Inter"
+                    ],
+                    "stats-number": [
+                            "Inter"
+                    ]
+            },
+            "fontSize": {
+                    "body-sm": [
+                            "14px",
+                            {
+                                    "lineHeight": "20px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "body-base": [
+                            "16px",
+                            {
+                                    "lineHeight": "24px",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "display-lg": [
+                            "32px",
+                            {
+                                    "lineHeight": "40px",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "headline-lg": [
+                            "24px",
+                            {
+                                    "lineHeight": "32px",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "label-caps": [
+                            "12px",
+                            {
+                                    "lineHeight": "16px",
+                                    "letterSpacing": "0.05em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "headline-lg-mobile": [
+                            "20px",
+                            {
+                                    "lineHeight": "28px",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "title-md": [
+                            "18px",
+                            {
+                                    "lineHeight": "24px",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "stats-number": [
+                            "28px",
+                            {
+                                    "lineHeight": "34px",
+                                    "fontWeight": "700"
+                            }
+                    ]
+            }
+    },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-base antialiased md:hidden h-screen flex flex-col">
+<!-- Header (Transactional) -->
+<header class="bg-surface sticky top-0 z-40 border-b border-border-subtle h-touch-target-min flex items-center px-gutter justify-between">
+<div class="flex items-center gap-stack-sm text-primary">
+<span class="material-symbols-outlined cursor-pointer" onclick="window.history.back()">arrow_back</span>
+<h1 class="text-title-md font-title-md">Record Payment</h1>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 overflow-y-auto px-gutter py-container-padding pb-32">
+<!-- Outstanding Summary Card -->
+<div class="bg-surface-card rounded-lg border border-border-subtle p-gutter shadow-[0_4px_12px_rgba(0,0,0,0.03)] mb-container-padding flex flex-col gap-stack-sm items-center text-center">
+<span class="text-label-caps font-label-caps text-on-surface-variant">CURRENT OUTSTANDING</span>
+<div class="text-stats-number font-stats-number text-primary">Rp 45,000,000</div>
+<div class="inline-flex items-center gap-1 bg-error-container text-on-error-container px-2 py-1 rounded-full text-label-caps font-label-caps mt-2">
+<span class="material-symbols-outlined text-[14px]">warning</span>
+                Overdue
+            </div>
+</div>
+<!-- Payment Form -->
+<form class="flex flex-col gap-gutter">
+<!-- Amount Input -->
+<div class="flex flex-col gap-1">
+<label class="text-body-sm font-body-sm text-on-surface-variant" for="amount">Amount (Rp)</label>
+<input class="h-touch-target-min w-full rounded border-outline-variant focus:border-primary focus:ring-primary text-body-base bg-surface-container-lowest" id="amount" placeholder="e.g. 10000000" required="" type="number"/>
+</div>
+<!-- Payment Date Input -->
+<div class="flex flex-col gap-1">
+<label class="text-body-sm font-body-sm text-on-surface-variant" for="date">Payment Date</label>
+<div class="relative">
+<input class="h-touch-target-min w-full rounded border-outline-variant focus:border-primary focus:ring-primary text-body-base bg-surface-container-lowest pl-10" id="date" required="" type="date"/>
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none">calendar_today</span>
+</div>
+</div>
+<!-- Payment Method Select -->
+<div class="flex flex-col gap-1">
+<label class="text-body-sm font-body-sm text-on-surface-variant" for="method">Method</label>
+<div class="relative">
+<select class="h-touch-target-min w-full rounded border-outline-variant focus:border-primary focus:ring-primary text-body-base bg-surface-container-lowest appearance-none pl-10 pr-10" id="method" required="">
+<option disabled="" selected="" value="">Select method</option>
+<option value="bank_transfer">Bank Transfer</option>
+<option value="cash">Cash</option>
+<option value="cheque">Cheque</option>
+</select>
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none">account_balance</span>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 text-on-surface-variant pointer-events-none">expand_more</span>
+</div>
+</div>
+<!-- Notes Textarea -->
+<div class="flex flex-col gap-1">
+<label class="text-body-sm font-body-sm text-on-surface-variant" for="notes">Notes (Optional)</label>
+<textarea class="w-full rounded border-outline-variant focus:border-primary focus:ring-primary text-body-base bg-surface-container-lowest p-3" id="notes" placeholder="Add any references or details..." rows="3"></textarea>
+</div>
+</form>
+</main>
+<!-- Sticky Bottom CTA -->
+<div class="fixed bottom-0 left-0 right-0 p-gutter bg-surface-card border-t border-border-subtle shadow-[0_-4px_12px_rgba(0,0,0,0.05)] z-50">
+<button class="w-full h-touch-target-min bg-primary text-on-primary rounded font-title-md text-title-md flex items-center justify-center gap-stack-sm hover:opacity-90 active:scale-[0.98] transition-all" type="button">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+            Simpan Pembayaran
+        </button>
+</div>
+</body></html>

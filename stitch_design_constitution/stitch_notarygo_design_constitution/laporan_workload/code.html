@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+
+<html lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Laporan &amp; Workload Kantor - NotaryGo</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "inverse-surface": "#2e3132",
+                      "status-active": "#3498DB",
+                      "on-tertiary-fixed": "#091d2e",
+                      "surface-container-lowest": "#ffffff",
+                      "on-error-container": "#93000a",
+                      "on-tertiary-fixed-variant": "#36485b",
+                      "primary-container": "#001f3f",
+                      "primary": "#000613",
+                      "on-background": "#191c1d",
+                      "outline": "#74777f",
+                      "on-secondary-container": "#663100",
+                      "status-success": "#10B981",
+                      "primary-fixed-dim": "#afc8f0",
+                      "error-container": "#ffdad6",
+                      "on-primary": "#ffffff",
+                      "surface-dim": "#d9dadb",
+                      "surface-card": "#FFFFFF",
+                      "surface-tint": "#476083",
+                      "status-archived": "#94A3B8",
+                      "on-primary-fixed": "#001c3a",
+                      "surface-container-low": "#f3f4f5",
+                      "on-secondary": "#ffffff",
+                      "surface-container-highest": "#e1e3e4",
+                      "tertiary-fixed-dim": "#b5c8df",
+                      "border-subtle": "#E2E8F0",
+                      "on-surface-variant": "#43474e",
+                      "on-secondary-fixed-variant": "#713700",
+                      "outline-variant": "#c4c6cf",
+                      "secondary-container": "#fc8f34",
+                      "tertiary-fixed": "#d1e4fb",
+                      "on-secondary-fixed": "#301400",
+                      "status-warning-low": "#F1C40F",
+                      "on-surface": "#191c1d",
+                      "tertiary-container": "#0d2031",
+                      "inverse-on-surface": "#f0f1f2",
+                      "surface-variant": "#e1e3e4",
+                      "on-primary-fixed-variant": "#2f486a",
+                      "inverse-primary": "#afc8f0",
+                      "secondary-fixed-dim": "#ffb783",
+                      "surface-container-high": "#e7e8e9",
+                      "background": "#f8f9fa",
+                      "on-tertiary-container": "#76889d",
+                      "surface": "#f8f9fa",
+                      "surface-bright": "#f8f9fa",
+                      "on-error": "#ffffff",
+                      "secondary-fixed": "#ffdcc5",
+                      "tertiary": "#000610",
+                      "error": "#ba1a1a",
+                      "status-warning-medium": "#E67E22",
+                      "on-primary-container": "#6f88ad",
+                      "surface-container": "#edeeef",
+                      "secondary": "#944a00",
+                      "primary-fixed": "#d4e3ff",
+                      "on-tertiary": "#ffffff",
+                      "status-critical": "#E74C3C"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "container-padding": "2rem",
+                      "gutter": "1.5rem",
+                      "touch-target-min": "44px",
+                      "sidebar-width": "260px",
+                      "stack-md": "1rem",
+                      "stack-sm": "0.5rem"
+              },
+              "fontFamily": {
+                      "body-sm": ["Inter"],
+                      "headline-lg": ["Inter"],
+                      "title-md": ["Inter"],
+                      "headline-lg-mobile": ["Inter"],
+                      "stats-number": ["Inter"],
+                      "body-base": ["Inter"],
+                      "display-lg": ["Inter"],
+                      "label-caps": ["Inter"]
+              },
+              "fontSize": {
+                      "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                      "headline-lg": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "title-md": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
+                      "headline-lg-mobile": ["20px", {"lineHeight": "28px", "fontWeight": "600"}],
+                      "stats-number": ["28px", {"lineHeight": "34px", "fontWeight": "700"}],
+                      "body-base": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "600"}]
+              }
+            }
+          }
+        }
+    </script>
+<style>
+        /* Basic chart utilities for CSS-only visualization */
+        .chart-bar-h { transition: width 0.3s ease; }
+        .chart-bar-v { transition: height 0.3s ease; }
+        .donut-segment {
+            border-radius: 50%;
+            background: conic-gradient(
+                #3498DB 0% 65%, 
+                #e1e3e4 65% 100%
+            );
+        }
+        .donut-hole {
+            background-color: white;
+            border-radius: 50%;
+        }
+        /* Card styling to match Level 1 */
+        .dashboard-card {
+            background-color: var(--color-surface-card, #FFFFFF);
+            border: 1px solid var(--color-border-subtle, #E2E8F0);
+            border-radius: 12px;
+            box-shadow: 0px 4px 12px rgba(0,0,0,0.03);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body-base antialiased flex h-screen overflow-hidden">
+<!-- Shared Component: SideNavBar -->
+<aside class="bg-primary-container dark:bg-primary-container docked h-screen w-sidebar fixed left-0 top-0 border-r border-outline-variant shadow-sm z-50 flex flex-col justify-between py-gutter">
+<div class="px-4">
+<div class="flex items-center gap-3 mb-8">
+<div class="w-8 h-8 rounded bg-primary-fixed flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary-container text-sm" style="font-variation-settings: 'FILL' 1;">account_balance</span>
+</div>
+<div>
+<h1 class="text-title-md font-title-md font-bold text-surface-container-lowest tracking-tight">NOTARYGO™</h1>
+<p class="text-[10px] text-primary-fixed uppercase tracking-wider opacity-80 mt-0.5">Operational System</p>
+</div>
+</div>
+<nav class="flex flex-col gap-1">
+<!-- Active Item: Operations (Context: Dashboard reporting on workload and operations) -->
+<a class="flex items-center gap-stack-md px-4 py-3 bg-on-primary-container/20 text-white border-l-4 border-secondary opacity-90 transition-all rounded-r" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-body-base font-body-base font-medium">Overview</span>
+</a>
+<a class="flex items-center gap-stack-md px-4 py-3 text-on-primary-container hover:text-white hover:bg-on-primary-container/10 transition-colors duration-200 border-l-4 border-transparent rounded-r" href="#">
+<span class="material-symbols-outlined">work</span>
+<span class="text-body-base font-body-base">Operations</span>
+</a>
+<a class="flex items-center gap-stack-md px-4 py-3 text-on-primary-container hover:text-white hover:bg-on-primary-container/10 transition-colors duration-200 border-l-4 border-transparent rounded-r" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="text-body-base font-body-base">Documents</span>
+</a>
+<a class="flex items-center gap-stack-md px-4 py-3 text-on-primary-container hover:text-white hover:bg-on-primary-container/10 transition-colors duration-200 border-l-4 border-transparent rounded-r" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="text-body-base font-body-base">Finance</span>
+</a>
+<a class="flex items-center gap-stack-md px-4 py-3 text-on-primary-container hover:text-white hover:bg-on-primary-container/10 transition-colors duration-200 border-l-4 border-transparent rounded-r" href="#">
+<span class="material-symbols-outlined">settings_accessibility</span>
+<span class="text-body-base font-body-base">Control</span>
+</a>
+</nav>
+</div>
+<div class="px-4">
+<button class="w-full flex items-center justify-center gap-2 py-2 mb-4 border border-outline/30 rounded text-primary-fixed hover:bg-on-primary-container/10 transition-colors text-sm font-medium">
+<span class="material-symbols-outlined text-[18px]">settings</span>
+                Quick Settings
+            </button>
+<a class="flex items-center gap-stack-md px-4 py-3 text-on-primary-container hover:text-white hover:bg-on-primary-container/10 transition-colors duration-200 rounded" href="#">
+<span class="material-symbols-outlined">account_circle</span>
+<span class="text-body-base font-body-base">Owner Profile</span>
+</a>
+</div>
+</aside>
+<!-- Main Workspace Area -->
+<main class="flex-1 flex flex-col ml-[260px] h-screen overflow-hidden">
+<!-- Shared Component: TopNavBar -->
+<header class="bg-surface dark:bg-surface border-b border-border-subtle docked h-touch-target-min w-full sticky top-0 z-40 flex justify-between items-center px-gutter shrink-0">
+<div class="flex items-center gap-4">
+<h2 class="text-title-md font-title-md font-bold text-primary-container dark:text-primary-fixed hidden md:block">Kantor Notaris &amp; PPAT Nama Notaris, S.H., M.Kn.</h2>
+</div>
+<div class="flex items-center gap-4">
+<div class="relative hidden sm:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">search</span>
+<input class="pl-9 pr-4 py-1.5 bg-surface-container-low border border-border-subtle rounded-full text-body-sm focus:outline-none focus:border-primary w-64 h-touch-target-min" placeholder="Search..." type="text"/>
+</div>
+<button class="text-on-surface-variant hover:text-primary transition-colors flex items-center justify-center w-10 h-10 rounded-full hover:bg-surface-container-low">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors flex items-center justify-center w-10 h-10 rounded-full hover:bg-surface-container-low relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-status-critical rounded-full"></span>
+</button>
+<button class="bg-primary-container text-white px-4 py-2 rounded font-medium text-sm flex items-center gap-2 hover:bg-primary transition-colors h-touch-target-min">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                    + Buat
+                </button>
+</div>
+</header>
+<!-- Dashboard Content Canvas -->
+<div class="flex-1 overflow-y-auto p-container-padding pb-24 bg-surface">
+<!-- Page Header -->
+<div class="mb-8 flex justify-between items-end">
+<div>
+<h2 class="text-headline-lg font-headline-lg text-primary mb-1">Laporan &amp; Workload Kantor</h2>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Overview of current operational metrics and staff distribution.</p>
+</div>
+<div class="flex gap-2">
+<button class="flex items-center gap-2 px-4 py-2 bg-surface-card border border-border-subtle rounded text-body-sm font-medium hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[18px]">calendar_today</span>
+                        This Month
+                    </button>
+<button class="flex items-center gap-2 px-4 py-2 bg-surface-card border border-border-subtle rounded text-body-sm font-medium hover:bg-surface-container-low transition-colors">
+<span class="material-symbols-outlined text-[18px]">download</span>
+                        Export
+                    </button>
+</div>
+</div>
+<!-- Section 1: Operational KPIs -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+<!-- KPI Card 1 -->
+<div class="dashboard-card p-6 flex flex-col justify-between h-32 relative overflow-hidden group">
+<div class="absolute right-0 top-0 w-16 h-16 bg-status-active/5 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-110"></div>
+<div class="flex justify-between items-start z-10">
+<span class="text-label-caps font-label-caps text-on-surface-variant uppercase tracking-wider">Active Matters</span>
+<span class="material-symbols-outlined text-status-active">folder_open</span>
+</div>
+<div class="flex items-end gap-3 z-10">
+<span class="text-stats-number font-stats-number text-primary">142</span>
+<span class="text-body-sm text-status-success flex items-center mb-1 font-medium bg-status-success/10 px-1.5 py-0.5 rounded text-xs">
+<span class="material-symbols-outlined text-[14px]">arrow_upward</span> 12%
+                        </span>
+</div>
+</div>
+<!-- KPI Card 2 -->
+<div class="dashboard-card p-6 flex flex-col justify-between h-32 relative overflow-hidden group">
+<div class="absolute right-0 top-0 w-16 h-16 bg-status-success/5 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-110"></div>
+<div class="flex justify-between items-start z-10">
+<span class="text-label-caps font-label-caps text-on-surface-variant uppercase tracking-wider">Completed</span>
+<span class="material-symbols-outlined text-status-success">check_circle</span>
+</div>
+<div class="flex items-end gap-3 z-10">
+<span class="text-stats-number font-stats-number text-primary">84</span>
+<span class="text-body-sm text-status-success flex items-center mb-1 font-medium bg-status-success/10 px-1.5 py-0.5 rounded text-xs">
+<span class="material-symbols-outlined text-[14px]">arrow_upward</span> 5%
+                        </span>
+</div>
+</div>
+<!-- KPI Card 3 -->
+<div class="dashboard-card p-6 flex flex-col justify-between h-32 relative overflow-hidden group">
+<div class="absolute right-0 top-0 w-16 h-16 bg-status-critical/5 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-110"></div>
+<div class="flex justify-between items-start z-10">
+<span class="text-label-caps font-label-caps text-status-critical uppercase tracking-wider font-bold">Overdue Tasks</span>
+<span class="material-symbols-outlined text-status-critical">warning</span>
+</div>
+<div class="flex items-end gap-3 z-10">
+<span class="text-stats-number font-stats-number text-status-critical">18</span>
+<span class="text-body-sm text-status-critical flex items-center mb-1 font-medium bg-status-critical/10 px-1.5 py-0.5 rounded text-xs">
+<span class="material-symbols-outlined text-[14px]">arrow_upward</span> 2
+                        </span>
+</div>
+</div>
+<!-- KPI Card 4 -->
+<div class="dashboard-card p-6 flex flex-col justify-between h-32 relative overflow-hidden group">
+<div class="absolute right-0 top-0 w-16 h-16 bg-primary-container/5 rounded-bl-full -mr-4 -mt-4 transition-transform group-hover:scale-110"></div>
+<div class="flex justify-between items-start z-10">
+<span class="text-label-caps font-label-caps text-on-surface-variant uppercase tracking-wider">Avg. Cycle Time</span>
+<span class="material-symbols-outlined text-primary-container">schedule</span>
+</div>
+<div class="flex items-end gap-2 z-10">
+<span class="text-stats-number font-stats-number text-primary">12</span>
+<span class="text-body-base font-body-base text-on-surface-variant mb-1">days</span>
+</div>
+</div>
+</div>
+<!-- Section 3: Visual Analytics (Placed before table for better hierarchy in dashboards usually) -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+<!-- Chart 1: Matter by Service Type (Horizontal Bar) -->
+<div class="dashboard-card p-6 flex flex-col">
+<h3 class="text-title-md font-title-md text-primary mb-6">Matter by Service Type</h3>
+<div class="flex-1 flex flex-col gap-4 justify-center">
+<!-- Bar 1 -->
+<div>
+<div class="flex justify-between text-body-sm mb-1">
+<span class="font-medium text-on-surface">AJB (Akta Jual Beli)</span>
+<span class="text-on-surface-variant">45%</span>
+</div>
+<div class="w-full bg-surface-container-highest rounded-full h-2 overflow-hidden">
+<div class="bg-primary-container h-full rounded-full chart-bar-h" style="width: 45%;"></div>
+</div>
+</div>
+<!-- Bar 2 -->
+<div>
+<div class="flex justify-between text-body-sm mb-1">
+<span class="font-medium text-on-surface">HT (Hak Tanggungan)</span>
+<span class="text-on-surface-variant">30%</span>
+</div>
+<div class="w-full bg-surface-container-highest rounded-full h-2 overflow-hidden">
+<div class="bg-status-active h-full rounded-full chart-bar-h" style="width: 30%;"></div>
+</div>
+</div>
+<!-- Bar 3 -->
+<div>
+<div class="flex justify-between text-body-sm mb-1">
+<span class="font-medium text-on-surface">PT (Pendirian PT)</span>
+<span class="text-on-surface-variant">15%</span>
+</div>
+<div class="w-full bg-surface-container-highest rounded-full h-2 overflow-hidden">
+<div class="bg-surface-tint h-full rounded-full chart-bar-h" style="width: 15%;"></div>
+</div>
+</div>
+<!-- Bar 4 -->
+<div>
+<div class="flex justify-between text-body-sm mb-1">
+<span class="font-medium text-on-surface">Lainnya</span>
+<span class="text-on-surface-variant">10%</span>
+</div>
+<div class="w-full bg-surface-container-highest rounded-full h-2 overflow-hidden">
+<div class="bg-outline-variant h-full rounded-full chart-bar-h" style="width: 10%;"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Chart 2: Billing Status (Donut Chart) -->
+<div class="dashboard-card p-6 flex flex-col items-center">
+<h3 class="text-title-md font-title-md text-primary mb-6 w-full text-left">Billing Status</h3>
+<div class="relative w-48 h-48 donut-segment flex items-center justify-center my-auto">
+<div class="donut-hole w-32 h-32 flex flex-col items-center justify-center shadow-inner">
+<span class="text-stats-number font-stats-number text-primary">65%</span>
+<span class="text-label-caps font-label-caps text-status-active">PAID</span>
+</div>
+</div>
+<div class="flex gap-6 mt-6 w-full justify-center">
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-status-active"></span>
+<span class="text-body-sm text-on-surface-variant">Paid (65%)</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="w-3 h-3 rounded-full bg-surface-container-highest"></span>
+<span class="text-body-sm text-on-surface-variant">Outstanding</span>
+</div>
+</div>
+</div>
+<!-- Chart 3: Matter Aging (Vertical Bar) -->
+<div class="dashboard-card p-6 flex flex-col">
+<h3 class="text-title-md font-title-md text-primary mb-6">Matter Aging</h3>
+<div class="flex-1 flex items-end justify-between px-4 h-48 pb-2 border-b border-border-subtle mt-4">
+<!-- VBar 1 -->
+<div class="flex flex-col items-center gap-2 group w-1/5">
+<div class="w-full bg-status-success rounded-t-sm chart-bar-v relative" style="height: 70%;">
+<span class="absolute -top-6 left-1/2 -translate-x-1/2 text-xs font-medium text-on-surface opacity-0 group-hover:opacity-100 transition-opacity">70</span>
+</div>
+</div>
+<!-- VBar 2 -->
+<div class="flex flex-col items-center gap-2 group w-1/5">
+<div class="w-full bg-status-active rounded-t-sm chart-bar-v relative" style="height: 45%;">
+<span class="absolute -top-6 left-1/2 -translate-x-1/2 text-xs font-medium text-on-surface opacity-0 group-hover:opacity-100 transition-opacity">45</span>
+</div>
+</div>
+<!-- VBar 3 -->
+<div class="flex flex-col items-center gap-2 group w-1/5">
+<div class="w-full bg-status-warning-medium rounded-t-sm chart-bar-v relative" style="height: 25%;">
+<span class="absolute -top-6 left-1/2 -translate-x-1/2 text-xs font-medium text-on-surface opacity-0 group-hover:opacity-100 transition-opacity">25</span>
+</div>
+</div>
+<!-- VBar 4 -->
+<div class="flex flex-col items-center gap-2 group w-1/5">
+<div class="w-full bg-status-critical rounded-t-sm chart-bar-v relative" style="height: 10%;">
+<span class="absolute -top-6 left-1/2 -translate-x-1/2 text-xs font-medium text-on-surface opacity-0 group-hover:opacity-100 transition-opacity">10</span>
+</div>
+</div>
+</div>
+<div class="flex justify-between px-4 mt-3">
+<span class="text-label-caps font-label-caps text-on-surface-variant w-1/5 text-center">0-7D</span>
+<span class="text-label-caps font-label-caps text-on-surface-variant w-1/5 text-center">8-14D</span>
+<span class="text-label-caps font-label-caps text-on-surface-variant w-1/5 text-center">15-30D</span>
+<span class="text-label-caps font-label-caps text-on-surface-variant w-1/5 text-center">30D+</span>
+</div>
+</div>
+</div>
+<!-- Section 2: Staff Workload Table -->
+<div class="dashboard-card overflow-hidden">
+<div class="p-6 border-b border-border-subtle flex justify-between items-center bg-surface-bright">
+<h3 class="text-title-md font-title-md text-primary">Staff Workload &amp; Capacity</h3>
+<button class="text-body-sm font-medium text-primary-container hover:underline">View All Staff</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface border-b border-border-subtle">
+<th class="py-4 px-6 text-label-caps font-label-caps text-on-surface-variant uppercase tracking-wider">Staff Member</th>
+<th class="py-4 px-6 text-label-caps font-label-caps text-on-surface-variant uppercase tracking-wider text-center">Active Matters</th>
+<th class="py-4 px-6 text-label-caps font-label-caps text-on-surface-variant uppercase tracking-wider text-center">Overdue Tasks</th>
+<th class="py-4 px-6 text-label-caps font-label-caps text-on-surface-variant uppercase tracking-wider text-right">Avg. Completion Time</th>
+</tr>
+</thead>
+<tbody class="text-body-sm font-body-sm">
+<!-- Row 1 -->
+<tr class="border-b border-border-subtle hover:bg-surface-container-lowest transition-colors">
+<td class="py-4 px-6">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-full bg-primary-container text-white flex items-center justify-center font-bold text-sm shrink-0">AS</div>
+<div>
+<p class="font-medium text-on-surface">Ahmad Suyanto</p>
+<p class="text-xs text-on-surface-variant">Senior Staff</p>
+</div>
+</div>
+</td>
+<td class="py-4 px-6 text-center">
+<span class="inline-flex items-center justify-center px-2.5 py-0.5 rounded-full bg-surface-container-high font-medium text-on-surface">24</span>
+</td>
+<td class="py-4 px-6 text-center">
+<span class="inline-flex items-center justify-center px-2.5 py-0.5 rounded-full bg-status-critical/10 text-status-critical font-medium gap-1">
+<span class="material-symbols-outlined text-[14px]">warning</span> 2
+                                    </span>
+</td>
+<td class="py-4 px-6 text-right font-medium text-on-surface-variant">
+                                    8.5 Days
+                                </td>
+</tr>
+<!-- Row 2 -->
+<tr class="border-b border-border-subtle hover:bg-surface-container-lowest transition-colors">
+<td class="py-4 px-6">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-full bg-surface-tint text-white flex items-center justify-center font-bold text-sm shrink-0">BW</div>
+<div>
+<p class="font-medium text-on-surface">Budi Wibowo</p>
+<p class="text-xs text-on-surface-variant">Junior Staff</p>
+</div>
+</div>
+</td>
+<td class="py-4 px-6 text-center">
+<span class="inline-flex items-center justify-center px-2.5 py-0.5 rounded-full bg-surface-container-high font-medium text-on-surface">18</span>
+</td>
+<td class="py-4 px-6 text-center">
+<span class="text-on-surface-variant">-</span>
+</td>
+<td class="py-4 px-6 text-right font-medium text-on-surface-variant">
+                                    12.2 Days
+                                </td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-lowest transition-colors">
+<td class="py-4 px-6">
+<div class="flex items-center gap-3">
+<div class="w-9 h-9 rounded-full bg-status-active text-white flex items-center justify-center font-bold text-sm shrink-0">CD</div>
+<div>
+<p class="font-medium text-on-surface">Citra Dewi</p>
+<p class="text-xs text-on-surface-variant">PPAT Assistant</p>
+</div>
+</div>
+</td>
+<td class="py-4 px-6 text-center">
+<span class="inline-flex items-center justify-center px-2.5 py-0.5 rounded-full bg-surface-container-high font-medium text-on-surface">32</span>
+</td>
+<td class="py-4 px-6 text-center">
+<span class="inline-flex items-center justify-center px-2.5 py-0.5 rounded-full bg-status-warning-medium/10 text-status-warning-medium font-medium gap-1">
+<span class="material-symbols-outlined text-[14px]">schedule</span> 5
+                                    </span>
+</td>
+<td class="py-4 px-6 text-right font-medium text-on-surface-variant">
+                                    9.1 Days
+                                </td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</main>
+</body></html>

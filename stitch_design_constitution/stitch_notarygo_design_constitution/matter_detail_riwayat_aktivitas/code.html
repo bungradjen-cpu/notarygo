@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+
+<html lang="id"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Matter Detail — Riwayat</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-error-container": "#93000a",
+                      "inverse-primary": "#afc8f0",
+                      "surface-variant": "#e1e3e4",
+                      "primary-fixed": "#d4e3ff",
+                      "on-surface": "#191c1d",
+                      "tertiary-container": "#0d2031",
+                      "status-success": "#10B981",
+                      "status-active": "#3498DB",
+                      "surface-card": "#FFFFFF",
+                      "primary-container": "#001f3f",
+                      "status-warning-medium": "#E67E22",
+                      "on-background": "#191c1d",
+                      "tertiary-fixed": "#d1e4fb",
+                      "surface-dim": "#d9dadb",
+                      "tertiary-fixed-dim": "#b5c8df",
+                      "secondary-fixed-dim": "#ffb783",
+                      "on-primary": "#ffffff",
+                      "on-secondary-container": "#663100",
+                      "surface-container-low": "#f3f4f5",
+                      "secondary": "#944a00",
+                      "on-secondary-fixed": "#301400",
+                      "on-secondary": "#ffffff",
+                      "surface-bright": "#f8f9fa",
+                      "secondary-container": "#fc8f34",
+                      "on-tertiary-fixed-variant": "#36485b",
+                      "surface-container": "#edeeef",
+                      "on-tertiary-fixed": "#091d2e",
+                      "surface-container-high": "#e7e8e9",
+                      "secondary-fixed": "#ffdcc5",
+                      "on-primary-container": "#6f88ad",
+                      "inverse-surface": "#2e3132",
+                      "on-secondary-fixed-variant": "#713700",
+                      "on-surface-variant": "#43474e",
+                      "border-subtle": "#E2E8F0",
+                      "primary-fixed-dim": "#afc8f0",
+                      "error": "#ba1a1a",
+                      "primary": "#000613",
+                      "background": "#f8f9fa",
+                      "status-warning-low": "#F1C40F",
+                      "outline": "#74777f",
+                      "surface-tint": "#476083",
+                      "error-container": "#ffdad6",
+                      "on-tertiary-container": "#76889d",
+                      "surface-container-highest": "#e1e3e4",
+                      "surface-container-lowest": "#ffffff",
+                      "on-primary-fixed-variant": "#2f486a",
+                      "surface": "#f8f9fa",
+                      "on-primary-fixed": "#001c3a",
+                      "status-archived": "#94A3B8",
+                      "tertiary": "#000610",
+                      "inverse-on-surface": "#f0f1f2",
+                      "on-error": "#ffffff",
+                      "status-critical": "#E74C3C",
+                      "outline-variant": "#c4c6cf",
+                      "on-tertiary": "#ffffff"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "gutter": "1.5rem",
+                      "touch-target-min": "44px",
+                      "sidebar-width": "260px",
+                      "container-padding": "2rem",
+                      "stack-sm": "0.5rem",
+                      "stack-md": "1rem"
+              },
+              "fontFamily": {
+                      "headline-lg-mobile": [
+                              "Inter"
+                      ],
+                      "display-lg": [
+                              "Inter"
+                      ],
+                      "label-caps": [
+                              "Inter"
+                      ],
+                      "body-sm": [
+                              "Inter"
+                      ],
+                      "stats-number": [
+                              "Inter"
+                      ],
+                      "headline-lg": [
+                              "Inter"
+                      ],
+                      "title-md": [
+                              "Inter"
+                      ],
+                      "body-base": [
+                              "Inter"
+                      ]
+              },
+              "fontSize": {
+                      "headline-lg-mobile": [
+                              "20px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "display-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "label-caps": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-sm": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "stats-number": [
+                              "28px",
+                              {
+                                      "lineHeight": "34px",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "headline-lg": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "title-md": [
+                              "18px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "body-base": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-background text-on-background antialiased flex">
+<!-- SideNavBar -->
+<aside class="docked h-screen w-sidebar fixed left-0 top-0 bg-primary-container dark:bg-primary-container border-r border-outline-variant shadow-sm z-50">
+<div class="flex flex-col h-full py-gutter justify-between">
+<div>
+<div class="px-gutter mb-8 flex items-center gap-3">
+<div class="w-10 h-10 rounded-lg bg-surface-container-lowest flex items-center justify-center shrink-0">
+<img alt="NotaryGo Logo" class="w-6 h-6 object-contain" data-alt="A minimalist logo for a legal or notary firm, featuring scales of justice or a gavel subtly integrated into a geometric N shape. Deep navy and gold color palette. Clean white background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDB15xKC6aRT_ZHxinbp1HyaLQZ82brAyUfyHHxd6FJmkLdWkc_IJLBTVEKymntATt3UUHqAORTZ-sMZUmkVp3f5JjBp-pGH35TYCCdpBQ2jpSAhssJwncjQo8TZU6clMcQaf3wJKzknxSSfzNHWac-vJvIDb8EaXCpcELraL747nyOgDnYgdf5PPU0r3SDiuP-32l4tmxPGdCFZpfkMkP6G5dwlk8hLD4Tx8JfQSfAtNb5pRiIgKY5tw"/>
+</div>
+<div>
+<h1 class="text-title-md font-title-md font-bold text-surface-container-lowest tracking-tight">NOTARYGO™</h1>
+<p class="text-label-caps font-label-caps text-on-primary-container opacity-80">Operational System</p>
+</div>
+</div>
+<nav class="flex flex-col gap-1">
+<a class="flex items-center gap-stack-md px-4 py-3 text-on-primary-container hover:text-white hover:bg-on-primary-container/10 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="text-body-base font-body-base font-medium">Overview</span>
+</a>
+<a class="flex items-center gap-stack-md px-4 py-3 text-on-primary-container hover:text-white hover:bg-on-primary-container/10 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">work</span>
+<span class="text-body-base font-body-base font-medium">Operations</span>
+</a>
+<a class="flex items-center gap-stack-md px-4 py-3 bg-on-primary-container/20 text-white border-l-4 border-secondary opacity-90 transition-all" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="text-body-base font-body-base font-medium">Documents</span>
+</a>
+<a class="flex items-center gap-stack-md px-4 py-3 text-on-primary-container hover:text-white hover:bg-on-primary-container/10 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="text-body-base font-body-base font-medium">Finance</span>
+</a>
+<a class="flex items-center gap-stack-md px-4 py-3 text-on-primary-container hover:text-white hover:bg-on-primary-container/10 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined">settings_accessibility</span>
+<span class="text-body-base font-body-base font-medium">Control</span>
+</a>
+</nav>
+</div>
+<div class="mt-auto flex flex-col gap-4">
+<button class="mx-4 px-4 py-3 bg-surface-container-lowest/10 text-white rounded-lg text-body-sm font-body-sm hover:bg-surface-container-lowest/20 transition-colors border border-surface-container-lowest/20 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">flash_on</span>
+                    Quick Settings
+                </button>
+<a class="flex items-center gap-stack-md px-4 py-3 text-on-primary-container hover:text-white hover:bg-on-primary-container/10 transition-colors duration-200 mt-2 border-t border-outline-variant/30 pt-4" href="#">
+<span class="material-symbols-outlined">account_circle</span>
+<span class="text-body-base font-body-base font-medium">Owner Profile</span>
+</a>
+</div>
+</div>
+</aside>
+<!-- Main Content Area -->
+<div class="ml-sidebar flex-1 min-h-screen flex flex-col bg-surface-bright">
+<!-- TopNavBar -->
+<header class="docked h-touch-target-min w-full sticky top-0 z-40 bg-surface dark:bg-surface border-b border-border-subtle">
+<div class="flex justify-between items-center px-gutter h-full">
+<div class="flex-1 flex items-center">
+<div class="relative w-full max-w-md hidden md:block">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface-container-low border-none rounded-lg text-body-sm font-body-sm focus:ring-2 focus:ring-primary/20 transition-shadow" placeholder="Cari matter, klien, atau dokumen..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6 justify-center flex-1">
+<h2 class="text-title-md font-title-md font-bold text-primary-container dark:text-primary-fixed truncate">Kantor Notaris &amp; PPAT Nama Notaris, S.H., M.Kn.</h2>
+</div>
+<div class="flex-1 flex items-center justify-end gap-4">
+<button class="text-on-surface-variant hover:text-primary transition-colors h-touch-target-min w-touch-target-min flex items-center justify-center rounded-full hover:bg-surface-container">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors h-touch-target-min w-touch-target-min flex items-center justify-center rounded-full hover:bg-surface-container">
+<span class="material-symbols-outlined">help_outline</span>
+</button>
+<button class="px-4 py-2 bg-primary text-on-primary rounded-lg text-body-sm font-body-sm font-medium hover:bg-primary/90 transition-colors shadow-sm flex items-center gap-2">
+                        + Buat
+                    </button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-border-subtle shrink-0 cursor-pointer ml-2">
+<img alt="Owner Profile" class="w-full h-full object-cover" data-alt="A professional headshot of an Indonesian legal professional or notary, wearing formal corporate attire. Soft office lighting, neutral background, conveying trust and authority." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBciHprWyVevC5d-prDxS1XLu-qkeZXBCcvgPIk6EBg8DXbLc89ozI5FQChekzNeSJaCRbcZ948OdgbEbRu79D2uKCTKu-rX2M-rSj3ktosjeOh_GYp_PD9ABhnl8wv1xdc6dzXGhLGaRfetQd0VwpRwINxbo2L9Vt0M44PqCU3fJQdUtcC7rJePFD-WjM7GcmMZlHCD5Y4C2JeaVydbjkAOYprl2GLXzkiXdeKegk-e-ZCceA5wrBfjA"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Canvas -->
+<main class="flex-1 p-container-padding">
+<!-- Matter Header -->
+<div class="mb-8 flex flex-col gap-4">
+<div class="flex items-center gap-2 text-body-sm font-body-sm text-on-surface-variant">
+<a class="hover:text-primary hover:underline" href="#">Documents</a>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+<a class="hover:text-primary hover:underline" href="#">Matter Registry</a>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+<span class="text-primary font-medium">MT-2023-0891</span>
+</div>
+<div class="flex justify-between items-start">
+<div>
+<h1 class="text-display-lg font-display-lg text-primary mb-2">AJB - PT. Maju Bersama</h1>
+<div class="flex items-center gap-3">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-container-low text-on-surface-variant text-label-caps font-label-caps border border-border-subtle">
+<span class="material-symbols-outlined text-[14px]">folder_open</span>
+                                MT-2023-0891
+                            </span>
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-blue-50 text-status-active text-label-caps font-label-caps border border-blue-100">
+<span class="material-symbols-outlined text-[14px]">sync</span>
+                                Review Notaris
+                            </span>
+</div>
+</div>
+<div class="flex gap-3">
+<button class="px-4 py-2 bg-surface-card text-primary border border-border-subtle rounded-lg text-body-sm font-body-sm font-medium hover:bg-surface-container transition-colors shadow-sm flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+                            Edit Detail
+                        </button>
+</div>
+</div>
+</div>
+<!-- Tabs -->
+<div class="border-b border-border-subtle mb-6 flex gap-6">
+<a class="pb-3 text-body-sm font-body-sm font-medium text-on-surface-variant hover:text-primary transition-colors border-b-2 border-transparent hover:border-border-subtle" href="#">
+                    Overview
+                </a>
+<a class="pb-3 text-body-sm font-body-sm font-medium text-on-surface-variant hover:text-primary transition-colors border-b-2 border-transparent hover:border-border-subtle" href="#">
+                    Dokumen
+                </a>
+<a class="pb-3 text-body-sm font-body-sm font-medium text-primary font-bold border-b-2 border-primary" href="#">
+                    Riwayat
+                </a>
+<a class="pb-3 text-body-sm font-body-sm font-medium text-on-surface-variant hover:text-primary transition-colors border-b-2 border-transparent hover:border-border-subtle" href="#">
+                    Keuangan
+                </a>
+</div>
+<!-- Content Area: Riwayat Timeline -->
+<div class="max-w-3xl">
+<div class="bg-surface-card rounded-xl border border-border-subtle p-6 shadow-[0_4px_12px_rgba(0,0,0,0.03)] relative">
+<h3 class="text-title-md font-title-md text-primary mb-6">Aktivitas Hari Ini</h3>
+<div class="relative pl-4">
+<!-- Vertical Line -->
+<div class="absolute left-[23px] top-4 bottom-4 w-px bg-border-subtle"></div>
+<!-- Entry 1 -->
+<div class="relative flex gap-4 mb-8">
+<div class="w-10 h-10 rounded-full border-2 border-surface-card bg-surface-container overflow-hidden shrink-0 z-10">
+<img alt="Dimas Sucipto" class="w-full h-full object-cover" data-alt="Professional headshot of a young Indonesian male legal associate in a formal shirt, smiling slightly, well-lit modern office background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDR6AOeQ07iFIdXKF4l-o0JH2dSOehcYut4frnXHNigE3-JWYo1ERrs2NffdjSsC7vVxtLZccvRxdT76jHOPrcY0NOJB5apDjnEaQ-gTnmFwCROI8rGN8XcHjywLp-157VTmovztObRIUDRlXqxBipmh61wv_mDKYWER4pULlo0gVseSiKrdJ58HEqS5nE_A_NNsB_rk5a_BYlBAlNanseHyMzWh9HsVTNMc15HSffWHXvIy71rsVMh7Q"/>
+</div>
+<div class="flex-1 pt-1">
+<div class="flex justify-between items-start mb-1">
+<p class="text-body-sm font-body-sm font-semibold text-primary">Dimas Sucipto</p>
+<span class="text-label-caps font-label-caps text-on-surface-variant">10:31</span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant mb-2">Mengunggah <span class="font-medium text-primary">Draft AJB V2</span></p>
+<!-- Attached File Preview -->
+<div class="flex items-center gap-3 p-3 rounded-lg border border-border-subtle bg-surface-bright w-max mt-2">
+<div class="w-8 h-8 rounded bg-red-50 text-red-600 flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-[20px]">picture_as_pdf</span>
+</div>
+<div>
+<p class="text-body-sm font-body-sm font-medium text-primary">Draft_AJB_V2_PT_Maju.pdf</p>
+<p class="text-label-caps font-label-caps text-on-surface-variant">2.4 MB</p>
+</div>
+<button class="ml-4 text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-[20px]">download</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Entry 2 -->
+<div class="relative flex gap-4 mb-8">
+<div class="w-10 h-10 rounded-full border-2 border-surface-card bg-surface-container overflow-hidden shrink-0 z-10">
+<img alt="Rina Amelia" class="w-full h-full object-cover" data-alt="Professional headshot of an Indonesian female legal assistant wearing a hijab and formal blazer. Soft natural lighting, conveying competence and professionalism." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZxCbsmbjy10yrnu7f6BoXPgndUS2_Sp7OjyOHjjBEN0UCR81wWe-cnhpGiW6Gqj5om2LBNiA4uuSxzXKXKXs4uYypjEvu7WNYE9n1G7A-07IwK1K_h7tjKJqNVrtZJPJoBSPjy3MgrD4GWC-4UkYmZwg_IzBOA_LCNQx-Uth-XhdlBhJKQgP56HKu8zx-LVe25e0dBN5qrNp5E0LSntCD0Zl_a0axFPQAwGMKETnrXO9-0KQeANdolQ"/>
+</div>
+<div class="flex-1 pt-1">
+<div class="flex justify-between items-start mb-1">
+<p class="text-body-sm font-body-sm font-semibold text-primary">Rina Amelia</p>
+<span class="text-label-caps font-label-caps text-on-surface-variant">09:45</span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Mengubah tahapan dari <span class="line-through text-outline">Penyusunan Draft</span> menjadi <span class="font-medium text-status-active bg-blue-50 px-1 rounded">Review Notaris</span></p>
+</div>
+</div>
+<!-- Entry 3 -->
+<div class="relative flex gap-4">
+<div class="w-10 h-10 rounded-full border-2 border-surface-card bg-primary-container text-on-primary-container flex items-center justify-center shrink-0 z-10">
+<span class="material-symbols-outlined text-[20px]">admin_panel_settings</span>
+</div>
+<div class="flex-1 pt-1">
+<div class="flex justify-between items-start mb-1">
+<p class="text-body-sm font-body-sm font-semibold text-primary">Admin System</p>
+<span class="text-label-caps font-label-caps text-on-surface-variant">08:30</span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Mengubah deadline dari <span class="font-medium">12 Nov 2023</span> ke <span class="font-medium text-status-warning-medium">15 Nov 2023</span></p>
+</div>
+</div>
+</div>
+<div class="mt-8 pt-6 border-t border-border-subtle text-center">
+<button class="text-body-sm font-body-sm font-medium text-primary hover:underline">Muat riwayat sebelumnya</button>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>
