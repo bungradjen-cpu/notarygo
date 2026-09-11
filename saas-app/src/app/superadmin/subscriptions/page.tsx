@@ -42,13 +42,29 @@ export default async function SubscriptionsPage({ searchParams }: PageProps) {
     }
 
     const sb = createAdminClient();
-    const { data: currentSub } = await sb
+    const { data: currentSubData } = await sb
       .from("subscriptions")
       .select("*")
       .eq("org_id", orgId)
       .maybeSingle();
 
-    if (!currentSub) throw new Error("Langganan tidak ditemukan");
+    let currentSub = currentSubData;
+    if (!currentSub) {
+      // Create a default subscription row if none exists
+      const { data: newSub, error: insertErr } = await sb
+        .from("subscriptions")
+        .insert({
+          org_id: orgId,
+          status: "ACTIVE",
+          current_period_start: new Date().toISOString(),
+          current_period_end: new Date().toISOString(),
+        })
+        .select()
+        .single();
+      
+      if (insertErr) throw new Error(insertErr.message);
+      currentSub = newSub;
+    }
 
     const currentEnd = currentSub.current_period_end ? new Date(currentSub.current_period_end) : new Date();
     const newEnd = new Date(Math.max(currentEnd.getTime(), Date.now()) + daysToAdd * 24 * 60 * 60 * 1000);
