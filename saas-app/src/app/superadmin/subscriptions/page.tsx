@@ -1,6 +1,7 @@
 import { SuperadminService } from "@/lib/superadmin/SuperadminService";
 import { requireSuperadmin, logPlatformAdminAudit } from "@/lib/auth/superadmin";
 import { revalidatePath } from "next/cache";
+import { createAdminClient } from "@/utils/supabase/admin";
 
 interface PageProps {
   searchParams: Promise<{ filter?: string; orgId?: string }>;
@@ -40,7 +41,7 @@ export default async function SubscriptionsPage({ searchParams }: PageProps) {
       throw new Error("Alasan perpanjangan wajib diisi minimal 5 karakter untuk audit log.");
     }
 
-    const sb = await (SuperadminService as any).getSupabaseAdmin();
+    const sb = createAdminClient();
     const { data: currentSub } = await sb
       .from("subscriptions")
       .select("*")
