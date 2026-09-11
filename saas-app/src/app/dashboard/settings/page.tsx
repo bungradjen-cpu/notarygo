@@ -258,21 +258,25 @@ export default async function OfficeSettingsPage() {
           </div>
         )}
 
-        {/* Staff Members List */}
         <div className="divide-y divide-[#E2E8F0] text-xs">
-          {teamMembers?.map((tm) => (
+          {teamMembers?.map((tm) => {
+            const profile = Array.isArray(tm.profiles) ? tm.profiles[0] : tm.profiles;
+            const fullName = profile?.full_name || "User";
+            const email = profile?.email;
+
+            return (
             <div key={tm.id} className="p-4 flex flex-col gap-3">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <div className="w-8 h-8 rounded-full bg-[#001f3f] text-[#fc8f34] flex items-center justify-center font-bold text-xs">
-                    {((tm.profiles as any)?.full_name || "U").charAt(0).toUpperCase()}
+                    {(fullName).charAt(0).toUpperCase()}
                   </div>
                   <div>
                     <p className="text-sm font-bold text-[#191c1d]">
-                      {(tm.profiles as any)?.full_name || "User"}
+                      {fullName}
                     </p>
                     <p className="text-gray-500 text-[11px]">
-                      {(tm.profiles as any)?.email}
+                      {email}
                     </p>
                   </div>
                 </div>
@@ -339,7 +343,7 @@ export default async function OfficeSettingsPage() {
                 </details>
               )}
             </div>
-          ))}
+          )})}
         </div>
       </div>
 
