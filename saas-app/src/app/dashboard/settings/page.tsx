@@ -3,6 +3,7 @@ import {
   addStaffAction,
   removeStaffAction,
   updateOfficeProfileAction,
+  adminResetPasswordAction,
 } from "./actions";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -260,53 +261,83 @@ export default async function OfficeSettingsPage() {
         {/* Staff Members List */}
         <div className="divide-y divide-[#E2E8F0] text-xs">
           {teamMembers?.map((tm) => (
-            <div key={tm.id} className="p-4 flex items-center justify-between">
-              <div className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-full bg-[#001f3f] text-[#fc8f34] flex items-center justify-center font-bold text-xs">
-                  {((tm.profiles as any)?.full_name || "U").charAt(0).toUpperCase()}
+            <div key={tm.id} className="p-4 flex flex-col gap-3">
+              <div className="flex items-center justify-between">
+                <div className="flex items-center gap-3">
+                  <div className="w-8 h-8 rounded-full bg-[#001f3f] text-[#fc8f34] flex items-center justify-center font-bold text-xs">
+                    {((tm.profiles as any)?.full_name || "U").charAt(0).toUpperCase()}
+                  </div>
+                  <div>
+                    <p className="text-sm font-bold text-[#191c1d]">
+                      {(tm.profiles as any)?.full_name || "User"}
+                    </p>
+                    <p className="text-gray-500 text-[11px]">
+                      {(tm.profiles as any)?.email}
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-sm font-bold text-[#191c1d]">
-                    {(tm.profiles as any)?.full_name || "User"}
-                  </p>
-                  <p className="text-gray-500 text-[11px]">
-                    {(tm.profiles as any)?.email}
-                  </p>
+
+                <div className="flex items-center gap-3">
+                  <span
+                    className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase ${
+                      tm.role === "OWNER"
+                        ? "bg-amber-100 text-amber-800 border border-amber-200"
+                        : tm.role === "ADMIN"
+                        ? "bg-purple-100 text-purple-800 border border-purple-200"
+                        : tm.role === "NOTARY"
+                        ? "bg-blue-100 text-blue-800 border border-blue-200"
+                        : "bg-gray-100 text-gray-800 border border-gray-200"
+                    }`}
+                  >
+                    {tm.role}
+                  </span>
+
+                  {/* Remove Staff Button (Cannot remove OWNER) */}
+                  {isOwnerOrAdmin && tm.role !== "OWNER" && tm.profile_id !== user.id && (
+                    <form action={removeStaffAction}>
+                      <input type="hidden" name="orgId" value={member.org_id} />
+                      <input type="hidden" name="memberId" value={tm.id} />
+                      <button
+                        type="submit"
+                        title="Hapus Staf dari Kantor"
+                        className="p-1 rounded text-red-500 hover:bg-red-50 hover:text-red-700 transition-colors"
+                      >
+                        <span className="material-symbols-outlined text-[18px]">
+                          delete
+                        </span>
+                      </button>
+                    </form>
+                  )}
                 </div>
               </div>
 
-              <div className="flex items-center gap-3">
-                <span
-                  className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase ${
-                    tm.role === "OWNER"
-                      ? "bg-amber-100 text-amber-800 border border-amber-200"
-                      : tm.role === "ADMIN"
-                      ? "bg-purple-100 text-purple-800 border border-purple-200"
-                      : tm.role === "NOTARY"
-                      ? "bg-blue-100 text-blue-800 border border-blue-200"
-                      : "bg-gray-100 text-gray-800 border border-gray-200"
-                  }`}
-                >
-                  {tm.role}
-                </span>
-
-                {/* Remove Staff Button (Cannot remove OWNER) */}
-                {isOwnerOrAdmin && tm.role !== "OWNER" && tm.profile_id !== user.id && (
-                  <form action={removeStaffAction}>
+              {/* Reset Password Form (Owner/Admin Only) */}
+              {isOwnerOrAdmin && (tm.role !== "OWNER" || tm.profile_id === user.id) && (
+                <details className="ml-11 mt-1 group">
+                  <summary className="text-[10px] font-semibold text-[#3498DB] cursor-pointer hover:underline flex items-center gap-1 list-none">
+                    <span className="material-symbols-outlined text-[14px]">lock_reset</span>
+                    <span>Ubah Kata Sandi</span>
+                  </summary>
+                  <form action={adminResetPasswordAction} className="mt-2 flex items-center gap-2 bg-[#f8f9fa] p-2 rounded border border-[#E2E8F0]">
                     <input type="hidden" name="orgId" value={member.org_id} />
-                    <input type="hidden" name="memberId" value={tm.id} />
+                    <input type="hidden" name="userId" value={tm.profile_id} />
+                    <input
+                      type="password"
+                      name="newPassword"
+                      required
+                      minLength={6}
+                      placeholder="Kata Sandi Baru"
+                      className="h-8 px-2 border border-gray-300 rounded text-[11px] focus:outline-none focus:border-[#001f3f]"
+                    />
                     <button
                       type="submit"
-                      title="Hapus Staf dari Kantor"
-                      className="p-1 rounded text-red-500 hover:bg-red-50 hover:text-red-700 transition-colors"
+                      className="h-8 px-3 bg-[#001f3f] text-white text-[10px] font-bold rounded hover:bg-[#000613]"
                     >
-                      <span className="material-symbols-outlined text-[18px]">
-                        delete
-                      </span>
+                      Simpan Sandi
                     </button>
                   </form>
-                )}
-              </div>
+                </details>
+              )}
             </div>
           ))}
         </div>
