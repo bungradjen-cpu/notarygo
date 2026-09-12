@@ -5,88 +5,166 @@ export async function GET(request: Request) {
   try {
     const sb = createAdminClient();
     
-    // 1. Target Organization ID from user's screenshot
+    // 1. Target Organization ID
     const orgId = "8dd79da6-e87a-4646-85ef-11f35fed4e98";
     
-    // 2. Setup Ina's Account
-    const email = "inamarsina7@gmail.com";
-    const password = "NotaryGoPassword123!";
+    // 2. User Credentials & Info
+    const email = "inamarsina7@gmail.com".toLowerCase().trim();
+    const password = "NotaryGo123!";
+    const fullName = "INA MARSINA, S.H., M.Kn.";
+    const orgName = "Kantor Notaris & PPAT INA MARSINA, S.H., M.Kn.";
     
-    // a) Delete any orphaned profile first
-    const { data: orphanedProfile } = await sb.from('profiles').select('id').eq('email', email).maybeSingle();
-    if (orphanedProfile) {
-      // If it exists, check if it's in auth.users
-      const { data: userInAuth } = await sb.auth.admin.getUserById(orphanedProfile.id).catch(() => ({ data: null }));
-      if (!userInAuth || !userInAuth.user) {
-        await sb.from('profiles').delete().eq('id', orphanedProfile.id);
-      }
+    // a) Update Organization Name & Notary Name
+    const { data: updatedOrg, error: orgUpdateErr } = await sb
+      .from('organizations')
+      .update({
+        name: orgName,
+        notary_name: fullName,
+        updated_at: new Date().toISOString()
+      })
+      .eq('id', orgId)
+      .select()
+      .single();
+    
+    if (orgUpdateErr) {
+      console.warn("Org update error:", orgUpdateErr.message);
     }
-    
-    // b) Create user in auth.users
-    const { data: authData, error: authErr } = await sb.auth.admin.createUser({
-      email,
-      password,
-      email_confirm: true,
-      user_metadata: { full_name: "Ina Marsina" }
-    });
-    
-    let targetUserId = authData?.user?.id;
-    if (authErr) {
-      // If already exists, find the user
-      if (authErr.message.includes("already registered")) {
-         const { data: p } = await sb.from('profiles').select('id').eq('email', email).maybeSingle();
-         targetUserId = p?.id;
-         if (targetUserId) {
-            await sb.auth.admin.updateUserById(targetUserId, { password });
-         }
-      }
+
+    // b) Find or create user in Supabase Auth
+    let targetUserId: string | undefined;
+
+    // Search user by email using listUsers
+    const { data: usersData } = await sb.auth.admin.listUsers();
+    const existingAuthUser = usersData?.users?.find(u => u.email?.toLowerCase() === email);
+
+    if (existingAuthUser) {
+      targetUserId = existingAuthUser.id;
+      // Update password & metadata
+      await sb.auth.admin.updateUserById(targetUserId, {
+        password: password,
+        email_confirm: true,
+        user_metadata: { full_name: fullName }
+      });
+    } else {
+      const { data: newAuth, error: createErr } = await sb.auth.admin.createUser({
+        email,
+        password,
+        email_confirm: true,
+        user_metadata: { full_name: fullName }
+      });
+      if (createErr) throw new Error("Create user error: " + createErr.message);
+      targetUserId = newAuth?.user?.id;
     }
-    
-    // c) Ensure profile exists
-    if (targetUserId) {
-      await sb.from('profiles').upsert({
+
+    if (!targetUserId) {
+      throw new Error("Target user ID not found");
+    }
+
+    // c) Update Profile
+    const { data: profileData, error: profileErr } = await sb
+      .from('profiles')
+      .upsert({
         id: targetUserId,
         email: email,
-        full_name: "Ina Marsina"
-      });
-      
-      // d) Add to organization
-      const { data: existingMember } = await sb.from('organization_members').select('id').eq('org_id', orgId).eq('profile_id', targetUserId).maybeSingle();
-      if (!existingMember) {
-        await sb.from('organization_members').insert({
+        full_name: fullName,
+        updated_at: new Date().toISOString()
+      })
+      .select()
+      .single();
+
+    if (profileErr) {
+      console.warn("Profile upsert error:", profileErr.message);
+    }
+
+    // d) Ensure Role is OWNER in organization_members
+    const { data: existingMember } = await sb
+      .from('organization_members')
+      .select('*')
+      .eq('org_id', orgId)
+      .eq('profile_id', targetUserId)
+      .maybeSingle();
+
+    let memberResult;
+    if (existingMember) {
+      const { data: updatedMem, error: memErr } = await sb
+        .from('organization_members')
+        .update({
+          role: "OWNER",
+          updated_at: new Date().toISOString()
+        })
+        .eq('id', existingMember.id)
+        .select()
+        .single();
+      if (memErr) throw new Error("Update member error: " + memErr.message);
+      memberResult = updatedMem;
+    } else {
+      const { data: newMem, error: memErr } = await sb
+        .from('organization_members')
+        .insert({
           org_id: orgId,
           profile_id: targetUserId,
-          role: "STAFF"
-        });
-      }
+          role: "OWNER"
+        })
+        .select()
+        .single();
+      if (memErr) throw new Error("Insert member error: " + memErr.message);
+      memberResult = newMem;
     }
-    
-    // 3. Setup 1 Year Subscription
-    const { data: currentSubData } = await sb.from('subscriptions').select('*').eq('org_id', orgId).maybeSingle();
-    let currentSub = currentSubData;
+
+    // e) Ensure Active Subscription (1 Year)
+    const { data: currentSub } = await sb
+      .from('subscriptions')
+      .select('*')
+      .eq('org_id', orgId)
+      .maybeSingle();
+
+    let subResult = currentSub;
+    const oneYearLater = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString();
     if (!currentSub) {
-      const { data: newSub } = await sb.from('subscriptions').insert({
-        org_id: orgId,
-        status: "ACTIVE",
-        current_period_start: new Date().toISOString(),
-        current_period_end: new Date().toISOString(),
-      }).select().single();
-      currentSub = newSub;
+      const { data: newSub } = await sb
+        .from('subscriptions')
+        .insert({
+          org_id: orgId,
+          status: "ACTIVE",
+          current_period_start: new Date().toISOString(),
+          current_period_end: oneYearLater,
+        })
+        .select()
+        .single();
+      subResult = newSub;
+    } else {
+      const { data: updatedSub } = await sb
+        .from('subscriptions')
+        .update({
+          status: "ACTIVE",
+          current_period_end: oneYearLater,
+          updated_at: new Date().toISOString(),
+        })
+        .eq('id', currentSub.id)
+        .select()
+        .single();
+      subResult = updatedSub;
     }
-    
-    // Add 365 days
-    if (currentSub) {
-      const currentEnd = currentSub.current_period_end ? new Date(currentSub.current_period_end) : new Date();
-      const newEnd = new Date(Math.max(currentEnd.getTime(), Date.now()) + 365 * 24 * 60 * 60 * 1000);
-      
-      await sb.from('subscriptions').update({
-        status: "ACTIVE",
-        current_period_end: newEnd.toISOString(),
-        updated_at: new Date().toISOString(),
-      }).eq('id', currentSub.id);
-    }
-    
-    return NextResponse.json({ success: true, message: "Ina's account and 1-year subscription setup successfully!" });
+
+    return NextResponse.json({
+      success: true,
+      message: "Akun Ina Marsina berhasil diatur sebagai OWNER kantor!",
+      organization: {
+        id: orgId,
+        name: updatedOrg?.name || orgName,
+        notary_name: updatedOrg?.notary_name || fullName
+      },
+      user: {
+        id: targetUserId,
+        email: email,
+        full_name: profileData?.full_name || fullName,
+        role: memberResult?.role
+      },
+      subscription: {
+        status: subResult?.status,
+        expires_at: subResult?.current_period_end
+      }
+    });
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error.message }, { status: 500 });
   }
