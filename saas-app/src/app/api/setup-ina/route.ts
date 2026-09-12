@@ -89,8 +89,7 @@ export async function GET(request: Request) {
       const { data: updatedMem, error: memErr } = await sb
         .from('organization_members')
         .update({
-          role: "OWNER",
-          updated_at: new Date().toISOString()
+          role: "OWNER"
         })
         .eq('id', existingMember.id)
         .select()
