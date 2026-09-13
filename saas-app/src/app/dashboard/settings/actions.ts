@@ -47,9 +47,8 @@ export async function addStaffAction(formData: FormData) {
   if (authErr) {
     // If user already exists in Auth, fetch their ID instead
     if (authErr.status === 422 || authErr.message.includes("already registered")) {
-      // List users by email (Admin API doesn't have a direct getUserByEmail, but listUsers with filter works, or we query profiles)
-      // Since profiles might not exist if they signed up but failed midway, let's query profiles first.
-      const { data: existingProfile } = await supabase
+      // Find from profiles via adminClient to bypass RLS
+      const { data: existingProfile } = await adminClient
         .from("profiles")
         .select("id")
         .eq("email", email)
@@ -58,27 +57,36 @@ export async function addStaffAction(formData: FormData) {
       if (existingProfile) {
         targetUserId = existingProfile.id;
       } else {
-        throw new Error("Pengguna sudah terdaftar di sistem namun profilnya tidak ditemukan. Silakan hubungi Support.");
+        // Find user by listing users in auth
+        const { data: listData } = await adminClient.auth.admin.listUsers();
+        const found = listData?.users?.find((u) => u.email?.toLowerCase() === email);
+        if (found) {
+          targetUserId = found.id;
+        } else {
+          throw new Error("Pengguna sudah terdaftar di sistem namun profilnya tidak ditemukan. Silakan hubungi Support.");
+        }
       }
     } else {
       throw new Error("Gagal membuat akun staf: " + authErr.message);
     }
   } else if (authData.user) {
     targetUserId = authData.user.id;
-    // Insert into profiles for the newly created Auth user
-    await adminClient.from("profiles").upsert({
-      id: targetUserId,
-      email: email,
-      full_name: fullName,
-    });
   }
 
   if (!targetUserId) {
     throw new Error("Gagal mendapatkan ID pengguna.");
   }
 
+  // Always ensure profile has the full_name and email in the database
+  await adminClient.from("profiles").upsert({
+    id: targetUserId,
+    email: email,
+    full_name: fullName,
+    updated_at: new Date().toISOString(),
+  });
+
   // 3. Check if already member
-  const { data: existingMember } = await supabase
+  const { data: existingMember } = await adminClient
     .from("organization_members")
     .select("id")
     .eq("org_id", orgId)
@@ -101,6 +109,7 @@ export async function addStaffAction(formData: FormData) {
   }
 
   revalidatePath("/dashboard/settings");
+  revalidatePath("/dashboard/team");
 }
 
 export async function adminResetPasswordAction(formData: FormData) {
@@ -160,6 +169,7 @@ export async function adminResetPasswordAction(formData: FormData) {
   }
 
   revalidatePath("/dashboard/settings");
+  revalidatePath("/dashboard/team");
 }
 
 export async function removeStaffAction(formData: FormData) {
@@ -193,6 +203,7 @@ export async function removeStaffAction(formData: FormData) {
   if (error) throw new Error(error.message);
 
   revalidatePath("/dashboard/settings");
+  revalidatePath("/dashboard/team");
 }
 
 export async function updateOfficeProfileAction(formData: FormData) {

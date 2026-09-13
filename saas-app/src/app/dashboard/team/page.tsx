@@ -1,4 +1,5 @@
 import { createClient } from "@/utils/supabase/server";
+import { createAdminClient } from "@/utils/supabase/admin";
 import { addStaffAction, removeStaffAction } from "../settings/actions";
 import { redirect } from "next/navigation";
 import Link from "next/link";
@@ -24,12 +25,45 @@ export default async function TeamManagementPage() {
   const org = member.organizations as any;
   const isOwnerOrAdmin = ["OWNER", "ADMIN"].includes(member.role);
 
-  // Fetch team members with their profiles
-  const { data: teamMembers } = await supabase
+  // Fetch team members with their profiles using adminClient to avoid RLS filtering other members' profiles
+  const adminClient = createAdminClient();
+  const { data: rawTeamMembers } = await adminClient
     .from("organization_members")
     .select("*, profiles(*)")
     .eq("org_id", member.org_id)
     .order("created_at", { ascending: true });
+
+  // Auto-heal profiles if missing from profiles table
+  const teamMembers = await Promise.all(
+    (rawTeamMembers || []).map(async (tm: any) => {
+      let p = Array.isArray(tm.profiles) ? tm.profiles[0] : tm.profiles;
+      if (!p || !p.email || !p.full_name) {
+        try {
+          const { data: authUser } = await adminClient.auth.admin.getUserById(tm.profile_id);
+          if (authUser?.user) {
+            const authName = authUser.user.user_metadata?.full_name || authUser.user.user_metadata?.name;
+            const authEmail = authUser.user.email;
+            p = {
+              ...(p || {}),
+              id: tm.profile_id,
+              full_name: p?.full_name || authName || "Staf Kantor",
+              email: p?.email || authEmail || "-",
+            };
+            // Persist back to profiles table
+            await adminClient.from("profiles").upsert({
+              id: tm.profile_id,
+              full_name: p.full_name,
+              email: p.email,
+              updated_at: new Date().toISOString(),
+            });
+          }
+        } catch (e) {
+          console.warn("Could not enrich profile for", tm.profile_id, e);
+        }
+      }
+      return { ...tm, profiles: p };
+    })
+  );
 
   const totalMembers = teamMembers?.length || 0;
   const notaryCount = teamMembers?.filter((m) => m.role === "NOTARY" || m.role === "OWNER").length || 0;
@@ -186,7 +220,9 @@ export default async function TeamManagementPage() {
             <tbody className="divide-y divide-[#E2E8F0] text-xs text-[#191c1d]">
               {teamMembers && teamMembers.length > 0 ? (
                 teamMembers.map((tm: any) => {
-                  const p = tm.profiles || {};
+                  const p = Array.isArray(tm.profiles) ? tm.profiles[0] : (tm.profiles || {});
+                  const fullName = p?.full_name || "Anggota Kantor";
+                  const email = p?.email || "-";
                   const isSelf = tm.profile_id === user.id;
 
                   return (
@@ -194,11 +230,11 @@ export default async function TeamManagementPage() {
                       <td className="py-4 px-6 font-bold text-[#001f3f] whitespace-nowrap">
                         <div className="flex items-center gap-2.5">
                           <div className="w-8 h-8 rounded-full bg-[#001f3f]/10 text-[#001f3f] flex items-center justify-center text-xs font-bold shrink-0">
-                            {(p.full_name || tm.role || "U").charAt(0).toUpperCase()}
+                            {(fullName).charAt(0).toUpperCase()}
                           </div>
                           <div>
                             <p className="font-semibold text-gray-900">
-                              {p.full_name || "Anggota Kantor"}
+                              {fullName}
                             </p>
                             {isSelf && (
                               <span className="text-[10px] text-emerald-700 font-bold bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200">
@@ -209,7 +245,7 @@ export default async function TeamManagementPage() {
                         </div>
                       </td>
                       <td className="py-4 px-6 whitespace-nowrap text-gray-600 font-mono text-[11px]">
-                        {p.email || "-"}
+                        {email}
                       </td>
                       <td className="py-4 px-6 whitespace-nowrap">
                         <span
@@ -237,22 +273,17 @@ export default async function TeamManagementPage() {
                         </span>
                       </td>
                       <td className="py-4 px-6 whitespace-nowrap text-gray-500 text-[11px]">
-                        {new Date(tm.created_at).toLocaleDateString("id-ID", {
-                          day: "numeric",
-                          month: "short",
-                          year: "numeric",
-                        })}
+                        {tm.created_at
+                          ? new Date(tm.created_at).toLocaleDateString("id-ID", {
+                              day: "numeric",
+                              month: "short",
+                              year: "numeric",
+                            })
+                          : "-"}
                       </td>
                       <td className="py-4 px-6 text-right whitespace-nowrap">
                         {isOwnerOrAdmin && !isSelf && tm.role !== "OWNER" ? (
-                          <form
-                            action={removeStaffAction}
-                            onSubmit={(e) => {
-                              if (!confirm(`Cabut akses staf ${p.full_name || p.email} dari kantor ini?`)) {
-                                e.preventDefault();
-                              }
-                            }}
-                          >
+                          <form action={removeStaffAction}>
                             <input type="hidden" name="orgId" value={member.org_id} />
                             <input type="hidden" name="memberId" value={tm.id} />
                             <button

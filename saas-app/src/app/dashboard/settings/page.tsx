@@ -1,4 +1,5 @@
 import { createClient } from "@/utils/supabase/server";
+import { createAdminClient } from "@/utils/supabase/admin";
 import {
   addStaffAction,
   removeStaffAction,
@@ -29,12 +30,45 @@ export default async function OfficeSettingsPage() {
   const org = member.organizations as any;
   const isOwnerOrAdmin = ["OWNER", "ADMIN"].includes(member.role);
 
-  // Fetch team members
-  const { data: teamMembers } = await supabase
+  // Fetch team members with adminClient to prevent RLS from hiding other members' profiles
+  const adminClient = createAdminClient();
+  const { data: rawTeamMembers } = await adminClient
     .from("organization_members")
     .select("*, profiles(*)")
     .eq("org_id", member.org_id)
     .order("created_at", { ascending: true });
+
+  // Auto-heal profiles if full_name or email is not yet in profiles table
+  const teamMembers = await Promise.all(
+    (rawTeamMembers || []).map(async (tm: any) => {
+      let p = Array.isArray(tm.profiles) ? tm.profiles[0] : tm.profiles;
+      if (!p || !p.email || !p.full_name) {
+        try {
+          const { data: authUser } = await adminClient.auth.admin.getUserById(tm.profile_id);
+          if (authUser?.user) {
+            const authName = authUser.user.user_metadata?.full_name || authUser.user.user_metadata?.name;
+            const authEmail = authUser.user.email;
+            p = {
+              ...(p || {}),
+              id: tm.profile_id,
+              full_name: p?.full_name || authName || "Staf Kantor",
+              email: p?.email || authEmail || "-",
+            };
+            // Persist back to profiles table
+            await adminClient.from("profiles").upsert({
+              id: tm.profile_id,
+              full_name: p.full_name,
+              email: p.email,
+              updated_at: new Date().toISOString(),
+            });
+          }
+        } catch (e) {
+          console.warn("Could not enrich profile in settings for", tm.profile_id, e);
+        }
+      }
+      return { ...tm, profiles: p };
+    })
+  );
 
   // Fetch subscription
   const { data: subscription } = await supabase

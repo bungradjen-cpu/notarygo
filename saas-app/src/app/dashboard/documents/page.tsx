@@ -71,40 +71,60 @@ export default async function DocumentCenterPage({
           <span className="material-symbols-outlined text-[#001f3f] text-lg">upload_file</span>
           Unggah Dokumen Baru
         </h2>
-        <form action={uploadDocumentAction} className="grid grid-cols-1 sm:grid-cols-4 gap-3">
+        <form action={uploadDocumentAction} className="flex flex-col gap-3">
           <input type="hidden" name="orgId" value={member.org_id} />
 
-          <div className="sm:col-span-2">
-            <input
-              type="text"
-              name="title"
-              required
-              placeholder="Nama Dokumen (contoh: Draf AJB, KTP Penghadap, Salinan Sertifikat)..."
-              className="w-full h-10 px-3 border border-[#c4c6cf] rounded-md text-xs text-[#191c1d] focus:border-[#001f3f] focus:outline-none"
-            />
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div>
+              <label className="text-[11px] font-bold text-gray-700 uppercase tracking-wider block mb-1">
+                Nama Dokumen *
+              </label>
+              <input
+                type="text"
+                name="title"
+                required
+                placeholder="Draf AJB, KTP Penghadap, Sertifikat..."
+                className="w-full h-10 px-3 border border-[#c4c6cf] rounded-md text-xs text-[#191c1d] focus:border-[#001f3f] focus:outline-none bg-white"
+              />
+            </div>
+
+            <div>
+              <label className="text-[11px] font-bold text-gray-700 uppercase tracking-wider block mb-1">
+                Kaitkan Perkara (Opsional)
+              </label>
+              <select
+                name="matterId"
+                className="w-full h-10 px-3 border border-[#c4c6cf] rounded-md text-xs text-[#191c1d] focus:border-[#001f3f] focus:outline-none bg-white"
+              >
+                <option value="">-- Dokumen / Berkas Umum Kantor --</option>
+                {matters?.map((m) => (
+                  <option key={m.id} value={m.id}>
+                    {m.matter_number} - {m.title}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div>
+              <label className="text-[11px] font-bold text-gray-700 uppercase tracking-wider block mb-1">
+                File Berkas (Opsional)
+              </label>
+              <input
+                type="file"
+                name="file"
+                accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
+                className="w-full h-10 px-2 py-1.5 border border-[#c4c6cf] rounded-md text-xs text-gray-600 focus:border-[#001f3f] focus:outline-none bg-white file:mr-2 file:py-1 file:px-2.5 file:rounded-md file:border-0 file:text-[11px] file:font-semibold file:bg-[#001f3f]/10 file:text-[#001f3f] hover:file:bg-[#001f3f]/20 cursor-pointer"
+              />
+            </div>
           </div>
 
-          <div>
-            <select
-              name="matterId"
-              className="w-full h-10 px-3 border border-[#c4c6cf] rounded-md text-xs text-[#191c1d] focus:border-[#001f3f] focus:outline-none bg-white"
-            >
-              <option value="">-- Hubungkan ke Perkara (Opsional) --</option>
-              {matters?.map((m) => (
-                <option key={m.id} value={m.id}>
-                  {m.matter_number} - {m.title}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div>
+          <div className="flex justify-end">
             <button
               type="submit"
-              className="w-full h-10 bg-[#001f3f] hover:bg-[#000613] text-white text-xs font-semibold rounded-md shadow-xs transition-colors flex items-center justify-center gap-1.5"
+              className="h-10 px-6 bg-[#001f3f] hover:bg-[#000613] text-white text-xs font-semibold rounded-md shadow-xs transition-colors flex items-center justify-center gap-1.5"
             >
               <span className="material-symbols-outlined text-[18px] text-[#fc8f34]">add</span>
-              <span>Unggah Dokumen</span>
+              <span>Simpan &amp; Unggah Dokumen</span>
             </button>
           </div>
         </form>
