@@ -54,12 +54,11 @@ export default async function OfficeSettingsPage() {
               full_name: p?.full_name || authName || "Staf Kantor",
               email: p?.email || authEmail || "-",
             };
-            // Persist back to profiles table
+            // Persist back to profiles table (without non-existent updated_at)
             await adminClient.from("profiles").upsert({
               id: tm.profile_id,
               full_name: p.full_name,
               email: p.email,
-              updated_at: new Date().toISOString(),
             });
           }
         } catch (e) {
@@ -245,7 +244,7 @@ export default async function OfficeSettingsPage() {
               </span>
               Tambah / Undang Staf Baru ke Kantor
             </h3>
-            <form action={addStaffAction} className="grid grid-cols-1 sm:grid-cols-4 gap-3">
+            <form action={addStaffAction} className="grid grid-cols-1 sm:grid-cols-5 gap-3">
               <input type="hidden" name="orgId" value={member.org_id} />
               <div>
                 <input
@@ -262,6 +261,16 @@ export default async function OfficeSettingsPage() {
                   name="email"
                   required
                   placeholder="Email Akun Staf *"
+                  className="w-full h-10 px-3 border border-[#c4c6cf] rounded-md text-xs text-[#191c1d] focus:border-[#001f3f] focus:outline-none bg-white"
+                />
+              </div>
+              <div>
+                <input
+                  type="text"
+                  name="password"
+                  required
+                  minLength={6}
+                  placeholder="Kata Sandi Staf *"
                   className="w-full h-10 px-3 border border-[#c4c6cf] rounded-md text-xs text-[#191c1d] focus:border-[#001f3f] focus:outline-none bg-white"
                 />
               </div>

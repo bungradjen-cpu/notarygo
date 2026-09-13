@@ -54,7 +54,6 @@ export default async function TeamManagementPage() {
               id: tm.profile_id,
               full_name: p.full_name,
               email: p.email,
-              updated_at: new Date().toISOString(),
             });
           }
         } catch (e) {
@@ -130,10 +129,10 @@ export default async function TeamManagementPage() {
 
           <div className="p-6">
             <p className="text-xs text-gray-500 mb-4 leading-relaxed">
-              Masukkan nama lengkap dan email staf yang ingin Anda beri akses ke kantor ini. Staf dapat langsung login atau membuat kata sandi menggunakan email yang Anda daftarkan di sini.
+              Masukkan nama lengkap, email, kata sandi, dan peran staf yang ingin Anda beri akses ke kantor ini. Staf dapat langsung masuk ke aplikasi melalui halaman Login tanpa perlu mendaftar ulang.
             </p>
 
-            <form action={addStaffAction} className="grid grid-cols-1 sm:grid-cols-4 gap-3">
+            <form action={addStaffAction} className="grid grid-cols-1 sm:grid-cols-5 gap-3">
               <input type="hidden" name="orgId" value={member.org_id} />
               <div>
                 <label className="text-[11px] font-bold text-gray-700 uppercase tracking-wider block mb-1">
@@ -156,6 +155,19 @@ export default async function TeamManagementPage() {
                   name="email"
                   required
                   placeholder="staf@gmail.com"
+                  className="w-full h-10 px-3 border border-[#c4c6cf] rounded-lg text-xs text-[#191c1d] focus:border-[#001f3f] focus:outline-none bg-white"
+                />
+              </div>
+              <div>
+                <label className="text-[11px] font-bold text-gray-700 uppercase tracking-wider block mb-1">
+                  Kata Sandi Staf *
+                </label>
+                <input
+                  type="text"
+                  name="password"
+                  required
+                  minLength={6}
+                  placeholder="Sandi (min. 6 kar)"
                   className="w-full h-10 px-3 border border-[#c4c6cf] rounded-lg text-xs text-[#191c1d] focus:border-[#001f3f] focus:outline-none bg-white"
                 />
               </div>
@@ -322,20 +334,20 @@ export default async function TeamManagementPage() {
             <h3 className="font-bold text-sm text-[#001f3f]">
               Petunjuk Masuk untuk Staf Baru Kantor:
             </h3>
-            <ol className="list-decimal list-inside space-y-1 text-gray-600 leading-relaxed">
+            <ol className="list-decimal list-inside space-y-1.5 text-gray-600 leading-relaxed">
               <li>
-                Pastikan Anda telah mendaftarkan email staf di formulir <strong>"Tambah / Undang Anggota Tim Baru"</strong> di atas.
+                Owner / Notaris mendaftarkan nama lengkap, email, kata sandi, dan peran staf pada formulir <strong>"Tambah / Undang Anggota Tim Baru"</strong> di atas.
               </li>
               <li>
-                Minta staf untuk membuka link aplikasi:{" "}
-                <strong className="text-[#001f3f] underline">https://notarygo-iota.vercel.app/auth/signup</strong>{" "}
-                (atau klik tombol Masuk jika sudah memiliki password).
+                Berikan informasi email dan kata sandi tersebut kepada staf yang bersangkutan.
               </li>
               <li>
-                Staf mendaftar menggunakan <strong>email yang persis sama</strong> dengan yang Anda daftarkan.
+                Staf dapat <strong>langsung masuk</strong> ke aplikasi melalui link:{" "}
+                <strong className="text-[#001f3f] underline">https://notarygo-iota.vercel.app/auth/login</strong>{" "}
+                menggunakan email dan kata sandi yang telah dibuat tanpa harus mendaftar ulang di halaman pendaftaran.
               </li>
               <li>
-                Sistem NOTARYGO™ akan <strong>secara otomatis menautkan akun staf</strong> ke kantor Anda tanpa perlu membayar atau membuat kantor baru!
+                Sistem NOTARYGO™ akan langsung membuka dashboard kantor Anda sesuai dengan peran dan hak akses staf tersebut!
               </li>
             </ol>
           </div>

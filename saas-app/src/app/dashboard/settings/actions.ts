@@ -14,10 +14,14 @@ export async function addStaffAction(formData: FormData) {
   const orgId = formData.get("orgId") as string;
   const fullName = (formData.get("fullName") as string)?.trim();
   const email = (formData.get("email") as string)?.trim().toLowerCase();
+  const password = (formData.get("password") as string)?.trim();
   const role = (formData.get("role") as string) || "STAFF";
 
   if (!email || !fullName) {
     throw new Error("Nama lengkap dan email staf wajib diisi.");
+  }
+  if (!password || password.length < 6) {
+    throw new Error("Kata sandi staf wajib diisi minimal 6 karakter.");
   }
 
   // 1. Check if caller is OWNER or ADMIN
@@ -32,60 +36,53 @@ export async function addStaffAction(formData: FormData) {
     throw new Error("Hanya Notaris (Owner) atau Admin yang dapat menambah staf.");
   }
 
-  // Use Admin Client to create or fetch Auth User
+  // Use Admin Client to create or update Auth User and Profile
   const adminClient = createAdminClient();
   let targetUserId: string | undefined;
 
-  // Try to create the user in Auth
-  const { data: authData, error: authErr } = await adminClient.auth.admin.createUser({
-    email,
-    password: "NotaryGoPassword123!", // Default initial password
-    email_confirm: true, // Auto-confirm so they can login immediately
-    user_metadata: { full_name: fullName },
-  });
+  // Search if user already exists in auth
+  const { data: listData } = await adminClient.auth.admin.listUsers();
+  const existingUser = listData?.users?.find((u) => u.email?.toLowerCase() === email);
 
-  if (authErr) {
-    // If user already exists in Auth, fetch their ID instead
-    if (authErr.status === 422 || authErr.message.includes("already registered")) {
-      // Find from profiles via adminClient to bypass RLS
-      const { data: existingProfile } = await adminClient
-        .from("profiles")
-        .select("id")
-        .eq("email", email)
-        .maybeSingle();
-      
-      if (existingProfile) {
-        targetUserId = existingProfile.id;
-      } else {
-        // Find user by listing users in auth
-        const { data: listData } = await adminClient.auth.admin.listUsers();
-        const found = listData?.users?.find((u) => u.email?.toLowerCase() === email);
-        if (found) {
-          targetUserId = found.id;
-        } else {
-          throw new Error("Pengguna sudah terdaftar di sistem namun profilnya tidak ditemukan. Silakan hubungi Support.");
-        }
-      }
-    } else {
+  if (existingUser) {
+    targetUserId = existingUser.id;
+    // Update password and user metadata so the staff can immediately login
+    await adminClient.auth.admin.updateUserById(targetUserId, {
+      password: password,
+      email_confirm: true,
+      user_metadata: { full_name: fullName },
+    });
+  } else {
+    // Create new user in auth
+    const { data: authData, error: authErr } = await adminClient.auth.admin.createUser({
+      email,
+      password: password,
+      email_confirm: true,
+      user_metadata: { full_name: fullName },
+    });
+    if (authErr) {
       throw new Error("Gagal membuat akun staf: " + authErr.message);
     }
-  } else if (authData.user) {
-    targetUserId = authData.user.id;
+    targetUserId = authData?.user?.id;
   }
 
   if (!targetUserId) {
-    throw new Error("Gagal mendapatkan ID pengguna.");
+    throw new Error("Gagal mendapatkan ID pengguna staf.");
   }
 
-  // Always ensure profile has the full_name and email in the database
-  await adminClient.from("profiles").upsert({
+  // Always ensure profile exists in public.profiles (WITHOUT non-existent updated_at column)
+  const { error: profileErr } = await adminClient.from("profiles").upsert({
     id: targetUserId,
     email: email,
     full_name: fullName,
-    updated_at: new Date().toISOString(),
   });
 
-  // 3. Check if already member
+  if (profileErr) {
+    console.error("Profile upsert error:", profileErr);
+    throw new Error("Gagal menyimpan data profil staf: " + profileErr.message);
+  }
+
+  // Check if already a member of this organization
   const { data: existingMember } = await adminClient
     .from("organization_members")
     .select("id")
@@ -94,18 +91,24 @@ export async function addStaffAction(formData: FormData) {
     .maybeSingle();
 
   if (existingMember) {
-    throw new Error(`Pengguna dengan email ${email} sudah terdaftar di kantor ini.`);
-  }
+    // Update role
+    const { error: updateMemErr } = await adminClient
+      .from("organization_members")
+      .update({ role: role })
+      .eq("id", existingMember.id);
+    if (updateMemErr) throw new Error("Gagal memperbarui role staf: " + updateMemErr.message);
+  } else {
+    // Insert new membership
+    const { error: memberErr } = await adminClient.from("organization_members").insert({
+      org_id: orgId,
+      profile_id: targetUserId,
+      role: role,
+    });
 
-  // 4. Add to organization_members
-  const { error: memberErr } = await adminClient.from("organization_members").insert({
-    org_id: orgId,
-    profile_id: targetUserId,
-    role: role,
-  });
-
-  if (memberErr) {
-    throw new Error(memberErr.message || "Gagal menambahkan staf ke kantor.");
+    if (memberErr) {
+      console.error("Member insert error:", memberErr);
+      throw new Error(memberErr.message || "Gagal menambahkan staf ke kantor.");
+    }
   }
 
   revalidatePath("/dashboard/settings");
