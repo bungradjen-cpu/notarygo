@@ -107,27 +107,16 @@ export async function uploadDocumentAction(formData: FormData) {
   }
 
   if (file && file.size > 0 && matterId) {
-    try {
-      await DocumentService.uploadDocumentVersion(
-        orgId,
-        matterId,
-        "",
-        file,
-        user.id,
-        title
-      );
-    } catch (e: any) {
-      console.warn("Storage upload fallback:", e.message);
-      // Fallback: create record directly in documents table
-      await adminClient.from("documents").insert({
-        org_id: orgId,
-        matter_id: matterId,
-        title: title,
-        status: "DRAFT",
-      });
-    }
+    await DocumentService.uploadDocumentVersion(
+      orgId,
+      matterId,
+      "",
+      file,
+      user.id,
+      title
+    );
   } else if (matterId) {
-    // Insert document record directly
+    // Insert document record without file attachment
     const { error } = await adminClient.from("documents").insert({
       org_id: orgId,
       matter_id: matterId,

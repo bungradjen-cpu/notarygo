@@ -1,4 +1,5 @@
 import { createClient } from "@/utils/supabase/server";
+import { createAdminClient } from "@/utils/supabase/admin";
 import { completeTaskAction, updateMatterAction, deleteMatterAction } from "../actions";
 import { uploadDocumentAction, deleteDocumentAction } from "../../documents/actions";
 import Link from "next/link";
@@ -13,8 +14,9 @@ export default async function MatterDetailPage({
   const supabase = await createClient();
   const { id: matterId } = await params;
   const { tab = "ringkasan" } = await searchParams;
+  const adminClient = createAdminClient();
 
-  const { data: matter } = await supabase
+  const { data: matter } = await adminClient
     .from("matters")
     .select("*, clients(id, name, phone, email), service_types(id, name, code), profiles(id, full_name, email)")
     .eq("id", matterId)
@@ -40,14 +42,14 @@ export default async function MatterDetailPage({
     );
   }
 
-  // Fetch team members for PIC reassignment
-  const { data: teamMembers } = await supabase
+  // Fetch team members for PIC reassignment (using adminClient to fetch colleagues' profiles)
+  const { data: teamMembers } = await adminClient
     .from("organization_members")
     .select("profile_id, profiles(id, full_name, email)")
     .eq("org_id", matter.org_id);
 
   // Fetch tasks
-  const { data: tasks } = await supabase
+  const { data: tasks } = await adminClient
     .from("tasks")
     .select("*, profiles(id, full_name)")
     .eq("matter_id", matterId)
@@ -60,7 +62,7 @@ export default async function MatterDetailPage({
     .eq("matter_id", matterId);
 
   // Fetch documents
-  const { data: documents } = await supabase
+  const { data: documents } = await adminClient
     .from("documents")
     .select("*")
     .eq("matter_id", matterId)
@@ -73,7 +75,7 @@ export default async function MatterDetailPage({
     .eq("matter_id", matterId);
 
   // Fetch activity logs
-  const { data: logs } = await supabase
+  const { data: logs } = await adminClient
     .from("activity_logs")
     .select("*, profiles(full_name)")
     .eq("entity_type", "matters")
@@ -436,7 +438,7 @@ export default async function MatterDetailPage({
           </div>
 
           {/* Quick Upload to this matter */}
-          <form action={uploadDocumentAction} className="flex gap-2 p-3 bg-[#f8f9fa] rounded-lg border border-[#E2E8F0]">
+          <form action={uploadDocumentAction} className="flex flex-col sm:flex-row gap-2 p-4 bg-[#f8f9fa] rounded-lg border border-[#E2E8F0]">
             <input type="hidden" name="orgId" value={matter.org_id} />
             <input type="hidden" name="matterId" value={matter.id} />
             <input
@@ -446,38 +448,70 @@ export default async function MatterDetailPage({
               placeholder="Nama Berkas / Dokumen baru..."
               className="flex-1 h-9 px-3 border border-gray-300 rounded text-xs bg-white focus:outline-none focus:border-[#001f3f]"
             />
+            <input
+              type="file"
+              name="file"
+              accept=".pdf,.doc,.docx,.jpg,.jpeg,.png"
+              className="h-9 px-2 py-1 border border-gray-300 rounded text-xs bg-white focus:outline-none focus:border-[#001f3f] file:mr-2 file:py-0.5 file:px-2 file:rounded file:border-0 file:text-[10px] file:font-semibold file:bg-[#001f3f]/10 file:text-[#001f3f]"
+            />
             <button
               type="submit"
-              className="h-9 px-4 bg-[#001f3f] text-white text-xs font-semibold rounded shadow-xs hover:bg-[#000613] transition-colors shrink-0"
+              className="h-9 px-4 bg-[#001f3f] text-white text-xs font-semibold rounded shadow-xs hover:bg-[#000613] transition-colors shrink-0 flex items-center justify-center gap-1"
             >
-              + Tambah Dokumen
+              <span className="material-symbols-outlined text-[16px] text-[#fc8f34]">upload</span>
+              <span>+ Unggah Berkas</span>
             </button>
           </form>
 
           {documents && documents.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {documents.map((d) => (
-                <div key={d.id} className="p-4 rounded-lg border border-gray-200 bg-[#f8f9fa] space-y-2 flex flex-col justify-between">
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <span className="material-symbols-outlined text-[#001f3f]">description</span>
-                      <h3 className="text-xs font-bold text-gray-900 truncate">{d.title}</h3>
+            <div className="space-y-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {documents.map((d) => (
+                  <div key={d.id} className="p-4 rounded-lg border border-gray-200 bg-[#f8f9fa] space-y-3 flex flex-col justify-between">
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <span className="material-symbols-outlined text-[#001f3f]">description</span>
+                        <h3 className="text-xs font-bold text-gray-900 truncate">{d.title}</h3>
+                      </div>
+                      <p className="text-[11px] text-gray-500 mt-1">Status: <span className="font-semibold text-blue-700">{d.status}</span></p>
                     </div>
-                    <p className="text-[11px] text-gray-500 mt-1">Status: <span className="font-semibold text-blue-700">{d.status}</span></p>
+                    <div className="pt-2 border-t border-gray-200 flex items-center justify-between">
+                      {d.current_version_id ? (
+                        <a
+                          href={`/api/documents/${d.id}/download`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-xs font-bold text-[#001f3f] hover:underline flex items-center gap-1"
+                        >
+                          <span className="material-symbols-outlined text-[14px] text-[#fc8f34]">download</span>
+                          <span>Unduh File</span>
+                        </a>
+                      ) : (
+                        <span className="text-[11px] text-gray-400 italic">Draf Teks</span>
+                      )}
+                      <form action={deleteDocumentAction}>
+                        <input type="hidden" name="documentId" value={d.id} />
+                        <button
+                          type="submit"
+                          className="text-xs text-red-600 hover:underline font-semibold"
+                        >
+                          Hapus
+                        </button>
+                      </form>
+                    </div>
                   </div>
-                  <div className="pt-2 border-t border-gray-200 flex justify-end">
-                    <form action={deleteDocumentAction}>
-                      <input type="hidden" name="documentId" value={d.id} />
-                      <button
-                        type="submit"
-                        className="text-xs text-red-600 hover:underline font-semibold"
-                      >
-                        Hapus Dokumen
-                      </button>
-                    </form>
-                  </div>
-                </div>
-              ))}
+                ))}
+              </div>
+
+              <div className="pt-2 flex justify-end">
+                <Link
+                  href={`/dashboard/matters/${matter.id}/documents`}
+                  className="text-xs font-semibold text-[#001f3f] hover:underline flex items-center gap-1"
+                >
+                  <span>Buka Kelola Riwayat Versi Dokumen</span>
+                  <span>&rarr;</span>
+                </Link>
+              </div>
             </div>
           ) : (
             <div className="py-12 text-center text-gray-400 text-xs">

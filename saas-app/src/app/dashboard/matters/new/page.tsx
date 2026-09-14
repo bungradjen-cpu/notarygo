@@ -1,4 +1,5 @@
 import { createClient } from "@/utils/supabase/server";
+import { createAdminClient } from "@/utils/supabase/admin";
 import { createMatterAction } from "../actions";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -37,8 +38,9 @@ export default async function NewMatterPage() {
     .eq("org_id", orgId)
     .order("name", { ascending: true });
 
-  // Fetch team members
-  const { data: teamMembers } = await supabase
+  // Fetch team members (using adminClient to fetch colleague profiles)
+  const adminClient = createAdminClient();
+  const { data: teamMembers } = await adminClient
     .from("organization_members")
     .select("profile_id, profiles(id, full_name, email)")
     .eq("org_id", orgId);

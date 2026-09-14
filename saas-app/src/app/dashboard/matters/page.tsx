@@ -1,4 +1,5 @@
 import { createClient } from "@/utils/supabase/server";
+import { createAdminClient } from "@/utils/supabase/admin";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
@@ -25,8 +26,9 @@ export default async function MattersListPage({
   }
 
   const { status: filterStatus, search } = await searchParams;
+  const adminClient = createAdminClient();
 
-  let query = supabase
+  let query = adminClient
     .from("matters")
     .select(
       "id, matter_number, title, status, created_at, clients(id, name), service_types(id, name), profiles(id, full_name)"

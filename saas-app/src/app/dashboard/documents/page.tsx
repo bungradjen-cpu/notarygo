@@ -208,12 +208,28 @@ export default async function DocumentCenterPage({
                     </td>
                     <td className="py-4 px-4 text-right whitespace-nowrap">
                       <div className="flex items-center justify-end gap-2">
+                        {doc.current_version_id ? (
+                          <a
+                            href={`/api/documents/${doc.id}/download`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="px-2.5 py-1 bg-[#001f3f] hover:bg-[#000613] text-white font-semibold rounded text-xs inline-flex items-center gap-1 shadow-xs transition-colors"
+                            title="Unduh atau Lihat Berkas Asli"
+                          >
+                            <span className="material-symbols-outlined text-[15px] text-[#fc8f34]">
+                              download
+                            </span>
+                            <span>Unduh File</span>
+                          </a>
+                        ) : (
+                          <span className="text-[11px] text-gray-400 italic">Draf Teks</span>
+                        )}
                         {doc.matter_id && (
                           <Link
                             href={`/dashboard/matters/${doc.matter_id}?tab=dokumen`}
                             className="px-2.5 py-1 bg-[#f3f4f5] hover:bg-[#e7e8e9] text-[#001f3f] font-semibold rounded text-xs"
                           >
-                            Buka
+                            Perkara
                           </Link>
                         )}
                         <form action={deleteDocumentAction}>

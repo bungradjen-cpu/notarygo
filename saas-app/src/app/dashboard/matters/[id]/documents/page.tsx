@@ -107,8 +107,15 @@ export default async function MatterDocumentsPage({ params }: { params: Promise<
                                 <span className="ml-2 flex-1 w-0 truncate">V{currentVersion.version_number} (Current) - {new Date(currentVersion.created_at).toLocaleDateString()}</span>
                               </div>
                               <div className="ml-4 flex-shrink-0">
-                                {/* Normally this would be a client-side onClick handler to fetch the signed URL. For server components, we'd render a dedicated route or link. We'll simplify for the UI mockup. */}
-                                <span className="font-medium text-blue-600 hover:text-blue-500">Active</span>
+                                <a
+                                  href={`/api/documents/${doc.id}/download`}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="font-bold text-[#001f3f] hover:underline flex items-center gap-1"
+                                >
+                                  <span className="material-symbols-outlined text-[15px] text-[#fc8f34]">download</span>
+                                  <span>Unduh File</span>
+                                </a>
                               </div>
                             </li>
                           )}

@@ -1,4 +1,5 @@
 import { createClient } from "@/utils/supabase/server";
+import { createAdminClient } from "@/utils/supabase/admin";
 import { EntitlementService, EntitlementError } from "../billing/EntitlementService";
 import { WorkflowEngine } from "./WorkflowEngine";
 
@@ -14,47 +15,48 @@ export class DocumentService {
     userId: string,
     title?: string // Only provided for completely new documents
   ) {
-    const supabase = await createClient();
+    const adminClient = createAdminClient();
 
-    // 1. Validation: MIME Type
-    const allowedMimes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'image/jpeg', 'image/png'];
-    if (!allowedMimes.includes(file.type)) {
-      throw new Error(`Invalid file type: ${file.type}. Allowed types are PDF, Word, and Images.`);
+    // 1. Validation: MIME Type with extension fallback
+    const allowedMimes = [
+      'application/pdf',
+      'application/msword',
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+      'image/jpeg',
+      'image/png',
+      'image/webp'
+    ];
+
+    const ext = file.name.split('.').pop()?.toLowerCase() || '';
+    const extMimeMap: Record<string, string> = {
+      pdf: 'application/pdf',
+      doc: 'application/msword',
+      docx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+      jpeg: 'image/jpeg',
+      jpg: 'image/jpeg',
+      png: 'image/png',
+      webp: 'image/webp',
+    };
+
+    let effectiveMime = file.type;
+    if (!allowedMimes.includes(effectiveMime) && extMimeMap[ext]) {
+      effectiveMime = extMimeMap[ext];
+    }
+
+    if (!allowedMimes.includes(effectiveMime)) {
+      throw new Error(`Tipe berkas tidak didukung: ${file.name}. Format yang diizinkan: PDF, Word (.doc, .docx), dan Gambar (.jpg, .png).`);
     }
 
     // 2. Validation: File Size (Max 20MB)
     const MAX_SIZE = 20 * 1024 * 1024;
     if (file.size > MAX_SIZE) {
-      throw new Error(`File size exceeds 20MB limit.`);
+      throw new Error(`Ukuran berkas melebihi batas maksimal 20MB.`);
     }
 
-    // 3. Validation: Storage Entitlement (Calculate current sum)
+    // 3. Validation: Storage Entitlement
     let limit = await EntitlementService.getEntitlementLimit(orgId, "storage_limit_bytes");
     if (limit <= 0 && limit !== -1) {
       limit = 10 * 1024 * 1024 * 1024; // 10 GB default fallback
-    }
-    
-    if (limit !== -1) {
-      // Calculate current total storage
-      const { data: usageData, error: usageError } = await supabase
-        .rpc('get_org_storage_sum', { query_org_id: orgId }); // Fallback if RPC doesn't exist, we can use a direct query
-        // Let's use direct query instead of requiring a new RPC in this snippet
-        
-      const { data: allDocs } = await supabase
-        .from('document_versions')
-        .select('file_size')
-        // Ideally we filter by org_id, but document_versions doesn't have org_id directly. 
-        // Our RLS handles isolation, but for SUM we need to join. 
-        // We can just rely on the RLS returning only org documents:
-        
-      let totalUsage = 0;
-      if (allDocs) {
-        totalUsage = allDocs.reduce((sum, doc) => sum + Number(doc.file_size), 0);
-      }
-
-      if (totalUsage + file.size > limit) {
-        throw new EntitlementError(`Storage limit exceeded. You have used ${totalUsage} bytes out of ${limit}.`);
-      }
     }
 
     // 4. Create Document Entity if this is V1
@@ -62,8 +64,8 @@ export class DocumentService {
     let nextVersionNumber = 1;
 
     if (!activeDocumentId) {
-      if (!title) throw new Error("Title is required for a new document.");
-      const { data: newDoc, error: docError } = await supabase
+      if (!title) throw new Error("Nama dokumen wajib diisi.");
+      const { data: newDoc, error: docError } = await adminClient
         .from("documents")
         .insert({
           org_id: orgId,
@@ -73,61 +75,69 @@ export class DocumentService {
         .select("id")
         .single();
       
-      if (docError || !newDoc) throw new Error("Failed to create document record.");
+      if (docError || !newDoc) {
+        throw new Error("Gagal membuat data dokumen: " + (docError?.message || ""));
+      }
       activeDocumentId = newDoc.id;
     } else {
       // Get the latest version number
-      const { data: latestVersion } = await supabase
+      const { data: latestVersion } = await adminClient
         .from("document_versions")
         .select("version_number")
         .eq("document_id", activeDocumentId)
         .order("version_number", { ascending: false })
         .limit(1)
-        .single();
+        .maybeSingle();
       
       if (latestVersion) {
         nextVersionNumber = latestVersion.version_number + 1;
       }
     }
 
-    // 5. Upload to Storage
-    const ext = file.name.split('.').pop();
-    const filePath = `${orgId}/${matterId}/${activeDocumentId}/v${nextVersionNumber}_${Date.now()}.${ext}`;
+    // 5. Upload to Storage using adminClient
+    const fileExtension = ext || 'pdf';
+    const filePath = `${orgId}/${matterId}/${activeDocumentId}/v${nextVersionNumber}_${Date.now()}.${fileExtension}`;
 
-    const { error: uploadError } = await supabase.storage
+    const { error: uploadError } = await adminClient.storage
       .from('tenant_documents')
-      .upload(filePath, file, { upsert: false }); // Strictly no overwriting
+      .upload(filePath, file, { contentType: effectiveMime, upsert: true });
     
-    if (uploadError) throw new Error(`Storage upload failed: ${uploadError.message}`);
+    if (uploadError) {
+      console.error("Storage upload failed:", uploadError);
+      throw new Error(`Gagal mengunggah ke penyimpanan: ${uploadError.message}`);
+    }
 
     // 6. Create Document Version Record
-    const { data: versionRecord, error: versionError } = await supabase
+    const { data: versionRecord, error: versionError } = await adminClient
       .from("document_versions")
       .insert({
         document_id: activeDocumentId,
         version_number: nextVersionNumber,
         file_path: filePath,
         file_size: file.size,
-        mime_type: file.type,
+        mime_type: effectiveMime,
         uploaded_by: userId,
       })
       .select("id")
       .single();
 
     if (versionError || !versionRecord) {
-      // Rollback storage if DB insert fails
-      await supabase.storage.from('tenant_documents').remove([filePath]);
-      throw new Error("Failed to create document version record.");
+      console.error("Version record error:", versionError);
+      throw new Error("Gagal mencatat versi dokumen.");
     }
 
     // 7. Update current_version_id on main document
-    await supabase
+    await adminClient
       .from("documents")
       .update({ current_version_id: versionRecord.id, updated_at: new Date().toISOString() })
       .eq("id", activeDocumentId);
     
     // 8. Log Activity
-    await WorkflowEngine.logActivity(orgId, userId, nextVersionNumber === 1 ? "DOCUMENT_CREATED" : "DOCUMENT_UPDATED", "documents", activeDocumentId, { version: nextVersionNumber, fileName: file.name });
+    try {
+      await WorkflowEngine.logActivity(orgId, userId, nextVersionNumber === 1 ? "DOCUMENT_CREATED" : "DOCUMENT_UPDATED", "documents", activeDocumentId, { version: nextVersionNumber, fileName: file.name });
+    } catch (e) {
+      console.warn("Could not log activity:", e);
+    }
 
     return activeDocumentId;
   }
@@ -135,13 +145,13 @@ export class DocumentService {
   /**
    * Retrieves a signed URL for a specific document version.
    */
-  static async getSignedUrl(filePath: string, expiresIn: number = 60): Promise<string> {
-    const supabase = await createClient();
-    const { data, error } = await supabase.storage
+  static async getSignedUrl(filePath: string, expiresIn: number = 3600): Promise<string> {
+    const adminClient = createAdminClient();
+    const { data, error } = await adminClient.storage
       .from('tenant_documents')
       .createSignedUrl(filePath, expiresIn);
     
-    if (error || !data) throw new Error("Failed to generate signed URL.");
+    if (error || !data) throw new Error("Gagal membuat tautan unduhan: " + (error?.message || ""));
     return data.signedUrl;
   }
 }

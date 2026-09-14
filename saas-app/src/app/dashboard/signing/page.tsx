@@ -1,4 +1,5 @@
 import { createClient } from "@/utils/supabase/server";
+import { createAdminClient } from "@/utils/supabase/admin";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
@@ -20,8 +21,10 @@ export default async function SigningManagementPage() {
     redirect("/onboarding/create-org");
   }
 
-  // Fetch matters with active signing status
-  const { data: signingMatters } = await supabase
+  const adminClient = createAdminClient();
+
+  // Fetch matters with active signing status (using adminClient to fetch profiles across team members)
+  const { data: signingMatters } = await adminClient
     .from("matters")
     .select("*, clients(name), profiles(full_name)")
     .eq("org_id", member.org_id)

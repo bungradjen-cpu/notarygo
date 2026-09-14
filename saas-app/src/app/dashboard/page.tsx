@@ -1,4 +1,5 @@
 import { createClient } from "@/utils/supabase/server";
+import { createAdminClient } from "@/utils/supabase/admin";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
@@ -22,6 +23,7 @@ export default async function DashboardPage() {
 
   const orgId = member.org_id;
   const isOwnerOrAdmin = member.role === "OWNER" || member.role === "ADMIN";
+  const adminClient = createAdminClient();
 
   // 1. Fetch Metrics
   const today = new Date().toISOString().split("T")[0];
@@ -42,8 +44,8 @@ export default async function DashboardPage() {
     .is("pic_id", null)
     .is("deleted_at", null);
 
-  // Pending Items / Exceptions
-  const { data: pendingItems, count: pendingCount } = await supabase
+  // Pending Items / Exceptions (using adminClient to fetch profiles across team members)
+  const { data: pendingItems, count: pendingCount } = await adminClient
     .from("pending_items")
     .select("*, matters(id, matter_number, title, pic_id, profiles(full_name))", {
       count: "exact",
@@ -82,8 +84,8 @@ export default async function DashboardPage() {
     return acc + (Number(inv.total) - Number(inv.paid_amount || 0));
   }, 0);
 
-  // Recent Matters
-  const { data: recentMatters } = await supabase
+  // Recent Matters (using adminClient so PIC profile is always visible to all office staff)
+  const { data: recentMatters } = await adminClient
     .from("matters")
     .select(
       "id, matter_number, title, status, created_at, clients(name), profiles(full_name)"

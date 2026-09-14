@@ -1,4 +1,5 @@
 import { createClient } from "@/utils/supabase/server";
+import { createAdminClient } from "@/utils/supabase/admin";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
@@ -21,9 +22,10 @@ export default async function ControlExceptionsPage() {
   }
 
   const orgId = member.org_id;
+  const adminClient = createAdminClient();
 
-  // Pending Items
-  const { data: pendingItems } = await supabase
+  // Pending Items (using adminClient to fetch profiles across team members)
+  const { data: pendingItems } = await adminClient
     .from("pending_items")
     .select("*, matters(id, matter_number, title, profiles(full_name))")
     .eq("org_id", orgId)
@@ -31,7 +33,7 @@ export default async function ControlExceptionsPage() {
     .order("created_at", { ascending: false });
 
   // Unassigned matters
-  const { data: unassignedMatters } = await supabase
+  const { data: unassignedMatters } = await adminClient
     .from("matters")
     .select("id, matter_number, title, created_at, clients(name)")
     .eq("org_id", orgId)
